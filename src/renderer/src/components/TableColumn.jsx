@@ -38,7 +38,9 @@ function TableColumn({ classes }) {
             // lecture.push(<span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>)
         }
         
-        return <div>p</div>
+        return <div className='setLecture'>
+            
+        </div>
     }
 
     const selectOptions = { //下拉選單篩選
