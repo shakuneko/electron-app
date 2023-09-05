@@ -4,6 +4,8 @@ import './assets/index.css'
 import './assets/Form.css'
 import './assets/Nav.css'
 import './assets/Table.css'
+import './assets/CoachDetail.css'
+import './assets/StudentDetail.css'
 import App from './App'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
