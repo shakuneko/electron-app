@@ -5,7 +5,7 @@ import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
 
 import { Link } from 'react-router-dom';
 
-function ClasshDetailTable({ classes }) {
+function ClassDetailTable({ classes }) {
     const pagination = paginationFactory( { //設定標籤頁碼
         //pageStartIndex: 0,
         sizePerPage: 5,

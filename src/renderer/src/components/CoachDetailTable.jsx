@@ -47,8 +47,12 @@ function CoachDetailTable({ classes }) {
         text:"學員"
     },    
     {
-            dataField:"date",
+            dataField:"createDate",
             text:"日期",
+        },
+        {
+            dataField:"reserveTime",
+            text:"時間",
         },
         {
             dataField:"courseType",
@@ -138,6 +142,7 @@ function CoachDetailTable({ classes }) {
                 pagination={ pagination }
                 filter={ filterFactory() } 
                 selectRow={ selectRow }
+                noDataIndication={ '尚無資料' }
                 />
             </div>
             )
