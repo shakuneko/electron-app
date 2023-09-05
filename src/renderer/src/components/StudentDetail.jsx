@@ -31,9 +31,9 @@ function StudentDetail({ classes }) {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <ReserveTime />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

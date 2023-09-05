@@ -37,10 +37,18 @@ function CoachDetailTable({ classes }) {
         '團課': '團課',
         '場地租借': '場地租借'
     };
+    const selectRow = {//全選
+        mode: 'checkbox',
+        clickToSelect: true
+      };
     const columns = [ //表格有的資料
-        {
-            dataField:"couch",
-            text:"教練",
+    {
+        dataField:"student",
+        text:"學員"
+    },    
+    {
+            dataField:"date",
+            text:"日期",
         },
         {
             dataField:"courseType",
@@ -53,10 +61,7 @@ function CoachDetailTable({ classes }) {
                 className:'form-select'
             })
         },
-        {
-            dataField:"student",
-            text:"學員"
-        },
+       
         {
             dataField:"courseLeft",
             text:"剩餘堂數",
@@ -78,14 +83,9 @@ function CoachDetailTable({ classes }) {
         },
         {
             dataField:"status",
-            text:"狀態",
+            text:"備註",
             formatter:AddBGC
         },
-        {
-            dataField:"id",
-            text:"操作",
-            formatter:CheckOut
-        }
     ];
     const MySearch = (props) => { //設定搜尋樣式
         let input;
@@ -137,6 +137,7 @@ function CoachDetailTable({ classes }) {
                 classes="table-items"
                 pagination={ pagination }
                 filter={ filterFactory() } 
+                selectRow={ selectRow }
                 />
             </div>
             )
