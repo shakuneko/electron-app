@@ -3,6 +3,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
 import { Link } from 'react-router-dom';
+import cellEditFactory, { Type } from 'react-bootstrap-table2-editor';
 
 function CoachDetailTable({ classes }) {
     const pagination = paginationFactory( { //設定標籤頁碼
@@ -38,7 +39,7 @@ function CoachDetailTable({ classes }) {
     };
     const selectRow = {//全選
         mode: 'checkbox',
-        clickToSelect: true,
+        clickToSelect: false,
         hideSelectAll: true
         
       };
@@ -77,6 +78,18 @@ function CoachDetailTable({ classes }) {
         // },
         
        
+        {
+            dataField:"exCourse",
+            text:"是否來上課",
+            // classes: (cell, row, rowIndex, colIndex) => { 
+            //     if (cell === 'Yes') return 'alert-mode';
+            // }
+            
+            editor: {
+                type: Type.CHECKBOX,
+                value: '是:否'
+              }
+        },
         {
             dataField:"exCourse",
             text:"取消預約",
@@ -142,6 +155,7 @@ function CoachDetailTable({ classes }) {
                 filter={ filterFactory() } 
                 selectRow={ selectRow }
                 noDataIndication={ '尚無資料' }
+                cellEdit={ cellEditFactory({ mode: 'click', blurToSave: true }) }
                 
                 />
             </div>

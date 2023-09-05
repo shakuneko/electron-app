@@ -18,6 +18,7 @@ function CoachDetail({ classes }) {
         </div>
 
         <div className="col-10">
+        <div className='detailboxright'>
           <h1 className="title">教練</h1>
 
           <div className="classCoachBox">
@@ -42,7 +43,7 @@ function CoachDetail({ classes }) {
                       <input id="startDate" class="form-control" type="month" />
                     </div>
                     <div className="btnbox-item">
-                      <button type="button" className="btn btn-primary">
+                      <button type="button" className="btn btn-secondary">
                         刪除
                       </button>
                     </div>
@@ -55,7 +56,8 @@ function CoachDetail({ classes }) {
               </div>
             </div>
 
-            <div></div>
+           
+          </div>
           </div>
         </div>
       </div>

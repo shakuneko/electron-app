@@ -10,7 +10,7 @@ function StudentDetail({ classes }) {
         {/* <div className="nav col-2">
           <Navbar />
         </div> */}
-        <div className="col-12">
+        <div >
           <h1 className="title">學員</h1>
 
           <div className="classCoachBox">

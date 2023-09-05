@@ -32,7 +32,7 @@ function Navbar() {
             <div class="nav-word">金流管理</div></Link>
         
             {/* for detail page testing use */}
-            <Link to="/classdetail" className="nav-item">
+            {/* <Link to="/classdetail" className="nav-item">
             <FontAwesomeIcon icon={faSackDollar} />
             <div class="nav-word">classdetail</div></Link>
             <Link to="/coachdetail" className="nav-item">
@@ -40,7 +40,7 @@ function Navbar() {
             <div class="nav-word">coachdetail</div></Link>
             <Link to="/studentdetail" className="nav-item">
             <FontAwesomeIcon icon={faSackDollar} /> 
-            <div class="nav-word">studentdetail</div></Link>
+            <div class="nav-word">studentdetail</div></Link> */}
 
             {/* <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faKey} />
