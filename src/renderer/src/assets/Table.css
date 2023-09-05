@@ -1,10 +1,12 @@
 .nopadding{
     padding: 0;
-
 }
-
 .title{
     margin-bottom: 20px;
+}
+.table-container{
+    padding: 20px;
+    /* min-height: 900px; */
 }
 .h-50{
     height: 10px;
@@ -34,9 +36,6 @@
 .search-area .form-control{
     border: var(--bs-border-width) solid var(--bs-golden) !important;
 }
-.test {
-    background-color: azure;
-}
-.row {
+.row-no-gutter {
     --bs-gutter-x:0 !important;
 }
