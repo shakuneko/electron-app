@@ -2,6 +2,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
+import { Link } from 'react-router-dom';
 
 function TableDetail({ classes, columns }) {
     const pagination = paginationFactory( { //設定標籤頁碼
@@ -17,16 +18,18 @@ function TableDetail({ classes, columns }) {
         const handleClick = () => {
           props.onSearch(input.value);
         };
-        const addNewData = () => { 
-            return <>
-                onClick={alert("新增資料")}
-            </>
-        }
+        // const addNewData = () => { 
+        //     return <>
+        //         onClick={alert("新增資料")}
+        //     </>
+        // }
         return (
           <div className='row h-50 mb-3 row-no-gutter'>
             <div className='col-6'>
-                <button className="btn btn-golden" onClick={ addNewData }>新增資料</button>
+                <Link to="/form" className='table-link-underline-none'>
+                    <button className="btn btn-golden" >新增資料</button>
                 {/* <SearchBar { ...props.searchProps } /> */}
+                </Link>
             </div>
             <div className='col-6 search-area'>
                 <div className="input-group flex-nowrap">

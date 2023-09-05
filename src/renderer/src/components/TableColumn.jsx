@@ -7,7 +7,7 @@ function TableColumn({ classes }) {
 
     const CheckOut = (data, row) => { //設定查看按鈕要進入的頁面
         return<>
-           <Link to="/form" >
+           <Link to="/form" className='table-link-underline-none'>
                 {/* 後面改用Link */}
                 <button type="button" className="btn btn-golden">查看{data}</button> 
                 {/* 測試按鈕點擊 */}
@@ -23,13 +23,31 @@ function TableColumn({ classes }) {
         
         return e
     }
+
+    const ClassAddBGC = (data, cell) => { // 設定邊框   
+        let lecture = []     
+        for (let i = 0; i < data.length; i++) {
+            if (i == 0) {
+                lecture = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
+            }
+           else {
+            let e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
+            // lecture = lecture +"p"
+           }
+           
+            // lecture.push(<span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>)
+        }
+        
+        return lecture
+    }
+
     const selectOptions = { //下拉選單篩選
         'PT': 'PT',
         '皮拉提斯': '皮拉提斯',
         '團課': '團課',
         '場地租借': '場地租借'
     };
-    const columns = [ //表格有的資料
+    const columnClass = [ //表格有的資料
         {
             dataField:"couch",
             text:"教練",
@@ -80,8 +98,65 @@ function TableColumn({ classes }) {
         }
     ];
 
+    const columnStudent = [
+        {
+            dataField:"student",
+            text:"學員"
+        },
+        {
+            dataField:"stuGender",
+            text:"性別"
+        },
+        {
+            dataField:"stuPhone",
+            text:"電話"
+        },
+        {
+            dataField:"createDate",
+            text:"建檔日期",
+            sort:true,
+        },
+        {
+            dataField:"note",
+            text:"備註"
+        },
+        {
+            dataField:"id",
+            text:"操作",
+            formatter:CheckOut
+        }
+    ]
 
-    return <TableDetail classes={classes} columns={columns}/>
+    const columnCouch = [
+        {
+            dataField:"couch",
+            text:"教練"
+        },
+        {
+            dataField:"couchGender",
+            text:"性別"
+        },
+        {
+            dataField:"couchPhone",
+            text:"電話"
+        },
+        {
+            dataField:"major",
+            text:"能帶課程",
+            formatter:ClassAddBGC
+        },
+        {
+            dataField:"note",
+            text:"備註"
+        },
+        {
+            dataField:"id",
+            text:"操作",
+            formatter:CheckOut
+        }
+    ]
+
+    return <TableDetail classes={classes} columns={columnCouch}/>
   }
   
   export default TableColumn
