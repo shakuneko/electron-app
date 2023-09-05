@@ -23,7 +23,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faAddressBook} />
             <div class="nav-word">學員管理</div></Link>
           
-            <Link to="/couch" className="nav-item">
+            <Link to="/coach" className="nav-item">
             <FontAwesomeIcon icon={faUser} />
             <div class="nav-word">教練管理</div></Link>
           

@@ -7,7 +7,7 @@ import Table from "./page/Table"
 import classes from "./json/class.json"
 
 import StudentTable from "./page/StudentTable"
-import CouchTable from "./page/CouchTable"
+import CoachTable from "./page/CoachTable"
 
 import ClassDetail from "./page/ClassDetail";
 import CoachDetail from './page/CoachDetail';
@@ -24,7 +24,7 @@ function App() {
         <Route path="/studentdetail" element={<StudentDetailPage classes={classes}/>} />
 
         <Route path="/student" element={<StudentTable classes={classes}/>} />
-        <Route path="/couch" element={<CouchTable classes={classes}/>} />
+        <Route path="/coach" element={<CoachTable classes={classes}/>} />
 
       </Routes>
     </BrowserRouter> 

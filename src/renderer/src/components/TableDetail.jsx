@@ -15,7 +15,7 @@ function TableDetail({ classes }) {
       });
     const CheckOut = (data, row) => { //設定查看按鈕要進入的頁面
         return<>
-           <Link to="/form" className='table-link-underline-none'>
+           <Link to="/classdetail" className='table-link-underline-none'>
                 {/* 後面改用Link */}
                 <button type="button" className="btn btn-golden">查看{data}</button> 
                 {/* 測試按鈕點擊 */}
@@ -94,7 +94,7 @@ function TableDetail({ classes }) {
         };
         return (
           <div className='row h-50 mb-3'>
-            <Link to="/classdetail" className='col-6  table-link-underline-none'>
+            <Link to="/form" className='col-6  table-link-underline-none'>
                 <button className="btn btn-golden" >新增課程</button>
                 {/* <SearchBar { ...props.searchProps } /> */}
             </Link>

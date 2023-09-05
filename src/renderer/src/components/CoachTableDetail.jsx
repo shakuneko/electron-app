@@ -5,7 +5,7 @@ import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
 
 import { Link } from 'react-router-dom';
 
-function CouchTableDetail({ classes }) {
+function CoachTableDetail({ classes }) {
     const pagination = paginationFactory( { //設定標籤頁碼
         //pageStartIndex: 0,
         sizePerPage: 5,
@@ -15,7 +15,7 @@ function CouchTableDetail({ classes }) {
       });
     const CheckOut = (data, row) => { //設定查看按鈕要進入的頁面
         return<>
-           <Link to="/form" className='table-link-underline-none'>
+           <Link to="/coachdetail" className='table-link-underline-none'>
                 {/* 後面改用Link */}
                 <button type="button" className="btn btn-golden">查看{data}</button> 
                 {/* 測試按鈕點擊 */}
@@ -82,7 +82,7 @@ function CouchTableDetail({ classes }) {
         };
         return (
           <div className='row h-50 mb-3'>
-             <Link to="/coachdetail" className='col-6  table-link-underline-none'>
+             <Link to="/form" className='col-6  table-link-underline-none'>
                 <button className="btn btn-golden" >新增教練</button>
                 {/* <SearchBar { ...props.searchProps } /> */}
             </Link>
@@ -127,4 +127,4 @@ function CouchTableDetail({ classes }) {
     )
   }
   
-  export default CouchTableDetail
+  export default CoachTableDetail
