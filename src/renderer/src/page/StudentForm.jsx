@@ -11,18 +11,51 @@ function From() {
         </div>
         <div className="col-10 new_class">
           <div className="title_word">
-            <p>新增課程</p>
+            <p>新增學員</p>
           </div>
           <form className="form">
-              <div class="form-group">
-                  <label for="exampleInputEmail1">種類:</label>
-                  <div className="form_btn">
-                    <button className="btn btn-outline-golden" type="button">PT</button>
-                    <button className="btn btn-outline-golden" type="button">皮拉提斯</button>
-                    <button className="btn btn-outline-golden" type="button">團課</button>
-                    <button className="btn btn-outline-golden" type="button">場地租借</button>
-                  </div>
-              </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">姓名:</label>
+                <div className="select">
+                <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">性別:</label>
+                <div className="select">
+                <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">電話:</label>
+                <div className="select">
+                <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email:</label>
+                <div className="select">
+                <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">地址:</label>
+                <div className="select">
+                <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">緊急連絡人姓名:</label>
+                <div className="select">
+                <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">您與他的關係:</label>
+                <div className="select">
+                <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                </div>
+            </div>
               <div className="form-group">
                   <label  for="exampleInputEmail1">教練:</label>
                   <div className="select">
@@ -45,7 +78,7 @@ function From() {
                   </select>
                   </div>
                   </div>
-                  <button className="btn btn-originalgray" type="button">已付費</button>
+                  <button className="btn btn-gray-300" type="button">已付費</button>
               </div>
               <div className="form-group4"> 
                 <div className="form-group4-1">
@@ -58,7 +91,7 @@ function From() {
                       </select>
                     </div>
                 </div>
-                <button className="btn btn-originalgray" type="button">已付費</button>
+                <button className="btn btn-gray" type="button">已付費</button>
               </div>
               <div className="form-group">
                   <label for="exampleInputEmail1">堂數:</label>

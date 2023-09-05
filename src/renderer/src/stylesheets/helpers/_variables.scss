@@ -48,6 +48,7 @@ $teal:    #20c997 !default;
 $cyan:    #0dcaf0 !default;
 $golden:  #DFC994 !default;
 $dbrown:  #352F29 !default;
+$originalgray:    #dee2e6 !default;
 // scss-docs-end color-variables
 
 // scss-docs-start colors-map
@@ -67,7 +68,8 @@ $colors: (
   "gray":       $gray-600,
   "gray-dark":  $gray-800,
   "golden":     $golden,
-  "dbrown":     $dbrown
+  "dbrown":     $dbrown,
+  "originalgray":$originalgray
 ) !default;
 // scss-docs-end colors-map
 
@@ -199,6 +201,16 @@ $dbrown-600: shade-color($dbrown, 20%) !default;
 $dbrown-700: shade-color($dbrown, 40%) !default;
 $dbrown-800: shade-color($dbrown, 60%) !default;
 $dbrown-900: shade-color($dbrown, 80%) !default;
+
+$originalgray-100: tint-color($originalgray, 80%) !default;
+$originalgray-200: tint-color($originalgray, 60%) !default;
+$originalgray-300: tint-color($originalgray, 40%) !default;
+$originalgray-400: tint-color($originalgray, 20%) !default;
+$originalgray-500: $golden !default;
+$originalgray-600: shade-color($originalgray, 20%) !default;
+$originalgray-700: shade-color($originalgray, 40%) !default;
+$originalgray-800: shade-color($originalgray, 60%) !default;
+$originalgray-900: shade-color($originalgray, 80%) !default;
 
 $blues: (
   "blue-100": $blue-100,
@@ -343,6 +355,18 @@ $dbrown: (
   "dbrown-800": $dbrown-800,
   "dbrown-900": $dbrown-900
 ) !default;
+
+$originalgray: (
+  "originalgray-100": $originalgray-100,
+  "originalgray-200": $originalgray-200,
+  "originalgray-300": $originalgray-300,
+  "originalgray-400": $originalgray-400,
+  "originalgray-500": $originalgray-500,
+  "originalgray-600": $originalgray-600,
+  "originalgray-700": $originalgray-700,
+  "originalgray-800": $originalgray-800,
+  "originalgray-900": $originalgray-900
+) !default;
 // fusv-enable
 
 // scss-docs-start theme-color-variables
@@ -356,6 +380,7 @@ $light:         $gray-100 !default;
 $dark:          $gray-900 !default;
 $golden:        $golden !default;
 $dbrown:        $dbrown !default;
+$originalgray:          $originalgray !default;
 // scss-docs-end theme-color-variables
 
 // scss-docs-start theme-colors-map
@@ -370,6 +395,7 @@ $theme-colors: (
   "dark":       $dark,
   "golden":     $golden,
   "dbrown":     $dbrown,
+  "originalgray": $originalgray,
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -382,6 +408,7 @@ $warning-text-emphasis:   shade-color($warning, 60%) !default;
 $danger-text-emphasis:    shade-color($danger, 60%) !default;
 $golden-text-emphasis:    shade-color($golden, 60%) !default;
 $dbrown-text-emphasis:    shade-color($golden, 60%) !default;
+$originalgray-text-emphasis:    shade-color($originalgray, 60%) !default;
 $light-text-emphasis:     $gray-700 !default;
 $dark-text-emphasis:      $gray-700 !default;
 // scss-docs-end theme-text-variables
@@ -395,6 +422,7 @@ $warning-bg-subtle:       tint-color($warning, 80%) !default;
 $danger-bg-subtle:        tint-color($danger, 80%) !default;
 $golden-bg-subtle:        tint-color($golden, 80%) !default;
 $dbrown-bg-subtle:        tint-color($golden, 80%) !default;
+$originalgray-bg-subtle:        tint-color($originalgray, 80%) !default;
 $light-bg-subtle:         mix($gray-100, $white) !default;
 $dark-bg-subtle:          $gray-400 !default;
 // scss-docs-end theme-bg-subtle-variables
@@ -408,6 +436,7 @@ $warning-border-subtle:   tint-color($warning, 60%) !default;
 $danger-border-subtle:    tint-color($danger, 60%) !default;
 $golden-border-subtle:    tint-color($golden, 60%) !default;
 $dbrown-border-subtle:    tint-color($golden, 60%) !default;
+$originalgray-border-subtle:    tint-color($originalgray, 60%) !default;
 $light-border-subtle:     $gray-200 !default;
 $dark-border-subtle:      $gray-500 !default;
 // scss-docs-end theme-border-subtle-variables
