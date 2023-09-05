@@ -143,28 +143,9 @@
   }
 
   /*from form css*/
-  /* 整頁設定 */
-.container-fluid{
-    height: 1080px;
-}
-
-.form_class{
-    height: 100%;
-}
-
-.row-no-gutters > [class*="col-"] {
-    padding-right: 0;
-    padding-left: 0;
-  }
 
  .colSet{
     display: flex;
  }
- .new_class{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 
-}
 
