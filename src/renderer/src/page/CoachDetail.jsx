@@ -17,7 +17,7 @@ function CoachDetail({ classes }) {
           <Navbar />
         </div>
 
-        <div className="col-10 new_class">
+        <div className="col-10">
           <h1 className="title">教練</h1>
 
           <div className="classCoachBox">

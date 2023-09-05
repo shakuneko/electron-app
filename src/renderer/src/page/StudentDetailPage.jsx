@@ -8,7 +8,7 @@ function StudentDetailPage({classes}) {
         <div className="nav col-2">
           <Navbar />
         </div>
-        <div className="col-10 new_class">
+        <div className="col-10">
           <StudentDetail classes={classes} />
         </div>
       </div>
