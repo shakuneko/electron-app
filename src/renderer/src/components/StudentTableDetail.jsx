@@ -57,7 +57,7 @@ function StudentTableDetail({ classes }) {
         };
         return (
           <div className='row h-50 mb-3'>
-            <Link to="/form" className='col-6  table-link-underline-none'>
+            <Link to="/studentform" className='col-6  table-link-underline-none'>
                 <button className="btn btn-golden">新增學員</button>
                 {/* <SearchBar { ...props.searchProps } /> */}
             </Link>
