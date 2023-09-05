@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Table from "./page/Table"
 import classes from "./json/class.json"
 
+import StudentTable from "./page/StudentTable"
+import CouchTable from "./page/CouchTable"
+
 import ClassDetail from "./page/ClassDetail";
 import CoachDetail from './page/CoachDetail';
 import StudentDetailPage from './page/StudentDetailPage';
@@ -19,6 +22,10 @@ function App() {
         <Route path="/classdetail" element={<ClassDetail classes={classes}/>} />
         <Route path="/coachdetail" element={<CoachDetail classes={classes}/>} />
         <Route path="/studentdetail" element={<StudentDetailPage classes={classes}/>} />
+
+        <Route path="/student" element={<StudentTable classes={classes}/>} />
+        <Route path="/couch" element={<CouchTable classes={classes}/>} />
+
       </Routes>
     </BrowserRouter> 
     

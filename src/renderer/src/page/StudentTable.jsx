@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar'
-import TableDetail from '../components/TableDetail'
+import StudentTableDetail from '../components/StudentTableDetail';
 
-function Table({ classes }) {
+function StudentTable({ classes }) {
     
     return (
         <div className='row row-no-gutter margin-left-right container-fluid'>
@@ -10,13 +10,13 @@ function Table({ classes }) {
             </div>
             <div className='col-10 container margin-left-right'>                    
                 <div className='mt-4 table-container'>
-                    <h1 className='title'>課程管理</h1>
-                    <TableDetail classes={classes} />
-                    {/* <TableColumn classes={classes}/> */}
+                    <h1 className='title'>學員管理</h1>
+                    {/* <TableDetail classes={classes} /> */}
+                    <StudentTableDetail classes={classes}/>
                 </div>
             </div>
         </div>
     )
   }
   
-  export default Table
+  export default StudentTable
