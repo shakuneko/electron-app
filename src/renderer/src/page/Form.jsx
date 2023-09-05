@@ -58,7 +58,7 @@ function From() {
                       </select>
                     </div>
                 </div>
-                <button className="btn btn-originalgray" type="button">已付費</button>
+                <button className="btn btn-originalgray" type="button">未付費</button>
               </div>
               <div className="form-group">
                   <label for="exampleInputEmail1">堂數:</label>
