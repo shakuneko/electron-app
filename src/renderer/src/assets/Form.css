@@ -1,0 +1,76 @@
+/* 整頁設定 */
+.container-fluid{
+    height: 1080px;
+}
+
+.form_class{
+    height: 100%;
+}
+
+.row-no-gutters > [class*="col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+ 
+/* form */
+.new_class{
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+.title_word{
+    font-size: 40px;
+    padding: 40px;
+}
+.form{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.form-group{
+    width: 60%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+
+}
+.form-group2{
+    width: 60%;
+    display: flex;
+    justify-content:space-between;
+
+}
+.form-group3{
+    width: 60%;
+    display: flex;
+    justify-content:end;
+
+}
+.form_btn{
+    width: 90%;    
+}
+.btn{
+   margin-right: 5px;
+}
+.select{
+    width: 90%;
+}
+.form-check{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-around;
+}
+.check{
+    display: flex;
+    flex-direction:row;
+    width: 87%;
+}
+.checkbox{
+    padding-right: 20px;
+}
