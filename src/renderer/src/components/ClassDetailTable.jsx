@@ -42,17 +42,17 @@ function ClassDetailTable({ classes }) {
             dataField:"couch",
             text:"教練",
         },
-        {
-            dataField:"courseType",
-            text:"課程種類",
-            // formatter: cell => cell,
-            formatter: cell => selectOptions[cell], //能自由加入東西
-            filter: selectFilter({
-                options: selectOptions,
-                placeholder:'課程種類篩選',
-                className:'form-select'
-            })
-        },
+        // {
+        //     dataField:"courseType",
+        //     text:"課程種類",
+        //     // formatter: cell => cell,
+        //     formatter: cell => selectOptions[cell], //能自由加入東西
+        //     filter: selectFilter({
+        //         options: selectOptions,
+        //         placeholder:'課程種類篩選',
+        //         className:'form-select'
+        //     })
+        // },
         {
             dataField:"student",
             text:"學員"

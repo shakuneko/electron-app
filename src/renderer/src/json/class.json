@@ -11,9 +11,12 @@
       "stuGender":"女",
       "couchGender":"男",
       "salary":"$650",
+      "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"現金",
+      "invoiceNum" :"12345678",
       "major":[
         "PT"
       ],
@@ -32,9 +35,12 @@
       "stuGender":"女",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"信用卡",
+      "invoiceNum" :"12345678",
       "major":[
         "皮拉提斯","團課"
       ],
@@ -53,9 +59,12 @@
       "stuGender":"男",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"轉帳",
+      "invoiceNum" :"12345678",
       "major":[
         "PT","團課"
       ],
@@ -73,9 +82,12 @@
       "stuGender":"女",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"信用卡",
+      "invoiceNum" :"12345678",
       "major":[
         "PT","皮拉提斯","團課"
       ],
@@ -94,9 +106,12 @@
       "stuGender":"女",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"Line Pay",
+      "invoiceNum" :"12345678",
       "major":[
         "PT","皮拉提斯"
       ],
@@ -115,9 +130,12 @@
       "stuGender":"男",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"信用卡",
+      "invoiceNum" :"12345678",
       "major":[
         "PT"
       ],
@@ -135,9 +153,12 @@
       "stuGender":"女",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"信用卡",
+      "invoiceNum" :"12345678",
       "major":[
         "PT","皮拉提斯","團課"
       ],
@@ -156,9 +177,12 @@
       "stuGender":"女",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"信用卡",
+      "invoiceNum" :"12345678",
       "major":[
         "PT","團課"
       ],
@@ -177,9 +201,12 @@
       "stuGender":"男",
       "couchGender":"男",
       "salary":"$650",
+       "salaryS":"$6500",
       "stuPhone":"0928-532-816",
       "couchPhone":"0900-000-000",
       "reserveTime":"13:00-14:00",
+      "payMethod":"信用卡",
+      "invoiceNum":"12345678",
       "major":[
         "PT","皮拉提斯"
       ],

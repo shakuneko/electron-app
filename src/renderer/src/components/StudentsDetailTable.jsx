@@ -65,9 +65,9 @@ function StudentsDetailTable({ classes }) {
   const columns = [
     //表格有的資料
     {
-      dataField: 'couch',
-      text: '教練'
-    },
+        dataField: 'createDate',
+        text: '日期'
+      },
     {
       dataField: 'courseType',
       text: '課程種類',
@@ -79,39 +79,41 @@ function StudentsDetailTable({ classes }) {
         className: 'form-select'
       })
     },
+    // {
+    //   dataField: 'courseLeft',
+    //   text: '剩餘堂數',
+    //   sort: true, //降冪 & 升冪
+    //   classes: (cell, row, rowIndex, colIndex) => {
+    //     //設定判斷樣式
+    //     if (cell === '0') return 'alert-mode'
+    //   }
+    // },
     {
-      dataField: 'student',
-      text: '學員'
+        dataField: 'coursesAll',
+        text: '堂數'
+      },
+    {
+        dataField: 'couch',
+        text: '教練'
+      },
+    {
+      dataField: 'payMethod',
+      text: '付款方式'
     },
     {
-      dataField: 'courseLeft',
-      text: '剩餘堂數',
-      sort: true, //降冪 & 升冪
-      classes: (cell, row, rowIndex, colIndex) => {
-        //設定判斷樣式
-        if (cell === '0') return 'alert-mode'
-      }
+      dataField: 'salaryS',
+      text: '消費金額',
+      
     },
     {
-      dataField: 'coursesAll',
-      text: '總堂數'
+      dataField: 'invoiceNum',
+      text: '發票號碼',
+      
     },
     {
-      dataField: 'exCourse',
-      text: '體驗課',
-      classes: (cell, row, rowIndex, colIndex) => {
-        if (cell === 'Yes') return 'alert-mode'
-      }
-    },
-    {
-      dataField: 'status',
-      text: '狀態',
-      formatter: AddBGC
-    },
-    {
-      dataField: 'id',
-      text: '操作',
-      formatter: CheckOut
+      dataField: 'note',
+      text: '備註',
+      
     }
   ]
   const MySearch = (props) => {
@@ -168,7 +170,7 @@ function StudentsDetailTable({ classes }) {
             <div className="btnbox-item-stu">
               <h3>2023 購買記錄</h3>
 
-              <div className="btnbox">
+              {/* <div className="btnbox">
                 <div className="btnbox-item">
                   <button type="button" className="btn btn-golden">
                     全部
@@ -189,7 +191,7 @@ function StudentsDetailTable({ classes }) {
                     刪除
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* <MySearch { ...props.searchProps } /> */}
