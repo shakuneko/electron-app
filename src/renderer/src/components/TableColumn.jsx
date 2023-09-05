@@ -32,13 +32,13 @@ function TableColumn({ classes }) {
             }
            else {
             let e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
-            // lecture = lecture +"p"
+            lecture = e
            }
            
             // lecture.push(<span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>)
         }
         
-        return lecture
+        return <div>p</div>
     }
 
     const selectOptions = { //下拉選單篩選
