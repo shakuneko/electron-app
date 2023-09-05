@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import ReserveTime from '../components/ReserveTime'
-import CoachDetailTable from '../components/CoachDetailTable'
+import ClassDetailTable from '../components/ClassDetailTable'
 
 function ClassDetail({ classes }) {
   return (
@@ -11,7 +11,7 @@ function ClassDetail({ classes }) {
           <div className="nav col-2">
             <Navbar />
           </div>
-          <div className="col-10 new_class">
+          <div className="col-10">
             <h1 className="title">課程</h1>
 
             <div className="classCoachBox">
@@ -47,7 +47,7 @@ function ClassDetail({ classes }) {
 </div>
 
 
-                  <CoachDetailTable classes={classes} />
+                  <ClassDetailTable classes={classes} />
                 </div>
               </div>
 

@@ -5,7 +5,7 @@ import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
 
 import { Link } from 'react-router-dom';
 
-function ClasshDetailTable({ classes }) {
+function ClassDetailTable({ classes }) {
     const pagination = paginationFactory( { //設定標籤頁碼
         //pageStartIndex: 0,
         sizePerPage: 5,
@@ -42,17 +42,17 @@ function ClasshDetailTable({ classes }) {
             dataField:"couch",
             text:"教練",
         },
-        {
-            dataField:"courseType",
-            text:"課程種類",
-            // formatter: cell => cell,
-            formatter: cell => selectOptions[cell], //能自由加入東西
-            filter: selectFilter({
-                options: selectOptions,
-                placeholder:'課程種類篩選',
-                className:'form-select'
-            })
-        },
+        // {
+        //     dataField:"courseType",
+        //     text:"課程種類",
+        //     // formatter: cell => cell,
+        //     formatter: cell => selectOptions[cell], //能自由加入東西
+        //     filter: selectFilter({
+        //         options: selectOptions,
+        //         placeholder:'課程種類篩選',
+        //         className:'form-select'
+        //     })
+        // },
         {
             dataField:"student",
             text:"學員"
@@ -140,6 +140,7 @@ function ClasshDetailTable({ classes }) {
                 classes="table-items"
                 pagination={ pagination }
                 filter={ filterFactory() } 
+                noDataIndication={ '尚無資料' }
                 />
             </div>
             )

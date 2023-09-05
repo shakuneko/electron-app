@@ -2,7 +2,6 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
-
 import { Link } from 'react-router-dom';
 
 function CoachDetailTable({ classes }) {
@@ -39,7 +38,9 @@ function CoachDetailTable({ classes }) {
     };
     const selectRow = {//全選
         mode: 'checkbox',
-        clickToSelect: true
+        clickToSelect: true,
+        hideSelectAll: true
+        
       };
     const columns = [ //表格有的資料
     {
@@ -47,42 +48,44 @@ function CoachDetailTable({ classes }) {
         text:"學員"
     },    
     {
-            dataField:"date",
+            dataField:"createDate",
             text:"日期",
         },
         {
-            dataField:"courseType",
-            text:"課程種類",
-            // formatter: cell => cell,
-            formatter: cell => selectOptions[cell], //能自由加入東西
-            filter: selectFilter({
-                options: selectOptions,
-                placeholder:'課程種類篩選',
-                className:'form-select'
-            })
+            dataField:"reserveTime",
+            text:"時間",
         },
+        // {
+        //     dataField:"courseType",
+        //     text:"課程種類",
+        //     // formatter: cell => cell,
+        //     formatter: cell => selectOptions[cell], //能自由加入東西
+        //     filter: selectFilter({
+        //         options: selectOptions,
+        //         placeholder:'課程種類篩選',
+        //         className:'form-select'
+        //     })
+        // },
+       
+        // {
+        //     dataField:"courseLeft",
+        //     text:"剩餘堂數",
+        //     sort:true, //降冪 & 升冪
+        //     classes: (cell, row, rowIndex, colIndex) => { //設定判斷樣式
+        //     if (cell === '0') return 'alert-mode';
+        //     }
+        // },
+        
        
         {
-            dataField:"courseLeft",
-            text:"剩餘堂數",
-            sort:true, //降冪 & 升冪
-            classes: (cell, row, rowIndex, colIndex) => { //設定判斷樣式
-            if (cell === '0') return 'alert-mode';
-            }
-        },
-        {
-            dataField:"coursesAll",
-            text:"總堂數",
-        },
-        {
             dataField:"exCourse",
-            text:"體驗課",
+            text:"取消預約",
             classes: (cell, row, rowIndex, colIndex) => { 
                 if (cell === 'Yes') return 'alert-mode';
             }
         },
         {
-            dataField:"status",
+            dataField:"note",
             text:"備註",
             formatter:AddBGC
         },
@@ -138,6 +141,8 @@ function CoachDetailTable({ classes }) {
                 pagination={ pagination }
                 filter={ filterFactory() } 
                 selectRow={ selectRow }
+                noDataIndication={ '尚無資料' }
+                
                 />
             </div>
             )

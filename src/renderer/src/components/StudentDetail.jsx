@@ -10,12 +10,12 @@ function StudentDetail({ classes }) {
         {/* <div className="nav col-2">
           <Navbar />
         </div> */}
-        <div className="col-12 new_class">
+        <div className="col-12">
           <h1 className="title">學員</h1>
 
           <div className="classCoachBox">
             <p className="classCoachBox-item">姓名：</p>
-            <p className="classCoachBox-item">aaa</p>
+            <p className="classCoachBox-item">田晴軒</p>
             <p className="classCoachBox-item">性別：</p>
             <p className="classCoachBox-item">男</p>
             <p className="classCoachBox-item">剩餘堂數：</p>
