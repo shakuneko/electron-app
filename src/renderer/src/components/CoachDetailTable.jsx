@@ -39,7 +39,9 @@ function CoachDetailTable({ classes }) {
     };
     const selectRow = {//全選
         mode: 'checkbox',
-        clickToSelect: true
+        clickToSelect: true,
+        hideSelectAll: true
+        
       };
     const columns = [ //表格有的資料
     {

@@ -140,6 +140,7 @@ function ClassDetailTable({ classes }) {
                 classes="table-items"
                 pagination={ pagination }
                 filter={ filterFactory() } 
+                noDataIndication={ '尚無資料' }
                 />
             </div>
             )
