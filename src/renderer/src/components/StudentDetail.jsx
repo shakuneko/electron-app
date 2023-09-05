@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom'
-import Navbar from '../components/Navbar'
-import ReserveTime from '../components/ReserveTime'
-import StudentsDetailTable from '../components/StudentsDetailTable'
-import DoneClasses from '../components/DoneClasses'
+import Navbar from './Navbar'
+import ReserveTime from './ReserveTime'
+import StudentsDetailTable from './StudentsDetailTable'
+import DoneClasses from './DoneClasses'
 function StudentDetail({ classes }) {
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
-        <div className="nav col-2">
+        {/* <div className="nav col-2">
           <Navbar />
-        </div>
-        <div className="col-10 new_class">
+        </div> */}
+        <div className="col-12 new_class">
           <h1 className="title">學員</h1>
 
           <div className="classCoachBox">

@@ -8,7 +8,7 @@ import classes from "./json/class.json"
 
 import ClassDetail from "./page/ClassDetail";
 import CoachDetail from './page/CoachDetail';
-import StudentDetail from './page/StudentDetail';
+import StudentDetailPage from './page/StudentDetailPage';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<Table classes={classes}/>} />
         <Route path="/classdetail" element={<ClassDetail classes={classes}/>} />
         <Route path="/coachdetail" element={<CoachDetail classes={classes}/>} />
-        <Route path="/studentdetail" element={<StudentDetail classes={classes}/>} />
+        <Route path="/studentdetail" element={<StudentDetailPage classes={classes}/>} />
       </Routes>
     </BrowserRouter> 
     

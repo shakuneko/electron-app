@@ -38,9 +38,8 @@ function CoachDetail({ classes }) {
                   <div className="chooseDateBox">
                     <div className="DatePicksTitle">
                       {/*<DatePicker onChange={onChange} picker="month" />*/}
-
+                      {/* date picker here */}
                       <input id="startDate" class="form-control" type="month" />
-
                     </div>
                     <div className="btnbox-item">
                       <button type="button" className="btn btn-primary">
