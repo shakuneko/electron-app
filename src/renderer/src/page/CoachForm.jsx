@@ -9,7 +9,7 @@ function CoachForm() {
         <div className="nav col-2">
           <Navbar /> 
         </div>
-        <div className="col-10 new_class">
+        <div className="col-10 new_class2">
           <div className="title_word">
             <p>新增教練</p>
           </div>
@@ -52,7 +52,7 @@ function CoachForm() {
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">課程:</label>
-                  <div className="form_btn">
+                  <div className="form_btn2">
                     <button className="btn btn-outline-golden" type="button">PT</button>
                     <button className="btn btn-outline-golden" type="button">皮拉提斯</button>
                     <button className="btn btn-outline-golden" type="button">團課</button>
