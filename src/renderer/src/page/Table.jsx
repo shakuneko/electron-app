@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar'
-import TableColumn from '../components/TableColumn';
+import TableDetail from '../components/TableDetail'
 
 function Table({ classes }) {
     
@@ -11,8 +11,8 @@ function Table({ classes }) {
             <div className='col-10 container margin-left-right'>                    
                 <div className='mt-4 table-container'>
                     <h1 className='title'>課程管理</h1>
-                    {/* <TableDetail classes={classes} /> */}
-                    <TableColumn classes={classes}/>
+                    <TableDetail classes={classes} />
+                    {/* <TableColumn classes={classes}/> */}
                 </div>
             </div>
         </div>
