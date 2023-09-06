@@ -9,7 +9,7 @@ function StudentDetailPage({ classes }) {
           <Navbar />
         </div>
 
-        <div className="col-10">
+        <div className="col-10 container margin-left-right">
           <div className="detailboxright">
             <StudentDetail classes={classes} />
           </div>

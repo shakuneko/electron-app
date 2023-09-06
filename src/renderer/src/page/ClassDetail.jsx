@@ -11,7 +11,7 @@ function ClassDetail({ classes }) {
           <div className="nav col-2">
             <Navbar />
           </div>
-          <div className="col-10 ">
+          <div className="col-10 container margin-left-right">
             <div className='detailboxright'>
             <h1 className="title">課程</h1>
 

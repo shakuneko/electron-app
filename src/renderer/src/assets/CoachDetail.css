@@ -41,10 +41,12 @@
     margin: 5px;
   }
   .reservetab{
-    width: 302px;
+    width: 290px;
     height: 336px;
     background-color: #f3f3f3;
     margin: 0 24px;
+  
+    
   }
   .reserveboxtitle{
     padding: 10px;
