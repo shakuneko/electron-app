@@ -45,6 +45,9 @@ function Navbar() {
             {/* <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faKey} />
             <div class="nav-word">場地租借</div></Link> */}
+            <Link to="/savejson" className="nav-item">
+            <FontAwesomeIcon icon={faKey} />
+            <div class="nav-word">Save Page</div></Link>
         </div>
   )
 }
