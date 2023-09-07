@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 
+import jsonData from '../json/class.json'
+
 function SaveJsonPage() {
   const [menuInfo, setMenuInfo] = useState('SavedFileAzusa')
   const [filePathInfo, setFilePathInfo] = useState('')
   const { ipcRenderer } = window.electron
 
   const onSaveToFile = async () => {
-    const data = `menuInfo: ${menuInfo}`
+    const data = JSON.stringify({ jsonData })
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
   }
 
