@@ -29,10 +29,6 @@ function StudentTable({ classes, columns }) {
         };
         return (
           <div className='row h-50 mb-3'>
-            <Link to="/studentform" className='col-6  table-link-underline-none'>
-                <button className="btn btn-golden">新增學員</button>
-                {/* <SearchBar { ...props.searchProps } /> */}
-            </Link>
             <div className='col-6 search-area'>
                 <div className="input-group flex-nowrap">
                     {/* <span class="input-group-text" id="addon-wrapping">@</span> */}
@@ -40,7 +36,12 @@ function StudentTable({ classes, columns }) {
                     <button className="btn btn-golden" onClick={ handleClick } type="button" id="button-sreach">搜尋</button>
                 </div>
             </div>
-
+            <div className='col-4'></div>
+            <div className="DatePicksTitle col-2 .row-no-gutter">
+                {/*<DatePicker onChange={onChange} picker="month" />*/}
+                {/* date picker here */}
+                <input id="startDate" class="form-control" type="month" />
+            </div>
           </div>
         );
     };
@@ -56,7 +57,7 @@ function StudentTable({ classes, columns }) {
         {
             props => (
             <div>
-                {/* <MySearch { ...props.searchProps } /> */}
+                <MySearch { ...props.searchProps } />
 
                 <BootstrapTable
                 { ...props.baseProps }

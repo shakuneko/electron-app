@@ -81,7 +81,8 @@ export const columnsMoney = [
     },
     {
         dataField:"major",
-        text:"課程種類",        
+        text:"課程種類",
+        formatter:ClassAddBGC        
     },
     {
         dataField:"coursesAll",
