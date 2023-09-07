@@ -12,7 +12,6 @@ function Table({ classes }) {
                 <div className='mt-4 table-container'>
                     <h1 className='title'>課程管理</h1>
                     <TableDetail classes={classes} />
-                    {/* <TableColumn classes={classes}/> */}
                 </div>
             </div>
         </div>

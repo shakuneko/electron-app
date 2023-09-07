@@ -16,6 +16,8 @@ import Form from './page/Form'
 import StudentForm from './page/StudentForm'
 import CoachFrom from './page/CoachForm'
 
+import Revenue from './page/Revenue';
+
 function App() {
   return (
     <BrowserRouter>
@@ -31,6 +33,8 @@ function App() {
         <Route path="/form" element={<Form />} />
         <Route path="/studentform" element={<StudentForm classes={classes}/>} />
         <Route path="/coachform" element={<CoachFrom classes={classes}/>} />
+
+        <Route path="/revenue" element={<Revenue classes={classes}/>} />
 
       </Routes>
     </BrowserRouter> 
