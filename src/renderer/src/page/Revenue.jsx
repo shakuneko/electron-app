@@ -5,14 +5,20 @@ import SetTable from "../components/SetTable"
 function Revenue({ classes }) {
     //計算營業額
     let sum = 0
+    let finCoures = 0
+    
     for (let i = 0; i < classes.length; i++) {
         if (i == 0) {
             sum = classes[i].salary * classes[i].coursesAll
+            finCoures = classes[i].coursesFIN * 1
         }
         else {
-            let each = classes[i].salary * classes[i].coursesAll
-            sum +=  each
+            sum += classes[i].salary * classes[i].coursesAll
+            finCoures += classes[i].coursesFIN * 1 
+            // sum +=  each
+            // finCoures += course
         }
+        console.log(finCoures)
     }
     const revenue = sum
 
@@ -22,11 +28,15 @@ function Revenue({ classes }) {
     // const initialValue = 0;
     // const sumWithInitial = array1.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue);
 
-    var flattened = [
-        [0, 1],
-        [2, 3],
-        [4, 5],
-      ].reduce((acc, cur) => acc.concat(cur), []);
+    const myNums = [1,2,3,4,5];
+
+    // create a variable for the sum and initialize it
+    let l = 0;
+    
+    // calculate sum using forEach() method
+    myNums.forEach( num => {
+      l += num;
+    })
 
     
     // let totalCourse //總購買堂數
@@ -51,7 +61,7 @@ function Revenue({ classes }) {
                     <h1 className='title'>營業額</h1>
                     <div>
                         <div>總收入/月</div>
-                        <h1 className='money-title mt-2 title'>$ {revenue}</h1>
+                        <h1 className='money-title mt-2 title'>$ {sum}</h1>
                     </div>
                     {/* <RevenuwTableColums classes={classes} /> */}
                     <SetTable classes={classes} columns={columnsRevenue}/>
@@ -59,7 +69,7 @@ function Revenue({ classes }) {
                     <div className='row'>
                         <div className='col-6'>
                             <div>已核銷</div>
-                            <h1 className='money-title mt-2 title'>$ 2,000,000 / 20堂</h1>
+                            <h1 className='money-title mt-2 title'>$ 2,000,000 / {finCoures}堂</h1>
                         </div>
                         <div className='col-6'>
                             <div>未核銷</div>

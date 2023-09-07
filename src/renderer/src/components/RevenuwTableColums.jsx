@@ -59,8 +59,9 @@ export const columnsRevenue = [
         
     },
     {
-        dataField:"note",
-        text:"本月未核銷金額"
+        dataField:"courseLeft",
+        text:"本月未核銷金額",
+        formatter:CountMoney
     }
 ]
 
@@ -70,7 +71,7 @@ export const columnsMoney = [
         text:"教練名稱"
     },
     {
-        dataField:"coursesAll",
+        dataField:"coursesFIN",
         text:"已核銷堂數",
     },
     {
@@ -80,14 +81,7 @@ export const columnsMoney = [
     },
     {
         dataField:"major",
-        text:"課程種類",
-        formatter: ClassAddBGC, //能自由加入東西
-        filter: selectFilter({
-            options: selectOptions,
-            placeholder:'課程種類篩選',
-            className:'form-select'
-        })
-        
+        text:"課程種類",        
     },
     {
         dataField:"coursesAll",
