@@ -77,7 +77,7 @@ function Revenue({ classes }) {
                     </div>
                     {/* <RevenuwTableColums classes={classes} /> */}
                     <SetTable classes={products} columns={columnsRevenue}/>
-                    <h1 className='title'>核銷</h1>
+                    <h1 className='title  mt-4'>核銷</h1>
                     <div className='row'>
                         <div className='col-6'>
                             <div>已核銷</div>

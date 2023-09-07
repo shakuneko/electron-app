@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 function TableDetail({ classes }) {
     const pagination = paginationFactory( { //設定標籤頁碼
         //pageStartIndex: 0,
-        sizePerPage: 5,
+        sizePerPage: 10,
         hideSizePerPage: true,
         hidePageListOnlyOnePage: true,
         classes:'test'
@@ -35,7 +35,8 @@ function TableDetail({ classes }) {
         'PT': 'PT',
         '皮拉提斯': '皮拉提斯',
         '團課': '團課',
-        '場地租借': '場地租借'
+        '場地租借': '場地租借',
+        '運動舒緩': '運動舒緩'
     };
     const columns = [ //表格有的資料
         {

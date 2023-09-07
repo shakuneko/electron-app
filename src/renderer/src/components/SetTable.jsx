@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 function StudentTable({ classes, columns }) {
     const pagination = paginationFactory( { //設定標籤頁碼
         //pageStartIndex: 0,
-        sizePerPage: 5,
+        sizePerPage: 10,
         hideSizePerPage: true,
         hidePageListOnlyOnePage: true,
         classes:'test'
