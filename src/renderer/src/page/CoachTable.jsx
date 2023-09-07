@@ -10,7 +10,7 @@ function CouchTable({ classes }) {
             </div>
             <div className='col-10 container margin-left-right'>                    
                 <div className='mt-4 table-container'>
-                    <h1 className='title'>課程管理</h1>
+                    <h1 className='title'>教練管理</h1>
                     <CoachTableDetail classes={classes}/>
                 </div>
             </div>

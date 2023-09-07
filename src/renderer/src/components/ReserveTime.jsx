@@ -30,7 +30,7 @@ function ReserveTime() {
           {/* <DatePicker onChange={onChangeTime} picker="time" /> */}
         </div>
         <div className="comfirmbtn">
-          <button type="button" className="btn btn-primary">
+          <button type="button" className="btn btn-golden">
             確定
           </button>
         </div>
