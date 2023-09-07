@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 
 function SaveJsonPage() {
-  const [menuInfo, setMenuInfo] = useState('Loading')
+  const [menuInfo, setMenuInfo] = useState('SavedFileAzusa')
   const [filePathInfo, setFilePathInfo] = useState('')
   const { ipcRenderer } = window.electron
 

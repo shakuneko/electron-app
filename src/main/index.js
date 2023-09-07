@@ -1,8 +1,8 @@
-import { app, shell, BrowserWindow } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-
+import fs from 'fs'
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -35,6 +35,21 @@ function createWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  ipcMain.handle('writeFile', (event, arg) => {
+    const filePath = `${app.getPath('userData')}/${arg.fileName}`
+    mainWindow.webContents.send('filePathInfo', filePath)
+    fs.writeFile(filePath, arg.data, (err) => {
+      if (err) {
+        console.error(err)
+        return
+      } else {
+        console.log('file saved')
+      }
+    })
+  })
+
+
 }
 
 // This method will be called when Electron has finished
