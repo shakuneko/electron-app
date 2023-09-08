@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 
 function From() {
   return (
-    <div className="container-fluid">
+    <div className="container-fluid" style={{backgroundColor:"white"}}>
       <div className="row form_class row-no-gutters">
         <div className="nav col-2">
           <Navbar /> 
