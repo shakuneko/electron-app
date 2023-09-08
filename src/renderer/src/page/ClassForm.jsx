@@ -1,45 +1,14 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 
+function ClassForm() {
+    const [toggle,setToggle] = useState(1)
 
-class From extends Component {
+    function updateToggle(id){
+        setToggle(id)
+    }
   
-  // constructor(props){
-  //   super(props);
-  //   this.state={
-  //     value:''
-  //   };
-  // }
-  handleSubmit=(e)=>{
-    e.preventDefault();
-    console.log('ya')
-  }
-  // onChangehandle=(e)=>{
-  //   this.setState({
-  //     value:e.target.value
-  //   })
-  // }
-start = {
-  user:{
-    coach:'',     //教練
-    stu1:'',      //學生1
-    stu2:'',      //學生2
-    number:'',    //堂數
-    salary: '',   //堂薪
-    lesson:'',    //體驗課
-    remark: '',   //備註
 
-
-  }
-}
-classuser(e,props){
-  var user = this.start.user
-  user[props] = e.target.value
-}
-send(){
-  console.log(this.start.user);
-}
-render(){
 
   return (
     <div className="container-fluid">
@@ -52,7 +21,7 @@ render(){
             <p>新增課程</p>
           </div>
          
-          <form className="form" onSubmit={this.handleSubmit} onChange={this.onChangehandle}>
+          <form className="form">
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
@@ -62,11 +31,26 @@ render(){
                     <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(4)}>場地租借</button>
                   </div>
               </div>
-            
+              <div className={toggle === 1 ? "show-content":"content"}>
+                <p>hihi</p>
+
+              </div>
+              <div className={toggle === 2 ? "show-content":"content"}>
+                <p>hi</p>
+
+              </div>
+              <div className={toggle === 3 ? "show-content":"content"}>
+                <p>bye</p>
+
+              </div>
+              <div className={toggle === 4 ? "show-content":"content"}>
+                <p>byebye</p>
+
+              </div>
               <div className="form-group">
                   <label  for="exampleInputEmail1">教練:</label>
                   <div className="select">
-                    <select className="form-select " onChange={(e)=>this.classuser(e,'coach')}>
+                    <select className="form-select " >
                         <option selected>-</option>
                         <option value="A">A</option>
                         <option value="B">B</option>
@@ -78,7 +62,7 @@ render(){
                 <div className="form-group4-1"> 
                   <label for="exampleInputEmail1">學員1:</label>
                   <div className="select">
-                  <select class="form-select" onChange={(e)=>this.classuser(e,'stu1')}>
+                  <select class="form-select" >
                       <option selected>-</option>
                       <option value="1">Lulu</option>
                       <option value="2">田晴瑄</option>
@@ -91,7 +75,7 @@ render(){
                 <div className="form-group4-1">
                     <label for="exampleInputEmail1">學員2:</label>
                     <div className="select">
-                      <select class="form-select " onChange={(e)=>this.classuser(e,'stu2')}>
+                      <select class="form-select " >
                           <option selected>-</option>
                           <option value="1">Lulu</option>
                           <option value="2">田晴瑄</option>
@@ -103,7 +87,7 @@ render(){
               <div className="form-group">
                   <label for="exampleInputEmail1">堂數:</label>
                   <div className="select">
-                    <select class="form-select" onChange={(e)=>this.classuser(e,'number')}>
+                    <select class="form-select" >
                         <option selected>-</option>
                         <option value="1">1</option>
                         <option value="10">10</option>
@@ -114,7 +98,7 @@ render(){
               <div class="form-group">
                   <label for="exampleInputEmail1">堂薪:</label>
                   <div className="select">
-                    <input type="text" class="form-select" onChange={(e)=>this.classuser(e,'salary')}></input>
+                    <input type="text" class="form-select"></input>
                   </div>
               </div>
               
@@ -122,13 +106,13 @@ render(){
                   <label  className="" for="exampleInputEmail1">體驗課:</label>
                   <div className=" check">
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='true' onChange={(e)=>this.classuser(e,'lesson')}></input>
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='true' ></input>
                       <label class="form-check-label" for="flexRadioDefault1">
                         是
                       </label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value='false' onChange={(e)=>this.classuser(e,'lesson')}></input>
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value='false' ></input>
                       <label class="form-check-label" for="flexRadioDefault2">
                         否
                       </label>
@@ -138,11 +122,11 @@ render(){
               <div class="form-group2">
                   <label for="exampleInputPassword1">備註:</label>
                   <div className="select">
-                    <textarea class="form-select" id="exampleFormControlTextarea1" rows="3" onChange={(e)=>this.classuser(e,'remark')}></textarea>
+                    <textarea class="form-select" id="exampleFormControlTextarea1" rows="3" ></textarea>
                   </div>  
               </div>
               <div class="form-group3">
-                <button type="submit" class="btn btn-golden" onClick={()=>this.send()}>新增</button>
+                <button type="submit" class="btn btn-golden" >新增</button>
               </div>
             </form>
             
@@ -152,5 +136,5 @@ render(){
     </div>
   )
   }
-}
-export default From
+
+export default ClassForm

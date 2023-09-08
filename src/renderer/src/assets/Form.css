@@ -12,7 +12,14 @@
     padding-left: 0;
   }
 
- 
+ /* 分頁用 */
+.content{
+    display: none;
+}
+.show-content{
+    display:block;
+}
+
 /* form */
 .new_class{
     height: 70%;
@@ -102,5 +109,4 @@
 .form-check{
     padding-right: 20px;
 }
-
 
