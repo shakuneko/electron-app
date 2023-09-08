@@ -62,7 +62,7 @@ function CoachForm() {
                 <div class="form-group">
                   <label for="exampleInputEmail1">課程:</label>
                   <div className="form_btn2">
-                    <button className="btn btn-outline-golden" type="button">PT</button>
+                    <button className="btn btn-outline-golden" type="button" >PT</button>
                     <button className="btn btn-outline-golden" type="button">皮拉提斯</button>
                     <button className="btn btn-outline-golden" type="button">團課</button>
                   </div>
