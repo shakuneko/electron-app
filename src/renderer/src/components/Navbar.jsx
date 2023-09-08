@@ -19,18 +19,32 @@ function Navbar() {
                 <div class="nav-word">課程管理</div>
             </Link>
           
-            <Link to="/" className="nav-item">
-            <FontAwesomeIcon icon={faAddressBook} />
-            <div class="nav-word">學員管理</div></Link>
+            <Link to="/student" className="nav-item">
+              <FontAwesomeIcon icon={faAddressBook} />
+              <div class="nav-word">學員管理</div>
+            </Link>
           
-            <Link to="/" className="nav-item">
-            <FontAwesomeIcon icon={faUser} />
-            <div class="nav-word">教練管理</div></Link>
+            <Link to="/coach" className="nav-item">
+              <FontAwesomeIcon icon={faUser} />
+              <div class="nav-word">教練管理</div>
+            </Link>
           
-            <Link to="/" className="nav-item">
-            <FontAwesomeIcon icon={faSackDollar} />
-            <div class="nav-word">金流管理</div></Link>
+            <Link to="/revenue" className="nav-item">
+              <FontAwesomeIcon icon={faSackDollar} />
+              <div class="nav-word">金流管理</div>
+            </Link>
         
+            {/* for detail page testing use */}
+            {/* <Link to="/classdetail" className="nav-item">
+            <FontAwesomeIcon icon={faSackDollar} />
+            <div class="nav-word">classdetail</div></Link>
+            <Link to="/coachdetail" className="nav-item">
+            <FontAwesomeIcon icon={faSackDollar} />
+            <div class="nav-word">coachdetail</div></Link>
+            <Link to="/studentdetail" className="nav-item">
+            <FontAwesomeIcon icon={faSackDollar} /> 
+            <div class="nav-word">studentdetail</div></Link> */}
+
             {/* <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faKey} />
             <div class="nav-word">場地租借</div></Link> */}
