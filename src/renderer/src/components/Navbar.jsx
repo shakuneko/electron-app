@@ -19,11 +19,11 @@ function Navbar() {
                 <div class="nav-word">課程管理</div>
             </Link>
           
-            <Link to="/table" className="nav-item">
+            <Link to="/student" className="nav-item">
             <FontAwesomeIcon icon={faAddressBook} />
             <div class="nav-word">學員管理</div></Link>
           
-            <Link to="/" className="nav-item">
+            <Link to="/coach" className="nav-item">
             <FontAwesomeIcon icon={faUser} />
             <div class="nav-word">教練管理</div></Link>
           

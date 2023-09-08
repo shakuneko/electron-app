@@ -2,14 +2,19 @@
 import Form from './page/Form'
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import Table from './page/Table'
+import StudentTable from './page/StudentTable'
+import CoachTable from './page/CoachTable'
 import classes from './json/class.json'
+
 
 function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<Form />} />
-        <Route path="/table" element={<Table classes={classes} />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/" element={<Table classes={classes}/>} />
+        <Route path="/student" element={<StudentTable classes={classes}/>} />
+        <Route path="/coach" element={<CoachTable classes={classes}/>} />
         
       </Routes>
     </HashRouter> 
