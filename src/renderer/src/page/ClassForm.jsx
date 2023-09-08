@@ -19,28 +19,7 @@ function ClassForm() {
   const handleReset = () => {
     reset();
   };
-  // const [classform,setClassForm] = useState({
-  //   coach:'',     //教練
-  //   stu1:'',      //學生1
-  //   stu2:'',      //學生2
-  //   number:'',    //堂數
-  //   salary: '',   //堂薪
-  //   lesson:'',    //體驗課
-  //   remark: '',   //備註
-
-  // })
-  // const changrValue = (e) =>{
-  //   const name = e.target.name;
-
-  //   setClassForm((state)=>({
-  //     ...state,
-  //     [name]:e.target.value
-  //   }));
-  // }
-  // const send = ()=>{
-  //   console.log(changrValue);
-  // }
-
+  
   
   return (
     <div className="container-fluid">
@@ -187,7 +166,7 @@ function ClassForm() {
                         <div className="form-group4-1"> 
                           <label for="exampleInputEmail1">學員1:</label>
                           <div className="select">
-                          <select class="form-select" >
+                          <select class="form-select"{...register("stu1", { required: true })} >
                               <option selected>-</option>
                               <option value="1">Lulu</option>
                               <option value="2">田晴瑄</option>
@@ -200,7 +179,7 @@ function ClassForm() {
                         <div className="form-group4-1">
                             <label for="exampleInputEmail1">學員2:</label>
                             <div className="select">
-                              <select class="form-select " >
+                              <select class="form-select " {...register("stu2", { required: true })}>
                                   <option selected>-</option>
                                   <option value="1">Lulu</option>
                                   <option value="2">田晴瑄</option>
@@ -212,7 +191,7 @@ function ClassForm() {
                       <div className="form-group">
                           <label for="exampleInputEmail1">堂數:</label>
                           <div className="select">
-                            <select class="form-select" >
+                            <select class="form-select" {...register("numder", { required: true })}>
                                 <option selected>-</option>
                                 <option value="1">1</option>
                                 <option value="10">10</option>
@@ -223,7 +202,7 @@ function ClassForm() {
                       <div class="form-group">
                           <label for="exampleInputEmail1">堂薪:</label>
                           <div className="select">
-                            <input type="text" class="form-select"></input>
+                            <input type="text" class="form-select"{...register("salary", { required: true })}></input>
                           </div>
                       </div>
                       
@@ -231,13 +210,13 @@ function ClassForm() {
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='true' ></input>
+                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='true'{...register("lesson", { required: true })} ></input>
                               <label class="form-check-label" for="flexRadioDefault1">
                                 是
                               </label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value='false' ></input>
+                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value='false' {...register("lesson", { required: true })}></input>
                               <label class="form-check-label" for="flexRadioDefault2">
                                 否
                               </label>
@@ -247,7 +226,7 @@ function ClassForm() {
                       <div class="form-group2">
                           <label for="exampleInputPassword1">備註:</label>
                           <div className="select">
-                            <textarea class="form-select" id="exampleFormControlTextarea1" rows="3" ></textarea>
+                            <textarea class="form-select" id="exampleFormControlTextarea1" rows="3" {...register("note", { required: true })}></textarea>
                           </div>  
                       </div>
                       <div class="form-group3">

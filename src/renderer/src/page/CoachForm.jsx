@@ -1,8 +1,17 @@
 import React from "react";
 import Navbar from "../components/Navbar";
+import { useForm } from "react-hook-form";
 
-
+ 
 function CoachForm() {
+  
+   // useForm
+   const {register,handleSubmit, reset} = useForm();
+   const submit = (data, e)=>{
+     console.log(data);
+     e.target.reset();
+ }
+
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -13,41 +22,41 @@ function CoachForm() {
           <div className="title_word">
             <p>新增教練</p>
           </div>
-            <form className="form">
+            <form className="form"  onSubmit={handleSubmit(submit)}>
                 <div class="form-group">
                     <label for="exampleInputEmail1">姓名:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("name", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">性別:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1"{...register("gender", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">身分證字號:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("num", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">電話:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("tel", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("email", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">地址:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("address", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,37 +70,37 @@ function CoachForm() {
                 <div class="form-group">
                     <label for="exampleInputEmail1">堂薪:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("salary", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">帳戶:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("account", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">緊急連絡人姓名:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("contactname", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">您與他的關係:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("contact", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">緊急連絡人電話:</label>
                     <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" id="exampleInputEmail1" {...register("contacttel", { required: true })}></input>
                     </div>
                 </div>
                 <div class="form-group2">
                     <label for="exampleInputPassword1">備註:</label>
                     <div className="select">
-                    <textarea class="form-select" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-select" id="exampleFormControlTextarea1" rows="3"{...register("note", { required: true })}></textarea>
                     </div>  
                 </div>
                 <div class="form-group3">
