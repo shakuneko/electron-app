@@ -2,17 +2,17 @@
 
 // import 'bootstrap/dist/js/bootstrap';
 import Form from './page/Form'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
-    // <BrowserRouter>
-    //   <Routes>
-    //     <Route path="/" element={<Form />} />
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<Form />} />
         
-    //   </Routes>
-    // </BrowserRouter> 
-    <Form/>
+      </Routes>
+    </HashRouter> 
+    // <Form/>
   )
 }
 

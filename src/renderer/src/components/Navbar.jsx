@@ -14,12 +14,12 @@ function Navbar() {
             <div className="nav_logo">
               <img src={Logo} style={{width:'82px',height:'82px'}} alt="class-unclick"/>
             </div>
-            {/* <Link to="/" className="nav-item"> */}
+            <Link to="/" className="nav-item">
                 <FontAwesomeIcon icon={faHouse} />
                 <div class="nav-word">課程管理</div>
-            {/* </Link> */}
+            </Link>
           
-            {/* <Link to="/" className="nav-item">
+            <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faAddressBook} />
             <div class="nav-word">學員管理</div></Link>
           
@@ -29,7 +29,7 @@ function Navbar() {
           
             <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faSackDollar} />
-            <div class="nav-word">金流管理</div></Link> */}
+            <div class="nav-word">金流管理</div></Link>
         
             {/* <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faKey} />
