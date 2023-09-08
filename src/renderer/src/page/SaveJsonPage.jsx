@@ -21,7 +21,7 @@ function SaveJsonPage() {
     const content = JSON.parse(data)
     setFileContent(content)
   }
-console.log(fileContent[1])
+  console.log(fileContent)
 
   useEffect(() => {
     ipcRenderer.on('menuInfo', (_, message) => {
@@ -31,9 +31,6 @@ console.log(fileContent[1])
       setFilePathInfo(filePath)
     })
   }, [])
-
-
-
 
   return (
     <div className="row row-no-gutter margin-left-right container-fluid">
@@ -60,24 +57,23 @@ console.log(fileContent[1])
           </div>
           <h3>檔案存於： {filePathInfo} </h3>
 
-      <div
-        style={{
-          marginTop: '20px',
-          border: '1px solid lightgray',
-          fontSize: '40px',
-          padding: '10px',
-          cursor: 'pointer',
-          textAlign: 'center'
-        }}
-        onClick={onReadFile}
-      >
-        read from file
-      </div>
-      <h2>file content = {fileContent} </h2>
+          <div
+            style={{
+              marginTop: '20px',
+              border: '1px solid lightgray',
+              fontSize: '40px',
+              padding: '10px',
+              cursor: 'pointer',
+              textAlign: 'center'
+            }}
+            onClick={onReadFile}
+          >
+            read from file
+          </div>
 
-     
-
-
+          <h2>content:</h2>
+          <div>{JSON.stringify(fileContent)}</div>
+          
         </div>
       </div>
     </div>
