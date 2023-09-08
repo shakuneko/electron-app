@@ -2,6 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import classes from "./json/class.json"
 
 import Table from "./page/Table"
