@@ -4,15 +4,15 @@ import Navbar from "../components/Navbar";
 
 class From extends Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-      value:''
-    };
-  }
+  // constructor(props){
+  //   super(props);
+  //   this.state={
+  //     value:''
+  //   };
+  // }
   handleSubmit=(e)=>{
     e.preventDefault();
-    console.log(this.state.value)
+    // console.log(this.state.value)
   }
   // onChangehandle=(e)=>{
   //   this.setState({
