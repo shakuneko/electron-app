@@ -103,6 +103,10 @@
 .btn{
    margin-right: 5px;
 }
+.btn:focus{
+    background-color: #DFC994;
+    color: #352F29 ;
+}
 .select{
     width: 90%;
 }
