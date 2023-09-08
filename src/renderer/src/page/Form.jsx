@@ -12,7 +12,7 @@ class From extends Component {
   // }
   handleSubmit=(e)=>{
     e.preventDefault();
-    // console.log(this.state.value)
+    console.log('ya')
   }
   // onChangehandle=(e)=>{
   //   this.setState({
@@ -67,9 +67,9 @@ render(){
                   <div className="select">
                     <select className="form-select " onChange={(e)=>this.classuser(e,'coach')}>
                         <option selected>-</option>
-                        <option value="1">A</option>
-                        <option value="2">B</option>
-                        <option value="3">C</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
                     </select>
                   </div>
               </div>
