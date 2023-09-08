@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import StudentsList from '../components/StudentsList'
 import CoachTopBar from '../components/CoachTopBar'
 //import { DatePicker, Space } from "antd";
-import CoachDetailTable from '../components/CoachDetailTable'
+// import CoachDetailTable from '../components/CoachDetailTable'
 import Navbar from '../components/Navbar'
 
 function CoachDetail({ classes }) {
@@ -50,7 +50,7 @@ function CoachDetail({ classes }) {
                   </div>
 
                   <div>
-                    <CoachDetailTable classes={classes} />
+                    {/* <CoachDetailTable classes={classes} /> */}
                   </div>
                 </div>
               </div>

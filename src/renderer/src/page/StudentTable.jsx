@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar'
-import StudentTableDetail from '../components/StudentTableDetail';
+// import StudentTableDetail from '../components/StudentTableDetail';
 
 function StudentTable({ classes }) {
     
@@ -12,7 +12,7 @@ function StudentTable({ classes }) {
                 <div className='mt-4 table-container'>
                     <h1 className='title'>學員管理</h1>
                     {/* <TableDetail classes={classes} /> */}
-                    <StudentTableDetail classes={classes}/>
+                    {/* <StudentTableDetail classes={classes}/> */}
                 </div>
             </div>
         </div>

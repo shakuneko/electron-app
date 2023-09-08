@@ -29,7 +29,7 @@ function Navbar() {
               <div class="nav-word">教練管理</div>
             </Link>
           
-            <Link to="/revenue" className="nav-item">
+            <Link to="/form" className="nav-item">
               <FontAwesomeIcon icon={faSackDollar} />
               <div class="nav-word">金流管理</div>
             </Link>

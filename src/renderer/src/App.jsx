@@ -12,7 +12,6 @@ import ClassDetail from "./page/ClassDetail";
 import CoachDetail from './page/CoachDetail';
 import StudentDetailPage from './page/StudentDetailPage';
 
-import Form from './page/Form'
 import StudentForm from './page/StudentForm'
 import CoachFrom from './page/CoachForm'
 
@@ -23,7 +22,7 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/form" element={<Table classes={classes}/>} />
+        <Route path="/" element={<Table classes={classes}/>} />
         <Route path="/student" element={<StudentTable classes={classes}/>} />
         <Route path="/coach" element={<CoachTable classes={classes}/>} />
 
@@ -31,7 +30,7 @@ function App() {
         <Route path="/coachdetail" element={<CoachDetail classes={classes}/>} />
         <Route path="/studentdetail" element={<StudentDetailPage classes={classes}/>} />
 
-        <Route path="/" element={<Form />} />
+        <Route path="/form" element={<Form />} />
         <Route path="/studentform" element={<StudentForm classes={classes}/>} />
         <Route path="/coachform" element={<CoachFrom classes={classes}/>} />
 

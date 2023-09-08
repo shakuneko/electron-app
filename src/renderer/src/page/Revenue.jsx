@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar'
-import { columnsMoney, columnsRevenue} from '../components/RevenuwTableColums'
-import SetTable from "../components/SetTable"
+// import { columnsMoney, columnsRevenue} from '../components/RevenuwTableColums'
+// import SetTable from "../components/SetTable"
 
 function Revenue({ classes }) {
     //計算營業額
@@ -76,7 +76,7 @@ function Revenue({ classes }) {
                         <h1 className='money-title mt-2 title'>$ {sum}</h1>
                     </div>
                     {/* <RevenuwTableColums classes={classes} /> */}
-                    <SetTable classes={products} columns={columnsRevenue}/>
+                    {/* <SetTable classes={products} columns={columnsRevenue}/> */}
                     <h1 className='title  mt-4'>核銷</h1>
                     <div className='row'>
                         <div className='col-6'>
@@ -89,7 +89,7 @@ function Revenue({ classes }) {
                         </div>
                     </div>
                     {/* <RevenuwTableColums classes={classes} /> */}
-                    <SetTable classes={classes} columns={columnsMoney}/>
+                    {/* <SetTable classes={classes} columns={columnsMoney}/> */}
                 </div>
             </div>
         </div>

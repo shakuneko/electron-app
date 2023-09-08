@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import ReserveTime from '../components/ReserveTime'
-import ClassDetailTable from '../components/ClassDetailTable'
+// import ClassDetailTable from '../components/ClassDetailTable'
 
 function ClassDetail({ classes }) {
   return (
@@ -42,7 +42,7 @@ function ClassDetail({ classes }) {
                     </div>
                   </div>
 
-                  <ClassDetailTable classes={classes} />
+                  {/* <ClassDetailTable classes={classes} /> */}
                 </div>
               </div>
 

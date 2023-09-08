@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import Navbar from './Navbar'
 import ReserveTime from './ReserveTime'
-import StudentsDetailTable from './StudentsDetailTable'
 import DoneClasses from './DoneClasses'
 function StudentDetail({ classes }) {
   return (
@@ -27,7 +26,7 @@ function StudentDetail({ classes }) {
           <div className="classcontainer">
             <div className="tabletitlebox">
               <div>
-                <StudentsDetailTable classes={classes} />
+                {/* <StudentsDetailTable classes={classes} /> */}
               </div>
             </div>
 

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import StudentDetail from '../components/StudentDetail'
+// import StudentDetail from '../components/StudentDetail'
 function StudentDetailPage({ classes }) {
   return (
     <div className="container-fluid">
@@ -11,7 +11,7 @@ function StudentDetailPage({ classes }) {
 
         <div className="col-10 container margin-left-right">
           <div className="detailboxright">
-            <StudentDetail classes={classes} />
+            {/* <StudentDetail classes={classes} /> */}
           </div>
         </div>
       </div>
