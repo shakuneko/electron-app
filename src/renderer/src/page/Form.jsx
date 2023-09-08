@@ -1,8 +1,43 @@
-import React from "react";
+import React, { Component } from "react";
 import Navbar from "../components/Navbar";
 
 
-function From() {
+class From extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      value:''
+    };
+  }
+  handleSubmit=(e)=>{
+    e.preventDefault();
+    console.log(this.state.value)
+  }
+  onChangehandle=(e)=>{
+    this.setState({
+      value:e.target.value
+    })
+  }
+start = {
+  user:{
+    salary: '',
+    remark: '',
+
+
+  }
+}
+classuser(e,props,index){
+  var user = this.start.user
+  user[props]
+}
+send(){
+  console.log(this.start.user);
+}
+render(){
+
+
+  
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -13,7 +48,8 @@ function From() {
           <div className="title_word">
             <p>新增課程</p>
           </div>
-          <form className="form">
+         
+          <form className="form" onSubmit={this.handleSubmit} onChange={this.onChangehandle}>
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
@@ -74,7 +110,7 @@ function From() {
               <div class="form-group">
                   <label for="exampleInputEmail1">堂薪:</label>
                   <div className="select">
-                    <input type="email" class="form-select" id="exampleInputEmail1" aria-describedby="emailHelp"></input>
+                    <input type="text" class="form-select" onChange={(e)=>this.classuser(e,'salary')}></input>
                   </div>
               </div>
               
@@ -82,7 +118,7 @@ function From() {
                   <label  className="" for="exampleInputEmail1">體驗課:</label>
                   <div className=" check">
                     <div className="checkbox">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1"></input>
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" ></input>
                         <label class="form-check-label" for="exampleCheck1">是</label>
                     </div>
                     <div className="checkbox">
@@ -99,14 +135,15 @@ function From() {
                   </div>  
               </div>
               <div class="form-group3">
-                <button type="submit" class="btn btn-golden">新增</button>
+                <button type="submit" class="btn btn-golden" onClick={()=>this.send()}>新增</button>
               </div>
             </form>
+            
          
         </div>
       </div>
     </div>
   )
+  }
 }
-
 export default From
