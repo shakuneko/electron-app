@@ -8,8 +8,35 @@ function ClassForm() {
         setToggle(id)
     }
   
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // props.setFormDone(true);
+    console.log("成功!")
+  }
+  
+  const [classform,setClassForm] = useState({
+    coach:'',     //教練
+    stu1:'',      //學生1
+    stu2:'',      //學生2
+    number:'',    //堂數
+    salary: '',   //堂薪
+    lesson:'',    //體驗課
+    remark: '',   //備註
 
+  })
+  const changrValue = (e) =>{
+    const name = e.target.name;
 
+    setClassForm((state)=>({
+      ...state,
+      [name]:e.target.value
+    }));
+  }
+  const send = ()=>{
+    console.log(changrValue);
+  }
+
+  
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -21,7 +48,7 @@ function ClassForm() {
             <p>新增課程</p>
           </div>
          
-          <form className="form">
+          <form className="form" onSubmit={handleSubmit}>
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
@@ -85,7 +112,12 @@ function ClassForm() {
                     <div class="form-group">
                         <label for="exampleInputEmail1">堂薪:</label>
                         <div className="select">
-                          <input type="text" class="form-select"></input>
+                          <input 
+                          type="text" 
+                          class="form-select"
+                          value={classform.name}
+                          onChange={changrValue}
+                          ></input>
                         </div>
                     </div>
                     
@@ -256,7 +288,7 @@ function ClassForm() {
                             </div>  
                         </div>
                         <div class="form-group3">
-                          <button type="submit" class="btn btn-golden" >新增</button>
+                          <button type="submit" class="btn btn-golden"onClick={()=>send()} >新增</button>
                         </div>
                     </div>
               </div>
