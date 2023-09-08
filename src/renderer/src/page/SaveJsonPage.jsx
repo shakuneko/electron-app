@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar'
 import jsonData from '../json/class.json'
 
 function SaveJsonPage() {
-  const [menuInfo, setMenuInfo] = useState('Loading')
+  const [menuInfo, setMenuInfo] = useState('AzusaSavedFile')
   const [filePathInfo, setFilePathInfo] = useState('')
   const [fileContent, setFileContent] = useState('')
   const { ipcRenderer } = window.electron
@@ -19,8 +19,9 @@ function SaveJsonPage() {
       menuInfo: 'no data'
     }
     const content = JSON.parse(data)
-    setFileContent(content.menuInfo)
+    setFileContent(content)
   }
+console.log(fileContent[1])
 
   useEffect(() => {
     ipcRenderer.on('menuInfo', (_, message) => {
@@ -31,7 +32,7 @@ function SaveJsonPage() {
     })
   }, [])
 
-console.log(fileContent)
+
 
 
   return (
