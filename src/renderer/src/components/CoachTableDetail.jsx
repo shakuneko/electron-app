@@ -34,10 +34,10 @@ function CoachTableDetail({ classes }) {
         for (let i = 0; i < data.length; i++) {
             if (i == 0) {
                 text = data[i]
-                lecture = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
+                lecture = <span key="{data}" style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
             }
            else {
-            let e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
+            let e = <span key="{data}" style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
             text = text + "、" + data[i]
             lecture = e
            }

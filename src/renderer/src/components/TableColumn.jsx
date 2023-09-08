@@ -9,7 +9,7 @@ function TableColumn({ classes }) {
         return<>
            <Link to="/form" className='table-link-underline-none'>
                 {/* 後面改用Link */}
-                <button type="button" className="btn btn-golden">查看{data}</button> 
+                <button key="{data}" type="button" className="btn btn-golden">查看{data}</button> 
                 {/* 測試按鈕點擊 */}
             </Link>
         </>
@@ -17,8 +17,8 @@ function TableColumn({ classes }) {
     const AddBGC = (data) => { // 設定邊框
         let e;
 
-        if (data == '快要截止') e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data}</span>
-        else if (data == '已截止') e = <span style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>{data}</span>
+        if (data == '快要截止') e = <span key="{data}" style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data}</span>
+        else if (data == '已截止') e = <span key="{data}" style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>{data}</span>
         else e = <div>{data}</div>
         
         return e
@@ -28,10 +28,10 @@ function TableColumn({ classes }) {
         let lecture = []     
         for (let i = 0; i < data.length; i++) {
             if (i == 0) {
-                lecture = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
+                lecture = <span key="{data}" style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
             }
            else {
-            let e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
+            let e = <span key="{data}" style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
             lecture = e
            }
            

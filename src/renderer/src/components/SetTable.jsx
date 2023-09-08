@@ -17,7 +17,7 @@ function StudentTable({ classes, columns }) {
         return<>
            <Link to="/studentdetail" className='table-link-underline-none'>
                 {/* 後面改用Link */}
-                <button type="button" className="btn btn-golden">查看{data}</button> 
+                <button key="{data}" type="button" className="btn btn-golden">查看{data}</button> 
                 {/* 測試按鈕點擊 */}
             </Link>
         </>

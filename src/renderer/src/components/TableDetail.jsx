@@ -25,8 +25,8 @@ function TableDetail({ classes }) {
     const AddBGC = (data) => { // 設定邊框
         let e;
 
-        if (data == '快要截止') e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data}</span>
-        else if (data == '已截止') e = <span style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>{data}</span>
+        if (data == '快要截止') e = <span key="{data}" style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data}</span>
+        else if (data == '已截止') e = <span key="{data}" style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>{data}</span>
         else e = <div>{data}</div>
         
         return e
