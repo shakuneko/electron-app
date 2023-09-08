@@ -5,6 +5,7 @@ import './assets/index.css'
 import './assets/Form.css'
 import './assets/Nav.css'
 import App from './App'
+import './stylesheets/all.scss'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
