@@ -4,13 +4,22 @@ import Navbar from '../components/Navbar'
 import jsonData from '../json/class.json'
 
 function SaveJsonPage() {
-  const [menuInfo, setMenuInfo] = useState('SavedFileAzusa')
+  const [menuInfo, setMenuInfo] = useState('Loading')
   const [filePathInfo, setFilePathInfo] = useState('')
+  const [fileContent, setFileContent] = useState('')
   const { ipcRenderer } = window.electron
 
   const onSaveToFile = async () => {
     const data = JSON.stringify({ jsonData })
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
+  }
+
+  const onReadFile = async () => {
+    const data = (await window._fs.readFile({ fileName: `${menuInfo}.txt` })) || {
+      menuInfo: 'no data'
+    }
+    const content = JSON.parse(data)
+    setFileContent(content.menuInfo)
   }
 
   useEffect(() => {
@@ -21,10 +30,35 @@ function SaveJsonPage() {
       setFilePathInfo(filePath)
     })
   }, [])
+
+console.log(fileContent)
+
+
   return (
-    <div className="container">
+    <div className="row row-no-gutter margin-left-right container-fluid">
+      <div className="nav col-2">
         <Navbar />
-      <h1>{menuInfo} is clicked...</h1>
+      </div>
+      <div className="col-10 container margin-left-right">
+        <div className="mt-4 table-container">
+          <h3> 點擊下方按鈕存檔</h3>
+          <h3>檔名：{menuInfo}</h3>
+          <div
+            style={{
+              marginTop: '20px',
+              border: '1px solid lightgray',
+              borderRadius: '5px',
+              fontSize: '40px',
+              padding: '10px',
+              cursor: 'pointer',
+              textAlign: 'center'
+            }}
+            onClick={onSaveToFile}
+          >
+            save to file
+          </div>
+          <h3>檔案存於： {filePathInfo} </h3>
+
       <div
         style={{
           marginTop: '20px',
@@ -34,11 +68,17 @@ function SaveJsonPage() {
           cursor: 'pointer',
           textAlign: 'center'
         }}
-        onClick={onSaveToFile}
+        onClick={onReadFile}
       >
-        save to file
+        read from file
       </div>
-      <h2>file write to {filePathInfo} </h2>
+      <h2>file content = {fileContent} </h2>
+
+     
+
+
+        </div>
+      </div>
     </div>
   )
 }

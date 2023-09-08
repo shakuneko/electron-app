@@ -12,7 +12,10 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
     contextBridge.exposeInMainWorld('_fs', {
-      writeFile: (arg) => ipcRenderer.invoke('writeFile', arg)
+      writeFile: (arg) => ipcRenderer.invoke('writeFile', arg),
+      readFile: (arg) => {
+        return ipcRenderer.invoke('readFile', arg)
+      }
     })
   } catch (error) {
     console.error(error)

@@ -2,7 +2,8 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import fs from 'fs'
+import fs from 'fs/promises'
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -36,6 +37,7 @@ function createWindow() {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
+  //write file
   ipcMain.handle('writeFile', (event, arg) => {
     const filePath = `${app.getPath('userData')}/${arg.fileName}`
     mainWindow.webContents.send('filePathInfo', filePath)
@@ -47,6 +49,11 @@ function createWindow() {
         console.log('file saved')
       }
     })
+  })
+//read file
+  ipcMain.handle('readFile', (event, arg) => {
+    const filePath = `${app.getPath('userData')}/${arg.fileName}`
+    return fs.readFile(filePath, 'utf-8')
   })
 
 
