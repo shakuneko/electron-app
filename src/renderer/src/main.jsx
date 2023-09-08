@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/index.css'
 import './assets/Form.css'
 import './assets/Nav.css'
+import './assets/Table.css'
 import App from './App'
 import './stylesheets/all.scss'
 
