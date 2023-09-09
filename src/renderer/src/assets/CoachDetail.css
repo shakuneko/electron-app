@@ -79,19 +79,23 @@
 
   /*coachstudentlist*/
 .CoachStudentsListBox{
+    width: 50%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-end;
+   
+    /* justify-content: space-around;
     align-items: flex-end;
     align-self: flex-start;
-    margin: 0 10px;
+    margin: 0 10px; */
   }
   .CoachStudentsList{
-    font-size: 20px;
+    font-size: 16px;
     display: flex;
     flex-direction: row;
-    margin-left: 30px;
-    width: 302px;
+    padding: 20px;
+    /* margin-left: 30px; */
+    /* width: 302px; */
   }
   .CoachStudentsListContainer{
     background-color: #f3f3f3;
@@ -105,7 +109,8 @@
     border-bottom-width:1px;
   }
   .CoachStudentsListBox-item{
-    margin: 16px;
+    /* margin: 16px; */
+    padding: 0;
   }
   .coach-top-bar{
     display: flex;
