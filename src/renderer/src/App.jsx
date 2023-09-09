@@ -6,6 +6,7 @@ import StudentTable from './page/StudentTable'
 import CoachTable from './page/CoachTable'
 import Revenue from './page/Revenue'
 
+import ClassForm from './page/ClassForm'
 import StudentForm from './page/StudentForm'
 import CoachFrom from './page/CoachForm'
 
@@ -22,7 +23,8 @@ function App() {
         <Route path="/coach" element={<CoachTable classes={classes}/>} />
         <Route path="/revenue" element={<Revenue classes={classes}/>} />
 
-        <Route path="/form" element={<Form />} />
+        {/* <Route path="/form" element={<Form />} /> */}
+        <Route path="/form" element={<ClassForm />} />
         <Route path="/studentform" element={<StudentForm classes={classes}/>} />
         <Route path="/coachform" element={<CoachFrom classes={classes}/>} />
         

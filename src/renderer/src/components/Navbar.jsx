@@ -4,33 +4,62 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser} from '@fortawesome/free-solid-svg-icons'
 import { faHouse} from '@fortawesome/free-solid-svg-icons'
 import { faSackDollar} from '@fortawesome/free-solid-svg-icons'
-import { faKey} from '@fortawesome/free-solid-svg-icons'
 import { faAddressBook} from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
     <div>
             <div className="nav_logo">
               <img src={Logo} style={{width:'82px',height:'82px'}} alt="class-unclick"/>
             </div>
-            <Link to="/" className="nav-item">
+            <NavLink to="/" className={({ isActive }) => 
+              [
+                'nav-item',
+                isActive ? 'nav-item-active' : null
+              ].join(' ')
+              }>
                 <FontAwesomeIcon icon={faHouse} />
                 <div class="nav-word">課程管理</div>
-            </Link>
+            </NavLink>
           
-            <Link to="/student" className="nav-item">
+            <NavLink to="/student" className={({ isActive }) => 
+              [
+                'nav-item',
+                isActive ? 'nav-item-active' : null
+              ].join(' ')
+            }>
             <FontAwesomeIcon icon={faAddressBook} />
-            <div class="nav-word">學員管理</div></Link>
+            <div class="nav-word">學員管理</div></NavLink>
           
-            <Link to="/coach" className="nav-item">
+            <NavLink to="/coach" className={({ isActive }) => 
+              [
+                'nav-item',
+                isActive ? 'nav-item-active' : null
+              ].join(' ')
+            }>
             <FontAwesomeIcon icon={faUser} />
-            <div class="nav-word">教練管理</div></Link>
+            <div class="nav-word">教練管理</div></NavLink>
           
-            <Link to="/revenue" className="nav-item">
+            <NavLink to="/revenue" className={({ isActive }) => 
+              [
+                'nav-item',
+                isActive ? 'nav-item-active' : null
+              ].join(' ')
+            }>
             <FontAwesomeIcon icon={faSackDollar} />
-            <div class="nav-word">金流管理</div></Link>
+            <div class="nav-word">金流管理</div></NavLink>
         
+            {/* for detail page testing use */}
+            {/* <Link to="/classdetail" className="nav-item">
+            <FontAwesomeIcon icon={faSackDollar} />
+            <div class="nav-word">classdetail</div></Link>
+            <Link to="/coachdetail" className="nav-item">
+            <FontAwesomeIcon icon={faSackDollar} />
+            <div class="nav-word">coachdetail</div></Link>
+            <Link to="/studentdetail" className="nav-item">
+            <FontAwesomeIcon icon={faSackDollar} /> 
+            <div class="nav-word">studentdetail</div></Link> */}
+
             {/* <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faKey} />
             <div class="nav-word">場地租借</div></Link> */}
