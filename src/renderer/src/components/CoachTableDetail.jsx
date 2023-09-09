@@ -71,7 +71,7 @@ function CoachTableDetail({classes}) {
         // enableSorting={false} //sorting does not work with memoized table body
         enableStickyHeader
         renderTopToolbarCustomActions={() => (
-            <Link to="/form" className='table-link-underline-none'>
+            <Link to="/coachform" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增教練</button> 
             </Link>
         )}
