@@ -43,9 +43,11 @@ function ClassForm() {
 const [classForm, setClassForm] = useState(initialFormData);
 
   // 使用状态管理保存当前页面
-const [currentPage, setCurrentPage] = useState('page1');
-
-
+// const [currentPage, setCurrentPage] = useState('page1');
+const [currentPage, setCurrentPage] = useState(1);
+const handlePageClick = (page) => {
+  setCurrentPage(page);
+};
 
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event,page) => {
@@ -84,13 +86,13 @@ const handleSubmit = (event) => {
   setClassForm(initialFormData);
 
   // 恢复 radio 按钮的原状，将 selectedOption 重置为空字符串
-  setClassForm((prevFormData) => ({
-    ...prevFormData,
-    [currentPage]: {
-      ...prevFormData[currentPage],
-      selectedOption: '',
-    },
-  }));
+  // setClassForm((prevFormData) => ({
+  //   ...prevFormData,
+  //   [currentPage]: {
+  //     ...prevFormData[currentPage],
+  //     selectedOption: '',
+  //   },
+  // }));
 };
 
 
@@ -109,15 +111,27 @@ const handleSubmit = (event) => {
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 1 ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page1')}>PT</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page2')}>皮拉提斯</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page3')}>團課</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page4')}>場地租借</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handlePageClick(1)}
+                      className={`btn btn-outline-golden  ${currentPage === 1 ? 'active' : ''}`}>PT</button> 
+                    <button 
+                      type="button" 
+                      onClick={() => handlePageClick(2)}
+                      className={`btn btn-outline-golden ${currentPage === 2 ? 'active' : ''}`} >皮拉提斯</button>
+                    <button 
+                    type="button" 
+                    onClick={() => handlePageClick(3)}
+                    className={`btn btn-outline-golden ${currentPage === 3 ? 'active' : ''}`} >團課</button>
+                    <button 
+                    type="button" 
+                    onClick={() =>  handlePageClick(4)}
+                    className={`btn btn-outline-golden ${currentPage === 4 ? 'active' : ''}`} >場地租借</button>
                   </div>
               </div>
               {/* PT課 */}
 
-              {currentPage === 'page1' && (
+              {currentPage === 1 && (
                 <div className="class_category">
                     <div className="form-group">
                         <label  for="exampleInputEmail1">教練:</label>
@@ -250,7 +264,7 @@ const handleSubmit = (event) => {
                 </div>
                 )}
                {/* 皮拉提斯課 */}
-               {currentPage === 'page2' && (
+               {currentPage === 2 && (
                 <div className="class_category">
                       <div className="form-group">
                           <label  for="exampleInputEmail1">教練:</label>
@@ -383,7 +397,7 @@ const handleSubmit = (event) => {
                   </div>
               )}
               {/* 團課 */}
-              {currentPage === 'page3' && (
+              {currentPage === 3 && (
                 <div className="class_category">
                       <div className="form-group">
                           <label  for="exampleInputEmail1">教練:</label>
@@ -534,7 +548,7 @@ const handleSubmit = (event) => {
                   </div>
               )}
                {/* 場租 */}
-               {currentPage === 'page4' && (
+               {currentPage === 4 && (
                 <div className="class_category">
                         <div className="form-group">
                             <label  for="exampleInputEmail1">教練:</label>
