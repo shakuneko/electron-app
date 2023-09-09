@@ -1,3 +1,19 @@
+import { Link } from 'react-router-dom';
+
+
+export const CheckOut = () => { //設定查看按鈕要進入的頁面
+    return<>
+       <Link to="/form" className='table-link-underline-none'>
+            <button type="button" className="btn btn-golden">查看</button> 
+        </Link>
+    </>
+};
+
+const CountMoney = ( {row, renderedCellValue} ) => {
+    return <>{ row.original.salary * renderedCellValue}</>
+}
+
+
 export const selectOptions = [ //下拉選單篩選
 { text: 'PT', value: 'PT' },
 { text: '皮拉提斯', value: '皮拉提斯' },
@@ -6,3 +22,60 @@ export const selectOptions = [ //下拉選單篩選
 { text: '運動舒緩', value: '運動舒緩' }
 ];
 
+export const columnsRevenue = [
+    {
+        accessorKey:"courseType",
+        header:"項目名稱"
+    },
+    {
+        accessorKey:"preCourseLeft",
+        header:"上月未核銷堂數",
+    },
+    {
+        accessorKey:"preCourseLeft",
+        header:"上月未核銷金額",
+        Cell:CountMoney
+    },
+    {
+        accessorKey:"courseLeft",
+        header:"本月未核銷堂數",
+        
+    },
+    {
+        accessorKey:"courseLeft",
+        header:"本月未核銷金額",       
+        Cell:CountMoney
+    }
+]
+
+export const columnsMoney = [
+    {
+        accessorKey:"couch",
+        header:"教練名稱",
+        size:100
+    },
+    {
+        accessorKey:"coursesFIN",
+        header:"已核銷堂數",
+        size:100
+    },
+    {
+        accessorKey:"courseLeft",
+        header:"未核銷堂數",
+        size:100
+    },
+    {
+        accessorFn: (row) => `${row.major.join("、")} `,
+
+        id:"major",
+        header:"課程種類",
+        size:100,
+        Cell: ({ renderedCellValue }) => (<span>{renderedCellValue}</span>),
+        size:150     
+    },
+    {
+        accessorKey:"coursesAll",
+        header:"體驗課堂數",
+        size:100
+    }
+]

@@ -1,7 +1,8 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
-import { selectOptions } from '../components/TableSelectOptions'
+import { selectOptions, CheckOut } from './TableSelectOptions'
+
 
 function TableDetail({classes}) {
 
@@ -15,13 +16,13 @@ function TableDetail({classes}) {
         return e
     }
     
-    const CheckOut = () => { //設定查看按鈕要進入的頁面
-        return<>
-           <Link to="/form" className='table-link-underline-none'>
-                <button type="button" className="btn btn-golden">查看</button> 
-            </Link>
-        </>
-    };
+    // const CheckOut = () => { //設定查看按鈕要進入的頁面
+    //     return<>
+    //        <Link to="/form" className='table-link-underline-none'>
+    //             <button type="button" className="btn btn-golden">查看</button> 
+    //         </Link>
+    //     </>
+    // };
     
     const AddAlertMode = ({renderedCellValue}) => {
         if (renderedCellValue === '1') return <span className="alert-mode">{renderedCellValue}</span>;
@@ -38,10 +39,10 @@ function TableDetail({classes}) {
             accessorKey:"courseType",
             header:"課程種類",
             size:100,
-            filterFn: 'equals',
-            filterSelectOptions: selectOptions,
+            // filterFn: 'equals',
+            // filterSelectOptions: selectOptions,
             filterVariant: 'select',
-            muiTableHeadCellFilterTextFieldProps: { placeholder: '課程種類' },
+            // muiTableHeadCellFilterTextFieldProps: { placeholder: '課程種類' },
             enableSorting: false
         },
         {
@@ -101,6 +102,7 @@ function TableDetail({classes}) {
         enableHiding={false} //column hiding does not work with memoized table body
         // enableSorting={false} //sorting does not work with memoized table body
         enableStickyHeader
+        enableFacetedValues
         renderTopToolbarCustomActions={() => (
             <Link to="/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增課程</button> 

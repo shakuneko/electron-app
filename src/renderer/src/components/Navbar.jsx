@@ -27,7 +27,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faUser} />
             <div class="nav-word">教練管理</div></Link>
           
-            <Link to="/" className="nav-item">
+            <Link to="/revenue" className="nav-item">
             <FontAwesomeIcon icon={faSackDollar} />
             <div class="nav-word">金流管理</div></Link>
         

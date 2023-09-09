@@ -1,17 +1,17 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
-import { selectOptions } from './TableSelectOptions'
+import { selectOptions, CheckOut } from './TableSelectOptions'
 
 function CoachTableDetail({classes}) {
 
-    const CheckOut = () => { //設定查看按鈕要進入的頁面
-        return<>
-           <Link to="/form" className='table-link-underline-none'>
-                <button type="button" className="btn btn-golden">查看</button> 
-            </Link>
-        </>
-    };
+    // const CheckOut = () => { //設定查看按鈕要進入的頁面
+    //     return<>
+    //        <Link to="/form" className='table-link-underline-none'>
+    //             <button type="button" className="btn btn-golden">查看</button> 
+    //         </Link>
+    //     </>
+    // };
     
     const columns = [ //表格有的資料
         {
