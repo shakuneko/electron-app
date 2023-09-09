@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 
  
 function CoachForm() {
+  
   const initialFormData = {
     name:'',
     gender: '',
@@ -18,7 +19,7 @@ function CoachForm() {
     note:'',
     selectedItem: null, // 新增一个字段用于存储按钮选项值
   };
-// 使用useState來創建一個狀態變數，並初始化為空字串
+// 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
 
 // 定義一個處理表單輸入變化的函數

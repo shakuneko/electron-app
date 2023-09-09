@@ -1,26 +1,65 @@
-import React, { useState,useRef } from "react";
+import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { useForm } from "react-hook-form";
 
 function ClassForm() {
-  
-  // 分頁
-  const [toggle,setToggle] = useState(1)
-
-  function updateToggle(id){
-      setToggle(id)
-  }
-  // useForm
-  const {register,handleSubmit, reset} = useForm();
-  const submit = (data, e)=>{
-    console.log(data);
-    e.target.reset();
-}
-  const handleReset = () => {
-    reset();
+  const initialFormData = {
+    page1: {
+      coach:'',
+      stu1: '',
+      stu2:'',
+      number: '',
+      salary:'',
+      selectedOption: '', // 将 radio 按钮放入 page1 中
+      note: '',
+    },
+    page2: {
+      salary:'',
+      note: '',
+      selectedOption: '', // 将 radio 按钮放入 page1 中
+    },
   };
-  
-  
+// 使用状态管理保存表单数据
+const [classForm, setClassForm] = useState(initialFormData);
+
+  // 使用状态管理保存当前页面
+const [currentPage, setCurrentPage] = useState('page1');
+
+
+// 定義一個處理表單輸入變化的函數
+const handleInputChange = (event,page) => {
+  // 從事件對象中獲取輸入的名稱和值
+  const{name,value}=event.target;
+  setClassForm((prevFormData) => ({
+    ...prevFormData,
+    [page]: {
+      ...prevFormData[page],
+      [name]: value,
+    },
+  }));
+
+};
+
+// 处理 radio 按钮的变化
+const handleRadioChange = (event, page) => {
+  const { value } = event.target;
+  // 更新选定的 radio 按钮值
+  setClassForm((prevFormData) => ({
+    ...prevFormData,
+    [page]: {
+      ...prevFormData[page],
+      selectedOption: value,
+    },
+  }));
+};
+
+// 提交表單的函數
+const handleSubmit = (event) => {
+event.preventDefault();
+// 在這裡處理表單提交的邏輯，可以使用formData中的值
+console.log('表单数据：',classForm);
+// 清除表单数据为初始状态
+setClassForm(initialFormData);
+};
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -32,23 +71,28 @@ function ClassForm() {
             <p>新增課程</p>
           </div>
          
-          <form className="form"  onSubmit={handleSubmit(submit)}>
+          <form className="form"  onSubmit={handleSubmit}>
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
-                    <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(1)}>PT</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(2)}>皮拉提斯</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(3)}>團課</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(4)}>場地租借</button>
+                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page1')}>PT</button>
+                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page2')}>皮拉提斯</button>
+                    {/* <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(3)}>團課</button>
+                    <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(4)}>場地租借</button> */}
                   </div>
               </div>
               {/* PT課 */}
-              <div className={toggle === 1 ? "show-content":"content"}>
+
+              {currentPage === 'page1' && (
                 <div className="class_category">
                     <div className="form-group">
                         <label  for="exampleInputEmail1">教練:</label>
                         <div className="select">
-                          <select className="form-select" {...register("coach", { required: true })}>
+                          <select className="form-select" 
+                          name="coach"
+                          value={classForm.page1.coach}
+                          onChange={(e) => handleInputChange(e, 'page1')}
+                          >
                               <option selected>-</option>
                               <option value="A">A</option>
                               <option value="B">B</option>
@@ -60,7 +104,12 @@ function ClassForm() {
                       <div className="form-group4-1"> 
                         <label for="exampleInputEmail1">學員1:</label>
                         <div className="select">
-                        <select class="form-select" {...register("stu1", { required: true })}>
+                        <select 
+                          class="form-select" 
+                          name="stu1"
+                          value={classForm.page1.stu1}
+                          onChange={(e) => handleInputChange(e, 'page1')}
+                        >
                             <option selected>-</option>
                             <option value="1">Lulu</option>
                             <option value="2">田晴瑄</option>
@@ -73,7 +122,12 @@ function ClassForm() {
                       <div className="form-group4-1">
                           <label for="exampleInputEmail1">學員2:</label>
                           <div className="select">
-                            <select class="form-select " {...register("stu2", { required: true })}>
+                            <select 
+                            class="form-select " 
+                            name="stu2"
+                            value={classForm.page1.stu2}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                            >
                                 <option selected>-</option>
                                 <option value="1">Lulu</option>
                                 <option value="2">田晴瑄</option>
@@ -85,7 +139,12 @@ function ClassForm() {
                     <div className="form-group">
                         <label for="exampleInputEmail1">堂數:</label>
                         <div className="select">
-                          <select class="form-select" {...register("number", { required: true })}>
+                          <select 
+                            class="form-select" 
+                            name="number"
+                            value={classForm.page1.number}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                          >
                               <option selected>-</option>
                               <option value="1">1</option>
                               <option value="10">10</option>
@@ -97,11 +156,11 @@ function ClassForm() {
                         <label for="exampleInputEmail1">堂薪:</label>
                         <div className="select">
                           <input 
-                          type="text" 
-                          class="form-select"
-                          {...register("salary", { required: true })}
-                          // value={classform.name}
-                          // onChange={changrValue}
+                            type="text" 
+                            class="form-select"
+                            name="salary"
+                            value={classForm.page1.salary}
+                            onChange={(e) => handleInputChange(e, 'page1')}
                           ></input>
                         </div>
                     </div>
@@ -111,24 +170,26 @@ function ClassForm() {
                         <div className=" check">
                           <div class="form-check">
                             <input 
-                            class="form-check-input" 
-                            type="radio" 
-                            name="flexRadioDefault" 
-                            id="flexRadioDefault1" 
-                            value='true'
-                            {...register("lesson", { required: true })}
+                              //class="form-check-input" 
+                              type="radio"
+                              name="selectedOption" // 同一组 radio 按钮要使用相同的 name
+                              value="true"
+                              className={`form-check-input ${classForm.page1.selectedOption === 'option1' ? 'checked' : ''}`}
+                              // checked={classForm.page1.selectedOption === 'option1'}
+                              onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
                              ></input>
                             <label class="form-check-label" for="flexRadioDefault1">
                               是
                             </label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" 
-                            type="radio" 
-                            name="flexRadioDefault"
-                             id="flexRadioDefault2" 
-                             value='false' 
-                             {...register("lesson", { required: true })}
+                            <input 
+                              type="radio"
+                              name="selectedOption" // 同一组 radio 按钮要使用相同的 name
+                              value="false"
+                              className={`form-check-input ${classForm.page1.selectedOption === 'option2' ? 'checked' : ''}`}
+                              // checked={classForm.page1.selectedOption === 'option2'}
+                              onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
                              ></input>
                             <label class="form-check-label" for="flexRadioDefault2">
                               否
@@ -139,22 +200,33 @@ function ClassForm() {
                     <div class="form-group2">
                         <label for="exampleInputPassword1">備註:</label>
                         <div className="select">
-                          <textarea class="form-select" id="exampleFormControlTextarea1" rows="3" {...register("note", { required: true })}></textarea>
+                          <textarea 
+                          class="form-select" 
+                          id="exampleFormControlTextarea1" 
+                          rows="3" 
+                          name="note"
+                          value={classForm.page1.note}
+                          onChange={(e) => handleInputChange(e, 'page1')}
+                          ></textarea>
                         </div>  
                     </div>
                     <div class="form-group3">
                       <button type="submit" class="btn btn-golden" >新增</button>
                     </div>
                 </div>
-
-              </div>
+                )}
                {/* 皮拉提斯課 */}
-              <div className={toggle === 2 ? "show-content":"content"}>
+               {currentPage === 'page2' && (
                 <div className="class_category">
                       <div className="form-group">
                           <label  for="exampleInputEmail1">教練:</label>
                           <div className="select">
-                            <select className="form-select " {...register("coach2", { required: true })} >
+                            <select 
+                              className="form-select " 
+                              name="coach"
+                              value={classForm.page2.coach}
+                              onChange={(e) => handleInputChange(e, 'page2')} 
+                            >
                                 <option selected>-</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>
@@ -166,7 +238,12 @@ function ClassForm() {
                         <div className="form-group4-1"> 
                           <label for="exampleInputEmail1">學員1:</label>
                           <div className="select">
-                          <select class="form-select"{...register("stu12", { required: true })} >
+                          <select 
+                            class="form-select"
+                            name="stu1"
+                            value={classForm.page2.stu1}
+                            onChange={(e) => handleInputChange(e, 'page2')} 
+                          >
                               <option selected>-</option>
                               <option value="1">Lulu</option>
                               <option value="2">田晴瑄</option>
@@ -179,7 +256,12 @@ function ClassForm() {
                         <div className="form-group4-1">
                             <label for="exampleInputEmail1">學員2:</label>
                             <div className="select">
-                              <select class="form-select " {...register("stu22", { required: true })}>
+                              <select 
+                                class="form-select " 
+                                name="stu2"
+                                value={classForm.page2.stu2}
+                                onChange={(e) => handleInputChange(e, 'page2')}
+                              >
                                   <option selected>-</option>
                                   <option value="1">Lulu</option>
                                   <option value="2">田晴瑄</option>
@@ -191,7 +273,12 @@ function ClassForm() {
                       <div className="form-group">
                           <label for="exampleInputEmail1">堂數:</label>
                           <div className="select">
-                            <select class="form-select" {...register("numder2", { required: true })}>
+                            <select 
+                              class="form-select" 
+                              name="number"
+                              value={classForm.page2.number}
+                              onChange={(e) => handleInputChange(e, 'page2')}
+                            >
                                 <option selected>-</option>
                                 <option value="1">1</option>
                                 <option value="10">10</option>
@@ -202,11 +289,17 @@ function ClassForm() {
                       <div class="form-group">
                           <label for="exampleInputEmail1">堂薪:</label>
                           <div className="select">
-                            <input type="text" class="form-select"{...register("salary2", { required: true })}></input>
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="salary"
+                            value={classForm.page2.salary}
+                            onChange={(e) => handleInputChange(e, 'page2')}
+                            ></input>
                           </div>
                       </div>
                       
-                      <div class="form-group">
+                      {/* <div class="form-group">
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
                             <div class="form-check">
@@ -222,27 +315,33 @@ function ClassForm() {
                               </label>
                           </div>
                       </div>
-                      </div>
+                      </div> */}
                       <div class="form-group2">
                           <label for="exampleInputPassword1">備註:</label>
                           <div className="select">
-                            <textarea class="form-select" id="exampleFormControlTextarea1" rows="3" {...register("note2", { required: true })}></textarea>
+                            <textarea 
+                            class="form-select" 
+                            id="exampleFormControlTextarea1" 
+                            rows="3" 
+                            name="note"
+                            value={classForm.page2.note}
+                            onChange={(e) => handleInputChange(e, 'page2')}
+                            ></textarea>
                           </div>  
                       </div>
                       <div class="form-group3">
                         <button type="submit" class="btn btn-golden" >新增</button>
                       </div>
                   </div>
-
-              </div>
+              )}
               {/* 團課 */}
-              <div className={toggle === 3 ? "show-content":"content"}>
+              {/* <div className={toggle === 3 ? "show-content":"content"}>
                 <p>bye</p>
 
-              </div>
+              </div> */}
               
                {/* 場租 */}
-              <div className={toggle === 4 ? "show-content":"content"}>
+              {/* <div className={toggle === 4 ? "show-content":"content"}>
                 <div className="class_category">
                         <div className="form-group">
                             <label  for="exampleInputEmail1">教練:</label>
@@ -289,7 +388,7 @@ function ClassForm() {
                           <button type="submit" class="btn btn-golden">新增</button>
                         </div>
                     </div>
-              </div>
+              </div> */}
              
               
             </form>
