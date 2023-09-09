@@ -124,3 +124,10 @@
     padding-right: 20px;
 }
 
+
+.selected {
+    background-color: yellow; /* 设置选中按钮的背景颜色 */
+    color: black; /* 设置选中按钮的文本颜色 */
+    box-shadow: none;
+    /* 添加其他选中后的样式 */
+  }

@@ -133,7 +133,11 @@ setCoachForm(initialFormData);
                 <div class="form-group">
                   <label for="exampleInputEmail1">課程:</label>
                   <div className="form_btn2">
-                    <button className="btn btn-outline-golden" type="button" onClick={() => handleItemClick('PT')}>PT</button>
+                    <button 
+                    // className="btn btn-outline-golden" 
+                    type="button" 
+                    onClick={() => handleItemClick('PT')}
+                    className={`btn btn-outline-golden ${coachForm.selectedItem === 'PT' ? 'selected' : ''}`}>PT</button>
                     <button className="btn btn-outline-golden" type="button" onClick={() => handleItemClick('皮拉提斯')}>皮拉提斯</button>
                     <button className="btn btn-outline-golden" type="button" onClick={() => handleItemClick('團課')}>團課</button>
                   </div>
