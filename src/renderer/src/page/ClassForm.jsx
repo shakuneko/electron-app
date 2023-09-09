@@ -85,16 +85,29 @@ const handleSubmit = (event) => {
   // 清除表单数据为初始状态
   setClassForm(initialFormData);
 
-  // 恢复 radio 按钮的原状，将 selectedOption 重置为空字符串
-  // setClassForm((prevFormData) => ({
-  //   ...prevFormData,
-  //   [currentPage]: {
-  //     ...prevFormData[currentPage],
-  //     selectedOption: '',
-  //   },
-  // }));
 };
+//繳費按鈕
+const initialButtonData = [
+  { text: '已付款', clicked: false, visible: true },
+  { text: '未付款', clicked: false, visible: true },
 
+];
+const [buttons, setButtons] = useState(initialButtonData);
+const handleClick = (index, buttonValue) => {
+  // 处理按钮的点击事件，根据索引来确定点击的按钮
+  const updatedButtons = [...buttons];
+  updatedButtons[index].clicked = true;
+  setButtons(updatedButtons);
+
+  // 切换按钮的文本内容
+  const updatedText = buttons[index].text === '未付款' ? '已付款' : '未付款';
+  const updatedButtonsText = [...buttons];
+  updatedButtonsText[index].text = updatedText;
+  setButtons(updatedButtonsText);
+
+  console.log('点击的按钮值：', buttonValue);
+
+};
 
   return (
     <div className="container-fluid">
@@ -164,7 +177,16 @@ const handleSubmit = (event) => {
                         </select>
                         </div>
                         </div>
-                        <button className="btn btn-originalgray" type="button">已付費</button>
+                        {buttons[0].visible && (
+                          <button
+                            type="button"
+                            className={`btn btn-originalgray ${buttons[0].clicked ? 'active' : ''}`}
+                            onClick={() => handleClick(0, buttons[0].text)}
+                          >
+                            {buttons[0].text}
+                          </button>
+                        )}
+                        {/* <button className="btn btn-originalgray" type="button" onClick={handleClick}>{buttonText}</button> */}
                     </div>
                     <div className="form-group4"> 
                       <div className="form-group4-1">
@@ -182,7 +204,18 @@ const handleSubmit = (event) => {
                             </select>
                           </div>
                       </div>
-                      <button className="btn btn-originalgray" type="button">未付費</button>
+                      {buttons[1].visible && (
+                          <div>
+                            <button
+                              type="button"
+                              className={`btn btn-originalgray ${buttons[1].clicked ? 'active' : ''}`}
+                              onClick={() => handleClick(1, buttons[1].text)}
+                            >
+                              {buttons[1].text}
+                            </button>
+                          </div>
+                        )}
+                      {/* <button className="btn btn-originalgray " type="button" onClick={handleClick}>{buttonText}</button> */}
                     </div>
                     <div className="form-group">
                         <label for="exampleInputEmail1">堂數:</label>
