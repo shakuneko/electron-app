@@ -48,6 +48,7 @@ console.log('表单数据：', coachForm);
 // 清除表单数据为初始状态
 setCoachForm(initialFormData);
 };
+
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -135,12 +136,17 @@ setCoachForm(initialFormData);
                   <label for="exampleInputEmail1">課程:</label>
                   <div className="form_btn2">
                     <button 
-                    // className="btn btn-outline-golden" 
-                    type="button" 
-                    onClick={() => handleItemClick('PT')}
-                    className={`btn btn-outline-golden ${coachForm.selectedItem === 'PT' ? 'selected' : ''}`}>PT</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => handleItemClick('皮拉提斯')}>皮拉提斯</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => handleItemClick('團課')}>團課</button>
+                      type="button" 
+                      onClick={() => handleItemClick('PT')}
+                      className={`btn btn-outline-golden   ${coachForm.selectedItem === 'PT' ? 'active' : ''}`}>PT</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handleItemClick('皮拉提斯')}
+                      className={`btn btn-outline-golden   ${coachForm.selectedItem === '皮拉提斯' ? 'active' : ''}`}>皮拉提斯</button>
+                    <button
+                      type="button" 
+                      onClick={() => handleItemClick('團課')}
+                      className={`btn btn-outline-golden   ${coachForm.selectedItem === '團課' ? 'active' : ''}`}>團課</button>
                   </div>
                 </div>    
                 <div class="form-group">

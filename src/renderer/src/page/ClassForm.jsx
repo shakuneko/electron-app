@@ -2,6 +2,7 @@ import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 
 function ClassForm() {
+  //設定每個分頁的初始狀態
   const initialFormData = {
     page1: {
       coach:'',
@@ -18,7 +19,7 @@ function ClassForm() {
       stu2:'',
       number: '',
       salary:'',
-      selectedOption: '', // 将 radio 按钮放入 page1 中
+      selectedOption: '', 
       note: '',
     },
     page3: {
@@ -43,6 +44,7 @@ const [classForm, setClassForm] = useState(initialFormData);
 
   // 使用状态管理保存当前页面
 const [currentPage, setCurrentPage] = useState('page1');
+
 
 
 // 定義一個處理表單輸入變化的函數
@@ -107,7 +109,7 @@ const handleSubmit = (event) => {
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
-                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page1')}>PT</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 1 ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page1')}>PT</button>
                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page2')}>皮拉提斯</button>
                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page3')}>團課</button>
                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page4')}>場地租借</button>
