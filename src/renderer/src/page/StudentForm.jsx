@@ -1,54 +1,43 @@
-import React, { Component } from "react";
+import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-// import { useState } from "react";
 
-class StudentForm extends Component  { 
-    handleSubmit = (e) => {
-      e.preventDefault();
-      console.log('Submitted!');
-      // props.setFormDone(true);
-  }
-  // const [StuForm, setStuForm] = useState({
-  //   name: "",
-  //   gender: "",
-  //   tel: "",
-  //   email: "",
-  //   address: "",
-  //   contact: "",
-  //   relation:"",
-  //   contact_tel:"",
-  //   note:"",
-  // });
-  // const changeValue = (e) => {
-  //   const name = e.target.name;
-  //   console.log( e.target.name)
-  
-  //   setStuForm((state) => ({
-  //     ...state,
-  //     [name]: e.target.value
-  //   }));
-  // };
-  start = {
-    stu:{
-      name: "",
-      gender: "",
-      tel: "",
-      email: "",
-      address: "",
-      contact: "",
-      relation:"",
-      contact_tel:"",
-      note:"",
-    }
-  }
-  classstu(e,props){
-    var stu = this.start.stu
-    stu[props] = e.target.value
-  }
-  send(){
-    console.log(this.start.stu);
-  }
-  render(){
+function StudentForm(){
+  const initialFormData = {
+    name:'',
+    gender: '',
+    tel: '',
+    email: '',
+    address: '',
+    contact: '',
+    relation:'',
+    contact_tel:'',
+    note:'',
+  };
+   // 使用useState來創建一個狀態變數，並初始化為空字串
+   const [StuForm, setStuForm] = useState(initialFormData);
+ 
+
+   // 定義一個處理表單輸入變化的函數
+   const handleInputChange = (event) => {
+      // 從事件對象中獲取輸入的名稱和值
+      const{name,value}=event.target;
+
+      setStuForm ({
+        ...StuForm,
+        [name]: value,
+      });
+  };
+ 
+ 
+  // 提交表單的函數
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // 在這裡處理表單提交的邏輯，可以使用formData中的值
+    console.log('表单数据：', StuForm);
+    // 清除表单数据为初始状态
+    setStuForm(initialFormData);
+  };
+
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -59,18 +48,17 @@ class StudentForm extends Component  {
           <div className="title_word">
             <p>新增學員</p>
           </div>
-            <form className="form" onSubmit={this.handleSubmit}>
+            <form className="form" onSubmit={handleSubmit}>
                 <div class="form-group">
                     <label for="exampleInputEmail1">姓名:</label>
                     <div className="select">
                     <input 
                       id="name" 
+                      name="name"
                       type="text" 
                       class="form-select" 
-                      onChange={(e)=>this.classstu(e,'name')}
-                      // value={StuForm}
-                      // onChange={(e) => setStuForm(e.target.value)} value={StuForm}
-                      // onChange={changeValue}
+                      value={StuForm.name}
+                      onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
@@ -80,8 +68,10 @@ class StudentForm extends Component  {
                     <input 
                       id="gender"
                       type="text" 
+                      name="gender"
                       class="form-select" 
-                      onChange={(e)=>this.classstu(e,'gender')}
+                      value={StuForm.gender}
+                      onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
@@ -91,8 +81,10 @@ class StudentForm extends Component  {
                     <input 
                       id="tel" 
                       type="text" 
+                      name="tel"
                       class="form-select" 
-                      onChange={(e)=>this.classstu(e,'tel')}
+                      value={StuForm.tel}
+                      onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
@@ -102,8 +94,10 @@ class StudentForm extends Component  {
                     <input 
                       id="email"
                       type="email" 
+                      name="email"
                       class="form-select" 
-                      onChange={(e)=>this.classstu(e,'email')} 
+                      value={StuForm.email}
+                      onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
@@ -113,8 +107,10 @@ class StudentForm extends Component  {
                     <input 
                       id="address" 
                       type="text" 
+                      name="address"
                       class="form-select"  
-                      onChange={(e)=>this.classstu(e,'address')} 
+                      value={StuForm.address}
+                      onChange={handleInputChange}  
                     ></input>
                     </div>
                 </div>
@@ -124,8 +120,10 @@ class StudentForm extends Component  {
                     <input 
                       id="contact" 
                       type="text" 
+                      name="contact"
                       class="form-select" 
-                      onChange={(e)=>this.classstu(e,'contact')}
+                      value={StuForm.contact}
+                      onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
@@ -135,8 +133,10 @@ class StudentForm extends Component  {
                     <input 
                       id="relation" 
                       type="text" 
+                      name="relation"
                       class="form-select" 
-                      onChange={(e)=>this.classstu(e,'relation')}
+                      value={StuForm.relation}
+                      onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
@@ -146,8 +146,10 @@ class StudentForm extends Component  {
                     <input 
                       id="contact_tel" 
                       type="text" 
+                      name="contact_tel"
                       class="form-select" 
-                      onChange={(e)=>this.classstu(e,'contact_tel')}
+                      value={StuForm.contact_tel}
+                      onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
@@ -156,14 +158,16 @@ class StudentForm extends Component  {
                     <div className="select">
                     <textarea 
                       id="note" 
+                      name="note"
                       class="form-select" 
                       rows="3"
-                      onChange={(e)=>this.classstu(e,'note')}
+                      value={StuForm.note}
+                      onChange={handleInputChange} 
                     ></textarea>
                     </div>  
                 </div>
                 <div class="form-group3">
-                <button type="submit" value="submit" class="btn btn-golden" onClick={()=>this.send()} >新增</button>
+                <button type="submit"  class="btn btn-golden" >新增</button>
                 
                 </div>
             </form>
@@ -172,5 +176,5 @@ class StudentForm extends Component  {
     </div>
   )
 }
-}
+
 export default StudentForm
