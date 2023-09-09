@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, win } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -22,7 +22,7 @@ function createWindow() {
     mainWindow.show()
   })
 
-  mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools()
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
@@ -50,13 +50,29 @@ function createWindow() {
       }
     })
   })
-//read file
+  //read file
   ipcMain.handle('readFile', (event, arg) => {
     const filePath = `${app.getPath('userData')}/${arg.fileName}`
     return fs.readFile(filePath, 'utf-8')
   })
 
+  //close window and save file
+  let showExitPrompt = true
 
+  win.on('close', (event) => {
+    if (showExitPrompt) {
+      showExitPrompt = false
+      event.preventDefault()
+      winClosing = winNew
+      win.webContents.send('saveAndClose')
+    }
+  })
+  ipcMain.on('closed', (e, arg) => {
+    if (arg.quit) {
+      winClosing.destroy()
+    }
+    showExitPrompt = true
+  })
 }
 
 // This method will be called when Electron has finished

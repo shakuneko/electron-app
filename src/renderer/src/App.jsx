@@ -17,9 +17,13 @@ import StudentForm from './page/StudentForm'
 import CoachFrom from './page/CoachForm'
 
 import SaveJsonPage from './page/SaveJsonPage';
+//redux
+import store from './redux/store';
+import { Provider } from 'react-redux';
 
 function App() {
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Table classes={classes}/>} />
@@ -38,7 +42,7 @@ function App() {
 
       </Routes>
     </BrowserRouter> 
-    
+    </Provider>
   )
 }
 

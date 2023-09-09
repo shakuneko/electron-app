@@ -72,8 +72,8 @@ function SaveJsonPage() {
           </div>
 
           <h2>content:</h2>
-          <div>{JSON.stringify(fileContent)}</div>
-          
+          <div>{JSON.stringify(fileContent.jsonData)}</div>
+
         </div>
       </div>
     </div>
