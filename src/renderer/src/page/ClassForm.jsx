@@ -13,9 +13,29 @@ function ClassForm() {
       note: '',
     },
     page2: {
+      coach:'',
+      stu1: '',
+      stu2:'',
+      number: '',
+      salary:'',
+      selectedOption: '', // 将 radio 按钮放入 page1 中
+      note: '',
+    },
+    page3: {
+      coach:'',
+      stu1: '',
+      stu2:'',
+      stu3:'',
+      number: '',
       salary:'',
       note: '',
-      selectedOption: '', // 将 radio 按钮放入 page1 中
+    },
+    page4: {
+      coach:'',
+      floor: '',
+      date:'',
+      time: '',
+      note: '',
     },
   };
 // 使用状态管理保存表单数据
@@ -52,14 +72,26 @@ const handleRadioChange = (event, page) => {
   }));
 };
 
-// 提交表單的函數
 const handleSubmit = (event) => {
-event.preventDefault();
-// 在這裡處理表單提交的邏輯，可以使用formData中的值
-console.log('表单数据：',classForm);
-// 清除表单数据为初始状态
-setClassForm(initialFormData);
+  event.preventDefault();
+
+  // 在这里处理表单提交的逻辑
+  console.log('表单数据：', classForm);
+
+  // 清除表单数据为初始状态
+  setClassForm(initialFormData);
+
+  // 恢复 radio 按钮的原状，将 selectedOption 重置为空字符串
+  setClassForm((prevFormData) => ({
+    ...prevFormData,
+    [currentPage]: {
+      ...prevFormData[currentPage],
+      selectedOption: '',
+    },
+  }));
 };
+
+
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -77,8 +109,8 @@ setClassForm(initialFormData);
                   <div className="form_btn">
                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page1')}>PT</button>
                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page2')}>皮拉提斯</button>
-                    {/* <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(3)}>團課</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={()=>updateToggle(4)}>場地租借</button> */}
+                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page3')}>團課</button>
+                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page4')}>場地租借</button>
                   </div>
               </div>
               {/* PT課 */}
@@ -211,7 +243,7 @@ setClassForm(initialFormData);
                         </div>  
                     </div>
                     <div class="form-group3">
-                      <button type="submit" class="btn btn-golden" >新增</button>
+                      <button type="submit" onClick={handleSubmit}class="btn btn-golden" >新增</button>
                     </div>
                 </div>
                 )}
@@ -299,23 +331,37 @@ setClassForm(initialFormData);
                           </div>
                       </div>
                       
-                      {/* <div class="form-group">
+                      <div class="form-group">
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='true'{...register("lesson2", { required: true })} ></input>
+                              <input 
+                               type="radio"
+                               name="selectedOption" // 同一组 radio 按钮要使用相同的 name
+                               value="true"
+                               className={`form-check-input ${classForm.page2.selectedOption === 'option1' ? 'checked' : ''}`}
+                               // checked={classForm.page1.selectedOption === 'option2'}
+                               onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称
+                              ></input>
                               <label class="form-check-label" for="flexRadioDefault1">
                                 是
                               </label>
                             </div>
                             <div class="form-check">
-                              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value='false' {...register("lesson2", { required: true })}></input>
+                              <input 
+                               type="radio"
+                               name="selectedOption" // 同一组 radio 按钮要使用相同的 name
+                               value="false"
+                               className={`form-check-input ${classForm.page2.selectedOption === 'option2' ? 'checked' : ''}`}
+                               // checked={classForm.page1.selectedOption === 'option2'}
+                               onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称
+                              ></input>
                               <label class="form-check-label" for="flexRadioDefault2">
                                 否
                               </label>
                           </div>
                       </div>
-                      </div> */}
+                      </div>
                       <div class="form-group2">
                           <label for="exampleInputPassword1">備註:</label>
                           <div className="select">
@@ -335,18 +381,168 @@ setClassForm(initialFormData);
                   </div>
               )}
               {/* 團課 */}
-              {/* <div className={toggle === 3 ? "show-content":"content"}>
-                <p>bye</p>
-
-              </div> */}
-              
+              {currentPage === 'page3' && (
+                <div className="class_category">
+                      <div className="form-group">
+                          <label  for="exampleInputEmail1">教練:</label>
+                          <div className="select">
+                            <select 
+                              className="form-select " 
+                              name="coach"
+                              value={classForm.page3.coach}
+                              onChange={(e) => handleInputChange(e, 'page3')} 
+                            >
+                                <option selected>-</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div className="form-group4">
+                        <div className="form-group4-1"> 
+                          <label for="exampleInputEmail1">學員1:</label>
+                          <div className="select">
+                          <select 
+                            class="form-select"
+                            name="stu1"
+                            value={classForm.page3.stu1}
+                            onChange={(e) => handleInputChange(e, 'page3')} 
+                          >
+                              <option selected>-</option>
+                              <option value="1">Lulu</option>
+                              <option value="2">田晴瑄</option>
+                          </select>
+                          </div>
+                          </div>
+                          <button className="btn btn-originalgray" type="button">已付費</button>
+                      </div>
+                      <div className="form-group4"> 
+                        <div className="form-group4-1">
+                            <label for="exampleInputEmail1">學員2:</label>
+                            <div className="select">
+                              <select 
+                                class="form-select " 
+                                name="stu2"
+                                value={classForm.page3.stu2}
+                                onChange={(e) => handleInputChange(e, 'page3')}
+                              >
+                                  <option selected>-</option>
+                                  <option value="1">Lulu</option>
+                                  <option value="2">田晴瑄</option>
+                              </select>
+                            </div>
+                        </div>
+                        <button className="btn btn-originalgray" type="button">未付費</button>
+                      </div>
+                      <div className="form-group4"> 
+                        <div className="form-group4-1">
+                            <label for="exampleInputEmail1">學員3:</label>
+                            <div className="select">
+                              <select 
+                                class="form-select " 
+                                name="stu2"
+                                value={classForm.page3.stu3}
+                                onChange={(e) => handleInputChange(e, 'page3')}
+                              >
+                                  <option selected>-</option>
+                                  <option value="1">Lulu</option>
+                                  <option value="2">田晴瑄</option>
+                              </select>
+                            </div>
+                        </div>
+                        <button className="btn btn-originalgray" type="button">未付費</button>
+                      </div>
+                      <div className="form-group">
+                          <label for="exampleInputEmail1">堂數:</label>
+                          <div className="select">
+                            <select 
+                              class="form-select" 
+                              name="number"
+                              value={classForm.page3.number}
+                              onChange={(e) => handleInputChange(e, 'page3')}
+                            >
+                                <option selected>-</option>
+                                <option value="1">1</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">堂薪:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="salary"
+                            value={classForm.page3.salary}
+                            onChange={(e) => handleInputChange(e, 'page3')}
+                            ></input>
+                          </div>
+                      </div>
+                      
+                      {/* <div class="form-group">
+                          <label  className="" for="exampleInputEmail1">體驗課:</label>
+                          <div className=" check">
+                            <div class="form-check">
+                              <input 
+                               type="radio"
+                               name="selectedOption" // 同一组 radio 按钮要使用相同的 name
+                               value="true"
+                               className={`form-check-input ${classForm.page3.selectedOption === 'option1' ? 'checked' : ''}`}
+                               // checked={classForm.page1.selectedOption === 'option2'}
+                               onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称
+                              ></input>
+                              <label class="form-check-label" for="flexRadioDefault1">
+                                是
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input 
+                               type="radio"
+                               name="selectedOption" // 同一组 radio 按钮要使用相同的 name
+                               value="false"
+                               className={`form-check-input ${classForm.page3.selectedOption === 'option2' ? 'checked' : ''}`}
+                               // checked={classForm.page1.selectedOption === 'option2'}
+                               onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称
+                              ></input>
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                否
+                              </label>
+                          </div>
+                      </div>
+                      </div> */}
+                      <div class="form-group2">
+                          <label for="exampleInputPassword1">備註:</label>
+                          <div className="select">
+                            <textarea 
+                            class="form-select" 
+                            id="exampleFormControlTextarea1" 
+                            rows="3" 
+                            name="note"
+                            value={classForm.page3.note}
+                            onChange={(e) => handleInputChange(e, 'page3')}
+                            ></textarea>
+                          </div>  
+                      </div>
+                      <div class="form-group3">
+                        <button type="submit" class="btn btn-golden" >新增</button>
+                      </div>
+                  </div>
+              )}
                {/* 場租 */}
-              {/* <div className={toggle === 4 ? "show-content":"content"}>
+               {currentPage === 'page4' && (
                 <div className="class_category">
                         <div className="form-group">
                             <label  for="exampleInputEmail1">教練:</label>
                             <div className="select">
-                              <select className="form-select " {...register("coach3", { required: true })}>
+                              <select 
+                                className="form-select " 
+                                name="coach"
+                                value={classForm.page4.coach}
+                                onChange={(e) => handleInputChange(e, 'page4')}
+                              >
                                   <option selected>-</option>
                                   <option value="A">A</option>
                                   <option value="B">B</option>
@@ -357,7 +553,12 @@ setClassForm(initialFormData);
                         <div className="form-group">
                             <label  for="exampleInputEmail1">樓層:</label>
                             <div className="select">
-                              <select className="form-select " {...register("floor", { required: true })}>
+                              <select 
+                                className="form-select " 
+                                name="floor"
+                                value={classForm.page4.floor}
+                                onChange={(e) => handleInputChange(e, 'page4')}
+                              >
                                   <option selected>-</option>
                                   <option value="1">1樓</option>
                                   <option value="2">2樓</option>
@@ -369,34 +570,49 @@ setClassForm(initialFormData);
                         <div class="form-group">
                             <label for="exampleInputEmail1">日期:</label>
                             <div className="select">
-                              <input type="text" class="form-select" {...register("date", { required: true })}></input>
+                              <input 
+                                type="text" 
+                                class="form-select" 
+                                name="date"
+                                value={classForm.page4.date}
+                                onChange={(e) => handleInputChange(e, 'page4')}
+                              ></input>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">時間:</label>
                             <div className="select">
-                              <input type="text" class="form-select" {...register("time", { required: true })}></input>
+                              <input 
+                                type="text" 
+                                class="form-select" 
+                                name="time"
+                                value={classForm.page4.time}
+                                onChange={(e) => handleInputChange(e, 'page4')}
+                              ></input>
                             </div>
                         </div>
                         <div class="form-group2">
                             <label for="exampleInputPassword1">備註:</label>
                             <div className="select">
-                              <textarea class="form-select" id="exampleFormControlTextarea1" rows="3" {...register("note3", { required: true })}></textarea>
+                              <textarea 
+                                class="form-select" 
+                                id="exampleFormControlTextarea1" 
+                                rows="3" 
+                                name="note"
+                                value={classForm.page4.note}
+                                onChange={(e) => handleInputChange(e, 'page4')}
+                              ></textarea>
                             </div>  
                         </div>
                         <div class="form-group3">
                           <button type="submit" class="btn btn-golden">新增</button>
                         </div>
                     </div>
-              </div> */}
-             
-              
-            </form>
-            
-         
+                     )}
+                </form>
+              </div>
         </div>
       </div>
-    </div>
   )
   }
 
