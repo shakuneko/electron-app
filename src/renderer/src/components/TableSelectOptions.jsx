@@ -33,7 +33,7 @@ export const columnsRevenue = [
     },
     {
         accessorFn: (row) => `${row.salary*row.preCourseLeft} `,
-        id:"salary",
+        id:"lastMonthMoney",
         // accessorKey:"preCourseLeft",
         header:"上月未核銷金額",
         // Cell:CountMoney
@@ -45,7 +45,7 @@ export const columnsRevenue = [
     },
     {
         accessorFn: (row) => `${row.salary*row.courseLeft} `,
-        id:"id",
+        id:"thisMonthMoney",
         // accessorKey:"courseLeft",
         header:"本月未核銷金額",       
         // Cell:CountMoney

@@ -5,6 +5,8 @@ import './assets/index.css'
 import './assets/Form.css'
 import './assets/Nav.css'
 import './assets/Table.css'
+import './assets/CoachDetail.css'
+import './assets/StudentDetail.css'
 import App from './App'
 import './stylesheets/all.scss'
 

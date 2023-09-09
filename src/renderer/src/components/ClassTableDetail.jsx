@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { selectOptions, CheckOut } from './TableSelectOptions'
 
 
-function TableDetail({classes}) {
+function ClassTableDetail({classes}) {
 
     const AddBGC = ({cell}) => { // 設定邊框
         let e;
@@ -16,13 +16,13 @@ function TableDetail({classes}) {
         return e
     }
     
-    // const CheckOut = () => { //設定查看按鈕要進入的頁面
-    //     return<>
-    //        <Link to="/form" className='table-link-underline-none'>
-    //             <button type="button" className="btn btn-golden">查看</button> 
-    //         </Link>
-    //     </>
-    // };
+    const CheckOut = () => { //設定查看按鈕要進入的頁面
+        return<>
+           <Link to="/classdetail" className='table-link-underline-none'>
+                <button type="button" className="btn btn-golden">查看</button> 
+            </Link>
+        </>
+    };
     
     const AddAlertMode = ({renderedCellValue}) => {
         if (renderedCellValue === '1') return <span className="alert-mode">{renderedCellValue}</span>;
@@ -114,4 +114,4 @@ function TableDetail({classes}) {
   )
 }
 
-export default TableDetail
+export default ClassTableDetail
