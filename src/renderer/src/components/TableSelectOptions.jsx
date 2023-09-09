@@ -69,9 +69,9 @@ export const columnsMoney = [
 
         id:"major",
         header:"課程種類",
-        size:100,
         Cell: ({ renderedCellValue }) => (<span>{renderedCellValue}</span>),
-        size:150     
+        size:100,
+        
     },
     {
         accessorKey:"coursesAll",
