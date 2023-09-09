@@ -35,20 +35,20 @@ function RevenueSetTable({classes, columns}) {
         enableFullScreenToggle={false}
         enableHiding={false} //column hiding does not work with memoized table body
         enableStickyHeader
-        renderTopToolbarCustomActions={() => (
-            <Box
-                sx={{ display: 'flex', gap: '1rem', p: '0.5rem', flexWrap: 'wrap' }}
-            >
-                <button
-                    className="btn btn-golden"
-                    //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
-                    onClick={downloadExcel}
-                >
-                    <FileDownloadIcon/>
-                </button>
-            </Box>
+        // renderTopToolbarCustomActions={() => (
+        //     <Box
+        //         sx={{ display: 'flex', gap: '1rem', p: '0.5rem', flexWrap: 'wrap' }}
+        //     >
+        //         <button
+        //             className="btn btn-golden"
+        //             //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
+        //             onClick={downloadExcel}
+        //         >
+        //             <FileDownloadIcon/>
+        //         </button>
+        //     </Box>
 
-        )}
+        // )}
                                 
     />
                 
