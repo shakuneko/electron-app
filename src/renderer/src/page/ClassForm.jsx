@@ -43,9 +43,11 @@ function ClassForm() {
 const [classForm, setClassForm] = useState(initialFormData);
 
   // 使用状态管理保存当前页面
-const [currentPage, setCurrentPage] = useState('page1');
-
-
+// const [currentPage, setCurrentPage] = useState('page1');
+const [currentPage, setCurrentPage] = useState(1);
+const handlePageClick = (page) => {
+  setCurrentPage(page);
+};
 
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event,page) => {
@@ -83,16 +85,29 @@ const handleSubmit = (event) => {
   // 清除表单数据为初始状态
   setClassForm(initialFormData);
 
-  // 恢复 radio 按钮的原状，将 selectedOption 重置为空字符串
-  setClassForm((prevFormData) => ({
-    ...prevFormData,
-    [currentPage]: {
-      ...prevFormData[currentPage],
-      selectedOption: '',
-    },
-  }));
 };
+//繳費按鈕
+const initialButtonData = [
+  { text: '已付款', clicked: false, visible: true },
+  { text: '未付款', clicked: false, visible: true },
 
+];
+const [buttons, setButtons] = useState(initialButtonData);
+const handleClick = (index, buttonValue) => {
+  // 处理按钮的点击事件，根据索引来确定点击的按钮
+  const updatedButtons = [...buttons];
+  updatedButtons[index].clicked = true;
+  setButtons(updatedButtons);
+
+  // 切换按钮的文本内容
+  const updatedText = buttons[index].text === '未付款' ? '已付款' : '未付款';
+  const updatedButtonsText = [...buttons];
+  updatedButtonsText[index].text = updatedText;
+  setButtons(updatedButtonsText);
+
+  console.log('点击的按钮值：', buttonValue);
+
+};
 
   return (
     <div className="container-fluid">
@@ -109,15 +124,27 @@ const handleSubmit = (event) => {
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 1 ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page1')}>PT</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page2')}>皮拉提斯</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page3')}>團課</button>
-                    <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page4')}>場地租借</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handlePageClick(1)}
+                      className={`btn btn-outline-golden  ${currentPage === 1 ? 'active' : ''}`}>PT</button> 
+                    <button 
+                      type="button" 
+                      onClick={() => handlePageClick(2)}
+                      className={`btn btn-outline-golden ${currentPage === 2 ? 'active' : ''}`} >皮拉提斯</button>
+                    <button 
+                    type="button" 
+                    onClick={() => handlePageClick(3)}
+                    className={`btn btn-outline-golden ${currentPage === 3 ? 'active' : ''}`} >團課</button>
+                    <button 
+                    type="button" 
+                    onClick={() =>  handlePageClick(4)}
+                    className={`btn btn-outline-golden ${currentPage === 4 ? 'active' : ''}`} >場地租借</button>
                   </div>
               </div>
               {/* PT課 */}
 
-              {currentPage === 'page1' && (
+              {currentPage === 1 && (
                 <div className="class_category">
                     <div className="form-group">
                         <label  for="exampleInputEmail1">教練:</label>
@@ -150,7 +177,16 @@ const handleSubmit = (event) => {
                         </select>
                         </div>
                         </div>
-                        <button className="btn btn-originalgray" type="button">已付費</button>
+                        {buttons[0].visible && (
+                          <button
+                            type="button"
+                            className={`btn btn-originalgray ${buttons[0].clicked ? 'active' : ''}`}
+                            onClick={() => handleClick(0, buttons[0].text)}
+                          >
+                            {buttons[0].text}
+                          </button>
+                        )}
+                        {/* <button className="btn btn-originalgray" type="button" onClick={handleClick}>{buttonText}</button> */}
                     </div>
                     <div className="form-group4"> 
                       <div className="form-group4-1">
@@ -168,7 +204,18 @@ const handleSubmit = (event) => {
                             </select>
                           </div>
                       </div>
-                      <button className="btn btn-originalgray" type="button">未付費</button>
+                      {buttons[1].visible && (
+                          <div>
+                            <button
+                              type="button"
+                              className={`btn btn-originalgray ${buttons[1].clicked ? 'active' : ''}`}
+                              onClick={() => handleClick(1, buttons[1].text)}
+                            >
+                              {buttons[1].text}
+                            </button>
+                          </div>
+                        )}
+                      {/* <button className="btn btn-originalgray " type="button" onClick={handleClick}>{buttonText}</button> */}
                     </div>
                     <div className="form-group">
                         <label for="exampleInputEmail1">堂數:</label>
@@ -250,7 +297,7 @@ const handleSubmit = (event) => {
                 </div>
                 )}
                {/* 皮拉提斯課 */}
-               {currentPage === 'page2' && (
+               {currentPage === 2 && (
                 <div className="class_category">
                       <div className="form-group">
                           <label  for="exampleInputEmail1">教練:</label>
@@ -383,7 +430,7 @@ const handleSubmit = (event) => {
                   </div>
               )}
               {/* 團課 */}
-              {currentPage === 'page3' && (
+              {currentPage === 3 && (
                 <div className="class_category">
                       <div className="form-group">
                           <label  for="exampleInputEmail1">教練:</label>
@@ -534,7 +581,7 @@ const handleSubmit = (event) => {
                   </div>
               )}
                {/* 場租 */}
-               {currentPage === 'page4' && (
+               {currentPage === 4 && (
                 <div className="class_category">
                         <div className="form-group">
                             <label  for="exampleInputEmail1">教練:</label>
