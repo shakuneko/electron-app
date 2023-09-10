@@ -1,168 +1,71 @@
-import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
-import { Link } from 'react-router-dom';
-import cellEditFactory, { Type } from 'react-bootstrap-table2-editor';
+import { Link } from 'react-router-dom'
+import { MaterialReactTable } from 'material-react-table';
+import React, { useEffect, useMemo, useState } from 'react';
 
 function CoachDetailTable({ classes }) {
-    const pagination = paginationFactory( { //設定標籤頁碼
-        //pageStartIndex: 0,
-        sizePerPage: 5,
-        hideSizePerPage: true,
-        hidePageListOnlyOnePage: true,
-        classes:'test'
-      });
-    const CheckOut = (data, row) => { //設定查看按鈕要進入的頁面
-        return<>
-           <Link to="/form" >
-                {/* 後面改用Link */}
-                <button type="button" className="btn btn-golden">查看{data}</button> 
-                {/* 測試按鈕點擊 */}
-            </Link>
-        </>
-    };
-    const AddBGC = (data) => { // 設定邊框
-        let e;
+    //optionally, you can manage the row selection state yourself
+    const [rowSelection, setRowSelection] = useState({});
 
-        if (data == '快要截止') e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data}</span>
-        else if (data == '已截止') e = <span style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>{data}</span>
-        else e = <div>{data}</div>
-        
-        return e
-    }
-    const selectOptions = { //下拉選單篩選
-        'PT': 'PT',
-        '皮拉提斯': '皮拉提斯',
-        '團課': '團課',
-        '場地租借': '場地租借'
-    };
-    const selectRow = {//全選
-        mode: 'checkbox',
-        clickToSelect: false,
-        hideSelectAll: true
-        
-      };
+    useEffect(() => {
+        //do something when the row selection changes...
+        console.info({ rowSelection });
+    }, [rowSelection]);
+
     const columns = [ //表格有的資料
-    {
-        dataField:"student",
-        text:"學員"
-    },    
-    {
-            dataField:"createDate",
-            text:"日期",
+        {
+            accessorKey:"student",
+            header:"學員",
+            size:100,
         },
         {
-            dataField:"reserveTime",
-            text:"時間",
-        },
-        // {
-        //     dataField:"courseType",
-        //     text:"課程種類",
-        //     // formatter: cell => cell,
-        //     formatter: cell => selectOptions[cell], //能自由加入東西
-        //     filter: selectFilter({
-        //         options: selectOptions,
-        //         placeholder:'課程種類篩選',
-        //         className:'form-select'
-        //     })
-        // },
-       
-        // {
-        //     dataField:"courseLeft",
-        //     text:"剩餘堂數",
-        //     sort:true, //降冪 & 升冪
-        //     classes: (cell, row, rowIndex, colIndex) => { //設定判斷樣式
-        //     if (cell === '0') return 'alert-mode';
-        //     }
-        // },
-        
-       
-        {
-            dataField:"exCourse",
-            text:"是否來上課",
-            // classes: (cell, row, rowIndex, colIndex) => { 
-            //     if (cell === 'Yes') return 'alert-mode';
-            // }
-            
-            editor: {
-                type: Type.CHECKBOX,
-                value: '是:否'
-              }
+            accessorKey:"createDate",
+            header:"日期",
+            size:100,
         },
         {
-            dataField:"exCourse",
-            text:"取消預約",
-            classes: (cell, row, rowIndex, colIndex) => { 
-                if (cell === 'Yes') return 'alert-mode';
-            }
+            accessorKey:"reserveTime",
+            header:"時間",
+            size:100,
+            enableSorting: false
         },
         {
-            dataField:"note",
-            text:"備註",
-            formatter:AddBGC
+            accessorKey:"exCourse",
+            header:"是否來上課",
+            size:50,
+            enableSorting: false
         },
+        {
+            accessorKey:"exCourse",
+            header:"取消預約",
+            size:100,
+            enableSorting: false
+        },
+        {
+            accessorKey:"note",
+            header:"備註",
+            size:100,
+            enableSorting: false
+        }
     ];
-    const MySearch = (props) => { //設定搜尋樣式
-        let input;
-        const handleClick = () => {
-          props.onSearch(input.value);
-        };
-        const addNewData = () => { 
-            return <>
-                onClick={alert("新增資料")}
-            </>
-        }
-        return (
-          <div className='row h-50 mb-3'>
-            <div className='col-6'>
-                <button className="btn btn-golden" onClick={ addNewData }>新增課程</button>
-                {/* <SearchBar { ...props.searchProps } /> */}
-            </div>
-            <div className='col-6 search-area'>
-                <div className="input-group flex-nowrap">
-                    {/* <span class="input-group-text" id="addon-wrapping">@</span> */}
-                    <input ref={ n => input = n } type="text" onKeyUp={handleClick} className="form-control" placeholder="輸入內容..." aria-label="輸入內容..." aria-describedby="addon-wrapping"/>
-                    <button className="btn btn-golden" onClick={ handleClick } type="button" id="button-sreach">搜尋</button>
-                </div>
-            </div>
 
-          </div>
-        );
-    };
 
-    return (
-        <ToolkitProvider
-            keyField="id"
-            data={ classes }
-            columns={ columns }
-            filter
-            search
-        >
-        {
-            props => (
-            <div>
-                
-                {/* <MySearch { ...props.searchProps } /> */}
+  return (
+    <MaterialReactTable 
+        columns={columns}
+        data={classes} 
+        initialState={{ showGlobalFilter: true }} //show filters by default
+        enableColumnActions={false} //no need for column actions if none of them are enabled
+        enableDensityToggle={false} //density does not work with memoized table body
+        enableFullScreenToggle={false}
+        enableHiding={false} //column hiding does not work with memoized table body
+        enableStickyHeader
+        enableFacetedValues          
+        enableRowSelection
+        getRowId={(row) => row.userId} //give each row a more useful id
+        onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
+        state={{ rowSelection }} //pass our managed row selection state to the table to use                      
+    />
+  )
+}
 
-                <BootstrapTable
-                { ...props.baseProps }
-                bootstrap4
-                hover 
-                headerClasses="column-header"
-                classes="table-items"
-                pagination={ pagination }
-                filter={ filterFactory() } 
-                selectRow={ selectRow }
-                noDataIndication={ '尚無資料' }
-                cellEdit={ cellEditFactory({ mode: 'click', blurToSave: true }) }
-                
-                />
-            </div>
-            )
-        }
-        </ToolkitProvider>
-    )
-  }
-  
-  export default CoachDetailTable
+export default CoachDetailTable

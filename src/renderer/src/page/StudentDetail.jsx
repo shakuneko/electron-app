@@ -1,24 +1,22 @@
+import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
-import CoachTableDetail from '../components/CoachTableDetail';
-
-function CoachTable({ classes }) {
-    
-    return (
-        <div className="container-fluid" style={{backgroundColor:"white"}}>
+import StudentDetailPage from '../components/StudentDetailPage'
+function StudentDetail({ classes }) {
+  return (
+    <div className="container-fluid" >
         <div className="row form_class row-no-gutters">
             <div className="nav col-2">
                 <Navbar /> 
             </div>
             <div className='col-10 container margin-left-right'>  
                 <div className='table-container'>
-                    <h1 className='title'>教練管理</h1>
-                    <CoachTableDetail classes={classes}/>
+                    <StudentDetailPage classes={classes} />
                 </div>
             </div>
             
         </div>
     </div>
-    )
-  }
-  
-  export default CoachTable
+  )
+}
+
+export default StudentDetail

@@ -1,130 +1,84 @@
-import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import filterFactory, {  selectFilter  } from 'react-bootstrap-table2-filter';
-
+import React from "react";
+import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
+import { selectOptions, CheckOut } from './TableSelectOptions'
 
-function CoachTableDetail({ classes }) {
-    const pagination = paginationFactory( { //設定標籤頁碼
-        //pageStartIndex: 0,
-        sizePerPage: 5,
-        hideSizePerPage: true,
-        hidePageListOnlyOnePage: true,
-        classes:'test'
-      });
-    const CheckOut = (data, row) => { //設定查看按鈕要進入的頁面
+function CoachTableDetail({classes}) {
+
+    const CheckOut = () => { //設定查看按鈕要進入的頁面
         return<>
            <Link to="/coachdetail" className='table-link-underline-none'>
-                {/* 後面改用Link */}
-                <button type="button" className="btn btn-golden">查看{data}</button> 
-                {/* 測試按鈕點擊 */}
+                <button type="button" className="btn btn-golden">查看</button> 
             </Link>
         </>
     };
-    const selectOptions = { //下拉選單篩選
-        'PT': 'PT',
-        '皮拉提斯': '皮拉提斯',
-        '團課': '團課',
-        '場地租借': '場地租借'
-    };
-    const ClassAddBGC = (data, cell) => { // 設定邊框   
-        let lecture = []
-        let text     
-        for (let i = 0; i < data.length; i++) {
-            if (i == 0) {
-                text = data[i]
-                lecture = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
-            }
-           else {
-            let e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>
-            text = text + "、" + data[i]
-            lecture = e
-           }
-           
-            // lecture.push(<span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{data[i]}</span>)
+    
+    const columns = [ //表格有的資料
+        {
+            accessorKey:"couch",
+            header:"教練",
+            size:100,
+        },
+        {
+            accessorKey:"couchGender",
+            header:"性別",
+            size:50,
+            enableSorting: false
+        },
+        {
+            accessorKey:"couchPhone",
+            header:"電話",
+            size:100,
+            enableSorting: false
+        },
+        {
+            accessorFn: (row) => `${row.major.join("、")} `,
+
+            id:"major",
+            header:"能帶課程",
+            size:100,
+            Cell: ({ renderedCellValue }) => (<span>{renderedCellValue}</span>)
+            
+        },
+        {
+            accessorKey:"note",
+            header:"備註",
+            size:150,
+            enableSorting: false
+        },
+        {
+            accessorKey:"id",
+            header:"操作",
+            size:50,
+            Cell: CheckOut,
+            enableSorting: false
+
         }
+    ];
+    
+  return (
+    
+    <MaterialReactTable 
+        columns={columns}
+        data={classes} 
+        initialState={{ showGlobalFilter: true }} //show filters by default
+        enableColumnActions={false} //no need for column actions if none of them are enabled
+        enableColumnFilters={false} //filtering does not work with memoized table body
         
-        return text
-    }
-    const columns = [
-        {
-            dataField:"couch",
-            text:"教練"
-        },
-        {
-            dataField:"couchGender",
-            text:"性別"
-        },
-        {
-            dataField:"couchPhone",
-            text:"電話"
-        },
-        {
-            dataField:"major",
-            text:"能帶課程",
-            formatter:ClassAddBGC
-        },
-        {
-            dataField:"note",
-            text:"備註"
-        },
-        {
-            dataField:"id",
-            text:"操作",
-            formatter:CheckOut
-        }
-    ]
-    const MySearch = (props) => { //設定搜尋樣式
-        let input;
-        const handleClick = () => {
-          props.onSearch(input.value);
-        };
-        return (
-          <div className='row h-50 mb-3'>
-             <Link to="/coachform" className='col-6  table-link-underline-none'>
-                <button className="btn btn-golden" >新增教練</button>
-                {/* <SearchBar { ...props.searchProps } /> */}
+        enableDensityToggle={false} //density does not work with memoized table body
+        enableFullScreenToggle={false}
+        enableHiding={false} //column hiding does not work with memoized table body
+        // enableSorting={false} //sorting does not work with memoized table body
+        enableStickyHeader
+        renderTopToolbarCustomActions={() => (
+            <Link to="/coachform" className='table-link-underline-none'>
+                <button type="button" className="btn btn-golden">新增教練</button> 
             </Link>
-            <div className='col-6 search-area'>
-                <div className="input-group flex-nowrap">
-                    {/* <span class="input-group-text" id="addon-wrapping">@</span> */}
-                    <input ref={ n => input = n } type="text" onKeyUp={handleClick} className="form-control" placeholder="輸入內容..." aria-label="輸入內容..." aria-describedby="addon-wrapping"/>
-                    <button className="btn btn-golden" onClick={ handleClick } type="button" id="button-sreach">搜尋</button>
-                </div>
-            </div>
+        )}
+                                
+    />
+                
+  )
+}
 
-          </div>
-        );
-    };
-
-    return (
-        <ToolkitProvider
-            keyField="id"
-            data={ classes }
-            columns={ columns }
-            filter
-            search
-        >
-        {
-            props => (
-            <div>
-                <MySearch { ...props.searchProps } />
-
-                <BootstrapTable
-                { ...props.baseProps }
-                bootstrap4
-                hover 
-                headerClasses="column-header"
-                classes="table-items"
-                pagination={ pagination }
-                filter={ filterFactory() } 
-                />
-            </div>
-            )
-        }
-        </ToolkitProvider>
-    )
-  }
-  
-  export default CoachTableDetail
+export default CoachTableDetail

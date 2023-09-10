@@ -3,9 +3,9 @@ import Navbar from './Navbar'
 import ReserveTime from './ReserveTime'
 import StudentsDetailTable from './StudentsDetailTable'
 import DoneClasses from './DoneClasses'
-function StudentDetail({ classes }) {
+function StudentDetailPage({ classes }) {
   return (
-    <div className="container-fluid">
+
       <div className="row form_class row-no-gutters">
         {/* <div className="nav col-2">
           <Navbar />
@@ -14,31 +14,33 @@ function StudentDetail({ classes }) {
           <h1 className="title">學員</h1>
 
           <div className="classCoachBox">
-            <p className="classCoachBox-item">姓名：</p>
+            {/* <p className="classCoachBox-item">姓名：</p>
             <p className="classCoachBox-item">田晴軒</p>
             <p className="classCoachBox-item">性別：</p>
             <p className="classCoachBox-item">男</p>
             <p className="classCoachBox-item">剩餘堂數：</p>
-            <p className="classCoachBox-item">9</p>
+            <p className="classCoachBox-item">9</p> */}
+            <p className="classCoachBox-item">姓名：田晴軒</p>
+            <p className="classCoachBox-item">性別：男</p>
+            <p className="classCoachBox-item">剩餘堂數：9</p>
           </div>
           <div>
             <DoneClasses />
           </div>
-          <div className="classcontainer">
-            <div className="tabletitlebox">
-              <div>
-                <StudentsDetailTable classes={classes} />
-              </div>
-            </div>
+          <StudentsDetailTable classes={classes} />
+          {/* <div className="classcontainer">
 
-            {/* <div>
+            <StudentsDetailTable classes={classes} />
+
+
+            <div>
               <ReserveTime />
-            </div> */}
-          </div>
+            </div>
+          </div> */}
         </div>
       </div>
-    </div>
+
   )
 }
 
-export default StudentDetail
+export default StudentDetailPage

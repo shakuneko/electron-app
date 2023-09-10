@@ -4,18 +4,20 @@ import StudentTableDetail from '../components/StudentTableDetail';
 function StudentTable({ classes }) {
     
     return (
-        <div className='row row-no-gutter margin-left-right container-fluid'>
-            <div className='nav col-2'>
-                <Navbar/>
+        <div className="container-fluid" style={{backgroundColor:"white"}}>
+        <div className="row form_class row-no-gutters">
+            <div className="nav col-2">
+                <Navbar /> 
             </div>
-            <div className='col-10 container margin-left-right'>                    
-                <div className='mt-4 table-container'>
+            <div className='col-10 container margin-left-right'>  
+                <div className='table-container'>
                     <h1 className='title'>學員管理</h1>
-                    {/* <TableDetail classes={classes} /> */}
                     <StudentTableDetail classes={classes}/>
                 </div>
             </div>
+            
         </div>
+    </div>
     )
   }
   

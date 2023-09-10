@@ -1,8 +1,7 @@
- /* nav */
- .nav{
+/* nav */
+.nav{
     flex-direction:column;
     background-color: #352F29;
-    
 }
 
 .nav_logo{
@@ -18,6 +17,11 @@
     text-decoration: none;
     padding: 15px;
     color:#DFC994;
+}
+.nav-item-active{
+    background-color: #DFC994;
+    color: #352F29;
+    text-decoration: none;
 }
 .nav-item:hover{
     background-color: #DFC994;
