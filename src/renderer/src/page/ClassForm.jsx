@@ -1,48 +1,6 @@
-// import React, { useState, useEffect } from "react";
-
-// function CoachListForm() {
-//   const [options, setOptions] = useState([]);
-
-//   useEffect(() => {
-//     // 在這裡載入 JSON 數據，並將其轉換為下拉選單的選項
-//     // 你可以使用 fetch 或其他方法從後端獲取 JSON 數據
-//     // 這是一個示例，將 JSON 數據保存在本地存儲（LocalStorage）中
-//     const savedFormData = localStorage.getItem("coachFormData");
-//     if (savedFormData) {
-//       const formData = JSON.parse(savedFormData);
-//       // 使用 formData 中的數據來設定下拉選單的選項
-//       setOptions([formData.name]); // 這裡以姓名為例
-//     }
-//   }, []);
-
-//   return (
-//     <div>
-//       <label>選擇教練:</label>
-//       <select
-//         className="form-select"
-//         name="coach"
-//         value={options[0] || ""}
-//         onChange={(e) => {
-//           // 在這裡處理下拉選單的變化
-//           console.log("選擇的教練:", e.target.value);
-//         }}
-//       >
-//         <option value="">請選擇</option>
-//         {options.map((option, index) => (
-//           <option key={index} value={option}>
-//             {option}
-//           </option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// }
-
-// export default CoachListForm;
-
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-
+import { connect } from 'react-redux';
 
 function ClassForm(props) {
   //設定每個分頁的初始狀態
@@ -85,7 +43,7 @@ function ClassForm(props) {
 // 使用状态管理保存表单数据
 const [classForm, setClassForm] = useState(initialFormData);
 
-  // 使用状态管理保存当前页面
+// 使用状态管理保存当前页面
 // const [currentPage, setCurrentPage] = useState('page1');
 const [currentPage, setCurrentPage] = useState(1);
 const handlePageClick = (page) => {
@@ -152,24 +110,43 @@ const handleClick = (index, buttonValue) => {
 
 };
 
-//傳值
-const [options, setOptions] = useState([]);
-const [selectedCoach, setSelectedCoach] = useState("");
+// 在這裡訪問來自 CoachForm 的 coachForm 數據
+const { coachData } = props;
 
+ // 使用 coachData 數據進行操作
+ useEffect(() => {
+  // 在這裡可以訪問和使用 coachData
+  console.log('從 CoachForm 頁面接收的數據:', coachData);
+}, [coachData]);
 
-useEffect(() => {
-  // 在這裡從 localStorage 中獲取存儲的數據數組，或者如果不存在則創建一個新數組
-  const savedFormDataArray = JSON.parse(localStorage.getItem("coachFormDataArray")) || [];
+// if (!Array.isArray(coachData)) {
+//   console.error('coachData 不是一个数组');
+//   return null; // 或其他处理方式，根据你的需求
+// }
 
-  // 將數據數組中的數據轉換為下拉選單的選項
-  const options = savedFormDataArray.map((formData, index) => ({
-    value: index, // 這裡可以使用唯一的值，例如索引
-    label: formData.name, // 這裡可以使用表單數據中的某個字段，例如姓名
-  }));
+// 渲染下拉选择框的选项
+const renderCoachOptions = () => {
+  console.log('coachData:', coachData); // 输出 coachData 的值
+  return coachData.map((coach, index) => (
+    <option key={index} value={coach.name}>
+      {coach.name}
+    </option>
+  ));
+};
 
-  // 將 options 設定為狀態
-  setOptions(options);
-}, []); // 空的依賴數組表示只在組件首次渲染時執行這段程式碼
+// // 将接收到的 coachData 转换为下拉选择菜单的选项
+// const [options, setOptions] = useState([]);
+
+// useEffect(() => {
+//   // 使用 coachData 创建下拉选择菜单的选项
+//   const coachOptions = coachData.map((formData, index) => ({
+//     value: index,
+//     label: formData.name, // 根据您的数据结构更改字段名
+//   }));
+
+//   // 设置选项状态
+//   setOptions(coachOptions);
+// }, [coachData]);
 
   return (
     <div className="container-fluid">
@@ -213,15 +190,11 @@ useEffect(() => {
                         <div className="select">
                           <select className="form-select" 
                           name="coach"
-                          value={selectedCoach}
-                          onChange={(e) => setSelectedCoach(e.target.value)}
+                          // value={selectedCoach}
+                          // onChange={(e) => setSelectedCoach(e.target.value)}
                           >
-                           <option value="">請選擇</option>
-                            {options.map((option) => (
-                              <option key={option.value} value={option.value}>
-                                {option.label}
-                              </option>
-                            ))}
+                             <option value="">请选择</option>
+                              {renderCoachOptions()} {/* 渲染教练选项 */}
                           </select>
                         </div>
                     </div>
@@ -728,5 +701,7 @@ useEffect(() => {
       </div>
   )
   }
-
-export default ClassForm
+  const mapStateToProps = (state) => ({
+    coachData: state.coach.coachData,
+  });
+  export default connect(mapStateToProps)(ClassForm);

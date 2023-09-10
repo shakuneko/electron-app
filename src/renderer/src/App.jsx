@@ -14,7 +14,6 @@ import CoachDetail from './page/CoachDetail';
 import StudentDetail from './page/StudentDetail';
 
 import classes from './json/class.json'
-
 function App() {
   return (
     <HashRouter>
@@ -23,12 +22,12 @@ function App() {
         <Route path="/student" element={<StudentTable classes={classes}/>} />
         <Route path="/coach" element={<CoachTable classes={classes}/>} />
         <Route path="/revenue" element={<Revenue classes={classes}/>} />
-    
+
         {/* <Route path="/form" element={<Form />} /> */}
         <Route path="/form" element={<ClassForm />} />
         <Route path="/studentform" element={<StudentForm classes={classes}/>} />
         <Route path="/coachform" element={<CoachFrom classes={classes}/>} />
-   
+
         <Route path="/classdetail" element={<ClassDetail classes={classes}/>} />
         <Route path="/coachdetail" element={<CoachDetail classes={classes}/>} />
         <Route path="/studentdetail" element={<StudentDetail classes={classes}/>} />
@@ -37,5 +36,5 @@ function App() {
     // <Form/>
   )
 }
-
+document.getElementById('root')
 export default App

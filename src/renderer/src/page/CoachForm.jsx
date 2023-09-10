@@ -1,8 +1,9 @@
-
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
- 
-function CoachForm() {
+import { connect } from 'react-redux';
+import { updateCoachData } from '../redux/Actions/coachActions';
+
+function CoachForm(props) {
   
   const initialFormData = {
     name:'',
@@ -49,30 +50,22 @@ const handleSubmit = (event) => {
 event.preventDefault();
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
+const transformedData = transformData(coachForm);
+  // 使用 Redux Action 将转换后的数据发送到 Redux Store
+  props.updateCoachData(transformedData);
 
-const savedFormDataArray = JSON.parse(localStorage.getItem("coachFormDataArray")) || [];
-//將當前的表單數據添加到數組中
-  savedFormDataArray.push(coachForm);
-
-  // 將數據數組轉換為 JSON 字符串並存儲回 localStorage
-  localStorage.setItem("coachFormDataArray", JSON.stringify(savedFormDataArray));
-// // 將表單數據轉換為 JSON 字符串
-// const formDataJson = JSON.stringify(coachForm);
-// localStorage.setItem("coachFormData", formDataJson);
  // 清除表單數據
  setCoachForm(initialFormData);
- setOptions([]);
 };
 
-//傳值
-const [inputValue, setInputValue] = useState("");
-const [options, setOptions] = useState([]);
-const handleAddInputValue = () => {
-  if (inputValue) {
-    setOptions([...options, inputValue]);
-    setInputValue("");
-  }
+// 定义一个函数来转换数据
+const transformData = (data) => {
+  // 在这里进行数据转换，将 data 转换为需要的格式，比如数组
+  const transformedData = Object.values(data); // 以对象的值的形式返回数组
+
+  return transformedData;
 };
+
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -246,7 +239,7 @@ const handleAddInputValue = () => {
                     </div>  
                 </div> */}
                 <div class="form-group3">
-                <button type="submit" class="btn btn-golden" onClick={handleAddInputValue}>新增</button>
+                <button type="submit" class="btn btn-golden">新增</button>
                 
                 </div>
             </form>
@@ -255,5 +248,11 @@ const handleAddInputValue = () => {
     </div>
   )
 }
-
-export default CoachForm
+const mapStateToProps = (state) => ({
+  coachData: state.coach.coachData,
+});
+// 將 Action 傳遞給組件
+const mapDispatchToProps = {
+  updateCoachData,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CoachForm);
