@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { MaterialReactTable } from 'material-react-table';
 import React, { useEffect, useMemo, useState } from 'react';
+import { Typography } from '@mui/material';
 
 function ClassDetailTable({ classes }) {
     //optionally, you can manage the row selection state yourself
@@ -10,6 +11,15 @@ function ClassDetailTable({ classes }) {
         //do something when the row selection changes...
         console.info({ rowSelection });
     }, [rowSelection]);
+
+    const [tableData, setTableData] = useState(() => classes);
+
+    const handleSaveCell = (cell, value) => {
+      //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here
+      tableData[cell.row.index][cell.column.id] = value;
+      //send/receive api updates here
+      setTableData([...tableData]); //re-render with new data
+    };
 
     const columns = [ //表格有的資料
         {
@@ -31,6 +41,7 @@ function ClassDetailTable({ classes }) {
         {
             accessorKey:"exCourse",
             header:"取消預約",
+            id:"cansole",
             size:50,
             enableSorting: false
         },
@@ -57,7 +68,20 @@ function ClassDetailTable({ classes }) {
         enableRowSelection
         getRowId={(row) => row.userId} //give each row a more useful id
         onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
-        state={{ rowSelection }} //pass our managed row selection state to the table to use                      
+        state={{ rowSelection }} //pass our managed row selection state to the table to use
+        editingMode="cell"
+        enableEditing     
+        muiTableBodyCellEditTextFieldProps={({ cell }) => ({
+            //onBlur is more efficient, but could use onChange instead
+            onBlur: (event) => {
+            handleSaveCell(cell, event.target.value);
+            },
+        })}
+        renderBottomToolbarCustomActions={() => (
+            <Typography sx={{  p: '16px', fontWeight:"900" }} variant="body2">
+                雙擊要修改的內容進行修改
+            </Typography>
+        )}               
     />
   )
 }
