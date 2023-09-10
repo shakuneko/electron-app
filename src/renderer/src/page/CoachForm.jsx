@@ -1,6 +1,6 @@
+
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-
  
 function CoachForm() {
   
@@ -22,6 +22,7 @@ function CoachForm() {
 // 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
 
+
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event) => {
   // 從事件對象中獲取輸入的名稱和值
@@ -31,24 +32,47 @@ const handleInputChange = (event) => {
     ...coachForm,
     [name]: value,
   });
+
+  // 使用setInputValue更新inputValue狀態
+  setInputValue(value);
 };
 
-const handleItemClick = (item) => {
-  setCoachForm({
-    ...coachForm,
-    selectedItem: item, // 更新按钮选项值
-  });
-};
+// const handleItemClick = (item) => {
+//   setCoachForm({
+//     ...coachForm,
+//     selectedItem: item, // 更新按钮选项值
+//   });
+// };
 
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
-// 清除表单数据为初始状态
-setCoachForm(initialFormData);
+
+const savedFormDataArray = JSON.parse(localStorage.getItem("coachFormDataArray")) || [];
+//將當前的表單數據添加到數組中
+  savedFormDataArray.push(coachForm);
+
+  // 將數據數組轉換為 JSON 字符串並存儲回 localStorage
+  localStorage.setItem("coachFormDataArray", JSON.stringify(savedFormDataArray));
+// // 將表單數據轉換為 JSON 字符串
+// const formDataJson = JSON.stringify(coachForm);
+// localStorage.setItem("coachFormData", formDataJson);
+ // 清除表單數據
+ setCoachForm(initialFormData);
+ setOptions([]);
 };
 
+//傳值
+const [inputValue, setInputValue] = useState("");
+const [options, setOptions] = useState([]);
+const handleAddInputValue = () => {
+  if (inputValue) {
+    setOptions([...options, inputValue]);
+    setInputValue("");
+  }
+};
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -61,7 +85,7 @@ setCoachForm(initialFormData);
           </div>
             <form className="form"  onSubmit={handleSubmit}>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">姓名:</label>
+                    <label>姓名:</label>
                     <div className="select">
                     <input 
                       type="text" 
@@ -72,7 +96,7 @@ setCoachForm(initialFormData);
                     ></input>
                     </div>
                 </div>
-                <div class="form-group">
+                {/* <div class="form-group">
                     <label for="exampleInputEmail1">性別:</label>
                     <div className="select">
                     <input 
@@ -220,9 +244,10 @@ setCoachForm(initialFormData);
                       onChange={handleInputChange}
                     ></textarea>
                     </div>  
-                </div>
+                </div> */}
                 <div class="form-group3">
-                <button type="submit" class="btn btn-golden">新增</button>
+                <button type="submit" class="btn btn-golden" onClick={handleAddInputValue}>新增</button>
+                
                 </div>
             </form>
         </div>

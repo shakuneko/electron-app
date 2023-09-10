@@ -1,7 +1,50 @@
-import React, {useState } from "react";
+// import React, { useState, useEffect } from "react";
+
+// function CoachListForm() {
+//   const [options, setOptions] = useState([]);
+
+//   useEffect(() => {
+//     // 在這裡載入 JSON 數據，並將其轉換為下拉選單的選項
+//     // 你可以使用 fetch 或其他方法從後端獲取 JSON 數據
+//     // 這是一個示例，將 JSON 數據保存在本地存儲（LocalStorage）中
+//     const savedFormData = localStorage.getItem("coachFormData");
+//     if (savedFormData) {
+//       const formData = JSON.parse(savedFormData);
+//       // 使用 formData 中的數據來設定下拉選單的選項
+//       setOptions([formData.name]); // 這裡以姓名為例
+//     }
+//   }, []);
+
+//   return (
+//     <div>
+//       <label>選擇教練:</label>
+//       <select
+//         className="form-select"
+//         name="coach"
+//         value={options[0] || ""}
+//         onChange={(e) => {
+//           // 在這裡處理下拉選單的變化
+//           console.log("選擇的教練:", e.target.value);
+//         }}
+//       >
+//         <option value="">請選擇</option>
+//         {options.map((option, index) => (
+//           <option key={index} value={option}>
+//             {option}
+//           </option>
+//         ))}
+//       </select>
+//     </div>
+//   );
+// }
+
+// export default CoachListForm;
+
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 
-function ClassForm() {
+
+function ClassForm(props) {
   //設定每個分頁的初始狀態
   const initialFormData = {
     page1: {
@@ -109,6 +152,25 @@ const handleClick = (index, buttonValue) => {
 
 };
 
+//傳值
+const [options, setOptions] = useState([]);
+const [selectedCoach, setSelectedCoach] = useState("");
+
+
+useEffect(() => {
+  // 在這裡從 localStorage 中獲取存儲的數據數組，或者如果不存在則創建一個新數組
+  const savedFormDataArray = JSON.parse(localStorage.getItem("coachFormDataArray")) || [];
+
+  // 將數據數組中的數據轉換為下拉選單的選項
+  const options = savedFormDataArray.map((formData, index) => ({
+    value: index, // 這裡可以使用唯一的值，例如索引
+    label: formData.name, // 這裡可以使用表單數據中的某個字段，例如姓名
+  }));
+
+  // 將 options 設定為狀態
+  setOptions(options);
+}, []); // 空的依賴數組表示只在組件首次渲染時執行這段程式碼
+
   return (
     <div className="container-fluid">
       <div className="row form_class row-no-gutters">
@@ -147,17 +209,19 @@ const handleClick = (index, buttonValue) => {
               {currentPage === 1 && (
                 <div className="class_category">
                     <div className="form-group">
-                        <label  for="exampleInputEmail1">教練:</label>
+                        <label>教練:</label>
                         <div className="select">
                           <select className="form-select" 
                           name="coach"
-                          value={classForm.page1.coach}
-                          onChange={(e) => handleInputChange(e, 'page1')}
+                          value={selectedCoach}
+                          onChange={(e) => setSelectedCoach(e.target.value)}
                           >
-                              <option selected>-</option>
-                              <option value="A">A</option>
-                              <option value="B">B</option>
-                              <option value="C">C</option>
+                           <option value="">請選擇</option>
+                            {options.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
                           </select>
                         </div>
                     </div>
