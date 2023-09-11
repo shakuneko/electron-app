@@ -36,5 +36,5 @@ function App() {
     // <Form/>
   )
 }
-document.getElementById('root')
+
 export default App

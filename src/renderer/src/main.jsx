@@ -13,10 +13,11 @@ import App from './App'
 import './stylesheets/all.scss'
 
 
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-     <Provider store={store}>
-    <App />
+    <Provider store={store}> {/* 使用 Provider 包裹根组件，并传递 Redux Store */}
+      <App />
     </Provider>
   </React.StrictMode>
-)
+);
