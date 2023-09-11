@@ -3,7 +3,12 @@
 //     payload: coachData,
 //   });
 
-export const updateCoachName = (name) => ({
+export const updateCoachName = (coachName) => ({
   type: 'UPDATE_COACH_NAME',
-  payload: name,
+  payload: coachName,
 });
+
+// export const updateSex = (sex) => ({
+//   type: 'UPDATE_SEX',
+//   payload: sex,
+// });

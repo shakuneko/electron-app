@@ -1,7 +1,44 @@
-// import React, { useState, useEffect } from "react";
-// import Navbar from "../components/Navbar";
-// import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
+import Navbar from "../components/Navbar";
+function ClassForm(props) {
+  const { coachNames } = props;
+  console.log(props.coachNames)
+  return (
+    <div className="container-fluid">
+       <div className="row form_class row-no-gutters">
+         <div className="nav col-2">
+           <Navbar /> 
+         </div>
+         <div className="col-10 new_class">
+           <div className="title_word">
+             <p>新增課程</p>
+           </div>
+            <div>
+            <div className="class_category">
+              <div className="form-group">
+                  <label>教練:</label>
+                  <div className="select">
+                  <select className="form-select" >
+                    {coachNames ? coachNames.map((coachName, index) => (
+                      <option key={index} value={coachName}>{coachName}</option>
+                    )) : null}
+                  </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  );
+}
 
+const mapStateToProps = (state) => ({
+  coachNames: state.coach.coachNames,
+ 
+});
+export default connect(mapStateToProps)(ClassForm);
 // function ClassForm(props) {
 //   //設定每個分頁的初始狀態
 //   const initialFormData = {
@@ -706,26 +743,5 @@
 //   });
 //   export default connect(mapStateToProps)(ClassForm);
 
-import React from "react";
-import { connect } from 'react-redux';
 
-function ClassForm(props) {
-  const { coachNames } = props;
-  console.log(props.coachNames)
-  return (
-    <div>
-     <select>
-        {coachNames ? coachNames.map((coachName, index) => (
-          <option key={index} value={coachName}>{coachName}</option>
-        )) : null}
-      </select>
-    </div>
-  );
-}
-
-const mapStateToProps = (state) => ({
-  coachNames: state.coach.coachNames, // 假设 coachNames 是一个包含多个教练名称的数组
-});
-
-export default connect(mapStateToProps)(ClassForm);
 

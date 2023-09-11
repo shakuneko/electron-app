@@ -20,6 +20,7 @@
 
 const initialState = {
   coachNames: [],
+  // sex:'',
 };
 
 const coachReducer = (state = initialState, action) => {
@@ -29,6 +30,11 @@ const coachReducer = (state = initialState, action) => {
         ...state,
         coachNames: [...state.coachNames, action.payload], 
       };
+    // case 'UPDATE_SEX':
+    //   return {
+    //     ...state,
+    //     sex: action.payload,
+    //   };
     default:
       return state;
   }

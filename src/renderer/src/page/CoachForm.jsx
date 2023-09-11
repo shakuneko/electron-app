@@ -1,8 +1,100 @@
-// import React, {useState } from "react";
+import React, { useState } from "react";
+import { connect } from 'react-redux';
 import Navbar from "../components/Navbar";
-// import { connect } from 'react-redux';
-// import { updateCoachData } from '../redux/Actions/coachActions';
+import { updateCoachName } from '../redux/actions/coachActions';
 
+function CoachForm(props) {
+  const [coachData, setCoachData] = useState({
+    coachName:'',
+    sex:'',
+
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setCoachData({
+      ...coachData,
+      [name]:value,
+    })
+    // if (name === 'coachName') {
+    //   setCoachName(value);
+    // } else if (name === 'sex') {
+    //   setSex(value);
+    // } 
+  
+  };
+// 提交表單的函數
+  
+const handleSaveClick = () => {
+  props.updateCoachName(coachData.coachName); // 分发 action 更新教练名称
+
+  // 这里可以添加保存逻辑，将数据保存到 Redux Store 或发送到服务器
+
+  // 清空所有输入字段
+  setCoachData({
+    coachName:'',
+    sex:'',
+  })
+  // setCoachName('');
+  // setSex('');
+};
+
+
+  return (
+    <div>
+      <div className="container-fluid">
+        <div className="row form_class row-no-gutters">
+          <div className="nav col-2">
+            <Navbar /> 
+          </div>
+          <div className="col-10 new_class2">
+            <div className="title_word">
+              <p>新增教練</p>
+            </div>
+
+            <form className="form" >
+              <div class="form-group">
+                <label>姓名:</label>
+                <div className="select">
+                  <input 
+                     type="text"
+                     class="form-select" 
+                     name="coachName"
+                     value={coachData.coachName}
+                     onChange={handleInputChange}
+                  ></input>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">性別:</label>
+                     <div className="select">
+                      <input 
+                        type="text" 
+                        class="form-select" 
+                        name="sex"
+                        value={coachData.sex}
+                        onChange={handleInputChange}
+                      ></input>
+                    </div>
+                 </div>
+                <div class="form-group3">
+                 <button type="submit" class="btn btn-golden" onClick={handleSaveClick}>新增</button>
+                 </div>
+            </form>
+
+        </div>
+        </div>
+      </div>
+    </div>
+    
+  );
+}
+
+const mapDispatchToProps = {
+  updateCoachName,
+};
+
+export default connect(null, mapDispatchToProps)(CoachForm);
 // function CoachForm(props) {
   
 //   const initialFormData = {
@@ -261,51 +353,4 @@ import Navbar from "../components/Navbar";
 
 // export default connect(mapStateToProps, mapDispatchToProps)(CoachForm);
 
-import React, { useState } from "react";
-import { connect } from 'react-redux';
-import { updateCoachName } from '../redux/actions/coachActions';
 
-function CoachForm(props) {
-  const [coachName, setCoachName] = useState('');
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCoachName(value);
-  };
-
-  const handleSaveClick = () => {
-    props.updateCoachName(coachName); // 分发 action 更新教练名称
-    // 这里可以添加保存逻辑，将数据保存到 Redux Store 或发送到服务器
-  };
-
-  return (
-    <div>
-      <div className="container-fluid">
-      <div className="row form_class row-no-gutters">
-        <div className="nav col-2">
-          <Navbar /> 
-        </div>
-        <div className="col-10 new_class2">
-          <div className="title_word">
-            <p>新增教練</p>
-          </div>
-      <input
-        type="text"
-        name="coachName"
-        value={coachName}
-        onChange={handleInputChange}
-      />
-      <button onClick={handleSaveClick}>保存</button>
-    </div>
-    </div>
-    </div>
-    </div>
-    
-  );
-}
-
-const mapDispatchToProps = {
-  updateCoachName,
-};
-
-export default connect(null, mapDispatchToProps)(CoachForm);
