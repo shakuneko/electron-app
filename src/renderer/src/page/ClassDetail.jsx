@@ -1,9 +1,16 @@
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import ReserveTime from '../components/ReserveTime'
 import ClassDetailTable from '../components/ClassDetailTable'
+import testClasses from '../json/test_class.json'
 
-function ClassDetail({ classes }) {
+function ClassDetail() {
+
+    const { id } = useParams();
+    const testClass = testClasses.find(
+       (x) => x.id === id
+    );
+
   return (
     <div className="container-fluid" >
         <div className="row form_class row-no-gutters">
@@ -37,15 +44,17 @@ function ClassDetail({ classes }) {
                                     <div className="btnbox-item">
                                         <button type="button" className="btn btn-danger">
                                         刪除
+                                        {testClasses[0].id}
                                         </button>
                                     </div>
                                 </div>
                             
                             </div>
-                            <ClassDetailTable classes={classes} />
+                            <ClassDetailTable testClass={testClass} /> 
                         </div>
                         <div className='col-3'>
                             <ReserveTime />
+                            {testClass.id}
                         </div>
                     </div>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
-import { Link } from 'react-router-dom';
+import { Link ,useParams} from 'react-router-dom';
 import { selectOptions, CheckOut } from './TableSelectOptions'
 
 
@@ -16,10 +16,10 @@ function ClassTableDetail({classes}) {
         return e
     }
     
-    const CheckOut = () => { //設定查看按鈕要進入的頁面
+    const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         return<>
-           <Link to="/classdetail" className='table-link-underline-none'>
-                <button type="button" className="btn btn-golden">查看</button> 
+           <Link to={`/classes/id/${renderedCellValue}`} className='table-link-underline-none'>
+                <button type="button" className="btn btn-golden">查看{renderedCellValue}</button> 
             </Link>
         </>
     };
@@ -31,7 +31,7 @@ function ClassTableDetail({classes}) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"couch",
+            accessorKey:"couch.name",
             header:"教練",
             size:100,
         },
@@ -46,25 +46,25 @@ function ClassTableDetail({classes}) {
             enableSorting: false
         },
         {
-            accessorKey:"student",
+            accessorKey:"student.name",
             header:"學員",
             size:100,
             enableSorting: false
         },
         {
-            accessorKey:"courseLeft",
+            accessorKey:"student.courseLeft",
             header:"剩餘堂數",
             size:100,
             Cell: AddAlertMode
         },
         {
-            accessorKey:"coursesAll",
+            accessorKey:"student.coursesAll",
             header:"總堂數",
             size:100,
             Cell: AddAlertMode
         },
         {
-            accessorKey:"exCourse",
+            accessorKey:"student.exCourse",
             header:"體驗課",
             size:100,
             Cell: ({ renderedCellValue }) => {
@@ -104,7 +104,7 @@ function ClassTableDetail({classes}) {
         enableStickyHeader
         enableFacetedValues
         renderTopToolbarCustomActions={() => (
-            <Link to="/form" className='table-link-underline-none'>
+            <Link to="/classes/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增課程</button> 
             </Link>
         )}
