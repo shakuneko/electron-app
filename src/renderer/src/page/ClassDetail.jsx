@@ -22,14 +22,9 @@ function ClassDetail() {
                 <div className='table-container'>
                     <h1 className="title">課程</h1>
                     <div className="classCoachBox">
-                        {/* <p className="classCoachBox-item">教練：</p>
-                        <p className="classCoachBox-item">教練名</p>
-                        <p className="classCoachBox-item">學員：</p>
-                        <p className="classCoachBox-item">學員名</p>
-                        <p className="classCoachBox-item">9/10</p> */}
-                        <p className="classCoachBox-item">教練：教練名</p>
-                        <p className="classCoachBox-item">學員：學員名</p>
-                        <p className="classCoachBox-item">9/10</p>
+                        <p className="classCoachBox-item">教練：{testClass.coach.coachName}</p>
+                        <p className="classCoachBox-item">學員：{testClass.student.stuName}</p>
+                        <p className="classCoachBox-item">{testClass.student.courseLeft} / {testClass.student.coursesAll}</p>
                     </div>
 
                     <div className="row">
@@ -45,8 +40,6 @@ function ClassDetail() {
                                     <div className="btnbox-item">
                                         <button type="button" className="btn btn-danger">
                                         刪除
-                                        {id}
-                                        {testClass.student.name}
                                         </button>
                                     </div>
                                 </div>
@@ -56,7 +49,6 @@ function ClassDetail() {
                         </div>
                         <div className='col-3'>
                             <ReserveTime />
-                            {testClass.id}
                         </div>
                     </div>
 
