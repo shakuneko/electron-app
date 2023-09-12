@@ -1,7 +1,7 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 import { connect } from 'react-redux';
-import { updateCoachName } from '../redux/Actions/coachActions'
+import { updateCoachName } from '../redux/Actions/formActions'
  
 function CoachForm(props) {
   

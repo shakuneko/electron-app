@@ -7,7 +7,10 @@ export const updateCoachName = (coachForm) => ({
   type: 'UPDATE_COACH_NAME',
   payload: coachForm,
 });
-
+export const updateStuForm = (stuForm) => ({
+  type: 'UPDATE_STU_FORM',
+  payload: stuForm,
+});
 // export const updateSex = (sex) => ({
 //   type: 'UPDATE_SEX',
 //   payload: sex,

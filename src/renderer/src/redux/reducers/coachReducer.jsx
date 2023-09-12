@@ -17,7 +17,7 @@ const initialState = {
   },
 };
 
-const coachReducer = (state = initialState, action) => {
+const formReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_COACH_NAME':
       const { name, gender, idcode, tel, email, address, salary, account, contact, relation, contact_tel, note } = action.payload;
@@ -38,10 +38,10 @@ const coachReducer = (state = initialState, action) => {
             contact_tel, 
             note }, 
       };
-    
+
     default:
       return state;
   }
 };
 
-export default coachReducer;
+export default formReducer;
