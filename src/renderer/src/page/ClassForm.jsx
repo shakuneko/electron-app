@@ -1,45 +1,29 @@
-import React, { useState, useEffect } from "react";
+
+import React from 'react';
 import { connect } from 'react-redux';
-import Navbar from "../components/Navbar";
+import { useSelector } from 'react-redux';
 function ClassForm(props) {
-  const { coachNames } = props;
-  console.log(props.coachNames)
+  const coachForm = useSelector((state) => state.coach.coachForm);
+  // const { coachForm } = props;
+  // console.log(props);
+  console.log(coachForm);
   return (
-    <div className="container-fluid">
-       <div className="row form_class row-no-gutters">
-         <div className="nav col-2">
-           <Navbar /> 
-         </div>
-         <div className="col-10 new_class">
-           <div className="title_word">
-             <p>新增課程</p>
-           </div>
-            <div>
-            <div className="class_category">
-              <div className="form-group">
-                  <label>教練:</label>
-                  <div className="select">
-                  <select className="form-select" >
-                    {coachNames ? coachNames.map((coachName, index) => (
-                      <option key={index} value={coachName}>{coachName}</option>
-                    )) : null}
-                  </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div>
+      {/* 使用从 Redux Store 中提取的 JSON 数据来渲染 */}
+      <pre>{JSON.stringify(coachForm, null, 2)}</pre>
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  coachNames: state.coach.coachNames,
- 
+  coachForm: state.coachForm,
 });
-export default connect(mapStateToProps)(ClassForm);
-// function ClassForm(props) {
+export default ClassForm;
+// export default connect(mapStateToProps)(ClassForm);
+// import React, {useState } from "react";
+// import Navbar from "../components/Navbar";
+
+// function ClassForm() {
 //   //設定每個分頁的初始狀態
 //   const initialFormData = {
 //     page1: {
@@ -80,12 +64,10 @@ export default connect(mapStateToProps)(ClassForm);
 // // 使用状态管理保存表单数据
 // const [classForm, setClassForm] = useState(initialFormData);
 
-// // 使用状态管理保存当前页面
-// // const [currentPage, setCurrentPage] = useState('page1');
-// const [currentPage, setCurrentPage] = useState(1);
-// const handlePageClick = (page) => {
-//   setCurrentPage(page);
-// };
+//   // 使用状态管理保存当前页面
+// const [currentPage, setCurrentPage] = useState('page1');
+
+
 
 // // 定義一個處理表單輸入變化的函數
 // const handleInputChange = (event,page) => {
@@ -123,67 +105,16 @@ export default connect(mapStateToProps)(ClassForm);
 //   // 清除表单数据为初始状态
 //   setClassForm(initialFormData);
 
-// };
-// //繳費按鈕
-// const initialButtonData = [
-//   { text: '已付款', clicked: false, visible: true },
-//   { text: '未付款', clicked: false, visible: true },
-
-// ];
-// const [buttons, setButtons] = useState(initialButtonData);
-// const handleClick = (index, buttonValue) => {
-//   // 处理按钮的点击事件，根据索引来确定点击的按钮
-//   const updatedButtons = [...buttons];
-//   updatedButtons[index].clicked = true;
-//   setButtons(updatedButtons);
-
-//   // 切换按钮的文本内容
-//   const updatedText = buttons[index].text === '未付款' ? '已付款' : '未付款';
-//   const updatedButtonsText = [...buttons];
-//   updatedButtonsText[index].text = updatedText;
-//   setButtons(updatedButtonsText);
-
-//   console.log('点击的按钮值：', buttonValue);
-
+//   // 恢复 radio 按钮的原状，将 selectedOption 重置为空字符串
+//   setClassForm((prevFormData) => ({
+//     ...prevFormData,
+//     [currentPage]: {
+//       ...prevFormData[currentPage],
+//       selectedOption: '',
+//     },
+//   }));
 // };
 
-// // 在這裡訪問來自 CoachForm 的 coachForm 數據
-// const { coachData } = props;
-
-//  // 使用 coachData 數據進行操作
-//  useEffect(() => {
-//   // 在這裡可以訪問和使用 coachData
-//   console.log('從 CoachForm 頁面接收的數據:', coachData);
-// }, [coachData]);
-
-// // if (!Array.isArray(coachData)) {
-// //   console.error('coachData 不是一个数组');
-// //   return null; // 或其他处理方式，根据你的需求
-// // }
-
-// // 渲染下拉选择框的选项
-// const renderCoachOptions = () => {
-//   console.log('coachData:', coachData); // 输出 coachData 的值
-//   return coachData.map((coach, index) => (
-//     <option key={index} value={coach.name}>
-//       {coach.name}
-//     </option>
-//   ));
-// };
-
-// // // 将接收到的 coachData 转换为下拉选择菜单的选项
-// // const [options, setOptions] = useState([]);
-
-// // useEffect(() => {
-// //   // 使用 coachData 创建下拉选择菜单的选项
-// //   const coachOptions = coachData.map((formData, index) => ({
-// //     value: index,
-// //     label: formData.name, // 根据您的数据结构更改字段名
-// //   }));
-
-// //   // 设置选项状态
-// //   setOptions(coachOptions);
-// // }, [coachData]);
 
 //   return (
 //     <div className="container-fluid">
@@ -200,38 +131,28 @@ export default connect(mapStateToProps)(ClassForm);
 //               <div class="form-group">
 //                   <label for="exampleInputEmail1">種類:</label>
 //                   <div className="form_btn">
-//                     <button 
-//                       type="button" 
-//                       onClick={() => handlePageClick(1)}
-//                       className={`btn btn-outline-golden  ${currentPage === 1 ? 'active' : ''}`}>PT</button> 
-//                     <button 
-//                       type="button" 
-//                       onClick={() => handlePageClick(2)}
-//                       className={`btn btn-outline-golden ${currentPage === 2 ? 'active' : ''}`} >皮拉提斯</button>
-//                     <button 
-//                     type="button" 
-//                     onClick={() => handlePageClick(3)}
-//                     className={`btn btn-outline-golden ${currentPage === 3 ? 'active' : ''}`} >團課</button>
-//                     <button 
-//                     type="button" 
-//                     onClick={() =>  handlePageClick(4)}
-//                     className={`btn btn-outline-golden ${currentPage === 4 ? 'active' : ''}`} >場地租借</button>
+//                     <button className={`btn btn-outline-golden page-button ${currentPage === 1 ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page1')}>PT</button>
+//                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page2')}>皮拉提斯</button>
+//                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page3')}>團課</button>
+//                     <button className="btn btn-outline-golden" type="button" onClick={() => setCurrentPage('page4')}>場地租借</button>
 //                   </div>
 //               </div>
 //               {/* PT課 */}
 
-//               {currentPage === 1 && (
+//               {currentPage === 'page1' && (
 //                 <div className="class_category">
 //                     <div className="form-group">
-//                         <label>教練:</label>
+//                         <label  for="exampleInputEmail1">教練:</label>
 //                         <div className="select">
 //                           <select className="form-select" 
 //                           name="coach"
-//                           // value={selectedCoach}
-//                           // onChange={(e) => setSelectedCoach(e.target.value)}
+//                           value={classForm.page1.coach}
+//                           onChange={(e) => handleInputChange(e, 'page1')}
 //                           >
-//                              <option value="">请选择</option>
-//                               {renderCoachOptions()} {/* 渲染教练选项 */}
+//                               <option selected>-</option>
+//                               <option value="A">A</option>
+//                               <option value="B">B</option>
+//                               <option value="C">C</option>
 //                           </select>
 //                         </div>
 //                     </div>
@@ -251,16 +172,7 @@ export default connect(mapStateToProps)(ClassForm);
 //                         </select>
 //                         </div>
 //                         </div>
-//                         {buttons[0].visible && (
-//                           <button
-//                             type="button"
-//                             className={`btn btn-originalgray ${buttons[0].clicked ? 'active' : ''}`}
-//                             onClick={() => handleClick(0, buttons[0].text)}
-//                           >
-//                             {buttons[0].text}
-//                           </button>
-//                         )}
-//                         {/* <button className="btn btn-originalgray" type="button" onClick={handleClick}>{buttonText}</button> */}
+//                         <button className="btn btn-originalgray" type="button">已付費</button>
 //                     </div>
 //                     <div className="form-group4"> 
 //                       <div className="form-group4-1">
@@ -278,18 +190,7 @@ export default connect(mapStateToProps)(ClassForm);
 //                             </select>
 //                           </div>
 //                       </div>
-//                       {buttons[1].visible && (
-//                           <div>
-//                             <button
-//                               type="button"
-//                               className={`btn btn-originalgray ${buttons[1].clicked ? 'active' : ''}`}
-//                               onClick={() => handleClick(1, buttons[1].text)}
-//                             >
-//                               {buttons[1].text}
-//                             </button>
-//                           </div>
-//                         )}
-//                       {/* <button className="btn btn-originalgray " type="button" onClick={handleClick}>{buttonText}</button> */}
+//                       <button className="btn btn-originalgray" type="button">未付費</button>
 //                     </div>
 //                     <div className="form-group">
 //                         <label for="exampleInputEmail1">堂數:</label>
@@ -371,7 +272,7 @@ export default connect(mapStateToProps)(ClassForm);
 //                 </div>
 //                 )}
 //                {/* 皮拉提斯課 */}
-//                {currentPage === 2 && (
+//                {currentPage === 'page2' && (
 //                 <div className="class_category">
 //                       <div className="form-group">
 //                           <label  for="exampleInputEmail1">教練:</label>
@@ -504,7 +405,7 @@ export default connect(mapStateToProps)(ClassForm);
 //                   </div>
 //               )}
 //               {/* 團課 */}
-//               {currentPage === 3 && (
+//               {currentPage === 'page3' && (
 //                 <div className="class_category">
 //                       <div className="form-group">
 //                           <label  for="exampleInputEmail1">教練:</label>
@@ -655,7 +556,7 @@ export default connect(mapStateToProps)(ClassForm);
 //                   </div>
 //               )}
 //                {/* 場租 */}
-//                {currentPage === 4 && (
+//                {currentPage === 'page4' && (
 //                 <div className="class_category">
 //                         <div className="form-group">
 //                             <label  for="exampleInputEmail1">教練:</label>
@@ -738,10 +639,5 @@ export default connect(mapStateToProps)(ClassForm);
 //       </div>
 //   )
 //   }
-//   const mapStateToProps = (state) => ({
-//     coachData: state.coach.coachData,
-//   });
-//   export default connect(mapStateToProps)(ClassForm);
 
-
-
+// export default ClassForm
