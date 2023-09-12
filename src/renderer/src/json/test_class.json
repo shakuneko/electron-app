@@ -11,7 +11,7 @@
         "joinDate":"2020/01/30",
         "salary":"650"
       },
-      "student": {
+      "student": [{
         "name": "Lulu",
         "stuGender":"女",
         "coursesAll":"10",
@@ -23,7 +23,7 @@
         "invoiceNum" :"12345678",
         "buyDate":"2022/06/23",
         "exCourse":"否",
-        "reserveTime": [
+        "reserveDetail": [
             {
                 "reserveId": "1",
                 "reserveDate": "2023/06/09",
@@ -36,7 +36,7 @@
                 "reservetime": "13:00-14:00"
             }
         ]
-      },
+      }],
       "status":"快要截止",
       "salaryS":"6500",
       "couchPhone":"0900-000-000",
@@ -55,7 +55,7 @@
           "joinDate":"2020/01/30",
           "salary":"600"
         },
-        "student": {
+        "student": [{
           "name": "甜甜",
           "stuGender":"男",
           "coursesAll":"10",
@@ -67,7 +67,7 @@
           "invoiceNum" :"12345678",
           "buyDate":"2022/06/23",
           "exCourse":"否",
-          "reserveTime": [
+          "reserveDetail": [
               {
                   "reserveId": "1",
                   "reserveDate": "2023/06/13",
@@ -80,7 +80,7 @@
                   "reservetime": "13:00-14:00"
               }
           ]
-        },
+        }],
         "status":"已截止",
         "salaryS":"6000",
         "couchPhone":"0900-000-111",
