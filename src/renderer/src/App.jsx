@@ -13,6 +13,7 @@ import ClassDetail from "./page/ClassDetail";
 import CoachDetail from './page/CoachDetail';
 import StudentDetail from './page/StudentDetail';
 
+
 import classes from './json/class.json'
 function App() {
   return (
@@ -25,8 +26,10 @@ function App() {
 
         {/* <Route path="/form" element={<Form />} /> */}
         <Route path="/form" element={<ClassForm />} />
+        {/* <Route path="/jsonform" element={<JsonForm />} /> */}
         <Route path="/studentform" element={<StudentForm classes={classes}/>} />
         <Route path="/coachform" element={<CoachFrom classes={classes}/>} />
+       
 
         <Route path="/classdetail" element={<ClassDetail classes={classes}/>} />
         <Route path="/coachdetail" element={<CoachDetail classes={classes}/>} />
