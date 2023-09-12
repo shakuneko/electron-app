@@ -11,6 +11,7 @@ function ClassDetail() {
        (x) => x.id === id
     );
 
+
   return (
     <div className="container-fluid" >
         <div className="row form_class row-no-gutters">
@@ -44,7 +45,8 @@ function ClassDetail() {
                                     <div className="btnbox-item">
                                         <button type="button" className="btn btn-danger">
                                         刪除
-                                        {testClasses[0].id}
+                                        {id}
+                                        {testClass.student.name}
                                         </button>
                                     </div>
                                 </div>
