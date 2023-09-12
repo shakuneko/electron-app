@@ -12,33 +12,30 @@ import hash from 'object-hash'
 import { useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { checkPageHash } from '../redux/reducers/saveSlice'
 import testModified from '../json/test_class.json'
 
+
+
 function Navbar() {
+  
+  const currentPageHash = useSelector((state) => state.save.checkPageHash)
+  const oldHash = useSelector((state) => state.save.oldHash)
+  const isSame = useSelector((state) => state.save.isSameObject)
+  const dispatch = useDispatch()
 
-  let currentState = 0;
-
-  const currentPageHash = useSelector((state) => state.save.checkPageHash);
-  const oldHash = useSelector((state) => state.save.oldHash);
-  const isSame = useSelector((state) => state.save.isSameObject);
-  const dispatch = useDispatch();
-
-  const testJsonModified = hash(testModified);
-
-
+  const testJsonModified = hash(testModified)
 
   console.log('oldHash:', oldHash)
   console.log('modifiedHash:', testJsonModified)
   console.log('isSame:', isSame)
-  
-  
-  let tester ={
+
+  let tester = {
     id: 2,
     name: 'test',
     coach: 'test',
-    student: 'test',
+    student: 'test'
   }
 
   //let pageState = useSelector(selectPageState)//default page state
@@ -55,17 +52,45 @@ function Navbar() {
   //     // save file here
   //     console.log('save file here')
   //     oldHash.current = currentHash
-      
+
   //   } else {
   //     console.log('no need to save file')
   //   }
   // }, [currentState])
-  
+
+  //save file finction & read function
+  const [menuInfo, setMenuInfo] = useState('AzusaSavedFile')
+  const [filePathInfo, setFilePathInfo] = useState('')
+  const [fileContent, setFileContent] = useState('')
+  const { ipcRenderer } = window.electron
+
+  const onSaveToFile = async () => {
+    const data = JSON.stringify({ jsonData })//set the dhould save json here - use redux's state
+    await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
+  }
+
+  const onReadFile = async () => {
+    const data = (await window._fs.readFile({ fileName: `${menuInfo}.txt` })) || {
+      menuInfo: 'no data'
+    }
+    const content = JSON.parse(data)
+    setFileContent(content)
+  }
+  //console.log(fileContent)
+
+  useEffect(() => {
+    ipcRenderer.on('menuInfo', (_, message) => {
+      setMenuInfo(message)
+    })
+    ipcRenderer.on('filePathInfo', (_, filePath) => {
+      setFilePathInfo(filePath)
+    })
+  }, [])
+
 
   const handleHashOnClick = () => {
-    
     //dispatch(checkPageHash(hash(testModified)));
-    dispatch(checkPageHash(hash(tester)));
+    dispatch(checkPageHash(hash(tester)))
 
     // const currentHash = hash(currentState);
     // console.log('Old Hash:', oldHash);
@@ -73,14 +98,18 @@ function Navbar() {
     // if (oldHash !== currentHash) {
     //   // 执行保存文件的操作，或者您可以发起保存文件的异步操作
     //   console.log('Save file here1');
-    //   oldHash = currentHash; 
+    //   oldHash = currentHash;
     // } else {
     //   console.log('No need to save file2');
     // }
-    tester.id = tester.id + 1;
+    if (isSame == false) {
+      onSaveToFile()
+      console.log('save file here:',filePathInfo)
+    }
+
+    tester.id = tester.id + 1
     console.log('tester.id:', tester.id)
-  };
- 
+  }
 
   return (
     <div>
@@ -145,6 +174,7 @@ function Navbar() {
         <FontAwesomeIcon icon={faKey} />
         <div class="nav-word">Save Page</div>
       </NavLink>
+      
     </div>
   )
 }
