@@ -1,10 +1,11 @@
 import Navbar from '../components/Navbar'
 import StudentTableDetail from '../components/StudentTableDetail';
+import testClasses from '../json/test_class.json'
 
-function StudentTable({ classes }) {
+function StudentTable() {
     
     return (
-        <div className="container-fluid" style={{backgroundColor:"white"}}>
+        <div className="container-fluid">
         <div className="row form_class row-no-gutters">
             <div className="nav col-2">
                 <Navbar /> 
@@ -12,7 +13,7 @@ function StudentTable({ classes }) {
             <div className='col-10 container margin-left-right'>  
                 <div className='table-container'>
                     <h1 className='title'>學員管理</h1>
-                    <StudentTableDetail classes={classes}/>
+                    <StudentTableDetail classes={testClasses}/>
                 </div>
             </div>
             

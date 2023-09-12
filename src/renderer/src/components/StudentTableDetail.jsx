@@ -5,46 +5,47 @@ import { CheckOut } from "./TableSelectOptions"
 
 function StudentTableDetail({classes}) {
 
-    const CheckOut = () => { //設定查看按鈕要進入的頁面
+    const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         return<>
-           <Link to="/studentdetail" className='table-link-underline-none'>
-                <button type="button" className="btn btn-golden">查看</button> 
+           <Link to={`/student/name/${renderedCellValue}`} className='table-link-underline-none'>
+                <button type="button" className="btn btn-golden">查看{renderedCellValue}</button> 
             </Link>
         </>
     };
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"student",
+            accessorKey:"student.stuName",
             header:"學員",
             size:100,
             enableSorting: false
         },
         {
-            accessorKey:"stuGender",
+            accessorKey:"student.stuGender",
             header:"性別",
             size:50,
             enableSorting: false
         },
         {
-            accessorKey:"stuPhone",
+            accessorKey:"student.stuPhone",
             header:"電話",
             size:100,
             enableSorting: false
         },
         {
-            accessorKey:"createDate",
+            accessorKey:"student.createDate",
             header:"建檔日期",
             size:100,
         },
         {
-            accessorKey:"note",
+            accessorKey:"student.stuNote",
             header:"備註",
             size:150,
             enableSorting: false
         },
         {
-            accessorKey:"id",
+            accessorKey:"student.stuName",
+            id:"changePage",
             header:"操作",
             size:50,
             Cell: CheckOut,
@@ -60,15 +61,12 @@ function StudentTableDetail({classes}) {
         data={classes} 
         initialState={{ showGlobalFilter: true }} //show filters by default
         enableColumnActions={false} //no need for column actions if none of them are enabled
-        // enableColumnFilters={false} //filtering does not work with memoized table body
-        
         enableDensityToggle={false} //density does not work with memoized table body
         enableFullScreenToggle={false}
         enableHiding={false} //column hiding does not work with memoized table body
-        // enableSorting={false} //sorting does not work with memoized table body
         enableStickyHeader
         renderTopToolbarCustomActions={() => (
-            <Link to="/studentform" className='table-link-underline-none'>
+            <Link to="/student/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增學員</button> 
             </Link>
         )}

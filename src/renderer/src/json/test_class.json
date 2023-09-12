@@ -12,8 +12,11 @@
         "salary":"650"
       },
       "student": {
+        "createDate":"2022/06/23",
+        "stuID":"1",
         "stuName": "Lulu",
         "stuGender":"女",
+        "stuNote": "睡眠不足",
         "coursesAll":"10",
         "coursesFIN":"4",
         "courseLeft":"6",
@@ -45,9 +48,8 @@
       },
       "status":"快要截止",
       "salaryS":"6500",
-      "couchPhone":"0900-000-000",
-      "createDate":"2022/06/23",
-      "note":"哈囉！"
+      "coachPhone":"0900-000-000",
+      "classNote":"哈囉！"
     },
     {
         "id": "1",
@@ -62,8 +64,11 @@
           "salary":"600"
         },
         "student": {
+          "createDate":"2022/06/01",
+          "stuID":"2",
           "stuName": "甜甜",
           "stuGender":"男",
+          "stuNote": "吃太多",
           "coursesAll":"10",
           "coursesFIN":"7",
           "courseLeft":"3",
@@ -94,9 +99,8 @@
         },
         "status":"已截止",
         "salaryS":"6000",
-        "couchPhone":"0900-000-111",
-        "createDate":"2022/06/01",
-        "note":"嘿嘿"
+        "coachPhone":"0900-000-111",
+        "classNote":"嘿嘿"
       },
       {
         "id": "3",
@@ -111,8 +115,11 @@
           "salary":"650"
         },
         "student": {
+          "createDate":"2022/06/23",
+          "stuID":"3",
           "stuName": "Lulu",
           "stuGender":"女",
+          "stuNote": "-",
           "coursesAll":"10",
           "coursesFIN":"0",
           "courseLeft":"10",
@@ -144,8 +151,7 @@
         },
         "status":"-",
         "salaryS":"6500",
-        "couchPhone":"0900-000-000",
-        "createDate":"2022/06/23",
-        "note":"哈囉！"
+        "coachPhone":"0900-000-000",
+        "classNote":"哈囉！"
       }
 ]

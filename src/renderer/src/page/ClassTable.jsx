@@ -15,7 +15,6 @@ function ClassTable() {
                 <div className='table-container'>
                     <h1 className='title'>課程管理</h1>
                     <ClassTableDetail classes={testClasses}/>
-                    {/* <p>{testClasses[0].student.name}</p> */}
                 </div>
             </div>
             
