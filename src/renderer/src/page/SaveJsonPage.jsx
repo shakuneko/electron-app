@@ -21,7 +21,7 @@ function SaveJsonPage() {
     const content = JSON.parse(data)
     setFileContent(content)
   }
-  console.log(fileContent)
+  //console.log(fileContent)
 
   useEffect(() => {
     ipcRenderer.on('menuInfo', (_, message) => {
