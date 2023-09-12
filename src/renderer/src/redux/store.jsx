@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import pageReducer from './pageSlice';
+import saveReducer from './reducers/saveSlice';
 
 // Part2: Combine Reducers and Create a Store
 const store = configureStore({
    reducer: {
-     page: pageReducer,
+     save: saveReducer,
    },
    devTools: process.env.NODE_ENV !== 'production',
  });

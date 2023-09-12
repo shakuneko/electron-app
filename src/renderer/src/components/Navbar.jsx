@@ -11,29 +11,76 @@ import { NavLink } from 'react-router-dom'
 import hash from 'object-hash'
 import { useRef } from 'react'
 import { useLocation } from 'react-router-dom'
-import { selectPageState } from '../redux/pageSlice'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import { checkPageHash } from '../redux/reducers/saveSlice'
+import testModified from '../json/test_class.json'
 
 function Navbar() {
+
+  let currentState = 0;
+
+  const currentPageHash = useSelector((state) => state.save.checkPageHash);
+  const oldHash = useSelector((state) => state.save.oldHash);
+  const isSame = useSelector((state) => state.save.isSameObject);
+  const dispatch = useDispatch();
+
+  const testJsonModified = hash(testModified);
+
+
+
+  console.log('oldHash:', oldHash)
+  console.log('modifiedHash:', testJsonModified)
+  console.log('isSame:', isSame)
+  
+  
+  let tester ={
+    id: 2,
+    name: 'test',
+    coach: 'test',
+    student: 'test',
+  }
+
   //let pageState = useSelector(selectPageState)//default page state
-  let currentState = useLocation()
 
-  const oldHash = useRef('')
+  //const oldHash = useRef('')
 
-  useEffect(() => {
-    const currentHash = hash(currentState)
+  // const oldHash = useSelector((state) => state.page.currentPageHash);
+  // const dispatch = useDispatch()
+  // const currentHash = dispatch(checkPageHash(hash(currentState)));
+  // useEffect(() => {
+  //   console.log('Old Hash:', oldHash.current)
+  //   console.log('Current Hash:', currentHash)
+  //   if (oldHash.current != currentHash) {
+  //     // save file here
+  //     console.log('save file here')
+  //     oldHash.current = currentHash
+      
+  //   } else {
+  //     console.log('no need to save file')
+  //   }
+  // }, [currentState])
+  
 
-    console.log('Old Hash:', oldHash.current)
-    console.log('Current Hash:', currentHash)
-    if (oldHash.current != currentHash) {
-      // save file here
-      oldHash.current = currentHash
-      console.log('save file here')
-    } else {
-      console.log('no need to save file')
-    }
-  }, [currentState])
+  const handleHashOnClick = () => {
+    
+    //dispatch(checkPageHash(hash(testModified)));
+    dispatch(checkPageHash(hash(tester)));
+
+    // const currentHash = hash(currentState);
+    // console.log('Old Hash:', oldHash);
+    // console.log('Current Hash:', currentHash);
+    // if (oldHash !== currentHash) {
+    //   // 执行保存文件的操作，或者您可以发起保存文件的异步操作
+    //   console.log('Save file here1');
+    //   oldHash = currentHash; 
+    // } else {
+    //   console.log('No need to save file2');
+    // }
+    tester.id = tester.id + 1;
+    console.log('tester.id:', tester.id)
+  };
+ 
 
   return (
     <div>
@@ -43,6 +90,7 @@ function Navbar() {
       <NavLink
         to="/"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
+        onClick={handleHashOnClick}
       >
         <FontAwesomeIcon icon={faHouse} />
         <div class="nav-word">課程管理</div>
@@ -51,6 +99,7 @@ function Navbar() {
       <NavLink
         to="/student"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
+        onClick={handleHashOnClick}
       >
         <FontAwesomeIcon icon={faAddressBook} />
         <div class="nav-word">學員管理</div>
@@ -59,6 +108,7 @@ function Navbar() {
       <NavLink
         to="/coach"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
+        onClick={handleHashOnClick}
       >
         <FontAwesomeIcon icon={faUser} />
         <div class="nav-word">教練管理</div>
@@ -67,6 +117,7 @@ function Navbar() {
       <NavLink
         to="/revenue"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
+        onClick={handleHashOnClick}
       >
         <FontAwesomeIcon icon={faSackDollar} />
         <div class="nav-word">金流管理</div>
@@ -89,6 +140,7 @@ function Navbar() {
       <NavLink
         to="/savejson"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
+        onClick={handleHashOnClick}
       >
         <FontAwesomeIcon icon={faKey} />
         <div class="nav-word">Save Page</div>
