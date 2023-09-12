@@ -5,7 +5,11 @@ import { Typography } from '@mui/material';
 function ClassDetailTable({ testClass }) {
 
     let detailData = []
-    detailData.push(testClass.student)
+    
+    for (let i = 0; i < testClass.student.reserveDetail.length; i++) {
+        detailData.push(testClass.student.reserveDetail[i])
+        
+    }
 
     //optionally, you can manage the row selection state yourself
     const [rowSelection, setRowSelection] = useState({});
@@ -52,12 +56,12 @@ function ClassDetailTable({ testClass }) {
         //     size:50,
         //     enableSorting: false,
         // },
-        // {
-        //     accessorKey:"note",
-        //     header:"備註",
-        //     size:100,
-        //     enableSorting: false
-        // }
+        {
+            accessorKey:"note",
+            header:"備註",
+            size:100,
+            enableSorting: false
+         }
     ];
 
 
@@ -95,6 +99,7 @@ function ClassDetailTable({ testClass }) {
             return (
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                 <button onClick={()=> console.log(table.getRowModel().rows)}>ppp</button>
+                <button onClick={()=> console.log(detailData)}>pp0</button>
                 <button onClick={()=> console.log(detailData.reserveDetail[0])}>p</button>
                 </div>
             );
