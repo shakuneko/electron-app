@@ -16,7 +16,7 @@ function StudentsDetailTable({ classes }) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"createDate",
+            accessorKey:"student.createDate",
             header:"日期",
             size:100,
             enableEditing:false
@@ -30,20 +30,20 @@ function StudentsDetailTable({ classes }) {
             enableEditing:false
         },
         {
-            accessorKey:"coursesAll",
+            accessorKey:"student.coursesAll",
             header:"堂數",
             size:100,
             enableSorting: false,
             enableEditing:false
         },
         {
-            accessorKey:"couch",
+            accessorKey:"coach.coachName",
             header:"教練",
             size:50,
             enableEditing:false
         },
         {
-            accessorKey:"payMethod",
+            accessorKey:"student.payMethod",
             header:"付款方式",
             size:100,
         },
@@ -53,12 +53,12 @@ function StudentsDetailTable({ classes }) {
             size:100,
         },
         {
-            accessorKey:"invoiceNum",
+            accessorKey:"student.invoiceNum",
             header:"發票號碼",
             size:100,
         },
         {
-            accessorKey:"note",
+            accessorKey:"classNote",
             header:"備註",
             size:100,
             enableSorting: false

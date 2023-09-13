@@ -37,7 +37,7 @@ function ClassTableDetail({classes}) {
             size:100,
         },
         {
-            accessorKey:"courseType",
+            accessorKey:"student.buyDetail.courseType",
             header:"課程種類",
             size:100,
             filterVariant: 'select',
@@ -56,13 +56,13 @@ function ClassTableDetail({classes}) {
             Cell: AddAlertMode
         },
         {
-            accessorKey:"student.coursesAll",
+            accessorKey:"student.buyDetail.coursesAll",
             header:"總堂數",
             size:100,
             Cell: AddAlertMode
         },
         {
-            accessorKey:"student.exCourse",
+            accessorKey:"student.buyDetail.exCourse",
             header:"體驗課",
             size:100,
             Cell: ({ renderedCellValue }) => {

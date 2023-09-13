@@ -5,6 +5,8 @@ import { CheckOut } from "./TableSelectOptions"
 
 function StudentTableDetail({classes}) {
 
+
+
     const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         return<>
            <Link to={`/student/name/${renderedCellValue}`} className='table-link-underline-none'>
@@ -14,6 +16,11 @@ function StudentTableDetail({classes}) {
     };
 
     const columns = [ //表格有的資料
+        {
+            accessorKey:"student.stuID",
+            header:"學員編號",
+            size:100,
+        },
         {
             accessorKey:"student.stuName",
             header:"學員",
@@ -44,7 +51,7 @@ function StudentTableDetail({classes}) {
             enableSorting: false
         },
         {
-            accessorKey:"student.stuName",
+            accessorKey:"student.stuID",
             id:"changePage",
             header:"操作",
             size:50,
@@ -68,6 +75,7 @@ function StudentTableDetail({classes}) {
         renderTopToolbarCustomActions={() => (
             <Link to="/student/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增學員</button> 
+                {/* <button onClick={()=> console.log(stuArray)}>pp</button> */}
             </Link>
         )}
                                 

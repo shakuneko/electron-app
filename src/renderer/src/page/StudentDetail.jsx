@@ -4,10 +4,22 @@ import StudentDetailPage from '../components/StudentDetailPage'
 import testClasses from '../json/test_class.json'
 
 function StudentDetail() {
-    const { stuName } = useParams();
+    const { stuName, stuID } = useParams();
     const testClass = testClasses.find(
-        (x) => x.student.stuName === stuName
+        (x) => x.student.stuID === stuID
     );
+
+    const stuData = new Set();
+
+    testClasses.forEach((item) => {
+      if (item.student.stuID === stuID) {
+        stuData.add(item);
+      }
+    });
+  
+    // 將 Set 轉換為陣列（如果需要）
+    const stuArray = Array.from(stuData);
+  
 
     return (
         <div className="container-fluid" >
@@ -17,8 +29,9 @@ function StudentDetail() {
                 </div>
                 <div className='col-10 container margin-left-right'>  
                     <div className='table-container'>
-                        {testClass.student.stuName}
-                        <StudentDetailPage classes={testClass} />
+                        {/* {testClasses["PT"].id} */}
+                        {/* {luluArray[0].student.stuName} */}
+                        <StudentDetailPage classes={stuArray} />
                     </div>
                 </div>
                 

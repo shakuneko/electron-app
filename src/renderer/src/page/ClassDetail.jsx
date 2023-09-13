@@ -24,7 +24,7 @@ function ClassDetail() {
                     <div className="classCoachBox">
                         <p className="classCoachBox-item">教練：{testClass.coach.coachName}</p>
                         <p className="classCoachBox-item">學員：{testClass.student.stuName}</p>
-                        <p className="classCoachBox-item">{testClass.student.courseLeft} / {testClass.student.coursesAll}</p>
+                        <p className="classCoachBox-item">{testClass.student.courseLeft} / {testClass.student.buyDetail.coursesAll}</p>
                     </div>
 
                     <div className="row">

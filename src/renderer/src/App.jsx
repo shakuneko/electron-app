@@ -38,7 +38,7 @@ function App() {
 
           <Route path="/student">
             <Route path="form" element={<StudentForm />}  />
-            <Route path="name/:stuName" element={<StudentDetail/>} />
+            <Route path="name/:stuID" element={<StudentDetail/>} />
           </Route>
 
           <Route path="/studentform" element={<StudentForm classes={classes}/>} />

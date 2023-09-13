@@ -3,6 +3,15 @@ import StudentTableDetail from '../components/StudentTableDetail';
 import testClasses from '../json/test_class.json'
 
 function StudentTable() {
+
+    const stuData = [];
+
+    testClasses.forEach((item) => {
+        if (!stuData.includes(item.student.stuID)) {
+            // 如果資料不重複，則將其添加到列表中
+            stuData.push(item);
+          }
+    });
     
     return (
         <div className="container-fluid">
@@ -13,7 +22,7 @@ function StudentTable() {
             <div className='col-10 container margin-left-right'>  
                 <div className='table-container'>
                     <h1 className='title'>學員管理</h1>
-                    <StudentTableDetail classes={testClasses}/>
+                    <StudentTableDetail classes={stuData}/>
                 </div>
             </div>
             
