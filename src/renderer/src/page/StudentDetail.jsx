@@ -30,7 +30,8 @@ function StudentDetail() {
                 <div className='col-10 container margin-left-right'>  
                     <div className='table-container'>
                         {/* {testClasses["PT"].id} */}
-                        {/* {luluArray[0].student.stuName} */}
+                        {/* {stuArray[0].student.buyDetail.buyDate} */}
+                        {/* <button onClick={()=> console.log(stuArray)}>pp</button> */}
                         <StudentDetailPage classes={stuArray} />
                     </div>
                 </div>

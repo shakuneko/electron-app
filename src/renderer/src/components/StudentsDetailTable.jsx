@@ -16,7 +16,7 @@ function StudentsDetailTable({ classes }) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"student.createDate",
+            accessorKey:"student.buyDetail.buyDate",
             header:"日期",
             size:100,
             enableEditing:false
