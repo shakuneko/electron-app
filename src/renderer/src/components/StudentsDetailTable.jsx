@@ -22,7 +22,7 @@ function StudentsDetailTable({ classes }) {
             enableEditing:false
         },
         {
-            accessorKey:"courseType",
+            accessorKey:"student.buyDetail.courseType",
             header:"課程種類",
             size:100,
             filterVariant: 'select',
@@ -30,7 +30,7 @@ function StudentsDetailTable({ classes }) {
             enableEditing:false
         },
         {
-            accessorKey:"student.coursesAll",
+            accessorKey:"student.buyDetail.coursesAll",
             header:"堂數",
             size:100,
             enableSorting: false,
@@ -43,17 +43,17 @@ function StudentsDetailTable({ classes }) {
             enableEditing:false
         },
         {
-            accessorKey:"student.payMethod",
+            accessorKey:"student.buyDetail.payMethod",
             header:"付款方式",
             size:100,
         },
         {
-            accessorKey:"salaryS",
+            accessorKey:"student.buyDetail.salaryS",
             header:"消費金額",
             size:100,
         },
         {
-            accessorKey:"student.invoiceNum",
+            accessorKey:"student.buyDetail.invoiceNum",
             header:"發票號碼",
             size:100,
         },

@@ -21,7 +21,7 @@
         "courseLeft":"6",
         "preCourseLeft":"6",
         "stuPhone":"0928-532-816",
-        "buyDetail":{
+        "buyDetail":[{
           "courseType":"皮拉提斯",
           "coachName": "A",
           "coursesAll":"10",
@@ -30,7 +30,7 @@
           "buyDate":"2022/06/23",
           "exCourse":"否",
           "salaryS":"6500"
-        },
+        }],
         "reserveDetail": [
             {
                 "reserveId": "1",
@@ -76,7 +76,7 @@
           "courseLeft":"3",
           "preCourseLeft":"6",
           "stuPhone":"0928-532-000",
-          "buyDetail":{
+          "buyDetail":[{
             "courseType":"PT",
             "coachName": "B",
             "coursesAll":"10",
@@ -85,7 +85,7 @@
             "buyDate":"2022/06/23",
             "exCourse":"否",
             "salaryS":"6500"
-          },
+          }],
           "reserveDetail": [
               {
                   "reserveId": "1",
@@ -130,7 +130,7 @@
           "courseLeft":"10",
           "preCourseLeft":"10",
           "stuPhone":"0928-532-816",
-          "buyDetail":{
+          "buyDetail":[{
             "courseType":"皮拉提斯",
             "coachName": "A",
             "coursesAll":"10",
@@ -139,7 +139,7 @@
             "buyDate":"2022/05/23",
             "exCourse":"否",
             "salaryS":"6500"
-          },
+          }],
           "reserveDetail": [
               {
                   "reserveId": "1",
