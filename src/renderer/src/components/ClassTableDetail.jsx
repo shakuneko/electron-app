@@ -31,22 +31,20 @@ function ClassTableDetail({classes}) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"couch.name",
+            accessorKey:"coach.coachName",
             header:"教練",
+            filterVariant: 'select',
             size:100,
         },
         {
             accessorKey:"courseType",
             header:"課程種類",
             size:100,
-            // filterFn: 'equals',
-            // filterSelectOptions: selectOptions,
             filterVariant: 'select',
-            // muiTableHeadCellFilterTextFieldProps: { placeholder: '課程種類' },
             enableSorting: false
         },
         {
-            accessorKey:"student.name",
+            accessorKey:"student.stuName",
             header:"學員",
             size:100,
             enableSorting: false
@@ -58,13 +56,13 @@ function ClassTableDetail({classes}) {
             Cell: AddAlertMode
         },
         {
-            accessorKey:"student.coursesAll",
+            accessorKey:"coursesAll",
             header:"總堂數",
             size:100,
             Cell: AddAlertMode
         },
         {
-            accessorKey:"student.exCourse",
+            accessorKey:"exCourse",
             header:"體驗課",
             size:100,
             Cell: ({ renderedCellValue }) => {
@@ -94,13 +92,10 @@ function ClassTableDetail({classes}) {
         columns={columns}
         data={classes} 
         initialState={{ showGlobalFilter: true }} //show filters by default
-        enableColumnActions={false} //no need for column actions if none of them are enabled
-        // enableColumnFilters={false} //filtering does not work with memoized table body
-        
+        enableColumnActions={false} //no need for column actions if none of them are enable
         enableDensityToggle={false} //density does not work with memoized table body
         enableFullScreenToggle={false}
         enableHiding={false} //column hiding does not work with memoized table body
-        // enableSorting={false} //sorting does not work with memoized table body
         enableStickyHeader
         enableFacetedValues
         renderTopToolbarCustomActions={() => (
