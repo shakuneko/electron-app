@@ -1,7 +1,9 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
+import { connect } from 'react-redux';
+import { updateClassForm } from '../redux/Actions/formActions'
 
-function ClassForm() {
+function ClassForm(props) {
   //設定每個分頁的初始狀態
   const initialFormData = {
     page1: {
@@ -46,7 +48,6 @@ const [classForm, setClassForm] = useState(initialFormData);
 const [currentPage, setCurrentPage] = useState('page1');
 
 
-
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event,page) => {
   // 從事件對象中獲取輸入的名稱和值
@@ -76,7 +77,7 @@ const handleRadioChange = (event, page) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-
+  props.updateClassForm(currentPage,classForm[currentPage])
   // 在这里处理表单提交的逻辑
   console.log('表单数据：', classForm);
 
@@ -484,7 +485,7 @@ const handleSubmit = (event) => {
                           </div>
                       </div>
                       
-                      {/* <div class="form-group">
+                      <div class="form-group">
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
                             <div class="form-check">
@@ -514,7 +515,7 @@ const handleSubmit = (event) => {
                               </label>
                           </div>
                       </div>
-                      </div> */}
+                      </div>
                       <div class="form-group2">
                           <label for="exampleInputPassword1">備註:</label>
                           <div className="select">
@@ -613,18 +614,25 @@ const handleSubmit = (event) => {
                      )}
                 </form>
               </div>
+              <div>
+             
+              </div>
         </div>
       </div>
   )
   }
-
-export default ClassForm
+  const mapDispatchToProps = {
+    updateClassForm,
+  };
+  
+  export default connect(null, mapDispatchToProps)(ClassForm);
 
 // import React from 'react';
 // import { useSelector } from 'react-redux';
 // function ClassForm() {
 //   const coachForm = useSelector((state) => state.root.coach.coachForm);
 //   const stuForm = useSelector((state) => state.root.stu.stuForm);
+// const classForm = useSelector((state) => state.root.class.classForm);
 //   // const { coachForm } = props;
 //   // console.log(props);
 //   console.log(coachForm);
@@ -634,7 +642,8 @@ export default ClassForm
 //       {/* 使用从 Redux Store 中提取的 JSON 数据来渲染 */}
 //       <pre>{JSON.stringify(coachForm, null, 2)}</pre>
 //       <pre>{JSON.stringify(stuForm, null, 2)}</pre>
-//     </div>
+// <pre>{JSON.stringify(classForm, null, 2)}</pre>
+//      </div>
 //   );
 // }
 
