@@ -13,6 +13,7 @@ import ClassDetail from "./page/ClassDetail";
 import CoachDetail from './page/CoachDetail';
 import StudentDetail from './page/StudentDetail';
 
+
 import classes from './json/class.json'
 import testClass from './json/test_class.json'
 
@@ -35,8 +36,9 @@ function App() {
           <Route path="/coach" element={<CoachTable classes={classes}/>} />
           <Route path="/revenue" element={<Revenue classes={classes}/>} />
 
-          {/* <Route path="/form" element={<Form />} /> */}
-          {/* <Route path="/form" element={<ClassForm />} /> */}
+            {/* <Route path="/form" element={<Form />} /> */}
+          <Route path="/form" element={<ClassForm />} />
+          {/* <Route path="/jsonform" element={<JsonForm />} /> */}
           <Route path="/studentform" element={<StudentForm classes={classes}/>} />
           <Route path="/coachform" element={<CoachFrom classes={classes}/>} />
 

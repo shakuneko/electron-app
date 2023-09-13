@@ -1,20 +1,22 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
+import { connect } from 'react-redux';
+import { updateStuForm } from '../redux/Actions/formActions'
 
-function StudentForm(){
+function StudentForm(props){
   const initialFormData = {
     name:'',
-    gender: '',
-    tel: '',
-    email: '',
-    address: '',
-    contact: '',
-    relation:'',
-    contact_tel:'',
+    stuGender: '',
+    stuPhone: '',
+    stuEmail: '',
+    stuAddress: '',
+    stuContact: '',
+    stuRelation:'',
+    stuContact_phone:'',
     note:'',
   };
    // 使用useState來創建一個狀態變數，並初始化為空字串
-   const [StuForm, setStuForm] = useState(initialFormData);
+   const [stuForm, setStuForm] = useState(initialFormData);
  
 
    // 定義一個處理表單輸入變化的函數
@@ -23,7 +25,7 @@ function StudentForm(){
       const{name,value}=event.target;
 
       setStuForm ({
-        ...StuForm,
+        ...stuForm,
         [name]: value,
       });
   };
@@ -32,8 +34,9 @@ function StudentForm(){
   // 提交表單的函數
   const handleSubmit = (event) => {
     event.preventDefault();
+    props.updateStuForm(stuForm)
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
-    console.log('表单数据：', StuForm);
+    console.log('表单数据：', stuForm);
     // 清除表单数据为初始状态
     setStuForm(initialFormData);
   };
@@ -57,7 +60,7 @@ function StudentForm(){
                       name="name"
                       type="text" 
                       class="form-select" 
-                      value={StuForm.name}
+                      value={stuForm.name}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -68,9 +71,9 @@ function StudentForm(){
                     <input 
                       id="gender"
                       type="text" 
-                      name="gender"
+                      name="stuGender"
                       class="form-select" 
-                      value={StuForm.gender}
+                      value={stuForm.stuGender}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
@@ -81,9 +84,9 @@ function StudentForm(){
                     <input 
                       id="tel" 
                       type="text" 
-                      name="tel"
+                      name="stuPhone"
                       class="form-select" 
-                      value={StuForm.tel}
+                      value={stuForm.stuPhone}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
@@ -94,9 +97,9 @@ function StudentForm(){
                     <input 
                       id="email"
                       type="email" 
-                      name="email"
+                      name="stuEmail"
                       class="form-select" 
-                      value={StuForm.email}
+                      value={stuForm.stuEmail}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
@@ -107,9 +110,9 @@ function StudentForm(){
                     <input 
                       id="address" 
                       type="text" 
-                      name="address"
+                      name="stuAddress"
                       class="form-select"  
-                      value={StuForm.address}
+                      value={stuForm.stuAddress}
                       onChange={handleInputChange}  
                     ></input>
                     </div>
@@ -120,9 +123,9 @@ function StudentForm(){
                     <input 
                       id="contact" 
                       type="text" 
-                      name="contact"
+                      name="stuContact"
                       class="form-select" 
-                      value={StuForm.contact}
+                      value={stuForm.stuContact}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
@@ -133,9 +136,9 @@ function StudentForm(){
                     <input 
                       id="relation" 
                       type="text" 
-                      name="relation"
+                      name="stuRelation"
                       class="form-select" 
-                      value={StuForm.relation}
+                      value={stuForm.stuRelation}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
@@ -146,9 +149,9 @@ function StudentForm(){
                     <input 
                       id="contact_tel" 
                       type="text" 
-                      name="contact_tel"
+                      name="stuContact_phone"
                       class="form-select" 
-                      value={StuForm.contact_tel}
+                      value={stuForm.stuContact_phone}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
@@ -161,7 +164,7 @@ function StudentForm(){
                       name="note"
                       class="form-select" 
                       rows="3"
-                      value={StuForm.note}
+                      value={stuForm.note}
                       onChange={handleInputChange} 
                     ></textarea>
                     </div>  
@@ -176,5 +179,8 @@ function StudentForm(){
     </div>
   )
 }
+const mapDispatchToProps = {
+  updateStuForm,
+};
 
-export default StudentForm
+export default connect(null, mapDispatchToProps)(StudentForm);

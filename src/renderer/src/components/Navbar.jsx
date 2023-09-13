@@ -170,6 +170,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faSackDollar} /> 
             <div class="nav-word">studentdetail</div></Link> */}
 
+
       {/* <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faKey} />
             <div class="nav-word">場地租借</div></Link> */}
@@ -183,6 +184,12 @@ function Navbar() {
       </NavLink>
       
     </div>
+
+            // {/* <NavLink to="/jsonform" className="nav-item">
+            // <FontAwesomeIcon icon={faAddressBook} />
+            // <div class="nav-word">Json測試</div></NavLink> */}
+       
+
   )
 }
 

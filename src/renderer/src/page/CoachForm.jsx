@@ -1,13 +1,14 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-
+import { connect } from 'react-redux';
+import { updateCoachName } from '../redux/Actions/formActions'
  
-function CoachForm() {
+function CoachForm(props) {
   
   const initialFormData = {
     name:'',
     gender: '',
-    num: '',
+    idcode: '',
     tel:'',
     email: '',
     address: '',
@@ -43,6 +44,7 @@ const handleItemClick = (item) => {
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
+props.updateCoachName(coachForm)
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
 // 清除表单数据为初始状态
@@ -90,8 +92,8 @@ setCoachForm(initialFormData);
                     <input 
                       type="text" 
                       class="form-select"
-                      name="num"  
-                      value={coachForm.num}
+                      name="idcode"  
+                      value={coachForm.idcode}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -230,5 +232,33 @@ setCoachForm(initialFormData);
     </div>
   )
 }
+const mapDispatchToProps = {
+  updateCoachName,
+};
 
-export default CoachForm
+export default connect(null, mapDispatchToProps)(CoachForm);
+
+
+// import React from 'react';
+// import { useSelector } from 'react-redux';
+// function CoachForm() {
+//   const coachForm = useSelector((state) => state.root.coach.coachForm);
+//   const stuForm = useSelector((state) => state.root.stu.stuForm);
+//   const classForm = useSelector((state) => state.root.class.classForm);
+//   // const { coachForm } = props;
+//   // console.log(props);
+//   console.log(coachForm);
+//   console.log(stuForm);
+//   console.log(classForm);
+//   return (
+//     <div>
+//       {/* 使用从 Redux Store 中提取的 JSON 数据来渲染 */}
+//       <pre>{JSON.stringify(coachForm, null, 2)}</pre>
+//       <pre>{JSON.stringify(stuForm, null, 2)}</pre>
+//       <pre>{JSON.stringify(classForm, null, 2)}</pre>
+//      </div>
+//   );
+// }
+
+
+// export default CoachForm;
