@@ -5,14 +5,15 @@ import CoachTopBar from '../components/CoachTopBar'
 import CoachDetailTable from '../components/CoachDetailTable'
 import Navbar from '../components/Navbar'
 //json
-import testClass from '../json/test_class.json'
-
+//import testClass from '../json/test_class.json'
+import { useParams } from 'react-router-dom';
 
 function CoachDetail({ classes }) {
 //   const onChange = (date, dateString) => {
 //     console.log(date, dateString)
 //   }
-
+const { id } = useParams();
+console.log("aaa:",id)
   return (
     <div className="container-fluid" >
         <div className="row form_class row-no-gutters">
@@ -28,18 +29,19 @@ function CoachDetail({ classes }) {
                         <p className="classCoachBox-item">學員：</p>
                         <p className="classCoachBox-item">學員名</p>
                         <p className="classCoachBox-item">9/10</p> */}
-                        <p className="classCoachBox-item">教練：</p>
-                        <p className="classCoachBox-item">性別：男</p>
-                        <p className="classCoachBox-item">堂薪：600</p>
+                        <p className="classCoachBox-item">教練：{classes[id].couch.name}</p>
+                        <p className="classCoachBox-item">性別：{classes[id].couch.couchGender}</p>
+                        <p className="classCoachBox-item">堂薪：{classes[id].couch.salary}</p>
                     </div>
 
                     <div className="classcontainer">
                         <div className='col-3'>
-                            <StudentsList />
+                            {/* use map to show students */}
+                            <StudentsList students={classes[id]}/>
                         </div>
                        
                         <div className="coachdetailright col-9">
-                            <CoachTopBar coachValue={testClass} />
+                            <CoachTopBar coachValue={classes} />
                             <div className="chooseDateBox">
                                 
                                 <div className="DatePicksTitle">
@@ -55,7 +57,8 @@ function CoachDetail({ classes }) {
                             </div>
 
                             <div>
-                            <CoachDetailTable classes={classes} />
+                            <CoachDetailTable classes={classes[id]} />
+                            
                             </div>
                         </div>
                     </div>

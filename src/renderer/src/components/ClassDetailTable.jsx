@@ -28,7 +28,7 @@ function ClassDetailTable({ testClass }) {
       setTableData([...tableData]); //re-render with new data
     };
 
-
+console.log("aaaa",testClass)
     const columns = [ //表格有的資料
         {
             accessorKey:"reserveDate",

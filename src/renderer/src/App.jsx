@@ -32,7 +32,7 @@ function App() {
             <Route path="id/:id" element={<ClassDetail />} />
           </Route>
           <Route path="/student" element={<StudentTable classes={classes}/>} />
-          <Route path="/coach" element={<CoachTable classes={classes}/>} />
+          <Route path="/coach" element={<CoachTable classes={testClass}/>} />
           <Route path="/revenue" element={<Revenue classes={classes}/>} />
 
           {/* <Route path="/form" element={<Form />} /> */}
@@ -41,7 +41,9 @@ function App() {
           <Route path="/coachform" element={<CoachFrom classes={classes}/>} />
 
           {/* <Route path="/classdetail" element={<ClassDetail classes={classes}/>} /> */}
-          <Route path="/coachdetail" element={<CoachDetail classes={classes}/>} />
+          
+          {/* coach add id to path */}
+          <Route path="/coachdetail/:id" element={<CoachDetail classes={testClass}/>} />
           <Route path="/studentdetail" element={<StudentDetail classes={classes}/>} />
 
           <Route path="/savejson" element={<SaveJsonPage />} />
