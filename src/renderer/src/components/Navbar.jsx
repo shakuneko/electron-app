@@ -31,6 +31,7 @@ function Navbar() {
   console.log('modifiedHash:', testJsonModified)
   console.log('isSame:', isSame)
 
+  //use for testing
   let tester = {
     id: 2,
     name: 'test',
@@ -65,7 +66,7 @@ function Navbar() {
   const { ipcRenderer } = window.electron
 
   const onSaveToFile = async () => {
-    const data = JSON.stringify({ jsonData })//set the dhould save json here - use redux's state
+    const data = JSON.stringify({ testModified })//set the dhould save json here - use redux's state
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
   }
 
@@ -85,9 +86,14 @@ function Navbar() {
     ipcRenderer.on('filePathInfo', (_, filePath) => {
       setFilePathInfo(filePath)
     })
+    return () => {
+      ipcRenderer.removeAllListeners('menuInfo')
+      ipcRenderer.removeAllListeners('filePathInfo')
+    }
+
   }, [])
 
-
+  //handle hash function onclick
   const handleHashOnClick = () => {
     //dispatch(checkPageHash(hash(testModified)));
     dispatch(checkPageHash(hash(tester)))
@@ -102,8 +108,9 @@ function Navbar() {
     // } else {
     //   console.log('No need to save file2');
     // }
+
     if (isSame == false) {
-      onSaveToFile()
+      //onSaveToFile()
       console.log('save file here:',filePathInfo)
     }
 
