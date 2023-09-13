@@ -23,12 +23,21 @@ const initialState = {
             coach:'',
             stu1: '',
             stu2:'',
+            number: '',
+            salary:'',
+            selectedOption: '', 
+            note: '',
+        },
+        page4: {
+            coach:'',
+            stu1: '',
+            stu2:'',
             stu3:'',
             number: '',
             salary:'',
             note: '',
         },
-        page4: {
+        page5: {
             coach:'',
             floor: '',
             date:'',
@@ -41,7 +50,7 @@ const initialState = {
   const formReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'UPDATE_CLASS_FORM':
-        const { page,data,coach, stu1, stu2, number, salary, selectedOption, note } = action.payload;
+        const { page,data} = action.payload;
         return {
           ...state,
           classForm:{
