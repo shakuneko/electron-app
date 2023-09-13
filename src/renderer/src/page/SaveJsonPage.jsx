@@ -30,6 +30,10 @@ function SaveJsonPage() {
     ipcRenderer.on('filePathInfo', (_, filePath) => {
       setFilePathInfo(filePath)
     })
+    return () => {
+      ipcRenderer.removeAllListeners('menuInfo')
+      ipcRenderer.removeAllListeners('filePathInfo')
+    }
   }, [])
 
   return (

@@ -4,6 +4,9 @@ import CoachTopBar from '../components/CoachTopBar'
 //import { DatePicker, Space } from "antd";
 import CoachDetailTable from '../components/CoachDetailTable'
 import Navbar from '../components/Navbar'
+//json
+import testClass from '../json/test_class.json'
+
 
 function CoachDetail({ classes }) {
 //   const onChange = (date, dateString) => {
@@ -25,7 +28,7 @@ function CoachDetail({ classes }) {
                         <p className="classCoachBox-item">學員：</p>
                         <p className="classCoachBox-item">學員名</p>
                         <p className="classCoachBox-item">9/10</p> */}
-                        <p className="classCoachBox-item">教練：教練名</p>
+                        <p className="classCoachBox-item">教練：</p>
                         <p className="classCoachBox-item">性別：男</p>
                         <p className="classCoachBox-item">堂薪：600</p>
                     </div>
@@ -36,7 +39,7 @@ function CoachDetail({ classes }) {
                         </div>
                        
                         <div className="coachdetailright col-9">
-                            <CoachTopBar />
+                            <CoachTopBar coachValue={testClass} />
                             <div className="chooseDateBox">
                                 
                                 <div className="DatePicksTitle">
