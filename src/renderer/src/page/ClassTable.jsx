@@ -14,8 +14,8 @@ function ClassTable() {
             <div className='col-10 container margin-left-right'>  
                 <div className='table-container'>
                     <h1 className='title'>課程管理</h1>
+                    {/* <button onClick={()=> console.log(testClasses)}>pp</button> */}
                     <ClassTableDetail classes={testClasses}/>
-                    {/* <p>{testClasses[0].student.name}</p> */}
                 </div>
             </div>
             

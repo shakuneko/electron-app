@@ -36,26 +36,24 @@ console.log("aaaa",testClass)
             size:100,
         },
         {
-            // accessorKey:"student.reserveTime[0].reservetime",
             accessorFn: (row) => `${row.reservetime} `,
             id:"time",
             header:"時間",
             size:100,
-            // Cell:
         },
-        // {
-        //     accessorKey:"student.exCourse",
-        //     header:"是否來上課",
-        //     size:100,
-        //     enableSorting: false
-        // },
-        // {
-        //     accessorKey:"student.exCourse",
-        //     header:"取消預約",
-        //     id:"cansole",
-        //     size:50,
-        //     enableSorting: false,
-        // },
+        {
+            accessorKey:"attandence",
+            header:"是否來上課",
+            size:100,
+            enableSorting: false
+        },
+        {
+            accessorKey:"cancel",
+            header:"取消預約",
+            id:"cansole",
+            size:50,
+            enableSorting: false,
+        },
         {
             accessorKey:"note",
             header:"備註",
@@ -94,16 +92,16 @@ console.log("aaaa",testClass)
                 雙擊要修改的內容進行修改
             </Typography>
         )}             
-        renderTopToolbarCustomActions={({ table ,detailData}) => {
+        // renderTopToolbarCustomActions={({ table ,detailData}) => {
 
-            return (
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <button onClick={()=> console.log(table.getRowModel().rows)}>ppp</button>
-                <button onClick={()=> console.log(detailData)}>pp0</button>
-                <button onClick={()=> console.log(detailData.reserveDetail[0])}>p</button>
-                </div>
-            );
-            }}  
+        //     return (
+        //         <div style={{ display: 'flex', gap: '0.5rem' }}>
+        //         <button onClick={()=> console.log(table.getRowModel().rows)}>ppp</button>
+        //         <button onClick={()=> console.log(detailData)}>pp0</button>
+        //         <button onClick={()=> console.log(detailData.reserveDetail[0])}>p</button>
+        //         </div>
+        //     );
+        //     }}  
     />
 
   )
