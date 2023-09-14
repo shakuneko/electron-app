@@ -2,6 +2,7 @@ import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 import { connect } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
+import jsonData from '../json/form_test.json'
 
 function StudentForm(props){
   const initialFormData = {
@@ -17,7 +18,7 @@ function StudentForm(props){
   };
    // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
- 
+
 
    // 定義一個處理表單輸入變化的函數
    const handleInputChange = (event) => {
@@ -35,10 +36,17 @@ function StudentForm(props){
   const handleSubmit = (event) => {
     event.preventDefault();
     props.updateStuForm(stuForm)
+    // jsonData[0].student.stuName=stuForm.stuName;
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
     // 清除表单数据为初始状态
     setStuForm(initialFormData);
+
+    jsonData.push(stuForm);
+
+    console.log(jsonData);
+
+
   };
 
   return (
