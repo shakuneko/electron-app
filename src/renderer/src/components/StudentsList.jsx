@@ -4,7 +4,8 @@
 function StudentsList({ students }) {
   let stuNum = []
   let stuName = []
-  for (let i = 0; i < students.length; i++) {
+  console.log('stunum:', students.student)
+  for (let i = 0; i < students.length+2; i++) {
     stuNum.push(students.student[i].name)
 
   }
