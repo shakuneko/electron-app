@@ -24,7 +24,6 @@ import { Provider } from 'react-redux'
 
 function App() {
   return (
-    <Provider store={store}>
       <HashRouter>
         <Routes>
           <Route path="/" element={<ClassTable />} />
@@ -56,8 +55,7 @@ function App() {
           <Route path="/savejson" element={<SaveJsonPage />} />
         </Routes>
       </HashRouter>
-      {/*  <Form/> */}
-    </Provider>
+
   )
 }
 
