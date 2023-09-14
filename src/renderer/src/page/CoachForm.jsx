@@ -2,23 +2,23 @@ import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 import { connect } from 'react-redux';
 import { updateCoachName } from '../redux/Actions/formActions'
- 
+
 function CoachForm(props) {
   
   const initialFormData = {
-    name:'',
-    gender: '',
-    idcode: '',
-    tel:'',
-    email: '',
-    address: '',
+    coachName:'',
+    coachGender: '',
+    coachIDcode: '',
+    coachPhone:'',
+    coachEmail: '',
+    coachAddress: '',
     salary:'',
-    account:'',
-    contact: '',
-    relation:'',
-    contact_tel:'',
-    note:'',
-    selectedItem: null, // 新增一个字段用于存储按钮选项值
+    coachBank:'',
+    coachContact: '',
+    coachRelation:'',
+    coachContact_tel:'',
+    coachNote:'',
+    major: null, // 新增一个字段用于存储按钮选项值
   };
 // 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
@@ -37,7 +37,7 @@ const handleInputChange = (event) => {
 const handleItemClick = (item) => {
   setCoachForm({
     ...coachForm,
-    selectedItem: item, // 更新按钮选项值
+    major: item, // 更新按钮选项值
   });
 };
 
@@ -67,9 +67,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <input 
                       type="text" 
-                      name="name"
+                      name="coachName"
                       class="form-select" 
-                      value={coachForm.name}
+                      value={coachForm.coachName}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -80,8 +80,8 @@ setCoachForm(initialFormData);
                     <input 
                       type="text" 
                       class="form-select" 
-                      name="gender"
-                      value={coachForm.gender}
+                      name="coachGender"
+                      value={coachForm.coachGender}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -92,8 +92,8 @@ setCoachForm(initialFormData);
                     <input 
                       type="text" 
                       class="form-select"
-                      name="idcode"  
-                      value={coachForm.idcode}
+                      name="coachIDcode"  
+                      value={coachForm.coachIDcode}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -103,9 +103,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <input 
                       type="text" 
-                      name="tel" 
+                      name="coachPhone" 
                       class="form-select" 
-                      value={coachForm.tel}
+                      value={coachForm.coachPhone}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -115,9 +115,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <input 
                       type="text" 
-                      name="email"
+                      name="coachEmail"
                       class="form-select" 
-                      value={coachForm.email}
+                      value={coachForm.coachEmail}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -128,8 +128,8 @@ setCoachForm(initialFormData);
                     <input 
                       type="text" 
                       class="form-select" 
-                      name="address"
-                      value={coachForm.address}
+                      name="coachAddress"
+                      value={coachForm.coachAddress}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -140,15 +140,15 @@ setCoachForm(initialFormData);
                     <button 
                       type="button" 
                       onClick={() => handleItemClick('PT')}
-                      className={`btn btn-outline-golden   ${coachForm.selectedItem === 'PT' ? 'active' : ''}`}>PT</button>
+                      className={`btn btn-outline-golden   ${coachForm.major === 'PT' ? 'active' : ''}`}>PT</button>
                     <button 
                       type="button" 
                       onClick={() => handleItemClick('皮拉提斯')}
-                      className={`btn btn-outline-golden   ${coachForm.selectedItem === '皮拉提斯' ? 'active' : ''}`}>皮拉提斯</button>
+                      className={`btn btn-outline-golden   ${coachForm.major === '皮拉提斯' ? 'active' : ''}`}>皮拉提斯</button>
                     <button
                       type="button" 
                       onClick={() => handleItemClick('團課')}
-                      className={`btn btn-outline-golden   ${coachForm.selectedItem === '團課' ? 'active' : ''}`}>團課</button>
+                      className={`btn btn-outline-golden   ${coachForm.major === '團課' ? 'active' : ''}`}>團課</button>
                   </div>
                 </div>    
                 <div class="form-group">
@@ -168,9 +168,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <input 
                       type="text" 
-                      name="account"
+                      name="coachBank"
                       class="form-select" 
-                      value={coachForm.account}
+                      value={coachForm.coachBank}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -180,9 +180,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <input 
                       type="text" 
-                      name="contact"
+                      name="coachContact"
                       class="form-select" 
-                      value={coachForm.contact}
+                      value={coachForm.coachContact}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -192,9 +192,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <input 
                       type="text"
-                      name="relation"
+                      name="coachRelation"
                       class="form-select"
-                      value={coachForm.relation}
+                      value={coachForm.coachRelation}
                       onChange={handleInputChange}
                      ></input>
                     </div>
@@ -204,9 +204,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <input 
                       type="text" 
-                      name="contact_tel"
+                      name="coachContact_tel"
                       class="form-select" 
-                      value={coachForm.contact_tel}
+                      value={coachForm.coachContact_tel}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -216,9 +216,9 @@ setCoachForm(initialFormData);
                     <div className="select">
                     <textarea 
                       class="form-select" 
-                      name="note"
+                      name="coachNote"
                       rows="3"
-                      value={coachForm.note}
+                      value={coachForm.coachNote}
                       onChange={handleInputChange}
                     ></textarea>
                     </div>  

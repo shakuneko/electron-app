@@ -5,15 +5,15 @@ import { updateStuForm } from '../redux/Actions/formActions'
 
 function StudentForm(props){
   const initialFormData = {
-    name:'',
+    stuName:'',
     stuGender: '',
     stuPhone: '',
     stuEmail: '',
     stuAddress: '',
     stuContact: '',
     stuRelation:'',
-    stuContact_phone:'',
-    note:'',
+    stuContact_tel:'',
+    stuNote:'',
   };
    // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
@@ -57,10 +57,10 @@ function StudentForm(props){
                     <div className="select">
                     <input 
                       id="name" 
-                      name="name"
+                      name="stuName"
                       type="text" 
                       class="form-select" 
-                      value={stuForm.name}
+                      value={stuForm.stuName}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -149,9 +149,9 @@ function StudentForm(props){
                     <input 
                       id="contact_tel" 
                       type="text" 
-                      name="stuContact_phone"
+                      name="stuContact_tel"
                       class="form-select" 
-                      value={stuForm.stuContact_phone}
+                      value={stuForm.stuContact_tel}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
@@ -161,10 +161,10 @@ function StudentForm(props){
                     <div className="select">
                     <textarea 
                       id="note" 
-                      name="note"
+                      name="stuNote"
                       class="form-select" 
                       rows="3"
-                      value={stuForm.note}
+                      value={stuForm.stuNote}
                       onChange={handleInputChange} 
                     ></textarea>
                     </div>  

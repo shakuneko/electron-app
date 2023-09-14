@@ -1,42 +1,42 @@
 
 const initialState = {
   coachForm: {
-    name: '',
-    gender: '',
-    idcode: '',
-    tel: '',
-    email: '',
-    address: '',
+    coachName: '',
+    coachGender: '',
+    coachIDcode: '',
+    coachPhone: '',
+    coachEmail: '',
+    coachAddress: '',
     salary: '',
-    account: '',
-    contact: '',
-    relation: '',
-    contact_tel: '',
-    note: '',
-    selectedItem: null,
+    coachBank: '',
+    coachContact: '',
+    coachRelation: '',
+    coachContact_tel: '',
+    coachNote: '',
+    major: null,
   },
 };
 
 const formReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_COACH_NAME':
-      const { name, gender, idcode, tel, email, address, salary, account, contact, relation, contact_tel, note } = action.payload;
+      const { coachName, coachGender, coachIDcode, coachPhone, coachEmail, coachAddress, salary, coachBank, coachContact, coachRelation, coachContact_tel, coachNote } = action.payload;
       return {
         ...state,
         coachForm: 
           {...state.coachForm,
-            name,
-            gender, 
-            idcode, 
-            tel, 
-            email, 
-            address, 
+            coachName,
+            coachGender, 
+            coachIDcode, 
+            coachPhone, 
+            coachEmail, 
+            coachAddress, 
             salary, 
-            account, 
-            contact, 
-            relation, 
-            contact_tel, 
-            note }, 
+            coachBank, 
+            coachContact, 
+            coachRelation, 
+            coachContact_tel, 
+            coachNote }, 
       };
 
     default:

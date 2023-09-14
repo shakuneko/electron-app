@@ -1,7 +1,7 @@
 
 const initialState = {
     stuForm:{
-      name:'',
+      stuName:'',
       stuGender: '',
       stutPhone: '',
       stuEmail: '',
@@ -9,19 +9,19 @@ const initialState = {
       stuContact: '',
       stuRelation:'',
       stuContact_tel:'',
-      note:'',
+      stuNote:'',
     }
   };
   
   const formReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'UPDATE_STU_FORM':
-          const { name, stuGender, stuPhone, stuEmail, stuAddress, stuAccount, stuContact, stuRelation, stuContact_phone, note } = action.payload;
+          const { stuName, stuGender, stuPhone, stuEmail, stuAddress, stuAccount, stuContact, stuRelation, stuContact_tel, stuNote } = action.payload;
         return {
           ...state,
           stuForm: 
             {...state.coachForm,
-              name,
+              stuName,
               stuGender, 
               stuPhone, 
               stuEmail, 
@@ -29,8 +29,8 @@ const initialState = {
               stuAccount, 
               stuContact, 
               stuRelation, 
-              stuContact_phone, 
-              note }, 
+              stuContact_tel, 
+              stuNote }, 
         };
       
       default:
