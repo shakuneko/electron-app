@@ -3,11 +3,14 @@ import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
 import { selectOptions, CheckOut } from './TableSelectOptions'
 
+
 function CoachTableDetail({classes}) {
 
-    const CheckOut = () => { //設定查看按鈕要進入的頁面
+    
+    const CheckOut = ({id}) => { //設定查看按鈕要進入的頁面
+        
         return<>
-           <Link to="/coachdetail" className='table-link-underline-none'>
+           <Link to={`/coachDetail/${id}`} className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">查看</button> 
             </Link>
         </>
@@ -15,24 +18,24 @@ function CoachTableDetail({classes}) {
     
     const columns = [ //表格有的資料
         {
-            accessorKey:"couch",
+            accessorKey:"coach.coachName",
             header:"教練",
             size:100,
         },
         {
-            accessorKey:"couchGender",
+            accessorKey:"coach.coachGender",
             header:"性別",
             size:50,
             enableSorting: false
         },
         {
-            accessorKey:"couchPhone",
+            accessorKey:"coach.coachPhone",
             header:"電話",
             size:100,
             enableSorting: false
         },
         {
-            accessorFn: (row) => `${row.major.join("、")} `,
+            accessorFn: (row) => `${row.coach.major.join("、")} `,
 
             id:"major",
             header:"能帶課程",
@@ -41,7 +44,7 @@ function CoachTableDetail({classes}) {
             
         },
         {
-            accessorKey:"note",
+            accessorKey:"classNote",
             header:"備註",
             size:150,
             enableSorting: false
@@ -50,12 +53,16 @@ function CoachTableDetail({classes}) {
             accessorKey:"id",
             header:"操作",
             size:50,
-            Cell: CheckOut,
+            //Cell: CheckOut,
+            Cell: ({ row }) => <CheckOut id={row.id} />, //設定查看按鈕要進入的頁面
             enableSorting: false
 
         }
     ];
     
+    
+
+
   return (
     
     <MaterialReactTable 
