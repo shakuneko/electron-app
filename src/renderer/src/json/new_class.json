@@ -1,0 +1,131 @@
+[
+    {
+        "category":"class",
+        "classDetail": [{
+            "classID":"1",
+            "courseType":"皮拉提斯",
+            "reserveDetail": [
+                {
+                    "reserveID": "1",
+                    "reserveDate": "2023/06/09",
+                    "reservetime": "13:00-14:00",
+                    "cancel":"否",
+                    "attandence":"是",
+                    "note":"你好"
+                },
+                {
+                    "reserveID": "2",
+                    "reserveDate": "2023/06/10",
+                    "reservetime": "13:00-14:00",
+                    "cancel":"否",
+                    "attandence":"是",
+                    "note":"～～～～"
+                }]
+            }],
+        "status":"快要截止",
+        "classNote":"哈囉！",
+        "student":[{
+            "stuID":"1",
+            "courseType":"皮拉提斯"
+        }],
+        "coach":[{
+            "coachID":"1"
+        }]
+    },
+    {
+        "category":"student",
+        "stuDetail": [{
+            "createDate":"2022/06/23",
+            "stuID":"1",
+            "stuName": "Lulu",
+            "stuGender":"女",
+            "stuNote": "睡眠不足",
+            "stuPhone": "",
+            "stuEmail": "",
+            "stuAddress": "",
+            "stuContact": "",
+            "stuRelation": "",
+            "stuContact_tel": "",
+            "buyDetail":[{
+                "classID":"1",
+                "courseType":"皮拉提斯",
+                "coachName": "A",
+                "coursesAll":"10",
+                "payMethod":"現金",
+                "invoiceNum" :"12345678",
+                "buyDate":"2022/06/23",
+                "exCourse":"否",
+                "coursePrice":"6500"
+            }] 
+        },
+        {
+            "createDate":"2022/08/23",
+            "stuID":"2",
+            "stuName": "甜甜",
+            "stuGender":"男",
+            "stuNote": "吃太多",
+            "stuPhone": "",
+            "stuEmail": "",
+            "stuAddress": "",
+            "stuContact": "",
+            "stuRelation": "",
+            "stuContact_tel": "",
+            "buyDetail":[{
+                "classID":"1",
+                "courseType":"PT",
+                "coachName": "A",
+                "coursesAll":"10",
+                "payMethod":"現金",
+                "invoiceNum" :"12345678",
+                "buyDate":"2022/06/23",
+                "exCourse":"否",
+                "coursePrice":"6400"
+            }] 
+        }
+    
+        ]
+ 
+    },
+    {
+        "category":"coach",
+        "coachDetail": [{
+            "coachID": "1",
+            "coachName": "A",
+            "coachGender":"男",
+            "coachIDcode": "",
+            "coachEmail": "",
+            "coachAddress": "", 
+            "coachBank": "", 
+            "coachContact": "", 
+            "coachRelation": "",
+            "coachContact_tel": "", 
+            "coachNote": "",
+            "coachPhone":"0900-000-000",
+            "major":[
+            "PT","皮拉提斯"
+            ],
+            "joinDate":"2020/01/30",
+            "salary":"650",
+            "selectedItem": null
+        },{
+            "coachID": "2",
+            "coachName": "B",
+            "coachGender":"男",
+            "coachIDcode": "",
+            "coachEmail": "",
+            "coachAddress": "", 
+            "coachBank": "", 
+            "coachContact": "", 
+            "coachRelation": "",
+            "coachContact_tel": "", 
+            "coachNote": "",
+            "coachPhone":"0900-000-111",
+            "major":[
+            "PT","皮拉提斯","運動按摩"
+            ],
+            "joinDate":"2022/10/30",
+            "salary":"650",
+            "selectedItem": null
+        }]
+    }
+]
