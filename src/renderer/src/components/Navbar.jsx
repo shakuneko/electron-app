@@ -20,9 +20,9 @@ import testModified from '../json/test_class.json'
 
 function Navbar() {
   
-  const currentPageHash = useSelector((state) => state.save.checkPageHash)
-  const oldHash = useSelector((state) => state.save.oldHash)
-  const isSame = useSelector((state) => state.save.isSameObject)
+  const currentPageHash = useSelector((state) => state.root.save.checkPageHash)
+  const oldHash = useSelector((state) => state.root.save.oldHash)
+  const isSame = useSelector((state) => state.root.save.isSameObject)
   const dispatch = useDispatch()
 
   const testJsonModified = hash(testModified)
