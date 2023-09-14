@@ -3,14 +3,15 @@ import { MaterialReactTable } from 'material-react-table'
 import React, { useEffect, useMemo, useState } from 'react'
 
 function CoachDetailTable({ classes }) {
-  let detailData = []
-
+  let stuData = []
   for (let i = 0; i < classes.student.reserveDetail.length; i++) {
-    detailData.push(classes.student.reserveDetail[i])
+    stuData.push(classes.student.reserveDetail[i])
   }
+  console.log('aaabclasses:', stuData)
+
   //optionally, you can manage the row selection state yourself
   const [rowSelection, setRowSelection] = useState({})
-  console.log('aaabclasses:', [classes])
+
   //console.log('aaaclasses:', detailData)
   useEffect(() => {
     //do something when the row selection changes...
@@ -20,12 +21,12 @@ function CoachDetailTable({ classes }) {
   const columns = [
     //表格有的資料
     {
-      accessorKey: 'student.name',
+      accessorKey: 'stuName',
       header: '學員',
       size: 100
     },
     {
-      accessorKey: 'createDate',
+      accessorKey: 'reserveDate',
       header: '日期',
       size: 100
     },
@@ -36,13 +37,13 @@ function CoachDetailTable({ classes }) {
       enableSorting: false
     },
     {
-      accessorKey: 'student.exCourse',
+      accessorKey: 'attandence',
       header: '是否來上課',
       size: 50,
       enableSorting: false
     },
     {
-      accessorKey: 'student.exCourse',
+      accessorKey: 'cancel',
       header: '取消預約',
       size: 100,
       enableSorting: false
@@ -58,7 +59,7 @@ function CoachDetailTable({ classes }) {
   return (
     <MaterialReactTable
       columns={columns}
-      data={[classes]}
+      data={stuData}
       initialState={{ showGlobalFilter: true }} //show filters by default
       enableColumnActions={false} //no need for column actions if none of them are enabled
       enableDensityToggle={false} //density does not work with memoized table body

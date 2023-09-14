@@ -29,9 +29,9 @@ console.log("aaa:",id)
                         <p className="classCoachBox-item">學員：</p>
                         <p className="classCoachBox-item">學員名</p>
                         <p className="classCoachBox-item">9/10</p> */}
-                        <p className="classCoachBox-item">教練：{classes[id].couch.name}</p>
-                        <p className="classCoachBox-item">性別：{classes[id].couch.couchGender}</p>
-                        <p className="classCoachBox-item">堂薪：{classes[id].couch.salary}</p>
+                        <p className="classCoachBox-item">教練：{classes[id].coach.coachName}</p>
+                        <p className="classCoachBox-item">性別：{classes[id].coach.coachGender}</p>
+                        <p className="classCoachBox-item">堂薪：{classes[id].coach.salary}</p>
                     </div>
 
                     <div className="classcontainer">

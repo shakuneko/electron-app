@@ -4,12 +4,11 @@
 function StudentsList({ students }) {
   let stuNum = []
   let stuName = []
-  console.log('stunum:', students.student)
-  for (let i = 0; i < students.length+2; i++) {
-    stuNum.push(students.student[i].name)
 
+  for (let i = 0; i < students.length + 2; i++) {
+    stuNum.push(students.student[i].name)
   }
-console.log("stuNum",stuNum)
+
   const numbers = [1, 2, 6, 4, 5]
   const listItems = numbers.map((number) => (
     <li className="CoachStudentsListBox-item" key={number}>

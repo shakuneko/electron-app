@@ -18,24 +18,24 @@ function CoachTableDetail({classes}) {
     
     const columns = [ //表格有的資料
         {
-            accessorKey:"couch.name",
+            accessorKey:"coach.coachName",
             header:"教練",
             size:100,
         },
         {
-            accessorKey:"couch.couchGender",
+            accessorKey:"coach.coachGender",
             header:"性別",
             size:50,
             enableSorting: false
         },
         {
-            accessorKey:"couchPhone",
+            accessorKey:"coach.coachPhone",
             header:"電話",
             size:100,
             enableSorting: false
         },
         {
-            accessorFn: (row) => `${row.couch.major.join("、")} `,
+            accessorFn: (row) => `${row.coach.major.join("、")} `,
 
             id:"major",
             header:"能帶課程",
@@ -44,7 +44,7 @@ function CoachTableDetail({classes}) {
             
         },
         {
-            accessorKey:"note",
+            accessorKey:"classNote",
             header:"備註",
             size:150,
             enableSorting: false
