@@ -1,15 +1,28 @@
 import { Link } from 'react-router-dom'
 import { MaterialReactTable } from 'material-react-table'
 import React, { useEffect, useMemo, useState } from 'react'
+import newJson from '../json/new_class.json'
+import { selectOptions, CheckOut, splitData } from './TableSelectOptions'
 
 function CoachDetailTable({ classes }) {
-  let stuData = []
-  for (let i = 0; i < classes.student.reserveDetail.length; i++) {
-    stuData.push(classes.student.reserveDetail[i])
-  }
-  console.log('aaabclasses:', stuData)
 
   //optionally, you can manage the row selection state yourself
+    // 獲取教練所教授的課程的 classID
+  const teachClassIDs = classes.teachClass.map(students => students.classID);
+
+  //使用 classID 在 classDetail 中找到相對應的課程資料
+  const classDetailData = newJson.find(item => item.category === "class").classDetail.filter(classData => teachClassIDs.includes(classData.classID));
+  console.log(classDetailData);
+
+  // 將預約資料放進去
+  let reserveData = []
+  classDetailData.forEach(item => {
+      for (let i = 0; i < item.reserveDetail.length; i++) {
+        reserveData.push(item.reserveDetail[i])
+      }
+  })
+  console.log('aaabclasses:', reserveData)
+
   const [rowSelection, setRowSelection] = useState({})
 
   //console.log('aaaclasses:', detailData)
@@ -18,12 +31,33 @@ function CoachDetailTable({ classes }) {
     //console.info({ rowSelection });
   }, [rowSelection])
 
+  const AddNameToSearch = ({ renderedCellValue }) => {
+    const nameArray = []
+    const newData = renderedCellValue.map((item) => {
+        const students = []
+        students.push(item.stuName)
+        return students
+    })
+    nameArray = splitData(newData)
+    reserveData.stuNameArray.push(nameArray)
+  }
+  console.log('classes:', reserveData)
   const columns = [
     //表格有的資料
     {
-      accessorKey: 'stuName',
+      accessorFn: (row) => {
+                
+        const newData = row.student.map((item) => {
+            const students = []
+            students.push(item.stuName)
+            return students
+        })
+        return `${newData.join("、")} `
+      },
+      accessorKey: 'student',
       header: '學員',
-      size: 100
+      size: 100,
+      filterVariant: 'select',
     },
     {
       accessorKey: 'reserveDate',
@@ -59,7 +93,7 @@ function CoachDetailTable({ classes }) {
   return (
     <MaterialReactTable
       columns={columns}
-      data={stuData}
+      data={reserveData}
       initialState={{ showGlobalFilter: true }} //show filters by default
       enableColumnActions={false} //no need for column actions if none of them are enabled
       enableDensityToggle={false} //density does not work with memoized table body

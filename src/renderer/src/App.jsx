@@ -15,6 +15,7 @@ import StudentDetail from './page/StudentDetail'
 
 import classes from './json/class.json'
 import testClass from './json/test_class.json'
+import newJson from './json/new_class.json'
 
 import SaveJsonPage from './page/SaveJsonPage'
 //redux
@@ -33,7 +34,7 @@ function App() {
             <Route path="id/:id" element={<ClassDetail />} />
           </Route>
 
-          <Route path="/coach" element={<CoachTable classes={testClass} />} />
+          <Route path="/coach" element={<CoachTable classes={newJson} />} />
           <Route path="/revenue" element={<Revenue classes={classes} />} />
 
           <Route path="/student">
@@ -41,14 +42,14 @@ function App() {
             <Route path="name/:stuID" element={<StudentDetail />} />
           </Route>
 
-          <Route path="/studentform" element={<StudentForm classes={classes} />} />
+          {/* <Route path="/studentform" element={<StudentForm classes={classes} />} /> */}
           <Route path="/coachform" element={<CoachFrom classes={classes} />} />
 
           {/* <Route path="/classdetail" element={<ClassDetail classes={classes}/>} /> */}
 
           {/* coach add id to path */}
-          <Route path="/coachdetail/:id" element={<CoachDetail classes={testClass} />} />
-          <Route path="/studentdetail" element={<StudentDetail classes={classes} />} />
+          <Route path="/coachdetail/:coachID" element={<CoachDetail classes={newJson} />} />
+          {/* <Route path="/studentdetail" element={<StudentDetail classes={classes} />} /> */}
 
           <Route path="/savejson" element={<SaveJsonPage />} />
         </Routes>

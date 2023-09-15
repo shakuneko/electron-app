@@ -12,7 +12,7 @@
                 {
                     "reserveID": "1",
                     "reserveDate": "2023/06/09",
-                    "reservetime": "13:00-14:00",
+                    "reserveTime": "13:00-14:00",
                     "cancel":"否",
                     "attandence":"是",
                     "note":"你好",
@@ -30,7 +30,7 @@
                 {
                     "reserveID": "2",
                     "reserveDate": "2023/06/10",
-                    "reservetime": "13:00-14:00",
+                    "reserveTime": "13:00-14:00",
                     "cancel":"否",
                     "attandence":"是",
                     "note":"～～～～",
@@ -77,10 +77,15 @@
                     {
                         "reserveID": "1",
                         "reserveDate": "2023/9/14",
-                        "reservetime": "09:00-11:00",
+                        "reserveTime": "09:00-11:00",
                         "cancel":"否",
                         "attandence":"是",
-                        "note":"尚無"
+                        "note":"尚無",
+                        "student":[{
+                            "stuID":"2",
+                            "courseType":"PT",
+                            "stuName": "甜甜"
+                        }]
                     }],
                     "status":"已截止",
                     "classNote":"哈囉！",
@@ -106,15 +111,20 @@
                     {
                         "reserveID": "1",
                         "reserveDate": "2023/9/20",
-                        "reservetime": "09:00-11:00",
+                        "reserveTime": "09:00-11:00",
                         "cancel":"否",
                         "attandence":"是",
-                        "note":"甜甜、Lulu、小錢、柚子、花媽、貓咪老師、大衛、花田、橘子、大耳狗"
+                        "note":"甜甜、Lulu、小錢、柚子、花媽、貓咪老師、大衛、花田、橘子、大耳狗",
+                        "student":[{
+                            "stuID":"2",
+                            "courseType":"PT",
+                            "stuName": "甜甜"
+                        }]
                     }],
                     "status":"-",
                     "classNote":"好多人",
                     "student":[{
-                        "stuID":"",
+                        "stuID":"-",
                         "courseType":"團課",
                         "stuName": "-"
                     }],
@@ -242,7 +252,7 @@
             "coachContact": "", 
             "coachRelation": "",
             "coachContact_tel": "", 
-            "coachNote": "",
+            "coachNote": "Hello",
             "coachPhone":"0900-000-000",
             "major":[
             "PT","皮拉提斯"
@@ -252,6 +262,9 @@
             "teachClass":[
                 {
                     "classID":"1"
+                },
+                {
+                    "classID":"2"
                 }
             ],
             "selectedItem": null
@@ -296,7 +309,7 @@
             "PT","皮拉提斯","運動按摩"
             ],
             "joinDate":"2022/10/30",
-            "salary":"650",
+            "salary":"600",
             "teachClass":[
                 {
                     "classID":"2"
