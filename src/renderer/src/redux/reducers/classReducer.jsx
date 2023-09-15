@@ -1,49 +1,44 @@
 
 const initialState = {
     classForm:{
-        page1: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            number: '',
-            salary:'',
-            selectedOption: '', // 将 radio 按钮放入 page1 中
-            note: '',
-        },
-        page2: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            number: '',
-            salary:'',
-            selectedOption: '', 
-            note: '',
-        },
-        page3: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            number: '',
-            salary:'',
-            selectedOption: '', 
-            note: '',
-        },
-        page4: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            stu3:'',
-            number: '',
-            salary:'',
-            note: '',
-        },
-        page5: {
-            coach:'',
-            floor: '',
-            date:'',
-            time: '',
-            note: '',
-        },
+      page1: {
+        coachName:'',
+        stuName1: '',
+        stuName2:'',
+        coursesAll: '',
+        salary:'',
+        exCourse:'',
+        buyNote: '',
+      },
+      page2: {
+        coachName:'',
+        stuName: '',
+        coursesAll: '',
+        salary:'',
+        exCourse:'',
+        buyNote: '',
+      },
+      page3: {
+        coachName:'',
+        stuName: '',
+        coursesAll: '',
+        salary:'',
+        exCourse:'', 
+        buyNote: '',
+      },
+      page4: {
+        coachName:'',
+        coursesAll: '',
+        salary:'',
+        buyNote: '',
+      },
+      page5: {
+        coachName:'',
+        floor: '',
+        date:'',
+        time: '',
+        buyNote: '',
+      },
     },
   };
   
