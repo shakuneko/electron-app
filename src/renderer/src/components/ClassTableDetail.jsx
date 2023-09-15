@@ -4,7 +4,7 @@ import { Link ,useParams} from 'react-router-dom';
 import { selectOptions, CheckOut } from './TableSelectOptions'
 
 
-function ClassTableDetail({classes}) {
+function ClassTableDetail({classes,newJason}) {
 
     const AddBGC = ({cell}) => { // 設定邊框
         let e;
@@ -31,10 +31,20 @@ function ClassTableDetail({classes}) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"coach.coachName",
+            accessorKey:"coach",
             header:"教練",
             filterVariant: 'select',
             size:100,
+            Cell: ({ renderedCellValue }) => {
+                
+                const newData = renderedCellValue.map((item) => {
+                    const coachs = []
+                    coachs.push(item.coachName)
+                    return coachs
+                })
+                const finalData = newData.join("、")
+                return <span >{finalData}</span>
+            },
         },
         {
             accessorKey:"courseType",
@@ -44,13 +54,23 @@ function ClassTableDetail({classes}) {
             enableSorting: false
         },
         {
-            accessorKey:"student.stuName",
+            accessorKey:"student",
             header:"學員",
             size:100,
-            enableSorting: false
+            enableSorting: false,
+            Cell: ({ renderedCellValue }) => {
+                
+                const newData = renderedCellValue.map((item) => {
+                    const students = []
+                    students.push(item.stuName)
+                    return students
+                })
+                const finalData = newData.join("、")
+                return <span >{finalData}</span>
+            },
         },
         {
-            accessorKey:"student.courseLeft",
+            accessorKey:"courseLeft",
             header:"剩餘堂數",
             size:100,
             Cell: AddAlertMode
@@ -68,6 +88,7 @@ function ClassTableDetail({classes}) {
             Cell: ({ renderedCellValue }) => {
                 if (renderedCellValue === '是') return <span className="alert-mode">{renderedCellValue}</span>;
                 else return<>{renderedCellValue}</>
+                
             },
         },
         {
@@ -98,10 +119,15 @@ function ClassTableDetail({classes}) {
         enableHiding={false} //column hiding does not work with memoized table body
         enableStickyHeader
         enableFacetedValues
-        renderTopToolbarCustomActions={() => (
+        renderTopToolbarCustomActions={({table}) => (
+            <div>
             <Link to="/classes/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增課程</button> 
+                
             </Link>
+            {/* <button onClick={()=> console.log(table.getRowModel().rows)}>ppp</button> */}
+            </div>
+
         )}
                                 
     />
