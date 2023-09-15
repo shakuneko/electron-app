@@ -1,10 +1,10 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
-import { selectOptions, CheckOut } from './TableSelectOptions'
+import { selectOptions, CheckOut, splitData } from './TableSelectOptions'
 
 
-function ClassTableDetail({classes,newJason}) {
+function ClassTableDetail({classes}) {
 
     const AddBGC = ({cell}) => { // 設定邊框
         let e;
@@ -42,8 +42,7 @@ function ClassTableDetail({classes,newJason}) {
                     coachs.push(item.coachName)
                     return coachs
                 })
-                const finalData = newData.join("、")
-                return <span >{finalData}</span>
+                return <span >{splitData(newData)}</span>
             },
         },
         {
@@ -65,8 +64,7 @@ function ClassTableDetail({classes,newJason}) {
                     students.push(item.stuName)
                     return students
                 })
-                const finalData = newData.join("、")
-                return <span >{finalData}</span>
+                return <span >{splitData(newData)}</span>
             },
         },
         {
@@ -98,7 +96,7 @@ function ClassTableDetail({classes,newJason}) {
             Cell: AddBGC
         },
         {
-            accessorKey:"id",
+            accessorKey:"classID",
             header:"操作",
             size:50,
             Cell: CheckOut,
