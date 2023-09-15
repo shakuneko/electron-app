@@ -60,10 +60,6 @@
                 "coach":[{
                     "coachID":"1",
                     "coachName": "A"
-                },
-                {
-                    "coachID":"2",
-                    "coachName": "B"
                 }]
             },
             {
@@ -116,9 +112,9 @@
                         "attandence":"是",
                         "note":"甜甜、Lulu、小錢、柚子、花媽、貓咪老師、大衛、花田、橘子、大耳狗",
                         "student":[{
-                            "stuID":"2",
-                            "courseType":"PT",
-                            "stuName": "甜甜"
+                            "stuID":"3",
+                            "courseType":"團課",
+                            "stuName": "-"
                         }]
                     }],
                     "status":"-",
@@ -132,7 +128,42 @@
                         "coachID":"4",
                         "coachName": "D"
                 }]
-            }]
+            
+                }
+                ,
+                {
+                    "classID":"4",
+                    "courseType":"運動按摩",
+                    "exCourse":"否",
+                    "coursesAll":"-",
+                    "coursesFIN":"-",
+                    "courseLeft":"-",
+                    "reserveDetail": [
+                        {
+                            "reserveID": "1",
+                            "reserveDate": "2023/9/20",
+                            "reserveTime": "09:00-11:00",
+                            "cancel":"否",
+                            "attandence":"是",
+                            "note":"----",
+                            "student":[{
+                                "stuID":"1",
+                                "courseType":"運動按摩",
+                                "stuName": "Lulu"
+                            }]
+                        }],
+                        "status":"-",
+                        "classNote":"好多人",
+                        "student":[{
+                            "stuID":"1",
+                            "courseType":"運動按摩",
+                            "stuName": "Lulu"
+                        }],
+                        "coach":[{
+                            "coachID":"2",
+                            "coachName": "B"
+                    }]
+                }]
 
     },
     {
@@ -166,7 +197,7 @@
             },{
                 "classID":"4",
                 "courseType":"運動按摩",
-                "coachName": "D",
+                "coachName": "B",
                 "coursesAll":"10",
                 "coursesFIN":"8",
                 "courseLeft":"2",
@@ -193,8 +224,22 @@
             "stuContact_tel": "",
             "buyDetail":[{
                 "classID":"1",
-                "courseType":"PT",
+                "courseType":"皮拉提斯",
                 "coachName": "A",
+                "coursesAll":"10",
+                "coursesFIN":"4",
+                "courseLeft":"6",
+                "preCourseLeft":"6",
+                "payMethod":"現金",
+                "invoiceNum" :"12345678",
+                "buyDate":"2022/06/23",
+                "exCourse":"否",
+                "coursePrice":"6500",
+                "buyNote":"!!"
+            },{
+                "classID":"2",
+                "courseType":"PT",
+                "coachName": "C",
                 "coursesAll":"10",
                 "coursesFIN":"3",
                 "courseLeft":"7",
@@ -225,8 +270,8 @@
                 "courseType":"團課",
                 "coachName": "D",
                 "coursesAll":"10",
-                "coursesFIN":"3",
-                "courseLeft":"7",
+                "coursesFIN":"4",
+                "courseLeft":"6",
                 "preCourseLeft":"9",
                 "payMethod":"信用卡",
                 "invoiceNum" :"12345678",
@@ -258,13 +303,13 @@
             "PT","皮拉提斯"
             ],
             "joinDate":"2020/01/30",
-            "salary":"650",
+            "PtSalary":"650",
+            "GroupSalary":"650",
+            "MassageSalary":"650",
+            "PilatesSalary":"650",
             "teachClass":[
                 {
                     "classID":"1"
-                },
-                {
-                    "classID":"2"
                 }
             ],
             "selectedItem": null
@@ -285,10 +330,13 @@
             "PT","皮拉提斯","運動按摩"
             ],
             "joinDate":"2022/10/30",
-            "salary":"650",
+            "PtSalary":"650",
+            "GroupSalary":"650",
+            "MassageSalary":"650",
+            "PilatesSalary":"650",
             "teachClass":[
                 {
-                    "classID":"1"
+                    "classID":"4"
                 }
             ],
             "selectedItem": null
@@ -309,7 +357,10 @@
             "PT","皮拉提斯","運動按摩"
             ],
             "joinDate":"2022/10/30",
-            "salary":"600",
+            "PtSalary":"650",
+            "GroupSalary":"650",
+            "MassageSalary":"650",
+            "PilatesSalary":"650",
             "teachClass":[
                 {
                     "classID":"2"
@@ -333,7 +384,10 @@
             "PT","皮拉提斯","運動按摩","團課"
             ],
             "joinDate":"2022/10/30",
-            "salary":"650",
+            "PtSalary":"650",
+            "GroupSalary":"650",
+            "MassageSalary":"650",
+            "PilatesSalary":"650",
             "teachClass":[
                 {
                     "classID":"3"

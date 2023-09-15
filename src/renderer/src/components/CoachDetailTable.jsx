@@ -31,19 +31,15 @@ function CoachDetailTable({ classes }) {
     //console.info({ rowSelection });
   }, [rowSelection])
 
-  const AddNameToSearch = ({ renderedCellValue }) => {
-    const nameArray = []
-    const newData = renderedCellValue.map((item) => {
-        const students = []
-        students.push(item.stuName)
-        return students
-    })
-    nameArray = splitData(newData)
-    reserveData.stuNameArray.push(nameArray)
-  }
-  console.log('classes:', reserveData)
   const columns = [
     //表格有的資料
+    {
+      accessorFn: (row) => `${row.student[0].courseType} `,
+      id:"courseType",
+      header: '課程種類',
+      size: 50,
+      filterVariant: 'select',
+    },
     {
       accessorFn: (row) => {
                 
@@ -54,7 +50,7 @@ function CoachDetailTable({ classes }) {
         })
         return `${newData.join("、")} `
       },
-      accessorKey: 'student',
+      id:"student",
       header: '學員',
       size: 100,
       filterVariant: 'select',
@@ -79,13 +75,13 @@ function CoachDetailTable({ classes }) {
     {
       accessorKey: 'cancel',
       header: '取消預約',
-      size: 100,
+      size: 50,
       enableSorting: false
     },
     {
       accessorKey: 'note',
       header: '備註',
-      size: 100,
+      size: 150,
       enableSorting: false
     }
   ]

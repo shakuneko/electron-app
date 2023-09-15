@@ -33,7 +33,7 @@ function CoachDetail({ classes }) {
                         <div className="classCoachBox">
                             <p className="classCoachBox-item">教練：{coachData.coachName}</p>
                             <p className="classCoachBox-item">性別：{coachData.coachGender}</p>
-                            <p className="classCoachBox-item">堂薪：{coachData.salary}</p>
+                            {/* <p className="classCoachBox-item">堂薪：{coachData.salary}</p> */}
                         </div>
 
                         <div className="classcontainer">

@@ -29,27 +29,24 @@ function App() {
         <Routes>
           <Route path="/" element={<ClassTable />} />
           <Route path="/student" element={<StudentTable />}></Route>
+          <Route path="/coach" element={<CoachTable classes={newJson} />} />
+          <Route path="/revenue" element={<Revenue classes={classes} />} />
+
           <Route path="classes">
             <Route path="form" element={<ClassForm />} />
             <Route path="id/:id" element={<ClassDetail />} />
           </Route>
-
-          <Route path="/coach" element={<CoachTable classes={newJson} />} />
-          <Route path="/revenue" element={<Revenue classes={classes} />} />
 
           <Route path="/student">
             <Route path="form" element={<StudentForm />} />
             <Route path="name/:stuID" element={<StudentDetail />} />
           </Route>
 
-          {/* <Route path="/studentform" element={<StudentForm classes={classes} />} /> */}
-          <Route path="/coachform" element={<CoachFrom classes={classes} />} />
 
-          {/* <Route path="/classdetail" element={<ClassDetail classes={classes}/>} /> */}
-
-          {/* coach add id to path */}
-          <Route path="/coachdetail/:coachID" element={<CoachDetail classes={newJson} />} />
-          {/* <Route path="/studentdetail" element={<StudentDetail classes={classes} />} /> */}
+          <Route path="/coach">
+            <Route path="form" element={<CoachFrom classes={classes}/>} />
+            <Route path="name/:coachID" element={<CoachDetail classes={newJson}  />} />
+          </Route>
 
           <Route path="/savejson" element={<SaveJsonPage />} />
         </Routes>

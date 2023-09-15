@@ -20,14 +20,31 @@ function CoachTopBar({coachValue}) {
       }
     }
 
+    console.log("count",matchingStudentData)
+
+    let totalSalary = 0
     // 將學生剩餘堂數加到陣列
     matchingStudentData.forEach(item => {
       item.buyDetail.forEach(names => {
         if (teachClassIDs.includes(names.classID)) {
           courseLefts.push(names.courseLeft)
+          if (names.courseType === "PT" ) {
+            totalSalary +=  names.coursesFIN * coachValue.PtSalary
+          }
+          else if (names.courseType === "皮拉提斯" ) {
+            totalSalary +=  names.coursesFIN * coachValue.PilatesSalary
+          }
+          else if (names.courseType === "團課" ) {
+            totalSalary +=  names.coursesFIN * coachValue.GroupSalary
+          }
+          else if (names.courseType === "運動按摩" ) {
+            totalSalary +=  names.coursesFIN * coachValue.MassageSalary
+          }
         }
+
       })
     })
+    console.log("totalSalary",totalSalary)
 
     // 將學生剩餘堂數加總
     const totalStudentCourseLeft = courseLefts.reduce((accumulator, currentValue) => {
@@ -42,10 +59,13 @@ function CoachTopBar({coachValue}) {
       }
     }, 0); // 初始值設為 0
 
+
+    
+
     return (
       <div className="coach-top-bar">
-        <p className="coach-top-bar-item"> 教練本月薪資：{coachValue.salary}</p>
-      {/* 計算所有學員剩餘的堂數總和 */}
+        <p className="coach-top-bar-item"> 教練本月薪資：{totalSalary}</p>
+        {/* 計算所有學員剩餘的堂數總和 */}
         <p className="coach-top-bar-item"> 學員剩餘總堂數：{totalStudentCourseLeft}</p>
     
       </div>

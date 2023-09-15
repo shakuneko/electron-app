@@ -13,7 +13,7 @@ function CoachTable({ classes }) {
                 <div className='table-container'>
                     <h1 className='title'>教練管理</h1>
                     <CoachTableDetail classes={coachDetail}/>
-                    <button onClick={()=> console.log(coachDetail)}>pp</button>
+                    {/* <button onClick={()=> console.log(coachDetail)}>pp</button> */}
                 </div>
             </div>
             

@@ -10,7 +10,7 @@ function CoachTableDetail({classes}) {
     const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         
         return<>
-           <Link to={`/coachDetail/${renderedCellValue}`} className='table-link-underline-none'>
+           <Link to={`/coach/name/${renderedCellValue}`} className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">查看</button> 
             </Link>
         </>
@@ -27,7 +27,7 @@ function CoachTableDetail({classes}) {
         {
             accessorKey:"coachName",
             header:"教練",
-            size:100,
+            size:50,
         },
         {
             accessorKey:"coachGender",
@@ -85,7 +85,7 @@ function CoachTableDetail({classes}) {
         // enableSorting={false} //sorting does not work with memoized table body
         enableStickyHeader
         renderTopToolbarCustomActions={() => (
-            <Link to="/coachform" className='table-link-underline-none'>
+            <Link to="/coach/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增教練</button> 
             </Link>
         )}
