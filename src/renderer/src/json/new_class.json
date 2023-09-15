@@ -133,7 +133,7 @@
             "stuName": "Lulu",
             "stuGender":"女",
             "stuNote": "睡眠不足",
-            "stuPhone": "",
+            "stuPhone": "0928-532-816",
             "stuEmail": "",
             "stuAddress": "",
             "stuContact": "",
@@ -151,7 +151,22 @@
                 "invoiceNum" :"12345678",
                 "buyDate":"2022/06/23",
                 "exCourse":"否",
-                "coursePrice":"6500"
+                "coursePrice":"6500",
+                "buyNote":"!!"
+            },{
+                "classID":"4",
+                "courseType":"運動按摩",
+                "coachName": "D",
+                "coursesAll":"10",
+                "coursesFIN":"8",
+                "courseLeft":"2",
+                "preCourseLeft":"5",
+                "payMethod":"現金",
+                "invoiceNum" :"12345678",
+                "buyDate":"2020/01/23",
+                "exCourse":"否",
+                "coursePrice":"6000",
+                "buyNote":"!!"
             }] 
         },
         {
@@ -160,7 +175,7 @@
             "stuName": "甜甜",
             "stuGender":"男",
             "stuNote": "吃太多",
-            "stuPhone": "",
+            "stuPhone": "0928-532-816",
             "stuEmail": "",
             "stuAddress": "",
             "stuContact": "",
@@ -178,7 +193,8 @@
                 "invoiceNum" :"12345678",
                 "buyDate":"2022/06/23",
                 "exCourse":"否",
-                "coursePrice":"6400"
+                "coursePrice":"6400",
+                "buyNote":"!!"
             }] 
         }
         ,
@@ -188,7 +204,7 @@
             "stuName": "大衛",
             "stuGender":"男",
             "stuNote": "已有基本肌肉",
-            "stuPhone": "",
+            "stuPhone": "0928-532-816",
             "stuEmail": "",
             "stuAddress": "",
             "stuContact": "",
@@ -206,7 +222,8 @@
                 "invoiceNum" :"12345678",
                 "buyDate":"2022/06/23",
                 "exCourse":"否",
-                "coursePrice":"6400"
+                "coursePrice":"6400",
+                "buyNote":"!!"
             }] 
         }
         ]
