@@ -2,18 +2,20 @@ import { Link } from 'react-router-dom'
 import Navbar from './Navbar'
 import StudentsDetailTable from './StudentsDetailTable'
 import DoneClasses from './DoneClasses'
-function StudentDetailPage({ classes }) {
+function StudentDetailPage({ stuData }) {
 
   let courseLeftSum = 0
 
-  for (let i = 0; i < classes.length; i++) {
+  for (let i = 0; i < stuData.buyDetail.length; i++) {
     if (i == 0) {
-        courseLeftSum = classes[i].student.courseLeft *1
+        courseLeftSum = stuData.buyDetail[i].courseLeft *1
     }
     else {
-        courseLeftSum += classes[i].student.courseLeft *1
+        courseLeftSum += stuData.buyDetail[i].courseLeft *1
     }
-}
+  }
+
+  const stuBuyDetailData = stuData.buyDetail
 
   return (
 
@@ -21,16 +23,15 @@ function StudentDetailPage({ classes }) {
         <div >
           <h1 className="title">學員</h1>
           <div className="classCoachBox">
-            <p className="classCoachBox-item">姓名：{classes[0].student.stuName}</p>
-            <p className="classCoachBox-item">性別：{classes[0].student.stuGender}</p>
+            <p className="classCoachBox-item">姓名：{stuData.stuName}</p>
+            <p className="classCoachBox-item">性別：{stuData.stuGender}</p>
             <p className="classCoachBox-item">剩餘堂數：{courseLeftSum}</p>
           </div>
           <div>
-            {/* <button onClick={()=> console.log(luluArray)}>pp</button>
-            {mergedList[3]} */}
+            {/* <button onClick={()=> console.log(stuData)}>pp</button> */}
             <DoneClasses />
           </div>
-          <StudentsDetailTable classes={classes} />
+          <StudentsDetailTable stuBuyDetailData={stuBuyDetailData} />
         </div>
       </div>
 

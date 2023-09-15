@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import ClassTableDetail from "../components/ClassTableDetail";
-import testClasses from '../json/test_class.json'
+// import testClasses from '../json/test_class.json'
 import newJason from '../json/new_class.json'
 
 function ClassTable() {
