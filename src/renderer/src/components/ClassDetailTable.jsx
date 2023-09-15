@@ -36,7 +36,7 @@ function ClassDetailTable({ classes }) {
             size:100,
         },
         {
-            accessorFn: (row) => `${row.reservetime} `,
+            accessorKey:"reserveTime",
             id:"time",
             header:"時間",
             size:100,

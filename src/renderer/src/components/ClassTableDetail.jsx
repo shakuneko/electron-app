@@ -31,19 +31,17 @@ function ClassTableDetail({classes}) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"coach",
-            header:"教練",
-            filterVariant: 'select',
-            size:100,
-            Cell: ({ renderedCellValue }) => {
-                
-                const newData = renderedCellValue.map((item) => {
+            accessorFn: (row) => {
+                const newData = row.coach.map((item) => {
                     const coachs = []
                     coachs.push(item.coachName)
                     return coachs
                 })
-                return <span >{splitData(newData)}</span>
-            },
+                return `${newData.join("、")} `
+              },
+            header:"教練",
+            filterVariant: 'select',
+            size:100,
         },
         {
             accessorKey:"courseType",
@@ -53,19 +51,18 @@ function ClassTableDetail({classes}) {
             enableSorting: false
         },
         {
-            accessorKey:"student",
-            header:"學員",
-            size:100,
-            enableSorting: false,
-            Cell: ({ renderedCellValue }) => {
-                
-                const newData = renderedCellValue.map((item) => {
+            accessorFn: (row) => {
+                const newData = row.student.map((item) => {
                     const students = []
                     students.push(item.stuName)
                     return students
                 })
-                return <span >{splitData(newData)}</span>
-            },
+                return `${newData.join("、")} `
+              },
+            header:"學員",
+            size:100,
+            enableSorting: false,
+            filterVariant: 'select',
         },
         {
             accessorKey:"courseLeft",
