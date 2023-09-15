@@ -73,8 +73,8 @@ function StudentForm(props){
   };
     // 导入JSON数据
     const updatedJsonData = [...jsonData];
-   // 将新的学生数据添加到JSON中
-   updatedJsonData.find((item) => item.category === 'student').stuDetail.push(newStudentData);
+    // 将新的学生数据添加到JSON中
+    updatedJsonData.find((item) => item.category === 'student').stuDetail.push(newStudentData);
 
     // 清除表单数据为初始状态
     setStuForm(initialFormData);

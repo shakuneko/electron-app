@@ -3,7 +3,7 @@ const initialState = {
     classForm:{
       page1: {
         coachName:'',
-        stuName1: '',
+        stuName: '',
         stuName2:'',
         coursesAll: '',
         salary:'',
@@ -51,16 +51,6 @@ const initialState = {
           classForm:{
                 ...state.classForm,
             [page]:data,
-            //  {
-            //     ...state.classForm[page],
-            //     coach,
-            //     stu1,
-            //     stu2,
-            //     number,
-            //     salary,
-            //     selectedOption,
-            //     note
-            //     },
          
             },
   

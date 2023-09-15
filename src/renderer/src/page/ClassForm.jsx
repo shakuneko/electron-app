@@ -4,17 +4,26 @@ import { connect } from 'react-redux';
 import { updateClassForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 
+function generateUniqueID(existingIDs) {
+  // 找到现有 ID 中的最大值
+  const maxID = Math.max(...existingIDs);
+
+  // 将新的 ID 设置为最大值加一
+  const newID = maxID + 1;
+
+  return newID.toString(); // 将新的 ID 转换为字符串
+}
+
 function ClassForm(props) {
   //設定每個分頁的初始狀態
   const initialFormData = {
     page1: {
       coachName:'',
-      stuName1: '',
+      stuName: '',
       stuName2:'',
       coursesAll: '',
       salary:'',
       exCourse:'',
-      selectedOption: '', // 将 radio 按钮放入 page1 中
       buyNote: '',
     },
     page2: {
@@ -23,7 +32,6 @@ function ClassForm(props) {
       coursesAll: '',
       salary:'',
       exCourse:'',
-      selectedOption: '', 
       buyNote: '',
     },
     page3: {
@@ -32,7 +40,6 @@ function ClassForm(props) {
       coursesAll: '',
       salary:'',
       exCourse:'',
-      selectedOption: '', 
       buyNote: '',
     },
     page4: {
@@ -86,9 +93,37 @@ const handleRadioChange = (event, page) => {
 const handleSubmit = (event) => {
   event.preventDefault();
   props.updateClassForm(currentPage,classForm[currentPage])
+
+  // 获取已有的学生 ID 列表
+  const existingStudentIDs = jsonData.find((item) => item.category === 'student').stuDetail.map((student) => parseInt(student.stuID));
+  // 生成唯一的学生ID
+  const newStudentID = generateUniqueID(existingStudentIDs);
   // 在这里处理表单提交的逻辑
   console.log('表单数据：', classForm);
+  const newClassFormData = {
+    stuID: newStudentID,
+    coachName: classForm.page1.coachName,
+    stuName: classForm[currentPage].stuName,
+    stuName2: classForm[currentPage].stuName2,
+    coursesAll: classForm[currentPage].coursesAll,
+    salary: classForm[currentPage].salary,
+    exCourse: classForm[currentPage].exCourse,
+    buyNote: classForm[currentPage].buyNote,
+  };
 
+  const targetStudentID = '1';
+
+  // 找到 "student" 类别的索引
+  const studentCategoryIndex = jsonData.findIndex((item) => item.category === 'student');
+   // 导入JSON数据
+   const updatedJsonData = [...jsonData];
+   updatedJsonData.find((item) => item.category === 'student').stuDetail.buyDetail.push(newClassFormData);
+  // 找到目标学生的索引
+  // const targetStudentIndex = updatedJsonData[studentCategoryIndex].stuDetail.findIndex(
+  //   (student) => student.stuID === targetStudentID
+  // );
+
+  // updatedJsonData[studentCategoryIndex].stuDetail[targetStudentIndex].buyDetail.push(newClassFormData);
   // 清除表单数据为初始状态
   setClassForm(initialFormData);
 
@@ -101,7 +136,7 @@ const handleSubmit = (event) => {
     },
   }));
 
-  
+  console.log(jsonData)
 };
 //繳費按鈕
 const initialButtonData = [
@@ -183,15 +218,15 @@ useEffect(() => {
                         <div className="select">
                         <select 
                           class="form-select" 
-                          name="stuName1"
-                          value={classForm.page1.stuName1}
+                          name="stuName"
+                          value={classForm.page1.stuName}
                           onChange={(e) => handleInputChange(e, 'page1')}
                         >
                             <option selected>-</option>
-                            {studentNames.map((name) => (
-                              <option key={name} value={name}>
+                              {studentNames.map((name) => (
+                                <option key={name} value={name}>
                                 {name}
-                              </option>
+                            </option>
                             ))}
                         </select>
                         </div>
@@ -217,9 +252,12 @@ useEffect(() => {
                             value={classForm.page1.stuName2}
                             onChange={(e) => handleInputChange(e, 'page1')}
                             >
-                                <option selected>-</option>
-                                <option value="1">Lulu</option>
-                                <option value="2">田晴瑄</option>
+                              <option selected>-</option>
+                                {studentNames.map((name) => (
+                                <option key={name} value={name}>
+                                {name}
+                              </option>
+                            ))}
                             </select>
                           </div>
                       </div>
@@ -343,9 +381,12 @@ useEffect(() => {
                             value={classForm.page2.stuName}
                             onChange={(e) => handleInputChange(e, 'page2')} 
                           >
-                              <option selected>-</option>
-                              <option value="1">Lulu</option>
-                              <option value="2">田晴瑄</option>
+                            <option selected>-</option>
+                              {studentNames.map((name) => (
+                              <option key={name} value={name}>
+                              {name}
+                            </option>
+                            ))}
                           </select>
                           </div>
                           </div>
@@ -458,8 +499,11 @@ useEffect(() => {
                             onChange={(e) => handleInputChange(e, 'page3')} 
                           >
                               <option selected>-</option>
-                              <option value="1">Lulu</option>
-                              <option value="2">田晴瑄</option>
+                                {studentNames.map((name) => (
+                                <option key={name} value={name}>
+                                {name}
+                              </option>
+                            ))}
                           </select>
                           </div>
                           </div>
