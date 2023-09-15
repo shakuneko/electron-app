@@ -2,12 +2,12 @@ import { MaterialReactTable } from 'material-react-table';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Typography } from '@mui/material';
 
-function ClassDetailTable({ testClass }) {
+function ClassDetailTable({ classes }) {
 
     let detailData = []
     
-    for (let i = 0; i < testClass.student.reserveDetail.length; i++) {
-        detailData.push(testClass.student.reserveDetail[i])
+    for (let i = 0; i < classes.reserveDetail.length; i++) {
+        detailData.push(classes.reserveDetail[i])
         
     }
 
@@ -57,7 +57,7 @@ function ClassDetailTable({ testClass }) {
         {
             accessorKey:"note",
             header:"備註",
-            size:100,
+            size:200,
             enableSorting: false
          }
     ];

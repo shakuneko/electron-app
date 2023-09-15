@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
 
 
-export const CheckOut = () => { //設定查看按鈕要進入的頁面
+export const CheckOut = ( pageData, data) => { //設定查看按鈕要進入的頁面
+    const linkTo = `/${pageData}/${data}`;
     return<>
-       <Link to="/form" className='table-link-underline-none'>
+       <Link to={linkTo} className='table-link-underline-none'>
             <button type="button" className="btn btn-golden">查看</button> 
         </Link>
     </>
 };
+
+export const splitData = ( element ) => {
+    return element.join("、")
+}
 
 const CountMoney = ( {row, renderedCellValue} ) => {
     return <>{ row.original.salary * renderedCellValue}</>

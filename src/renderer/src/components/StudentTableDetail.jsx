@@ -17,41 +17,41 @@ function StudentTableDetail({classes}) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"student.stuID",
+            accessorKey:"stuID",
             header:"學員編號",
             size:100,
         },
         {
-            accessorKey:"student.stuName",
+            accessorKey:"stuName",
             header:"學員",
             size:100,
             enableSorting: false
         },
         {
-            accessorKey:"student.stuGender",
+            accessorKey:"stuGender",
             header:"性別",
             size:50,
             enableSorting: false
         },
         {
-            accessorKey:"student.stuPhone",
+            accessorKey:"stuPhone",
             header:"電話",
             size:100,
             enableSorting: false
         },
         {
-            accessorKey:"student.createDate",
+            accessorKey:"createDate",
             header:"建檔日期",
             size:100,
         },
         {
-            accessorKey:"student.stuNote",
+            accessorKey:"stuNote",
             header:"備註",
             size:150,
             enableSorting: false
         },
         {
-            accessorKey:"student.stuID",
+            accessorKey:"stuID",
             id:"changePage",
             header:"操作",
             size:50,

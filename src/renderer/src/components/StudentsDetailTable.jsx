@@ -3,9 +3,9 @@ import { MaterialReactTable } from 'material-react-table';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Typography } from '@mui/material';
 
-function StudentsDetailTable({ classes }) {
+function StudentsDetailTable({ stuBuyDetailData }) {
 
-    const [tableData, setTableData] = useState(() => classes);
+    const [tableData, setTableData] = useState(() => stuBuyDetailData);
 
     const handleSaveCell = (cell, value) => {
       //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here
@@ -16,13 +16,13 @@ function StudentsDetailTable({ classes }) {
 
     const columns = [ //表格有的資料
         {
-            accessorKey:"student.buyDetail.buyDate",
+            accessorKey:"buyDate",
             header:"日期",
             size:100,
             enableEditing:false
         },
         {
-            accessorKey:"student.buyDetail.courseType",
+            accessorKey:"courseType",
             header:"課程種類",
             size:100,
             filterVariant: 'select',
@@ -30,35 +30,35 @@ function StudentsDetailTable({ classes }) {
             enableEditing:false
         },
         {
-            accessorKey:"student.buyDetail.coursesAll",
+            accessorKey:"coursesAll",
             header:"堂數",
             size:100,
             enableSorting: false,
             enableEditing:false
         },
         {
-            accessorKey:"coach.coachName",
+            accessorKey:"coachName",
             header:"教練",
             size:50,
             enableEditing:false
         },
         {
-            accessorKey:"student.buyDetail.payMethod",
+            accessorKey:"payMethod",
             header:"付款方式",
             size:100,
         },
         {
-            accessorKey:"student.buyDetail.salaryS",
+            accessorKey:"coursePrice",
             header:"消費金額",
             size:100,
         },
         {
-            accessorKey:"student.buyDetail.invoiceNum",
+            accessorKey:"invoiceNum",
             header:"發票號碼",
             size:100,
         },
         {
-            accessorKey:"classNote",
+            accessorKey:"buyNote",
             header:"備註",
             size:100,
             enableSorting: false
@@ -71,7 +71,7 @@ function StudentsDetailTable({ classes }) {
 
         <MaterialReactTable 
             columns={columns}
-            data={classes} 
+            data={stuBuyDetailData} 
             initialState={{ showGlobalFilter: true }} //show filters by default
             enableColumnActions={false} //no need for column actions if none of them are enabled
             
