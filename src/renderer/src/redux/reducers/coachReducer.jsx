@@ -1,42 +1,35 @@
 
 const initialState = {
   coachForm: {
-    coachName: '',
+    coachName:'',
     coachGender: '',
     coachIDcode: '',
-    coachPhone: '',
+    coachPhone:'',
     coachEmail: '',
     coachAddress: '',
-    salary: '',
-    coachBank: '',
+    coachBank:'',
     coachContact: '',
-    coachRelation: '',
-    coachContact_tel: '',
-    coachNote: '',
-    major: null,
+    coachRelation:'',
+    coachContact_tel:'',
+    coachNote:'',
+    major: null, // 新增一个字段用于存储按钮选项值
+    joinDate:'',
+    PtSalary:'',
+    PilatesSalary:'',
+    GroupSalary:'',
+    MassageSalary:'', 
   },
 };
 
 const formReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_COACH_NAME':
-      const { coachName, coachGender, coachIDcode, coachPhone, coachEmail, coachAddress, salary, coachBank, coachContact, coachRelation, coachContact_tel, coachNote } = action.payload;
       return {
         ...state,
-        coachForm: 
-          {...state.coachForm,
-            coachName,
-            coachGender, 
-            coachIDcode, 
-            coachPhone, 
-            coachEmail, 
-            coachAddress, 
-            salary, 
-            coachBank, 
-            coachContact, 
-            coachRelation, 
-            coachContact_tel, 
-            coachNote }, 
+        coachForm: {
+          ...state.coachForm,
+          ...action.payload,
+        },
       };
 
     default:

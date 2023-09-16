@@ -51,7 +51,6 @@ function StudentForm(props){
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
 
-   
      // 获取已有的学生 ID 列表
     const existingStudentIDs = jsonData.find((item) => item.category === 'student').stuDetail.map((student) => parseInt(student.stuID));
     // 生成唯一的学生ID

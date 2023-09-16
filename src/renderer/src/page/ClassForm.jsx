@@ -28,7 +28,7 @@ function ClassForm(props) {
       stuName: '',
       stuName2:'',
       coursesAll: '',
-      salary:'',
+      coursePrice:'',
       exCourse:'',
       buyNote: '',
     },
@@ -36,7 +36,7 @@ function ClassForm(props) {
       coachName:'',
       stuName: '',
       coursesAll: '',
-      salary:'',
+      coursePrice:'',
       exCourse:'',
       buyNote: '',
     },
@@ -44,14 +44,14 @@ function ClassForm(props) {
       coachName:'',
       stuName: '',
       coursesAll: '',
-      salary:'',
+      coursePrice:'',
       exCourse:'',
       buyNote: '',
     },
     page4: {
       coachName:'',
       coursesAll: '',
-      salary:'',
+      coursePrice:'',
       buyNote: '',
     },
     page5: {
@@ -193,7 +193,7 @@ if (classDetailToUpdate) {
   stuName: classForm[currentPage].stuName,
   stuName2: classForm[currentPage].stuName2,
   coursesAll: classForm[currentPage].coursesAll,
-  salary: classForm[currentPage].salary,
+  coursePrice: classForm[currentPage].coursePrice,
   exCourse: classForm[currentPage].exCourse,
   buyNote: classForm[currentPage].buyNote,
 };
@@ -383,13 +383,13 @@ useEffect(() => {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">堂薪:</label>
+                        <label for="exampleInputEmail1">購買價格:</label>
                         <div className="select">
                           <input 
                             type="text" 
                             class="form-select"
-                            name="salary"
-                            value={classForm.page1.salary}
+                            name="coursePrice"
+                            value={classForm.page1.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page1')}
                           ></input>
                         </div>
@@ -501,13 +501,13 @@ useEffect(() => {
                           </div>
                       </div>
                       <div class="form-group">
-                          <label for="exampleInputEmail1">堂薪:</label>
+                          <label for="exampleInputEmail1">購買價格:</label>
                           <div className="select">
                             <input 
                             type="text" 
                             class="form-select"
-                            name="salary"
-                            value={classForm.page2.salary}
+                            name="coursePrice"
+                            value={classForm.page2.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page2')}
                             ></input>
                           </div>
@@ -618,13 +618,13 @@ useEffect(() => {
                           </div>
                       </div>
                       <div class="form-group">
-                          <label for="exampleInputEmail1">堂薪:</label>
+                          <label for="exampleInputEmail1">購買價格:</label>
                           <div className="select">
                             <input 
                             type="text" 
                             class="form-select"
-                            name="salary"
-                            value={classForm.page3.salary}
+                            name="coursePrice"
+                            value={classForm.page3.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page3')}
                             ></input>
                           </div>
@@ -714,13 +714,13 @@ useEffect(() => {
                           </div>
                       </div>
                       <div class="form-group">
-                          <label for="exampleInputEmail1">堂薪:</label>
+                          <label for="exampleInputEmail1">購買價格:</label>
                           <div className="select">
                             <input 
                             type="text" 
                             class="form-select"
-                            name="salary"
-                            value={classForm.page4.salary}
+                            name="coursePrice"
+                            value={classForm.page4.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page4')}
                             ></input>
                           </div>
