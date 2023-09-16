@@ -98,7 +98,7 @@ console.log('表单数据：', coachForm);
   coachRelation:coachForm.coachRelation,
   coachContact_tel:coachForm.coachContact_tel,
   coachNote:coachForm.coachNote,
-  major:[coachForm.major.join("、")], 
+  major:[coachForm.major], 
   joinDate:coachForm.joinDate,
   PtSalary:coachForm.PtSalary,
   PilatesSalary:coachForm.PilatesSalary,

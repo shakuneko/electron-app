@@ -19,6 +19,11 @@ function findStudentIDByName(studentName) {
   const student = studentData.stuDetail.find((student) => student.stuName === studentName);
   return student ? student.stuID : ''; // 如果找到学生，返回学生ID，否则返回空字符串
 }
+function findCoachIDByName(CoachName) {
+  const coachData = jsonData.find((item) => item.category === 'student');
+  const coach = coachData.stuDetail.find((coach) => coach.coachName === CoachName);
+  return coach ? coach.coachID : ''; // 如果找到学生，返回学生ID，否则返回空字符串
+}
 
 function ClassForm(props) {
   //設定每個分頁的初始狀態
@@ -68,6 +73,7 @@ const [classForm, setClassForm] = useState(initialFormData);
   // 使用状态管理保存当前页面
 const [currentPage, setCurrentPage] = useState('page1');
 const [studentNames, setStudentNames] = useState([]);
+const [coachNames, setCoachNames] = useState([]);
 const [selectedCourse, setSelectedCourse] = useState(''); // 用于存储当前所选的课程名称
 
  // 处理分頁点击按钮事件
@@ -90,7 +96,7 @@ const handleInputChange = (event,page) => {
     },
   }));
   
-  //下拉選單選學員的名稱，找出學員對應的stuID
+  //下拉選單選學員的名稱，找出學員教、練對應的ID
   if (name === 'stuName') {
       // 构建新购买详情对象
       setClassForm((prevFormData) => ({
@@ -98,10 +104,22 @@ const handleInputChange = (event,page) => {
         [page]: {
           ...prevFormData[page],
           stuName: value, // 学员的名称
-          stuID: findStudentIDByName(classForm[currentPage].stuName), // 学员的ID
+          stuID: findStudentIDByName(classForm[currentPage].stuName), // 教練的ID
         },
       }));
-  } else {
+  } else
+    if (name === 'coachName') {
+      // 构建新购买详情对象
+      setClassForm((prevFormData) => ({
+        ...prevFormData,
+        [page]: {
+          ...prevFormData[page],
+          coachName: value, 
+          coachID: findCoachIDByName(classForm[currentPage].coachName), 
+        },
+      }));
+  }
+  else {
     // 非学员名字字段的处理逻辑，直接更新表单数据
     setClassForm((prevFormData) => ({
       ...prevFormData,
@@ -111,6 +129,7 @@ const handleInputChange = (event,page) => {
       },
     }));
   }
+  
 };
 
 // 处理 radio 按钮的变化
@@ -137,10 +156,10 @@ const handleSubmit = (event) => {
  .classDetail.map((class_category) => parseInt(class_category.classID));
  const newClassID = generateUniqueID(existingClassIDs)
 // 获取已有的 stuID 列表
-  const existingStudentIDs = jsonData
- .find((item) => item.category === 'student')
- .stuDetail.map((student) => parseInt(student.stuID));
- const newStuID = generateUniqueID(existingStudentIDs)
+//   const existingStudentIDs = jsonData
+//  .find((item) => item.category === 'student')
+//  .stuDetail.map((student) => parseInt(student.stuID));
+// //  const newStuID = generateUniqueID(existingStudentIDs)
 // 获取已有的 class 数据
 const classData = jsonData.find((item) => item.category === 'class');
 const newClassItem = {
@@ -196,6 +215,11 @@ if (classDetailToUpdate) {
   coursePrice: classForm[currentPage].coursePrice,
   exCourse: classForm[currentPage].exCourse,
   buyNote: classForm[currentPage].buyNote,
+  courseLeft:'',
+  coursesFIN:'',
+  invoiceNum:'',
+  patMethod:'',
+  preCourseLeft:'',
 };
   // 在这里处理表单提交的逻辑
   console.log('表单数据：', classForm);
@@ -260,9 +284,12 @@ useEffect(() => {
   // 从 JSON 数据中提取学员名字的列表
   const studentData = jsonData.find((item) => item.category === 'student');
   const studentNames = studentData.stuDetail.map((student) => student.stuName);
+  const coachData = jsonData.find((item) => item.category === 'coach');
+  const coachNames = coachData.coachDetail.map((coach) => coach.coachName);
 
   // 更新学员名字列表的状态变量
   setStudentNames(studentNames);
+  setCoachNames(coachNames);
 }, []); // 空数组表示仅在组件加载时运行
 
   return (
@@ -298,10 +325,12 @@ useEffect(() => {
                           value={classForm.page1.coachName}
                           onChange={(e) => handleInputChange(e, 'page1')}
                           >
-                              <option selected>-</option>
-                              <option value="A">A</option>
-                              <option value="B">B</option>
-                              <option value="C">C</option>
+                            <option selected>-</option>
+                              {coachNames.map((name) => (
+                              <option key={name} value={name}>
+                              {name}
+                            </option>
+                            ))}
                           </select>
                         </div>
                     </div>
