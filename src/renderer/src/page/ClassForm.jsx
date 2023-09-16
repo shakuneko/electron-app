@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateClassForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 
+//找ID最大值並往下增加ID
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
   const maxID = Math.max(...existingIDs);
@@ -74,6 +75,7 @@ const handleInputChange = (event,page) => {
       [name]: value,
     },
   }));
+  //下拉選單選學員的名稱，找出學員對應的stuID
   if (name === 'stuName') {
     // 在 JSON 数据中查找对应的学员
     const student = jsonData
@@ -129,14 +131,32 @@ const handleSubmit = (event) => {
   event.preventDefault();
   props.updateClassForm(currentPage,classForm[currentPage])
 
- // 获取已有的学员 ID 列表
- const existingStudentIDs = jsonData
- .find((item) => item.category === 'student')
- .stuDetail.map((student) => parseInt(student.stuID));
- // 构建新购买详情对象（这里使用了最新的购买详情对象）
+  // 获取已有的 classID 列表
+ const existingClassIDs = jsonData
+ .find((item) => item.category === 'class')
+ .classDetail.map((class_category) => parseInt(class_category.classID));
+ const newClassID = generateUniqueID(existingClassIDs)
+// 获取已有的 class 数据
+const classData = jsonData.find((item) => item.category === 'class');
+const newClassItem = {
+  classID: newClassID, 
+  courseType: '', 
+  exCourse: classForm[currentPage].exCourse, 
+  coursesAll: classForm[currentPage].coursesAll, 
+  reserveDetail:[],
+  coach:[],
+  student:[],
+};
+// 推送新的 class 数据对象到 class 数据数组中
+classData.classDetail.push(newClassItem);
+//  const existingStudentIDs = jsonData
+//  .find((item) => item.category === 'student')
+//  .stuDetail.map((student) => parseInt(student.stuID));
+
+ // 要加到BuyDetail的資料
  const newBuyDetail = {
-  // stuID: existingStudentIDs,
-  coachName: classForm.page1.coachName,
+  classID: newClassID,
+  coachName: classForm[currentPage].coachName,
   stuName: classForm[currentPage].stuName,
   stuName2: classForm[currentPage].stuName2,
   coursesAll: classForm[currentPage].coursesAll,
@@ -146,18 +166,16 @@ const handleSubmit = (event) => {
 };
   // 在这里处理表单提交的逻辑
   console.log('表单数据：', classForm);
-  // 假设你已经获取了要添加新购买详情的学员名称，存储在 selectedStudentName 变量中
-  const selectedStudentName = classForm[currentPage].stuName;
 
+  // 找出ID對應的學員，把BuyDetail資料放進去
+  const selectedStudentName = classForm[currentPage].stuName;
   // 查找对应的学员
   const selectedStudent = jsonData
     .find((item) => item.category === 'student')
     .stuDetail.find((student) => student.stuName === selectedStudentName);
-
   if (selectedStudent) {
     // 获取所选学员的 ID
-    const selectedStudentID = selectedStudent.stuID;
-
+    // const selectedStudentID = selectedStudent.stuID;
     // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
     selectedStudent.buyDetail.push(newBuyDetail);
  
@@ -176,7 +194,6 @@ const handleSubmit = (event) => {
 
     // 输出更新后的 jsonData
     console.log(jsonData);
-
     // 如果你希望在这里将更新后的 jsonData 用于其他操作，可以在这里执行相关逻辑
     // 例如：props.updateJsonData(jsonData);
   } else {
