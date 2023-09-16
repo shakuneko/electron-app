@@ -80,11 +80,12 @@ event.preventDefault();
 props.updateCoachName(coachForm)
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
+// const existingClassIDs = jsonData.find((item) => item.category === 'class').classDetail.map((class_category) => parseInt(class_category.classID));
+// const newClassID = generateUniqueID(existingClassIDs);
 
- // 获取已有的学生 ID 列表
- const existingCoachIDs = jsonData.find((item) => item.category === 'coach').coachDetail.map((coach) => parseInt(coach.coachID));
- // 生成唯一的学生ID
- const newCoachID = generateUniqueID(existingCoachIDs);
+const existingCoachIDs = jsonData.find((item) => item.category === 'coach').coachDetail.map((coach) => parseInt(coach.coachID));
+const newCoachID = generateUniqueID(existingCoachIDs);
+
  const newCoachData = {
   coachID: newCoachID,
   coachName:coachForm.coachName,
@@ -104,12 +105,7 @@ console.log('表单数据：', coachForm);
   PilatesSalary:coachForm.PilatesSalary,
   GroupSalary:coachForm.GroupSalary,
   MassageSalary:coachForm.MassageSalary, 
-  teachClass:[
-    {
-        "classID":"1"
-    }
-  ],
-  selectedItem: null
+  teachClass:[],
 };
 
   const updatedJsonData = [...jsonData];

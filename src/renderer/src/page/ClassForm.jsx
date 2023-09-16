@@ -14,15 +14,24 @@ function generateUniqueID(existingIDs) {
 
   return newID.toString(); // 将新的 ID 转换为字符串
 }
+//找學生ID
 function findStudentIDByName(studentName) {
   const studentData = jsonData.find((item) => item.category === 'student');
   const student = studentData.stuDetail.find((student) => student.stuName === studentName);
   return student ? student.stuID : ''; // 如果找到学生，返回学生ID，否则返回空字符串
 }
+//找教練ID
 function findCoachIDByName(CoachName) {
-  const coachData = jsonData.find((item) => item.category === 'student');
-  const coach = coachData.stuDetail.find((coach) => coach.coachName === CoachName);
+  const coachData = jsonData.find((item) => item.category === 'coach');
+  const coach = coachData.coachDetail.find((coach) => coach.coachName === CoachName);
   return coach ? coach.coachID : ''; // 如果找到学生，返回学生ID，否则返回空字符串
+}
+function generateUniqueReserveID(reserveDetailArray) {
+  let newReserveID = 1; // 默认从1开始
+  while (reserveDetailArray.some((item) => item.reserveID === newReserveID.toString())) {
+    newReserveID++; // 如果存在就递增
+  }
+  return newReserveID.toString();
 }
 
 function ClassForm(props) {
@@ -178,11 +187,18 @@ classData.classDetail.push(newClassItem);
 
 //傳到classDetail下的student
 const classIDToUpdate = newClassID; // 你已经找到的课程ID
-
 // 找到要更新的课程对象
 const classDetailToUpdate = jsonData
   .find((item) => item.category === 'class')
   .classDetail.find((classItem) => classItem.classID === classIDToUpdate);
+// 获取已有的预约ID列表
+const existingReserveIDs = jsonData
+  .find((item) => item.category === 'class')
+  .classDetail.flatMap((classItem) => 
+    classItem.reserveDetail.map((reserveItem) => reserveItem.reserveID)
+  );
+// 生成唯一的预约ID
+const newReserveID = generateUniqueReserveID(existingReserveIDs);
 
 if (classDetailToUpdate) {
   // 创建包含学生ID和姓名的对象
@@ -198,11 +214,42 @@ if (classDetailToUpdate) {
       stuName: classForm[currentPage].stuName2,
     },
   ];
+  const newClassCoach = {
+    coachID: findStudentIDByName(classForm[currentPage].coachName),
+    coachName: classForm[currentPage].coachName,
+  }
+  // 添加学生信息到课程对象的 "student、coach" 数组中
+  classDetailToUpdate.student.push(...newClassStudent);
+  classDetailToUpdate.coach.push(newClassCoach);
 
-  // 添加学生信息到课程对象的 "student" 数组中
-  classDetailToUpdate.student.push(newClassStudent);
+  
 
-  // 更新完毕后，jsonData 中的相应课程对象现在包含了新的学生数据
+  // 创建包含学生ID和姓名的对象
+  const newReserveStudent = [
+    {
+      stuID: findStudentIDByName(classForm[currentPage].stuName),
+      courseType: selectedCourse, 
+      stuName: classForm[currentPage].stuName,
+    },
+    {
+      stuID: findStudentIDByName(classForm[currentPage].stuName2),
+      courseType: selectedCourse,
+      stuName: classForm[currentPage].stuName2,
+    },
+  ]
+
+  const newReserveDetail = {
+    reserveID:newReserveID,
+    reserveDate: '', // 你需要填充正确的日期和时间
+    reserveTime: '',
+    cancel: '',
+    attandence: '',
+    note: '你好',
+    student: newReserveStudent,
+  };
+
+  // 添加新的reserveDetail对象到课程对象的 "reserveDetail" 数组中
+  classDetailToUpdate.reserveDetail.push(newReserveDetail);
 }
 
  // 要加到BuyDetail的資料
@@ -213,6 +260,7 @@ if (classDetailToUpdate) {
   stuName2: classForm[currentPage].stuName2,
   coursesAll: classForm[currentPage].coursesAll,
   coursePrice: classForm[currentPage].coursePrice,
+  courseType: selectedCourse,
   exCourse: classForm[currentPage].exCourse,
   buyNote: classForm[currentPage].buyNote,
   courseLeft:'',
@@ -235,7 +283,20 @@ if (classDetailToUpdate) {
     // const selectedStudentID = selectedStudent.stuID;
     // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
     selectedStudent.buyDetail.push(newBuyDetail);
- 
+  const newTeachClass ={
+    classID:'',
+  }
+  const selectedCoachName = classForm[currentPage].coachName;
+  // 查找对应的学员
+  const selectedCoach = jsonData
+    .find((item) => item.category === 'coach')
+    .stuDetail.find((coach) => coach.coachName === selectedCoachName);
+  if (selectedCoach) {
+    // 获取所选学员的 ID
+    // const selectedStudentID = selectedStudent.stuID;
+    // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
+    selectedCoach.teachClass.push(newTeachClass);
+  }
     // 清除表单数据为初始状态
     setClassForm(initialFormData);
 
@@ -486,10 +547,12 @@ useEffect(() => {
                               value={classForm.page2.coachName}
                               onChange={(e) => handleInputChange(e, 'page2')} 
                             >
-                                <option selected>-</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
+                              <option selected>-</option>
+                                {coachNames.map((name) => (
+                                <option key={name} value={name}>
+                                {name}
+                              </option>
+                              ))}
                             </select>
                           </div>
                       </div>
@@ -603,10 +666,12 @@ useEffect(() => {
                               value={classForm.page3.coachName}
                               onChange={(e) => handleInputChange(e, 'page3')} 
                             >
-                                <option selected>-</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
+                              <option selected>-</option>
+                                {coachNames.map((name) => (
+                                <option key={name} value={name}>
+                                {name}
+                              </option>
+                              ))}
                             </select>
                           </div>
                       </div>
@@ -720,10 +785,12 @@ useEffect(() => {
                               value={classForm.page4.coachName}
                               onChange={(e) => handleInputChange(e, 'page4')} 
                             >
-                                <option selected>-</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
+                              <option selected>-</option>
+                                {coachNames.map((name) => (
+                                <option key={name} value={name}>
+                                {name}
+                              </option>
+                              ))}
                             </select>
                           </div>
                       </div>
@@ -816,10 +883,12 @@ useEffect(() => {
                                 value={classForm.page5.coachName}
                                 onChange={(e) => handleInputChange(e, 'page5')}
                               >
-                                  <option selected>-</option>
-                                  <option value="A">A</option>
-                                  <option value="B">B</option>
-                                  <option value="C">C</option>
+                                <option selected>-</option>
+                                  {coachNames.map((name) => (
+                                  <option key={name} value={name}>
+                                  {name}
+                                </option>
+                                ))}
                               </select>
                             </div>
                         </div>
