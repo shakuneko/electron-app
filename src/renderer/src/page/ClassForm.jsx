@@ -63,7 +63,13 @@ const [classForm, setClassForm] = useState(initialFormData);
   // 使用状态管理保存当前页面
 const [currentPage, setCurrentPage] = useState('page1');
 const [studentNames, setStudentNames] = useState([]);
+const [selectedCourse, setSelectedCourse] = useState(''); // 用于存储当前所选的课程名称
 
+ // 处理分頁点击按钮事件
+ const handleButtonClick = (page, courseName) => {
+  setCurrentPage(page);
+  setSelectedCourse(courseName); // 更新所选的课程名称
+};
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event,page) => {
   // 從事件對象中獲取輸入的名稱和值
@@ -140,7 +146,7 @@ const handleSubmit = (event) => {
 const classData = jsonData.find((item) => item.category === 'class');
 const newClassItem = {
   classID: newClassID, 
-  courseType: '', 
+  courseType: selectedCourse, 
   exCourse: classForm[currentPage].exCourse, 
   coursesAll: classForm[currentPage].coursesAll, 
   reserveDetail:[],
@@ -248,15 +254,14 @@ useEffect(() => {
               <div class="form-group">
                   <label for="exampleInputEmail1">種類:</label>
                   <div className="form_btn">
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page1' ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page1')}>PT</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page2' ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page2')}>皮拉提斯</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page3' ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page3')}>運動按摩</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page4' ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page4')}>團課</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page5' ? 'active' : ''}`} type="button" onClick={() => setCurrentPage('page5')}>場地租借</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page1' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page1','PT')}>PT</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page2' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page2','皮拉提斯')}>皮拉提斯</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page3' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page3','運動按摩')}>運動按摩</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page4' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page4','團課')}>團課</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page5' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page5','場地租借')}>場地租借</button>
                   </div>
               </div>
               {/* PT課 */}
-
               {currentPage === 'page1' && (
                 <div className="class_category">
                     <div className="form-group">
