@@ -70,6 +70,7 @@ function StudentForm(props){
     stuContact_tel:stuForm.stuContact_tel,
     stuNote:stuForm.stuNote,
     createDate:stuForm.createDate,
+    buyDetail:[],
   };
     // 导入JSON数据
     const updatedJsonData = [...jsonData];
@@ -97,6 +98,19 @@ function StudentForm(props){
             <p>新增學員</p>
           </div>
             <form className="form" onSubmit={handleSubmit}>
+            <div class="form-group">
+                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <div className="select">
+                    <input 
+                      id="tel" 
+                      type="text" 
+                      name="createDate"
+                      class="form-select" 
+                      value={stuForm.createDate}
+                      onChange={handleInputChange} 
+                    ></input>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">姓名:</label>
                     <div className="select">
@@ -132,19 +146,6 @@ function StudentForm(props){
                       name="stuPhone"
                       class="form-select" 
                       value={stuForm.stuPhone}
-                      onChange={handleInputChange} 
-                    ></input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">建檔日期:</label>
-                    <div className="select">
-                    <input 
-                      id="tel" 
-                      type="text" 
-                      name="createDate"
-                      class="form-select" 
-                      value={stuForm.createDate}
                       onChange={handleInputChange} 
                     ></input>
                     </div>

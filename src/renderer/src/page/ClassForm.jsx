@@ -74,6 +74,40 @@ const handleInputChange = (event,page) => {
       [name]: value,
     },
   }));
+  if (name === 'stuName') {
+    // 在 JSON 数据中查找对应的学员
+    const student = jsonData
+      .find((category) => category.category === 'student')
+      .stuDetail.find((student) => student.stuName === value);
+
+    if (student) {
+      // 这里你可以使用 student 对象，它包含了所选学员的详细信息
+
+      // 获取所选学员的ID
+      const selectedStudentID = student.stuID;
+
+      // 构建新购买详情对象
+      setClassForm((prevFormData) => ({
+        ...prevFormData,
+        [page]: {
+          ...prevFormData[page],
+          stuName: value, // 学员的名称
+          stuID: selectedStudentID, // 学员的ID
+        },
+      }));
+    } else {
+      console.log('未找到对应学员。');
+    }
+  } else {
+    // 非学员名字字段的处理逻辑，直接更新表单数据
+    setClassForm((prevFormData) => ({
+      ...prevFormData,
+      [page]: {
+        ...prevFormData[page],
+        [name]: value,
+      },
+    }));
+  }
 
 };
 
@@ -88,55 +122,66 @@ const handleRadioChange = (event, page) => {
       exCourse: value,
     },
   }));
+  
 };
 
 const handleSubmit = (event) => {
   event.preventDefault();
   props.updateClassForm(currentPage,classForm[currentPage])
 
-  // 获取已有的学生 ID 列表
-  const existingStudentIDs = jsonData.find((item) => item.category === 'student').stuDetail.map((student) => parseInt(student.stuID));
-  // 生成唯一的学生ID
-  const newStudentID = generateUniqueID(existingStudentIDs);
+ // 获取已有的学员 ID 列表
+ const existingStudentIDs = jsonData
+ .find((item) => item.category === 'student')
+ .stuDetail.map((student) => parseInt(student.stuID));
+ // 构建新购买详情对象（这里使用了最新的购买详情对象）
+ const newBuyDetail = {
+  // stuID: existingStudentIDs,
+  coachName: classForm.page1.coachName,
+  stuName: classForm[currentPage].stuName,
+  stuName2: classForm[currentPage].stuName2,
+  coursesAll: classForm[currentPage].coursesAll,
+  salary: classForm[currentPage].salary,
+  exCourse: classForm[currentPage].exCourse,
+  buyNote: classForm[currentPage].buyNote,
+};
   // 在这里处理表单提交的逻辑
   console.log('表单数据：', classForm);
-  const newClassFormData = {
-    stuID: newStudentID,
-    coachName: classForm.page1.coachName,
-    stuName: classForm[currentPage].stuName,
-    stuName2: classForm[currentPage].stuName2,
-    coursesAll: classForm[currentPage].coursesAll,
-    salary: classForm[currentPage].salary,
-    exCourse: classForm[currentPage].exCourse,
-    buyNote: classForm[currentPage].buyNote,
-  };
+  // 假设你已经获取了要添加新购买详情的学员名称，存储在 selectedStudentName 变量中
+  const selectedStudentName = classForm[currentPage].stuName;
 
-  const targetStudentID = '1';
+  // 查找对应的学员
+  const selectedStudent = jsonData
+    .find((item) => item.category === 'student')
+    .stuDetail.find((student) => student.stuName === selectedStudentName);
 
-  // 找到 "student" 类别的索引
-  const studentCategoryIndex = jsonData.findIndex((item) => item.category === 'student');
-   // 导入JSON数据
-   const updatedJsonData = [...jsonData];
-   updatedJsonData.find((item) => item.category === 'student').stuDetail.buyDetail.push(newClassFormData);
-  // 找到目标学生的索引
-  // const targetStudentIndex = updatedJsonData[studentCategoryIndex].stuDetail.findIndex(
-  //   (student) => student.stuID === targetStudentID
-  // );
+  if (selectedStudent) {
+    // 获取所选学员的 ID
+    const selectedStudentID = selectedStudent.stuID;
 
-  // updatedJsonData[studentCategoryIndex].stuDetail[targetStudentIndex].buyDetail.push(newClassFormData);
-  // 清除表单数据为初始状态
-  setClassForm(initialFormData);
+    // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
+    selectedStudent.buyDetail.push(newBuyDetail);
+ 
 
-  // 恢复 radio 按钮的原状，将 exCourse 重置为空字符串
-  setClassForm((prevFormData) => ({
-    ...prevFormData,
-    [currentPage]: {
-      ...prevFormData[currentPage],
-      exCourse: '',
-    },
-  }));
+    // 清除表单数据为初始状态
+    setClassForm(initialFormData);
 
-  console.log(jsonData)
+    // 恢复 radio 按钮的原状，将 exCourse 重置为空字符串
+    setClassForm((prevFormData) => ({
+      ...prevFormData,
+      [currentPage]: {
+        ...prevFormData[currentPage],
+        exCourse: '',
+      },
+    }));
+
+    // 输出更新后的 jsonData
+    console.log(jsonData);
+
+    // 如果你希望在这里将更新后的 jsonData 用于其他操作，可以在这里执行相关逻辑
+    // 例如：props.updateJsonData(jsonData);
+  } else {
+    console.log('未找到对应学生。');
+  }
 };
 //繳費按鈕
 const initialButtonData = [
