@@ -283,14 +283,15 @@ if (classDetailToUpdate) {
     // const selectedStudentID = selectedStudent.stuID;
     // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
     selectedStudent.buyDetail.push(newBuyDetail);
+
   const newTeachClass ={
-    classID:'',
+    classID: newClassID,
   }
   const selectedCoachName = classForm[currentPage].coachName;
   // 查找对应的学员
   const selectedCoach = jsonData
     .find((item) => item.category === 'coach')
-    .stuDetail.find((coach) => coach.coachName === selectedCoachName);
+    .coachDetail.find((coach) => coach.coachName === selectedCoachName);
   if (selectedCoach) {
     // 获取所选学员的 ID
     // const selectedStudentID = selectedStudent.stuID;
