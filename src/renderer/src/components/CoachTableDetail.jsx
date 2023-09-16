@@ -7,10 +7,10 @@ import { selectOptions, CheckOut } from './TableSelectOptions'
 function CoachTableDetail({classes}) {
 
     
-    const CheckOut = ({id}) => { //設定查看按鈕要進入的頁面
+    const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         
         return<>
-           <Link to={`/coachDetail/${id}`} className='table-link-underline-none'>
+           <Link to={`/coach/name/${renderedCellValue}`} className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">查看</button> 
             </Link>
         </>
@@ -18,43 +18,50 @@ function CoachTableDetail({classes}) {
     
     const columns = [ //表格有的資料
         {
-            accessorKey:"coach.coachName",
-            header:"教練",
-            size:100,
+            accessorKey:"coachID",
+            header:"#",
+            size:50,
+            enableSorting: false
+
         },
         {
-            accessorKey:"coach.coachGender",
+            accessorKey:"coachName",
+            header:"教練",
+            size:50,
+        },
+        {
+            accessorKey:"coachGender",
             header:"性別",
             size:50,
             enableSorting: false
         },
         {
-            accessorKey:"coach.coachPhone",
+            accessorKey:"coachPhone",
             header:"電話",
             size:100,
             enableSorting: false
         },
         {
-            accessorFn: (row) => `${row.coach.major.join("、")} `,
-
+            accessorFn: (row) => `${row.major.join("、")} `,
             id:"major",
             header:"能帶課程",
-            size:100,
+            size:150,
             Cell: ({ renderedCellValue }) => (<span>{renderedCellValue}</span>)
             
         },
         {
-            accessorKey:"classNote",
+            accessorKey:"coachNote",
             header:"備註",
-            size:150,
+            size:100,
             enableSorting: false
         },
         {
-            accessorKey:"id",
+            accessorKey:"coachID",
+            id:"checkOut",
             header:"操作",
             size:50,
             //Cell: CheckOut,
-            Cell: ({ row }) => <CheckOut id={row.id} />, //設定查看按鈕要進入的頁面
+            Cell: CheckOut, //設定查看按鈕要進入的頁面
             enableSorting: false
 
         }
@@ -78,7 +85,7 @@ function CoachTableDetail({classes}) {
         // enableSorting={false} //sorting does not work with memoized table body
         enableStickyHeader
         renderTopToolbarCustomActions={() => (
-            <Link to="/coachform" className='table-link-underline-none'>
+            <Link to="/coach/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增教練</button> 
             </Link>
         )}

@@ -18,8 +18,8 @@ function StudentTableDetail({classes}) {
     const columns = [ //表格有的資料
         {
             accessorKey:"stuID",
-            header:"學員編號",
-            size:100,
+            header:"#",
+            size:50,
         },
         {
             accessorKey:"stuName",
