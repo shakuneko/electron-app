@@ -14,6 +14,11 @@ function generateUniqueID(existingIDs) {
 
   return newID.toString(); // 将新的 ID 转换为字符串
 }
+function findStudentIDByName(studentName) {
+  const studentData = jsonData.find((item) => item.category === 'student');
+  const student = studentData.stuDetail.find((student) => student.stuName === studentName);
+  return student ? student.stuID : ''; // 如果找到学生，返回学生ID，否则返回空字符串
+}
 
 function ClassForm(props) {
   //設定每個分頁的初始狀態
@@ -74,6 +79,9 @@ const [selectedCourse, setSelectedCourse] = useState(''); // 用于存储当前�
 const handleInputChange = (event,page) => {
   // 從事件對象中獲取輸入的名稱和值
   const{name,value}=event.target;
+
+  // 在 JSON 数据中查找对应的学员
+  
   setClassForm((prevFormData) => ({
     ...prevFormData,
     [page]: {
@@ -81,31 +89,18 @@ const handleInputChange = (event,page) => {
       [name]: value,
     },
   }));
+  
   //下拉選單選學員的名稱，找出學員對應的stuID
   if (name === 'stuName') {
-    // 在 JSON 数据中查找对应的学员
-    const student = jsonData
-      .find((category) => category.category === 'student')
-      .stuDetail.find((student) => student.stuName === value);
-
-    if (student) {
-      // 这里你可以使用 student 对象，它包含了所选学员的详细信息
-
-      // 获取所选学员的ID
-      const selectedStudentID = student.stuID;
-
       // 构建新购买详情对象
       setClassForm((prevFormData) => ({
         ...prevFormData,
         [page]: {
           ...prevFormData[page],
           stuName: value, // 学员的名称
-          stuID: selectedStudentID, // 学员的ID
+          stuID: findStudentIDByName(classForm[currentPage].stuName), // 学员的ID
         },
       }));
-    } else {
-      console.log('未找到对应学员。');
-    }
   } else {
     // 非学员名字字段的处理逻辑，直接更新表单数据
     setClassForm((prevFormData) => ({
@@ -116,7 +111,6 @@ const handleInputChange = (event,page) => {
       },
     }));
   }
-
 };
 
 // 处理 radio 按钮的变化
@@ -142,6 +136,11 @@ const handleSubmit = (event) => {
  .find((item) => item.category === 'class')
  .classDetail.map((class_category) => parseInt(class_category.classID));
  const newClassID = generateUniqueID(existingClassIDs)
+// 获取已有的 stuID 列表
+  const existingStudentIDs = jsonData
+ .find((item) => item.category === 'student')
+ .stuDetail.map((student) => parseInt(student.stuID));
+ const newStuID = generateUniqueID(existingStudentIDs)
 // 获取已有的 class 数据
 const classData = jsonData.find((item) => item.category === 'class');
 const newClassItem = {
@@ -153,11 +152,39 @@ const newClassItem = {
   coach:[],
   student:[],
 };
+
 // 推送新的 class 数据对象到 class 数据数组中
 classData.classDetail.push(newClassItem);
-//  const existingStudentIDs = jsonData
-//  .find((item) => item.category === 'student')
-//  .stuDetail.map((student) => parseInt(student.stuID));
+
+
+//傳到classDetail下的student
+const classIDToUpdate = newClassID; // 你已经找到的课程ID
+
+// 找到要更新的课程对象
+const classDetailToUpdate = jsonData
+  .find((item) => item.category === 'class')
+  .classDetail.find((classItem) => classItem.classID === classIDToUpdate);
+
+if (classDetailToUpdate) {
+  // 创建包含学生ID和姓名的对象
+  const newClassStudent = [
+    {
+      stuID: findStudentIDByName(classForm[currentPage].stuName),
+      courseType: selectedCourse, 
+      stuName: classForm[currentPage].stuName,
+    },
+    {
+      stuID: findStudentIDByName(classForm[currentPage].stuName2),
+      courseType: selectedCourse,
+      stuName: classForm[currentPage].stuName2,
+    },
+  ];
+
+  // 添加学生信息到课程对象的 "student" 数组中
+  classDetailToUpdate.student.push(newClassStudent);
+
+  // 更新完毕后，jsonData 中的相应课程对象现在包含了新的学生数据
+}
 
  // 要加到BuyDetail的資料
  const newBuyDetail = {
@@ -185,7 +212,6 @@ classData.classDetail.push(newClassItem);
     // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
     selectedStudent.buyDetail.push(newBuyDetail);
  
-
     // 清除表单数据为初始状态
     setClassForm(initialFormData);
 
@@ -203,7 +229,7 @@ classData.classDetail.push(newClassItem);
     // 如果你希望在这里将更新后的 jsonData 用于其他操作，可以在这里执行相关逻辑
     // 例如：props.updateJsonData(jsonData);
   } else {
-    console.log('未找到对应学生。');
+    console.log('no');
   }
 };
 //繳費按鈕
@@ -377,7 +403,7 @@ useEffect(() => {
                               //class="form-check-input" 
                               type="radio"
                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                              value="true"
+                              value="是"
                               className={`form-check-input ${classForm.page1.exCourse === 'option1' ? 'checked' : ''}`}
                               // checked={classForm.page1.selectedOption === 'option1'}
                               onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
@@ -390,7 +416,7 @@ useEffect(() => {
                             <input 
                               type="radio"
                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                              value="false"
+                              value="否"
                               className={`form-check-input ${classForm.page1.exCourse === 'option2' ? 'checked' : ''}`}
                               // checked={classForm.page1.selectedOption === 'option2'}
                               onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
@@ -494,7 +520,7 @@ useEffect(() => {
                               <input 
                                type="radio"
                                name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="true"
+                               value="是"
                                className={`form-check-input ${classForm.page2.exCourse === 'option1' ? 'checked' : ''}`}
                                // checked={classForm.page1.selectedOption === 'option2'}
                                onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称
@@ -507,7 +533,7 @@ useEffect(() => {
                               <input 
                                type="radio"
                                name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="false"
+                               value="否"
                                className={`form-check-input ${classForm.page2.exCourse === 'option2' ? 'checked' : ''}`}
                                // checked={classForm.page1.selectedOption === 'option2'}
                                onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称
@@ -611,7 +637,7 @@ useEffect(() => {
                               <input 
                                type="radio"
                                name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="true"
+                               value="是"
                                className={`form-check-input ${classForm.page3.exCourse === 'option1' ? 'checked' : ''}`}
                                // checked={classForm.page1.selectedOption === 'option2'}
                                onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称
@@ -624,7 +650,7 @@ useEffect(() => {
                               <input 
                                type="radio"
                                name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="false"
+                               value="否"
                                className={`form-check-input ${classForm.page3.exCourse === 'option2' ? 'checked' : ''}`}
                                // checked={classForm.page1.selectedOption === 'option2'}
                                onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称
@@ -707,7 +733,7 @@ useEffect(() => {
                               <input 
                                type="radio"
                                name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="true"
+                               value="是"
                                className={`form-check-input ${classForm.page4.exCourse === 'option1' ? 'checked' : ''}`}
                                // checked={classForm.page1.selectedOption === 'option2'}
                                onChange={(e) => handleRadioChange(e, 'page4')} // 传递页面名称
@@ -720,7 +746,7 @@ useEffect(() => {
                               <input 
                                type="radio"
                                name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="false"
+                               value="否"
                                className={`form-check-input ${classForm.page4.exCourse === 'option2' ? 'checked' : ''}`}
                                // checked={classForm.page1.selectedOption === 'option2'}
                                onChange={(e) => handleRadioChange(e, 'page4')} // 传递页面名称

@@ -9,6 +9,7 @@ const initialState = {
         salary:'',
         exCourse:'',
         buyNote: '',
+        buyDate:'',
       },
       page2: {
         coachName:'',
@@ -17,6 +18,7 @@ const initialState = {
         salary:'',
         exCourse:'',
         buyNote: '',
+        buyDate:'',
       },
       page3: {
         coachName:'',
@@ -25,12 +27,14 @@ const initialState = {
         salary:'',
         exCourse:'', 
         buyNote: '',
+        buyDate:'',
       },
       page4: {
         coachName:'',
         coursesAll: '',
         salary:'',
         buyNote: '',
+        buyDate:'',
       },
       page5: {
         coachName:'',
@@ -38,6 +42,7 @@ const initialState = {
         date:'',
         time: '',
         buyNote: '',
+        buyDate:'',
       },
     },
   };
