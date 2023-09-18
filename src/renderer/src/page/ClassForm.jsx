@@ -65,11 +65,16 @@ function ClassForm(props) {
     },
     page4: {
       coachName:'',
-      coursesAll: '',
-      coursePrice:'',
       buyNote: '',
     },
     page5: {
+      stuName: '',
+      coursesAll: '',
+      coursePrice:'',
+      exCourse:'',
+      buyNote: '',
+    },
+    page6: {
       coachName:'',
       floor: '',
       date:'',
@@ -368,8 +373,9 @@ useEffect(() => {
                     <button className={`btn btn-outline-golden page-button ${currentPage === 'page1' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page1','PT')}>PT</button>
                     <button className={`btn btn-outline-golden page-button ${currentPage === 'page2' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page2','皮拉提斯')}>皮拉提斯</button>
                     <button className={`btn btn-outline-golden page-button ${currentPage === 'page3' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page3','運動按摩')}>運動按摩</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page4' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page4','團課')}>團課</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page5' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page5','場地租借')}>場地租借</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page4' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page4','團課教練')}>團課教練</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page5' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page5','團課學員')}>團課學員</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page6' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page6','場地租借')}>場地租借</button>
                   </div>
               </div>
               {/* PT課 */}
@@ -555,7 +561,7 @@ useEffect(() => {
                       </div>
                       <div className="form-group4">
                         <div className="form-group4-1"> 
-                          <label for="exampleInputEmail1">學員1:</label>
+                          <label for="exampleInputEmail1">學員:</label>
                           <div className="select">
                           <select 
                             class="form-select"
@@ -674,7 +680,7 @@ useEffect(() => {
                       </div>
                       <div className="form-group4">
                         <div className="form-group4-1"> 
-                          <label for="exampleInputEmail1">學員1:</label>
+                          <label for="exampleInputEmail1">學員:</label>
                           <div className="select">
                           <select 
                             class="form-select"
@@ -770,7 +776,7 @@ useEffect(() => {
                       </div>
                   </div>
               )}
-              {/* 團課 */}
+              {/* 團課教練 */}
               {currentPage === 'page4' && (
                 <div className="class_category">
                       <div className="form-group">
@@ -791,65 +797,6 @@ useEffect(() => {
                             </select>
                           </div>
                       </div>
-                      <div className="form-group">
-                          <label for="exampleInputEmail1">堂數:</label>
-                          <div className="select">
-                            <select 
-                              class="form-select" 
-                              name="coursesAll"
-                              value={classForm.page4.coursesAll}
-                              onChange={(e) => handleInputChange(e, 'page4')}
-                            >
-                                <option selected>-</option>
-                                <option value="1">1</option>
-                                <option value="10">10</option>
-                            </select>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label for="exampleInputEmail1">購買價格:</label>
-                          <div className="select">
-                            <input 
-                            type="text" 
-                            class="form-select"
-                            name="coursePrice"
-                            value={classForm.page4.coursePrice}
-                            onChange={(e) => handleInputChange(e, 'page4')}
-                            ></input>
-                          </div>
-                      </div>
-                      
-                      <div class="form-group">
-                          <label  className="" for="exampleInputEmail1">體驗課:</label>
-                          <div className=" check">
-                            <div class="form-check">
-                              <input 
-                               type="radio"
-                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="是"
-                               className={`form-check-input ${classForm.page4.exCourse === 'option1' ? 'checked' : ''}`}
-                               // checked={classForm.page1.selectedOption === 'option2'}
-                               onChange={(e) => handleRadioChange(e, 'page4')} // 传递页面名称
-                              ></input>
-                              <label class="form-check-label" for="flexRadioDefault1">
-                                是
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input 
-                               type="radio"
-                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="否"
-                               className={`form-check-input ${classForm.page4.exCourse === 'option2' ? 'checked' : ''}`}
-                               // checked={classForm.page1.selectedOption === 'option2'}
-                               onChange={(e) => handleRadioChange(e, 'page4')} // 传递页面名称
-                              ></input>
-                              <label class="form-check-label" for="flexRadioDefault2">
-                                否
-                              </label>
-                          </div>
-                      </div>
-                      </div>
                       <div class="form-group2">
                           <label for="exampleInputPassword1">備註:</label>
                           <div className="select">
@@ -868,8 +815,109 @@ useEffect(() => {
                       </div>
                   </div>
               )}
-               {/* 場租 */}
+               {/* 團課學員 */}
                {currentPage === 'page5' && (
+                <div className="class_category">
+                      <div className="form-group4">
+                        <div className="form-group4-1"> 
+                          <label for="exampleInputEmail1">學員1:</label>
+                          <div className="select">
+                          <select 
+                            class="form-select"
+                            name="stuName"
+                            value={classForm.page5.stuName}
+                            onChange={(e) => handleInputChange(e, 'page5')} 
+                          >
+                            <option selected>-</option>
+                              {studentNames.map((name) => (
+                              <option key={name} value={name}>
+                              {name}
+                            </option>
+                            ))}
+                          </select>
+                          </div>
+                          </div>
+                          <button className="btn btn-originalgray" type="button">已付費</button>
+                      </div>
+                      <div className="form-group">
+                          <label for="exampleInputEmail1">堂數:</label>
+                          <div className="select">
+                            <select 
+                              class="form-select" 
+                              name="coursesAll"
+                              value={classForm.page5.coursesAll}
+                              onChange={(e) => handleInputChange(e, 'page5')}
+                            >
+                                <option selected>-</option>
+                                <option value="1">1</option>
+                                <option value="10">10</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">購買價格:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="coursePrice"
+                            value={classForm.page5.coursePrice}
+                            onChange={(e) => handleInputChange(e, 'page5')}
+                            ></input>
+                          </div>
+                      </div>
+                      
+                      <div class="form-group">
+                          <label  className="" for="exampleInputEmail1">體驗課:</label>
+                          <div className=" check">
+                            <div class="form-check">
+                              <input 
+                               type="radio"
+                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                               value="是"
+                               className={`form-check-input ${classForm.page5.exCourse === 'option1' ? 'checked' : ''}`}
+                               // checked={classForm.page1.selectedOption === 'option2'}
+                               onChange={(e) => handleRadioChange(e, 'page5')} // 传递页面名称
+                              ></input>
+                              <label class="form-check-label" for="flexRadioDefault1">
+                                是
+                              </label>
+                            </div>
+                            <div class="form-check">
+                              <input 
+                               type="radio"
+                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                               value="否"
+                               className={`form-check-input ${classForm.page5.exCourse === 'option2' ? 'checked' : ''}`}
+                               // checked={classForm.page1.selectedOption === 'option2'}
+                               onChange={(e) => handleRadioChange(e, 'page5')} // 传递页面名称
+                              ></input>
+                              <label class="form-check-label" for="flexRadioDefault2">
+                                否
+                              </label>
+                          </div>
+                      </div>
+                      </div>
+                      <div class="form-group2">
+                          <label for="exampleInputPassword1">備註:</label>
+                          <div className="select">
+                            <textarea 
+                            class="form-select" 
+                            id="exampleFormControlTextarea1" 
+                            rows="3" 
+                            name="buyNote"
+                            value={classForm.page5.buyNote}
+                            onChange={(e) => handleInputChange(e, 'page5')}
+                            ></textarea>
+                          </div>  
+                      </div>
+                      <div class="form-group3">
+                        <button type="submit" class="btn btn-golden" >新增</button>
+                      </div>
+                  </div>
+              )}
+               {/* 場租 */}
+               {currentPage === 'page6' && (
                 <div className="class_category">
                         <div className="form-group">
                             <label  for="exampleInputEmail1">教練:</label>
@@ -877,8 +925,8 @@ useEffect(() => {
                               <select 
                                 className="form-select " 
                                 name="coachName"
-                                value={classForm.page5.coachName}
-                                onChange={(e) => handleInputChange(e, 'page5')}
+                                value={classForm.page6.coachName}
+                                onChange={(e) => handleInputChange(e, 'page6')}
                               >
                                 <option selected>-</option>
                                   {coachNames.map((name) => (
@@ -895,8 +943,8 @@ useEffect(() => {
                               <select 
                                 className="form-select " 
                                 name="floor"
-                                value={classForm.page5.floor}
-                                onChange={(e) => handleInputChange(e, 'page5')}
+                                value={classForm.page6.floor}
+                                onChange={(e) => handleInputChange(e, 'page6')}
                               >
                                   <option selected>-</option>
                                   <option value="1">1樓</option>
@@ -913,8 +961,8 @@ useEffect(() => {
                                 type="text" 
                                 class="form-select" 
                                 name="date"
-                                value={classForm.page5.date}
-                                onChange={(e) => handleInputChange(e, 'page5')}
+                                value={classForm.page6.date}
+                                onChange={(e) => handleInputChange(e, 'page6')}
                               ></input>
                             </div>
                         </div>
@@ -925,8 +973,8 @@ useEffect(() => {
                                 type="text" 
                                 class="form-select" 
                                 name="time"
-                                value={classForm.page5.time}
-                                onChange={(e) => handleInputChange(e, 'page5')}
+                                value={classForm.page6.time}
+                                onChange={(e) => handleInputChange(e, 'page6')}
                               ></input>
                             </div>
                         </div>
@@ -938,8 +986,8 @@ useEffect(() => {
                                 id="exampleFormControlTextarea1" 
                                 rows="3" 
                                 name="buyNote"
-                                value={classForm.page5.buyNote}
-                                onChange={(e) => handleInputChange(e, 'page5')}
+                                value={classForm.page6.buyNote}
+                                onChange={(e) => handleInputChange(e, 'page6')}
                               ></textarea>
                             </div>  
                         </div>
