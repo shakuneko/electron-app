@@ -2,6 +2,17 @@ import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 import { connect } from 'react-redux';
 import { updateCoachName } from '../redux/Actions/formActions'
+import jsonData from '../json/new_class.json'
+
+function generateUniqueID(existingIDs) {
+  // 找到现有 ID 中的最大值
+  const maxID = Math.max(...existingIDs);
+
+  // 将新的 ID 设置为最大值加一
+  const newID = maxID + 1;
+
+  return newID.toString(); // 将新的 ID 转换为字符串
+}
 
 function CoachForm(props) {
   
@@ -12,17 +23,22 @@ function CoachForm(props) {
     coachPhone:'',
     coachEmail: '',
     coachAddress: '',
-    salary:'',
     coachBank:'',
     coachContact: '',
     coachRelation:'',
     coachContact_tel:'',
     coachNote:'',
     major: null, // 新增一个字段用于存储按钮选项值
+    joinDate:'',
+    PtSalary:'',
+    PilatesSalary:'',
+    GroupSalary:'',
+    MassageSalary:'', 
   };
 // 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
-
+//複選按鈕
+const [selectedOptions, setSelectedOptions] = useState([]); // 用于存储选中的选项
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event) => {
   // 從事件對象中獲取輸入的名稱和值
@@ -35,9 +51,26 @@ const handleInputChange = (event) => {
 };
 
 const handleItemClick = (item) => {
+   // 如果选项已经被选中，则从selectedOptions数组中移除它，否则将它添加进去
+   if (selectedOptions.includes(item)) {
+    setSelectedOptions(selectedOptions.filter((selectedItem) => selectedItem !== item));
+    } else {
+      setSelectedOptions([...selectedOptions, item]);
+    }
   setCoachForm({
     ...coachForm,
-    major: item, // 更新按钮选项值
+    major: selectedOptions,
+  });
+  setCoachForm((prevCoachForm) => {
+    // 如果选项已经被选中，则从selectedOptions数组中移除它，否则将它添加进去
+    const updatedOptions = prevCoachForm.major.includes(item)
+      ? prevCoachForm.major.filter((selectedItem) => selectedItem !== item)
+      : [...prevCoachForm.major, item];
+    
+    return {
+      ...prevCoachForm,
+      major: updatedOptions,
+    };
   });
 };
 
@@ -47,8 +80,43 @@ event.preventDefault();
 props.updateCoachName(coachForm)
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
-// 清除表单数据为初始状态
-setCoachForm(initialFormData);
+// const existingClassIDs = jsonData.find((item) => item.category === 'class').classDetail.map((class_category) => parseInt(class_category.classID));
+// const newClassID = generateUniqueID(existingClassIDs);
+
+const existingCoachIDs = jsonData.find((item) => item.category === 'coach').coachDetail.map((coach) => parseInt(coach.coachID));
+const newCoachID = generateUniqueID(existingCoachIDs);
+
+ const newCoachData = {
+  coachID: newCoachID,
+  coachName:coachForm.coachName,
+  coachGender:coachForm.coachGender,
+  coachIDcode:coachForm.coachIDcode,
+  coachPhone:coachForm.coachPhone,
+  coachEmail:coachForm.coachEmail,
+  coachAddress:coachForm.coachEmail,
+  coachBank:coachForm.coachBank,
+  coachContact:coachForm.coachContact,
+  coachRelation:coachForm.coachRelation,
+  coachContact_tel:coachForm.coachContact_tel,
+  coachNote:coachForm.coachNote,
+  major:[coachForm.major], 
+  joinDate:coachForm.joinDate,
+  PtSalary:coachForm.PtSalary,
+  PilatesSalary:coachForm.PilatesSalary,
+  GroupSalary:coachForm.GroupSalary,
+  MassageSalary:coachForm.MassageSalary, 
+  teachClass:[],
+};
+
+  const updatedJsonData = [...jsonData];
+    // 将新的学生数据添加到JSON中
+  updatedJsonData.find((item) => item.category === 'coach').coachDetail.push(newCoachData);
+
+  // 清除表单数据为初始状态
+  setCoachForm(initialFormData);
+  setSelectedOptions([]);
+
+  console.log(jsonData);
 };
 
   return (
@@ -140,25 +208,65 @@ setCoachForm(initialFormData);
                     <button 
                       type="button" 
                       onClick={() => handleItemClick('PT')}
-                      className={`btn btn-outline-golden   ${coachForm.major === 'PT' ? 'active' : ''}`}>PT</button>
+                      className={`btn btn-outline-golden ${selectedOptions.includes('PT') ? 'active' : ''}`}>PT</button>
                     <button 
                       type="button" 
                       onClick={() => handleItemClick('皮拉提斯')}
-                      className={`btn btn-outline-golden   ${coachForm.major === '皮拉提斯' ? 'active' : ''}`}>皮拉提斯</button>
+                      className={`btn btn-outline-golden ${selectedOptions.includes('皮拉提斯') ? 'active' : ''}`}>皮拉提斯</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handleItemClick('運動按摩')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('運動按摩') ? 'active' : ''}`}>運動按摩</button>
                     <button
                       type="button" 
                       onClick={() => handleItemClick('團課')}
-                      className={`btn btn-outline-golden   ${coachForm.major === '團課' ? 'active' : ''}`}>團課</button>
+                      className={`btn btn-outline-golden ${selectedOptions.includes('團課') ? 'active' : ''}`}>團課</button>
                   </div>
                 </div>    
                 <div class="form-group">
-                    <label for="exampleInputEmail1">堂薪:</label>
+                    <label for="exampleInputEmail1">PT堂薪:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       class="form-select" 
-                      name="salary"
-                      value={coachForm.salary}
+                      name="PtSalary"
+                      value={coachForm.PtSalary}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">皮拉提斯堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="text" 
+                      class="form-select" 
+                      name="PilatesSalary"
+                      value={coachForm.PilatesSalary}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">運動按摩堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="text" 
+                      class="form-select" 
+                      name="MassageSalary"
+                      value={coachForm.MassageSalary}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">團課堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="text" 
+                      class="form-select" 
+                      name="GroupSalary"
+                      value={coachForm.GroupSalary}
                       onChange={handleInputChange}
                     ></input>
                     </div>
@@ -207,6 +315,18 @@ setCoachForm(initialFormData);
                       name="coachContact_tel"
                       class="form-select" 
                       value={coachForm.coachContact_tel}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <div className="select">
+                    <input 
+                      type="text" 
+                      name="joinDate"
+                      class="form-select" 
+                      value={coachForm.joinDate}
                       onChange={handleInputChange}
                     ></input>
                     </div>

@@ -2,6 +2,17 @@ import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 import { connect } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
+import jsonData from '../json/new_class.json'
+
+function generateUniqueID(existingIDs) {
+  // 找到现有 ID 中的最大值
+  const maxID = Math.max(...existingIDs);
+
+  // 将新的 ID 设置为最大值加一
+  const newID = maxID + 1;
+
+  return newID.toString(); // 将新的 ID 转换为字符串
+}
 
 function StudentForm(props){
   const initialFormData = {
@@ -14,10 +25,11 @@ function StudentForm(props){
     stuRelation:'',
     stuContact_tel:'',
     stuNote:'',
+    createDate:'',
   };
    // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
- 
+
 
    // 定義一個處理表單輸入變化的函數
    const handleInputChange = (event) => {
@@ -35,10 +47,43 @@ function StudentForm(props){
   const handleSubmit = (event) => {
     event.preventDefault();
     props.updateStuForm(stuForm)
+
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
+
+     // 获取已有的学生 ID 列表
+    const existingStudentIDs = jsonData.find((item) => item.category === 'student').stuDetail.map((student) => parseInt(student.stuID));
+    // 生成唯一的学生ID
+    const newStudentID = generateUniqueID(existingStudentIDs);
+    // 根据你的需求更新JSON数据
+    // 假设你要将新的学生数据添加到"student"类别下
+    const newStudentData = {
+    stuID: newStudentID,
+    stuName: stuForm.stuName,
+    stuGender: stuForm.stuGender,
+    stuPhone: stuForm.stuPhone,
+    stuEmail: stuForm.stuEmail,
+    stuAddress: stuForm.stuAddress,
+    stuContact: stuForm.stuContact,
+    stuRelation:stuForm.stuRelation,
+    stuContact_tel:stuForm.stuContact_tel,
+    stuNote:stuForm.stuNote,
+    createDate:stuForm.createDate,
+    buyDetail:[],
+  };
+    // 导入JSON数据
+    const updatedJsonData = [...jsonData];
+    // 将新的学生数据添加到JSON中
+    updatedJsonData.find((item) => item.category === 'student').stuDetail.push(newStudentData);
+
     // 清除表单数据为初始状态
     setStuForm(initialFormData);
+
+    // jsonData.push(stuForm);
+
+    console.log(jsonData);
+
+
   };
 
   return (
@@ -52,6 +97,19 @@ function StudentForm(props){
             <p>新增學員</p>
           </div>
             <form className="form" onSubmit={handleSubmit}>
+            <div class="form-group">
+                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <div className="select">
+                    <input 
+                      id="tel" 
+                      type="text" 
+                      name="createDate"
+                      class="form-select" 
+                      value={stuForm.createDate}
+                      onChange={handleInputChange} 
+                    ></input>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">姓名:</label>
                     <div className="select">

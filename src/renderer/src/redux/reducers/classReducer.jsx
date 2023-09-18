@@ -1,49 +1,49 @@
 
 const initialState = {
     classForm:{
-        page1: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            number: '',
-            salary:'',
-            selectedOption: '', // 将 radio 按钮放入 page1 中
-            note: '',
-        },
-        page2: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            number: '',
-            salary:'',
-            selectedOption: '', 
-            note: '',
-        },
-        page3: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            number: '',
-            salary:'',
-            selectedOption: '', 
-            note: '',
-        },
-        page4: {
-            coach:'',
-            stu1: '',
-            stu2:'',
-            stu3:'',
-            number: '',
-            salary:'',
-            note: '',
-        },
-        page5: {
-            coach:'',
-            floor: '',
-            date:'',
-            time: '',
-            note: '',
-        },
+      page1: {
+        coachName:'',
+        stuName: '',
+        stuName2:'',
+        coursesAll: '',
+        coursePrice:'',
+        exCourse:'',
+        buyNote: '',
+        buyDate:'',
+      },
+      page2: {
+        coachName:'',
+        stuName: '',
+        coursesAll: '',
+        coursePrice:'',
+        exCourse:'',
+        buyNote: '',
+        buyDate:'',
+      },
+      page3: {
+        coachName:'',
+        stuName: '',
+        coursesAll: '',
+        coursePrice:'',
+        exCourse:'', 
+        buyNote: '',
+        buyDate:'',
+      },
+      page4: {
+        coachName:'',
+        coursesAll: '',
+        coursePrice:'',
+        buyNote: '',
+        buyDate:'',
+      },
+      page5: {
+        coachName:'',
+        floor: '',
+        date:'',
+        time: '',
+        buyNote: '',
+        buyDate:'',
+      },
     },
   };
   
@@ -56,16 +56,6 @@ const initialState = {
           classForm:{
                 ...state.classForm,
             [page]:data,
-            //  {
-            //     ...state.classForm[page],
-            //     coach,
-            //     stu1,
-            //     stu2,
-            //     number,
-            //     salary,
-            //     selectedOption,
-            //     note
-            //     },
          
             },
   
