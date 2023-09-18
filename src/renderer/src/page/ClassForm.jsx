@@ -24,8 +24,9 @@ function findStudentIDByName(studentName) {
 function findCoachIDByName(CoachName) {
   const coachData = jsonData.find((item) => item.category === 'coach');
   const coach = coachData.coachDetail.find((coach) => coach.coachName === CoachName);
-  return coach ? coach.coachID : ''; // 如果找到学生，返回学生ID，否则返回空字符串
+  return coach ? coach.coachID : ''; 
 }
+//找預約ID (((待修理
 function generateUniqueReserveID(reserveDetailArray) {
   let newReserveID = 1; // 默认从1开始
   while (reserveDetailArray.some((item) => item.reserveID === newReserveID.toString())) {
@@ -78,9 +79,7 @@ function ClassForm(props) {
   };
 // 使用状态管理保存表单数据
 const [classForm, setClassForm] = useState(initialFormData);
-
-  // 使用状态管理保存当前页面
-const [currentPage, setCurrentPage] = useState('page1');
+const [currentPage, setCurrentPage] = useState('page1');   // 使用状态管理保存当前页面
 const [studentNames, setStudentNames] = useState([]);
 const [coachNames, setCoachNames] = useState([]);
 const [selectedCourse, setSelectedCourse] = useState(''); // 用于存储当前所选的课程名称
@@ -90,13 +89,12 @@ const [selectedCourse, setSelectedCourse] = useState(''); // 用于存储当前�
   setCurrentPage(page);
   setSelectedCourse(courseName); // 更新所选的课程名称
 };
+
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event,page) => {
   // 從事件對象中獲取輸入的名稱和值
   const{name,value}=event.target;
 
-  // 在 JSON 数据中查找对应的学员
-  
   setClassForm((prevFormData) => ({
     ...prevFormData,
     [page]: {
@@ -105,7 +103,7 @@ const handleInputChange = (event,page) => {
     },
   }));
   
-  //下拉選單選學員的名稱，找出學員教、練對應的ID
+  //下拉選單選學員的名稱，找出學員、教練對應的ID
   if (name === 'stuName') {
       // 构建新购买详情对象
       setClassForm((prevFormData) => ({
@@ -113,12 +111,11 @@ const handleInputChange = (event,page) => {
         [page]: {
           ...prevFormData[page],
           stuName: value, // 学员的名称
-          stuID: findStudentIDByName(classForm[currentPage].stuName), // 教練的ID
+          stuID: findStudentIDByName(classForm[currentPage].stuName), 
         },
       }));
   } else
     if (name === 'coachName') {
-      // 构建新购买详情对象
       setClassForm((prevFormData) => ({
         ...prevFormData,
         [page]: {
@@ -200,8 +197,8 @@ const existingReserveIDs = jsonData
 // 生成唯一的预约ID
 const newReserveID = generateUniqueReserveID(existingReserveIDs);
 
+//classDetail>student&coach
 if (classDetailToUpdate) {
-  // 创建包含学生ID和姓名的对象
   const newClassStudent = [
     {
       stuID: findStudentIDByName(classForm[currentPage].stuName),
@@ -223,8 +220,7 @@ if (classDetailToUpdate) {
   classDetailToUpdate.coach.push(newClassCoach);
 
   
-
-  // 创建包含学生ID和姓名的对象
+  // classDetail>reserveDetail>student
   const newReserveStudent = [
     {
       stuID: findStudentIDByName(classForm[currentPage].stuName),
@@ -252,6 +248,19 @@ if (classDetailToUpdate) {
   classDetailToUpdate.reserveDetail.push(newReserveDetail);
 }
 
+//coach>coachDetail>TeachClass
+  const newTeachClass ={
+    classID: newClassID,
+  } 
+  const selectedCoachName = classForm[currentPage].coachName;
+  const selectedCoach = jsonData
+    .find((item) => item.category === 'coach')
+    .coachDetail.find((coach) => coach.coachName === selectedCoachName);
+  if (selectedCoach) {
+
+    selectedCoach.teachClass.push(newTeachClass);
+  }
+
  // 要加到BuyDetail的資料
  const newBuyDetail = {
   classID: newClassID,
@@ -274,50 +283,37 @@ if (classDetailToUpdate) {
 
   // 找出ID對應的學員，把BuyDetail資料放進去
   const selectedStudentName = classForm[currentPage].stuName;
-  // 查找对应的学员
   const selectedStudent = jsonData
     .find((item) => item.category === 'student')
     .stuDetail.find((student) => student.stuName === selectedStudentName);
+
   if (selectedStudent) {
-    // 获取所选学员的 ID
     // const selectedStudentID = selectedStudent.stuID;
-    // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
     selectedStudent.buyDetail.push(newBuyDetail);
-
-  const newTeachClass ={
-    classID: newClassID,
-  }
-  const selectedCoachName = classForm[currentPage].coachName;
-  // 查找对应的学员
-  const selectedCoach = jsonData
-    .find((item) => item.category === 'coach')
-    .coachDetail.find((coach) => coach.coachName === selectedCoachName);
-  if (selectedCoach) {
-    // 获取所选学员的 ID
-    // const selectedStudentID = selectedStudent.stuID;
-    // 使用学员的 ID 将新购买详情对象添加到学员的 buyDetail 数组中
-    selectedCoach.teachClass.push(newTeachClass);
-  }
-    // 清除表单数据为初始状态
-    setClassForm(initialFormData);
-
-    // 恢复 radio 按钮的原状，将 exCourse 重置为空字符串
-    setClassForm((prevFormData) => ({
-      ...prevFormData,
-      [currentPage]: {
-        ...prevFormData[currentPage],
-        exCourse: '',
-      },
-    }));
-
     // 输出更新后的 jsonData
-    console.log(jsonData);
-    // 如果你希望在这里将更新后的 jsonData 用于其他操作，可以在这里执行相关逻辑
-    // 例如：props.updateJsonData(jsonData);
-  } else {
-    console.log('no');
-  }
+  } 
+   //傳遞學員2的資料到BuyDetail頁面
+   const selectedStudentName2 = classForm[currentPage].stuName2;
+   const selectedStudent2 = jsonData
+   .find((item) => item.category === 'student')
+   .stuDetail.find((student) => student.stuName === selectedStudentName2);
+   if(selectedStudent2){
+     selectedStudent2.buyDetail.push(newBuyDetail);
+   }
+   // 清除表单数据为初始状态
+   setClassForm(initialFormData);
+
+   // 恢复 radio 按钮的原状，将 exCourse 重置为空字符串
+   setClassForm((prevFormData) => ({
+     ...prevFormData,
+     [currentPage]: {
+       ...prevFormData[currentPage],
+       exCourse: '',
+     },
+   }));
+   console.log(jsonData);
 };
+
 //繳費按鈕
 const initialButtonData = [
   { text: '已付款', clicked: false, visible: true },
