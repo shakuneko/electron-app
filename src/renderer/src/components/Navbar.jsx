@@ -69,7 +69,7 @@ function Navbar() {
     const data = JSON.stringify({ testModified })//set the dhould save json here - use redux's state
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
   }
-
+  
   const onReadFile = async () => {
     const data = (await window._fs.readFile({ fileName: `${menuInfo}.txt` })) || {
       menuInfo: 'no data'
@@ -110,7 +110,7 @@ function Navbar() {
     // }
 
     if (isSame == false) {
-      //onSaveToFile()
+      onSaveToFile()
       console.log('save file here:',filePathInfo)
     }
 
@@ -174,14 +174,15 @@ function Navbar() {
       {/* <Link to="/" className="nav-item">
             <FontAwesomeIcon icon={faKey} />
             <div class="nav-word">場地租借</div></Link> */}
-      <NavLink
+
+      {/* <NavLink
         to="/savejson"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
         onClick={handleHashOnClick}
       >
         <FontAwesomeIcon icon={faKey} />
         <div class="nav-word">Save Page</div>
-      </NavLink>
+      </NavLink> */}
       
     </div>
 
