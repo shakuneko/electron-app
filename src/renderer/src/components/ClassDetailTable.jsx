@@ -29,6 +29,7 @@ function ClassDetailTable({ classes }) {
     };
 
 
+    console.log("tableData",tableData)
     const columns = [ //表格有的資料
         {
             accessorFn: (row) => {
@@ -42,6 +43,7 @@ function ClassDetailTable({ classes }) {
             id:"attendanceStu",
             header:"上課學生",
             size:150,
+            enableEditing: false
         },
         {
             accessorKey:"reserveDate",
@@ -50,7 +52,6 @@ function ClassDetailTable({ classes }) {
         },
         {
             accessorKey:"reserveTime",
-            id:"time",
             header:"時間",
             size:100,
         },
@@ -80,7 +81,7 @@ function ClassDetailTable({ classes }) {
 
     <MaterialReactTable 
         columns={columns}
-        data={detailData} 
+        data={tableData} 
         initialState={{ showGlobalFilter: true }} //show filters by default
         enableColumnActions={false} //no need for column actions if none of them are enabled
         enableDensityToggle={false} //density does not work with memoized table body

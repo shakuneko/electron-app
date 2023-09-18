@@ -14,6 +14,8 @@ function StudentsDetailTable({ stuBuyDetailData }) {
       setTableData([...tableData]); //re-render with new data
     };
 
+    console.log("tableData",tableData)
+
     const columns = [ //表格有的資料
         {
             accessorKey:"buyDate",
@@ -46,16 +48,19 @@ function StudentsDetailTable({ stuBuyDetailData }) {
             accessorKey:"payMethod",
             header:"付款方式",
             size:100,
+            enableEditing:false
         },
         {
             accessorKey:"coursePrice",
             header:"消費金額",
             size:100,
+            enableEditing:false
         },
         {
             accessorKey:"invoiceNum",
             header:"發票號碼",
             size:100,
+            enableEditing:false
         },
         {
             accessorKey:"buyNote",
@@ -71,7 +76,7 @@ function StudentsDetailTable({ stuBuyDetailData }) {
 
         <MaterialReactTable 
             columns={columns}
-            data={stuBuyDetailData} 
+            data={tableData} 
             initialState={{ showGlobalFilter: true }} //show filters by default
             enableColumnActions={false} //no need for column actions if none of them are enabled
             
