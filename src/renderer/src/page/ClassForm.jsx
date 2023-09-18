@@ -217,7 +217,7 @@ if (classDetailToUpdate) {
     },
   ];
   const newClassCoach = {
-    coachID: findStudentIDByName(classForm[currentPage].coachName),
+    coachID: findCoachIDByName(classForm[currentPage].coachName),
     coachName: classForm[currentPage].coachName,
   }
   // 添加学生信息到课程对象的 "student、coach" 数组中
@@ -245,7 +245,7 @@ if (classDetailToUpdate) {
     reserveTime: '',
     cancel: '',
     attandence: '',
-    note: '你好',
+    note: '',
     student: newReserveStudent,
   };
 

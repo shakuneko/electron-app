@@ -38,6 +38,7 @@ function generateUniqueID(existingIDs) {
 
       const existingReserveIDs = jsonData.find((item) => item.category === 'class').classDetail.flatMap((classItem)=>classItem.reserveDetail.map((reserve) => parseInt(reserve.reserveID)));
       const newReserveID = generateUniqueID(existingReserveIDs);
+      
 
       const neweReserveData = {
         reserveID: newReserveID,
@@ -104,7 +105,7 @@ function generateUniqueID(existingIDs) {
             </div>
           </div>
           <div className="reservebox-item">
-            <p className="rstitle col-3">時間：</p>
+            <p className="rstitle col-3">學員：</p>
             <div className="DatePicksTitle col-9">
             <select 
               class="form-control"
