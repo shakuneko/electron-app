@@ -31,6 +31,19 @@ function ClassDetailTable({ classes }) {
 
     const columns = [ //表格有的資料
         {
+            accessorFn: (row) => {
+                const newData = row.student.map((item) => {
+                    const students = []
+                    students.push(item.stuName)
+                    return students
+                })
+                return `${newData.join("、")} `
+              },
+            id:"attendanceStu",
+            header:"上課學生",
+            size:150,
+        },
+        {
             accessorKey:"reserveDate",
             header:"日期",
             size:100,

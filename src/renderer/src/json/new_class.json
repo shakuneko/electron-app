@@ -114,11 +114,30 @@
                         "reserveStu":[],
                         "cancel":"否",
                         "attandence":"是",
-                        "note":"甜甜、Lulu、小錢、柚子、花媽、貓咪老師、大衛、花田、橘子、大耳狗",
+                        "note":"之後要添加十個學生",
                         "student":[{
                             "stuID":"3",
                             "courseType":"團課",
-                            "stuName": "-"
+                            "stuName": "大衛"
+                        },
+                        {
+                            "stuID":"1",
+                            "courseType":"團課",
+                            "stuName": "Lulu"
+                        }]
+                    },
+                    {
+                        "reserveID": "2",
+                        "reserveDate": "2023/9/25",
+                        "reserveTime": "09:00-11:00",
+                        "reserveStu":[],
+                        "cancel":"否",
+                        "attandence":"是",
+                        "note":"之後要添加十個學生",
+                        "student":[{
+                            "stuID":"3",
+                            "courseType":"團課",
+                            "stuName": "大衛"
                         }]
                     }],
                     "status":"-",
@@ -198,6 +217,20 @@
                 "buyDate":"2022/06/23",
                 "exCourse":"否",
                 "coursePrice":"6500",
+                "buyNote":"!!"
+            },{
+                "classID":"3",
+                "courseType":"團課",
+                "coachName": "D",
+                "coursesAll":"10",
+                "coursesFIN":"4",
+                "courseLeft":"6",
+                "preCourseLeft":"9",
+                "payMethod":"信用卡",
+                "invoiceNum" :"12345678",
+                "buyDate":"2022/06/23",
+                "exCourse":"否",
+                "coursePrice":"6400",
                 "buyNote":"!!"
             },{
                 "classID":"4",
