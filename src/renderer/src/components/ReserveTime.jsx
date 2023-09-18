@@ -1,14 +1,19 @@
-//import { DatePicker, Space } from "antd";
 
-// const onChangeDate = (date, dateString) => {
-//     console.log(dateString);
-//   };
-//   const onChangeTime = (time, timeString) => {
-//     console.log(timeString);
-//   };
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { updateReserveTime } from "../redux/Actions/formActions"
+import jsonData from '../json/new_class.json'
+
+function generateUniqueID(existingIDs) {
+  // 找到现有 ID 中的最大值
+  const maxID = Math.max(...existingIDs);
+
+  // 将新的 ID 设置为最大值加一
+  const newID = maxID + 1;
+
+  return newID.toString(); // 将新的 ID 转换为字符串
+}
+
   function ReserveTime(props) {
     const initialFormData = {
       reserveDate:'',
@@ -30,35 +35,51 @@ import { updateReserveTime } from "../redux/Actions/formActions"
       // 调用Redux操作以更新预约数据
       props.updateReserveTime(reserveForm);
       console.log(reserveForm);
+
+      const existingReserveIDs = jsonData.find((item) => item.category === 'class').classDetail.flatMap((classItem)=>classItem.reserveDetail.map((reserve) => parseInt(reserve.reserveID)));
+      const newReserveID = generateUniqueID(existingReserveIDs);
+
+      const neweReserveData = {
+        reserveID: newReserveID,
+        reserveDate:reserveForm.reserveDate,
+        reserveTime:reserveForm.reserveTime,
+        reserveStu:reserveForm.reserveStu,
+        cancel:"否",
+        attandence:"是",
+        note:"你好",
+        student:[],
+      };
+
+      const updatedJsonData = [...jsonData];
+      // 将新的学生数据添加到JSON中
+      
+      // 找到目标的classDetail
+      const classDetail = updatedJsonData
+        .find((item) => item.category === 'class')
+        .classDetail;
+      
+      // 循环处理每个classItem并将新的reserveData添加到它们的reserveDetail数组中
+      classDetail.forEach((classItem) => {
+        if (classItem.reserveDetail) {
+          classItem.reserveDetail.push(neweReserveData);
+        }
+      });
+      
+      console.log(updatedJsonData);
   
       // 清除表单数据（可选）
       setReserveForm(initialFormData);
+
+      console.log(jsonData);
     };
-    // const onChangeDate = (event) => {
-    //   const newDate = event.target.value;
-    //   setSelectedDate(newDate);
-    // };
-  
-    // const onChangeTime = (event) => {
-    //   const newTime = event.target.value;
-    //   setSelectedTime(newTime);
-    // };
-  
-    // const handleReservation = () => {
-    //   // 在這裡執行預約的相關邏輯，可以使用selectedDate和selectedTime的值
-    //   console.log("選擇的日期：", selectedDate);
-    //   console.log("選擇的時間：", selectedTime);
-    // };
+   
     return (
       <div className="reservetab">
         <p className="reserveboxtitle">學員預約</p>
         <div className="reservebox">
           <div className="reservebox-item">
             <p className="rstitle col-3">日期：</p>
-            {/* <DatePicker onChange={onChangeDate} /> */}
             <div className="DatePicksTitle col-9">
-                {/*<DatePicker onChange={onChange} picker="month" />*/}
-                {/* date picker here */}
                 <input 
                   id="datee" 
                   class="form-control" 
@@ -72,8 +93,6 @@ import { updateReserveTime } from "../redux/Actions/formActions"
           <div className="reservebox-item">
             <p className="rstitle col-3">時間：</p>
             <div className="DatePicksTitle col-9">
-            {/*<DatePicker onChange={onChange} picker="month" />*/}
-            {/* date picker here */}
                 <input 
                   id="startDate" 
                   class="form-control" 
@@ -83,7 +102,6 @@ import { updateReserveTime } from "../redux/Actions/formActions"
                   onChange={handleInputChange}
                 />
             </div>
-            {/* <DatePicker onChange={onChangeTime} picker="time" /> */}
           </div>
           <div className="reservebox-item">
             <p className="rstitle col-3">時間：</p>
