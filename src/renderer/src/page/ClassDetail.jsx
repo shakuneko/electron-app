@@ -64,7 +64,7 @@ function ClassDetail() {
                             <ClassDetailTable classes={Class} /> 
                         </div>
                         <div className='col-3'>
-                            <ReserveTime />
+                            <ReserveTime classes={Class}/>
                         </div>
                     </div>
 
