@@ -66,26 +66,39 @@ function createWindow() {
   })
 
   //close window and save file
-  let showExitPrompt = true
-
-  win.on('close', (event) => {
-    if (showExitPrompt) {
-      showExitPrompt = false
-      event.preventDefault()
-      winClosing = winNew
-      //win.webContents.send('saveAndClose')
-    }
-  })
-  ipcMain.on('closed', (e, arg) => {
-    if (arg.quit) {
-      winClosing.destroy()
-    }
-    showExitPrompt = true
-
+  mainWindow.on('closeWindow', () => {
     ipcMain.removeAllListeners()
     ipcMain.removeHandler('writeFile')
     ipcMain.removeHandler('readFile')
+    ipcMain.removeHandler('closeWindow')
+    mainWindow.destroy()
   })
+  mainWindow.on('close', (event) => {
+    event.preventDefault()
+    mainWindow.webContents.send('readyToClose')
+  })
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
+  // let showExitPrompt = true
+  // win.on('close', (event) => {
+  //   if (showExitPrompt) {
+  //     showExitPrompt = false
+  //     event.preventDefault()
+  //     winClosing = winNew
+  //     //win.webContents.send('saveAndClose')
+  //   }
+  // })
+  // ipcMain.on('closed', (e, arg) => {
+  //   if (arg.quit) {
+  //     winClosing.destroy()
+  //   }
+  //   showExitPrompt = true
+
+  //   ipcMain.removeAllListeners()
+  //   ipcMain.removeHandler('writeFile')
+  //   ipcMain.removeHandler('readFile')
+  // })
 }
 
 // This method will be called when Electron has finished

@@ -56,12 +56,23 @@ function App() {
     dispatch(setFileName(content))
   }
 
+  //ready to close window and save file
+  const onReadyToCloseWindows= async () => {
+    const data = JSON.stringify({ fileContent })
+    await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
+    await window.api.closeWindow();
+  }
+
   const onInitState = async () => {
+    try{
     const data = (await window._fs.readFile({ fileName: `${menuInfo}.txt` })) || {
       menuInfo: 'no data'
     }
     const content = JSON.parse(data)
     dispatch(setFileName(content))
+    }catch(err){
+      console.log("沒有檔案可以讀取")
+    }
   }
 
 
@@ -83,10 +94,14 @@ function App() {
     ipcRenderer.on('filePathInfo', (_, filePath) => {
       setFilePathInfo(filePath)
     })
-    return () => {
-      ipcRenderer.removeAllListeners('menuInfo')
-      ipcRenderer.removeAllListeners('filePathInfo')
-    }
+    ipcRenderer.on('readyToClose', (_) => {
+      onReadyToCloseWindows();
+    })
+    //now use hasInit flag to stop listening
+    // return () => {
+    //   ipcRenderer.removeAllListeners('menuInfo')
+    //   ipcRenderer.removeAllListeners('filePathInfo')
+    // }
   }, [])
 
   return (

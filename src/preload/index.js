@@ -10,7 +10,9 @@ const api = {}
 if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
+    contextBridge.exposeInMainWorld('api', {
+      closeWindow: () => ipcRenderer.invoke('closeWindow'),
+    })
     contextBridge.exposeInMainWorld('_fs', {
       writeFile: (arg) => ipcRenderer.invoke('writeFile', arg),
       readFile: (arg) => {
