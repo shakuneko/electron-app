@@ -29,6 +29,7 @@ import { selectFileName } from './redux/reducers/saveSlice'
 import { selectHasInit } from './redux/reducers/saveSlice'
 
 function App() {
+  const [isLoading,setIsLoading] = useState(true)
   //save file function & read function
   const [menuInfo, setMenuInfo] = useState('AzusaSavedFile')
   const [filePathInfo, setFilePathInfo] = useState('')
@@ -64,7 +65,7 @@ function App() {
   }
 
 
-  console.log("fileContentjson:", fileContent.testModified)
+  console.log("fileContentjson:", fileContent.newJsonData)
   console.log("is init??:", hasInit)
 
   useEffect(() => {
@@ -72,6 +73,7 @@ function App() {
       dispatch(setHasinit(true))
       onInitState()
     }
+    setIsLoading(false)
   }, [])
 
   useEffect(() => {
@@ -88,11 +90,13 @@ function App() {
   }, [])
 
   return (
+    isLoading?(<div>loading...</div> ):(
     <HashRouter>
       <Routes>
         <Route path="/" element={<ClassTable />} />
         <Route path="/student" element={<StudentTable />}></Route>
-        <Route path="/coach" element={<CoachTable classes={newJson} />} />
+        {/* <Route path="/coach" element={<CoachTable classes={newJson} />} /> */}
+        <Route path="/coach" element={<CoachTable classes={fileContent.newJsonData} />} />
         <Route path="/revenue" element={<Revenue classes={classes} />} />
 
         <Route path="classes">
@@ -107,12 +111,14 @@ function App() {
 
         <Route path="/coach">
           <Route path="form" element={<CoachFrom classes={classes} />} />
-          <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} />
+          {/* <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} /> */}
+          <Route path="name/:coachID" element={<CoachDetail classes={fileContent.newJsonData} />} />
         </Route>
 
         <Route path="/savejson" element={<SaveJsonPage />} />
       </Routes>
     </HashRouter>
+    )
   )
 }
 

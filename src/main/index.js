@@ -1,8 +1,12 @@
-import { app, shell, BrowserWindow, ipcMain, win  } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, win } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import fs from 'fs/promises'
+import os from 'os'
+
+//home directory
+const homedir = os.homedir()
 
 function createWindow() {
   // Create the browser window.
@@ -37,24 +41,27 @@ function createWindow() {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
-  
-
   //write file
   ipcMain.handle('writeFile', (event, arg) => {
-    const filePath = `${app.getPath('userData')}/${arg.fileName}`
+    const filePath = `${homedir}/Desktop/AzusaBackUp/${arg.fileName}`
     mainWindow.webContents.send('filePathInfo', filePath)
-    fs.writeFile(filePath, arg.data, (err) => {
-      if (err) {
-        console.error(err)
-        return
-      } else {
-        console.log('file saved')
-      }
-    })
+    try {
+      fs.writeFile(filePath, arg.data, (err) => {
+        if (err) {
+          console.error(err)
+          return
+        } else {
+          console.log('file saved')
+        }
+      })
+    } catch (err) {
+      console.error(err)
+    }
   })
+
   //read file
   ipcMain.handle('readFile', (event, arg) => {
-    const filePath = `${app.getPath('userData')}/${arg.fileName}`
+    const filePath = `${homedir}/Desktop/AzusaBackUp/${arg.fileName}`
     return fs.readFile(filePath, 'utf-8')
   })
 
@@ -66,7 +73,7 @@ function createWindow() {
       showExitPrompt = false
       event.preventDefault()
       winClosing = winNew
-      win.webContents.send('saveAndClose')
+      //win.webContents.send('saveAndClose')
     }
   })
   ipcMain.on('closed', (e, arg) => {
@@ -74,6 +81,10 @@ function createWindow() {
       winClosing.destroy()
     }
     showExitPrompt = true
+
+    ipcMain.removeAllListeners()
+    ipcMain.removeHandler('writeFile')
+    ipcMain.removeHandler('readFile')
   })
 }
 
