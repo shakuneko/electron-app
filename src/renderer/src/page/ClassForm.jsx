@@ -223,35 +223,6 @@ if (classDetailToUpdate) {
   // 添加学生信息到课程对象的 "student、coach" 数组中
   classDetailToUpdate.student.push(...newClassStudent);
   classDetailToUpdate.coach.push(newClassCoach);
-
-  
-  // // classDetail>reserveDetail>student
-  // const newReserveStudent = [
-  //   {
-  //     stuID: findStudentIDByName(classForm[currentPage].stuName),
-  //     courseType: selectedCourse, 
-  //     stuName: classForm[currentPage].stuName,
-  //   },
-  //   {
-  //     stuID: findStudentIDByName(classForm[currentPage].stuName2),
-  //     courseType: selectedCourse,
-  //     stuName: classForm[currentPage].stuName2,
-  //   },
-  // ]
-
-  // const newReserveDetail = {
-  //   reserveID:newReserveID,
-  //   reserveDate: '', // 你需要填充正确的日期和时间
-  //   reserveTime: '',
-  //   reserveStu:[],
-  //   cancel: '',
-  //   attandence: '',
-  //   note: '',
-  //   student: newReserveStudent,
-  // };
-
-  // 添加新的reserveDetail对象到课程对象的 "reserveDetail" 数组中
-  // classDetailToUpdate.reserveDetail.push(newReserveDetail);
 }
 
 //coach>coachDetail>TeachClass
@@ -306,45 +277,7 @@ if (classDetailToUpdate) {
    if(selectedStudent2){
      selectedStudent2.buyDetail.push(newBuyDetail);
    }
-//   //判斷是否存在相同classID
-//   const buyDetails = jsonData
-//   .find((item) => item.category === 'student')
-//   .stuDetail.flatMap((student) =>
-//     student.buyDetail.map((buy) => buy.classID)
-//   );
-// const classIDs = jsonData
-//   .find((item) => item.category === 'class')
-//   .classDetail.map((classItem) => classItem.classID);
 
-// const hasCommonClassID = buyDetails.some((classID) => classIDs.includes(classID));
-
-// if (hasCommonClassID) {
-//   console.log('这两个数组包含至少一个相同的classID。');
-
-//   const studentData = jsonData.find((item) => item.category === 'student');
-//   const classData = jsonData.find((item) => item.category === 'class');
-
-//   const updatedClassDetail = classData.classDetail.map((classItem) => {
-//     if (classIDs.includes(classItem.classID)) {
-//       classItem.reserveDetail = classItem.reserveDetail.map((reserve) => ({
-//         ...reserve,
-//         reserveStu: [
-//           ...reserve.reserveStu,
-//           ...studentData.stuDetail
-//             .filter((student) =>
-//               student.buyDetail.some((buy) => buy.classID === classItem.classID)
-//             )
-//             .map((student) => student.stuName),
-//         ],
-//       }));
-//     }
-//     return classItem;
-//   });
-
-//   console.log('已将stuName添加到reserveStu中。');
-// } else {
-//   console.log('这两个数组没有相同的classID。');
-// }
    // 清除表单数据为初始状态
    setClassForm(initialFormData);
 

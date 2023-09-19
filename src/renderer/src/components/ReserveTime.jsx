@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { updateReserveTime } from "../redux/Actions/formActions"
 import jsonData from '../json/new_class.json'
@@ -18,112 +18,116 @@ function generateUniqueID(existingIDs) {
     const initialFormData = {
       reserveDate:'',
       reserveTime:'',
-      reserveStu:[],
+      reserveStu:'',
     }
     const [reserveForm, setReserveForm] = useState(initialFormData); // 存儲選擇的日期
+    const [selectedStudent, setSelectedStudent] = useState(null);
+    const [matchingStudents, setMatchingStudents] = useState([]);
 
-    const reserveStuData = jsonData
-    .find((item) => item.category === 'class')
-    .classDetail.flatMap((classItem) => 
-      classItem.reserveDetail.map((reserve) => reserve.reserveStu)
-    );
+    // const reserveStuData = jsonData
+    // .find((item) => item.category === 'class')
+    // .classDetail.flatMap((classItem) => 
+    //   classItem.reserveDetail.map((reserve) => reserve.reserveStu)
+    // );
 
   // 去重并创建选项列表
-  const uniqueReserveStu = Array.from(new Set(reserveStuData));
+  // const uniqueReserveStu = Array.from(new Set(reserveStuData));
   
-    console.log("預約頁", props)
-    const handleInputChange = (event) => {
-      // 從事件對象中獲取輸入的名稱和值
-      const{name,value}=event.target;
-    
-      if (name === "reserveStu") {
-        // 将stuBuyNameDetail中的数据设置为reserveStu
-        const stuData = stuBuyNameDetail.map((data) => data.stuName);
-        setReserveForm({
-          ...reserveForm,
-          reserveStu: stuData, // 设置为stuBuyNameDetail中的学员名称数组
-        });
-      } else {
-        setReserveForm({
-          ...reserveForm,
-          [name]: value,
-        });
-      }
-    };
-    const handleSubmit = () => {
-      // 调用Redux操作以更新预约数据
-      props.updateReserveTime(reserveForm);
-      console.log(reserveForm);
-
-      const existingReserveIDs = jsonData.find((item) => item.category === 'class').classDetail.flatMap((classItem)=>classItem.reserveDetail.map((reserve) => parseInt(reserve.reserveID)));
-      const newReserveID = generateUniqueID(existingReserveIDs);
-      
-
-      const neweReserveData = {
-        reserveID: newReserveID,
-        reserveDate:reserveForm.reserveDate,
-        reserveTime:reserveForm.reserveTime,
-        reserveStu:reserveForm.reserveStu,
-        cancel:"否",
-        attandence:"是",
-        note:"你好",
-        student:[],
-      };
-
-      const updatedJsonData = [...jsonData];
-      // 将新的学生数据添加到JSON中
-      
-      // 找到目标的classDetail
-      const classDetail = updatedJsonData
-        .find((item) => item.category === 'class')
-        .classDetail;
-      
-     // 循环处理每个classItem并将新的reserveData添加到它们的reserveDetail数组中
-     classDetail.forEach((classItem) => {
-      if (classItem.reserveDetail) {
-        classItem.reserveDetail.push(neweReserveData);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
   
-        // 将reserveStu的值添加到相应的student数组中
-        classItem.reserveDetail.forEach((reserve) => {
-          reserve.student = reserve.reserveStu.map((stu) => ({
-            stuID: stu.stuID,
-            courseType: stu.courseType,
-            stuName: stu.stuName,
-          }));
-        });
-      }
+    if (name === "reserveStu") {
+      // 如果用户在下拉菜单中选择了学员，只更新学员名称
+      setReserveForm({
+        ...reserveForm,
+        [name]: value,
       });
-      
-      console.log("updatedJsonData",updatedJsonData);
   
-      // 清除表单数据（可选）
-      setReserveForm(initialFormData);
+      // 根据所选学员名称在 matchingStudents 中查找相应的学员信息
+      const selectedStudentInfo = matchingStudents.find((student) => student.stuName === value);
+  
+      // 更新选中的学员信息
+      setSelectedStudent(selectedStudentInfo);
+    } else {
+      // 对于其他表单字段，正常更新
+      setReserveForm({
+        ...reserveForm,
+        [name]: value,
+      });
+    }
+  };
+  
+  
+   // 更新 matchingStudents 的示例
+useEffect(() => {
+  const newClassID = props.classes.classID;
+  const newMatchingStudents = [];
 
-      console.log(jsonData);
+  jsonData.find((item) => item.category === 'student').stuDetail.forEach((student) => {
+    student.buyDetail.forEach((buyInfo) => {
+      if (buyInfo.classID === newClassID) {
+        // 找到与新增课程相关的学员，将其信息添加到 newMatchingStudents 数组中
+        newMatchingStudents.push({
+          stuName: student.stuName,
+          stuID: student.stuID,
+          courseType: buyInfo.courseType,
+        });
+      }
+    });
+  });
 
-    };
+  // 更新 matchingStudents 的值
+  setMatchingStudents(newMatchingStudents);
+}, [props.classes.classID]); // 当 props.classes.classID 发生变化时更新 matchingStudents
 
-    //毛毛嘗試
-    let targetClassID = props.classes.classID
-    // 找到具有指定 classID 的 classDetail 物件
-    const stuBuyDetail = jsonData.find(item => item.category === "student");
-    const stuBuyNameDetail = []
-    const stuNames = []
+const handleSubmit = () => {
+  // 获取当前用户选择的学员名称
+  const selectedStudentName = reserveForm.reserveStu;
+  const existingReserveIDs = jsonData.find((item) => item.category === 'class').classDetail.flatMap((classItem)=>classItem.reserveDetail.map((reserve) => parseInt(reserve.reserveID)));
+  const newReserveID = generateUniqueID(existingReserveIDs);
+  // 创建用于新预约数据的对象
+  const neweReserveData = {
+    reserveID: newReserveID,
+    reserveDate: reserveForm.reserveDate,
+    reserveTime: reserveForm.reserveTime,
+    reserveStu: matchingStudents, // 保留所有匹配的学员信息
+    cancel: "否",
+    attandence: "是",
+    note: "你好",
+    student: [], // 将在下面更新
+  };
 
-    stuBuyDetail.stuDetail.forEach(item => {
-      item.buyDetail.forEach(names => {
-        if (names.classID == targetClassID) {
-          const newStuData = {
-            stuName: item.stuName,
-            courseType: names.courseType,
-            stuID: item.stuID
-          };
-          stuBuyNameDetail.push(newStuData)
-          stuNames.push(item.stuName)
-        }
-      })
-    })
-    console.log("stuBuyNameDetail",stuBuyNameDetail);
+  // 更新 student 属性
+  if (selectedStudentName) {
+    const selectedStudentInfo = matchingStudents.find(
+      (student) => student.stuName === selectedStudentName
+    );
+    if (selectedStudentInfo) {
+      neweReserveData.student.push({
+        stuID: selectedStudentInfo.stuID,
+        courseType: selectedStudentInfo.courseType,
+        stuName: selectedStudentInfo.stuName,
+      });
+    }
+  }
+
+  const updatedJsonData = [...jsonData];
+
+  updatedJsonData.find((item) => item.category === 'class').classDetail.forEach((classItem) => {
+    if (classItem.classID === props.classes.classID) { // 替换为你的实际目标 classID
+      if (!classItem.reserveDetail) {
+        classItem.reserveDetail = []; // 如果没有 reserveDetail 数组，先创建一个
+      }
+
+      classItem.reserveDetail.push(neweReserveData);
+    } 
+  });
+
+  // 清除表单数据（可选）
+  setReserveForm(initialFormData);
+
+  console.log(updatedJsonData);
+};
 
     return (
       <div className="reservetab">
@@ -160,16 +164,16 @@ function generateUniqueID(existingIDs) {
             <div className="DatePicksTitle col-9">
             <select 
               class="form-control"
-               // name="reserveStu"
-              // value={stuNames} 
-              // onChange={handleInputChange}
+               name="reserveStu"
+              value={reserveForm.reserveStu} 
+              onChange={handleInputChange}
             >
-              {stuNames.map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-    
+              <option value="">请选择学员</option>
+                {matchingStudents.map((student) => (
+                  <option key={student.stuID} value={student.stuName}>
+                    {student.stuName}
+                  </option>
+                ))}
             </select>
             </div>
           </div>
