@@ -29,6 +29,7 @@ import { selectFileName } from './redux/reducers/saveSlice'
 import { selectHasInit } from './redux/reducers/saveSlice'
 
 function App() {
+  const [isLoading,setIsLoading] = useState(true)
   //save file function & read function
   const [menuInfo, setMenuInfo] = useState('AzusaSavedFile')
   const [filePathInfo, setFilePathInfo] = useState('')
@@ -55,16 +56,27 @@ function App() {
     dispatch(setFileName(content))
   }
 
+  //ready to close window and save file
+  const onReadyToCloseWindows= async () => {
+    const data = JSON.stringify({ fileContent })
+    await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
+    await window.api.closeWindow();
+  }
+
   const onInitState = async () => {
+    try{
     const data = (await window._fs.readFile({ fileName: `${menuInfo}.txt` })) || {
       menuInfo: 'no data'
     }
     const content = JSON.parse(data)
     dispatch(setFileName(content))
+    }catch(err){
+      console.log("沒有檔案可以讀取")
+    }
   }
 
 
-  console.log("fileContentjson:", fileContent.testModified)
+  console.log("fileContentjson:", fileContent.newJsonData)
   console.log("is init??:", hasInit)
 
   useEffect(() => {
@@ -72,6 +84,7 @@ function App() {
       dispatch(setHasinit(true))
       onInitState()
     }
+    setIsLoading(false)
   }, [])
 
   useEffect(() => {
@@ -81,18 +94,24 @@ function App() {
     ipcRenderer.on('filePathInfo', (_, filePath) => {
       setFilePathInfo(filePath)
     })
-    return () => {
-      ipcRenderer.removeAllListeners('menuInfo')
-      ipcRenderer.removeAllListeners('filePathInfo')
-    }
+    ipcRenderer.on('readyToClose', (_) => {
+      onReadyToCloseWindows();
+    })
+    //now use hasInit flag to stop listening
+    // return () => {
+    //   ipcRenderer.removeAllListeners('menuInfo')
+    //   ipcRenderer.removeAllListeners('filePathInfo')
+    // }
   }, [])
 
   return (
+    isLoading?(<div>loading...</div> ):(
     <HashRouter>
       <Routes>
         <Route path="/" element={<ClassTable />} />
         <Route path="/student" element={<StudentTable />}></Route>
-        <Route path="/coach" element={<CoachTable classes={newJson} />} />
+        {/* <Route path="/coach" element={<CoachTable classes={newJson} />} /> */}
+        <Route path="/coach" element={<CoachTable classes={fileContent.newJsonData} />} />
         <Route path="/revenue" element={<Revenue classes={classes} />} />
 
         <Route path="classes">
@@ -107,12 +126,14 @@ function App() {
 
         <Route path="/coach">
           <Route path="form" element={<CoachFrom classes={classes} />} />
-          <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} />
+          {/* <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} /> */}
+          <Route path="name/:coachID" element={<CoachDetail classes={fileContent.newJsonData} />} />
         </Route>
 
         <Route path="/savejson" element={<SaveJsonPage />} />
       </Routes>
     </HashRouter>
+    )
   )
 }
 

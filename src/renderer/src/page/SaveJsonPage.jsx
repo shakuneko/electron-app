@@ -2,15 +2,19 @@ import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 
 import jsonData from '../json/class.json'
+import newJsonData from '../json/new_class.json'
+import { useSelector, useDispatch } from 'react-redux'
+
 
 function SaveJsonPage() {
   const [menuInfo, setMenuInfo] = useState('AzusaSavedFile')
   const [filePathInfo, setFilePathInfo] = useState('')
   const [fileContent, setFileContent] = useState('')
   const { ipcRenderer } = window.electron
+const fileContentFromRedux = useSelector((state) => state.root.save.fileName)
 
   const onSaveToFile = async () => {
-    const data = JSON.stringify({ jsonData })
+    const data = JSON.stringify({ newJsonData })
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
   }
 
@@ -74,9 +78,13 @@ function SaveJsonPage() {
           >
             read from file
           </div>
-
+<h2>contentOldJson:</h2>
+<div> {JSON.stringify(newJsonData)}</div>
           <h2>content:</h2>
-          <div>{JSON.stringify(fileContent.jsonData)}</div>
+          <div>{JSON.stringify(fileContent.testModified)}</div>
+
+          <h2>redux content:</h2>
+          <div>{JSON.stringify(fileContentFromRedux.newJsonData)}</div>
 
         </div>
       </div>
