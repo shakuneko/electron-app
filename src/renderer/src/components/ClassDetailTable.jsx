@@ -1,9 +1,14 @@
 import { MaterialReactTable } from 'material-react-table';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { Typography } from '@mui/material';
+import {
+    Box,
+    IconButton,
+    Tooltip,
+  } from '@mui/material';
+  import { Delete } from '@mui/icons-material';
 
 function ClassDetailTable({ classes }) {
-
     let detailData = []
     
     for (let i = 0; i < classes.reserveDetail.length; i++) {
@@ -13,14 +18,14 @@ function ClassDetailTable({ classes }) {
 
     //optionally, you can manage the row selection state yourself
     const [rowSelection, setRowSelection] = useState({});
+    const [tableData, setTableData] = useState(() => detailData);
 
     useEffect(() => {
         //do something when the row selection changes...
         console.info({ rowSelection });
     }, [rowSelection]);
 
-    const [tableData, setTableData] = useState(() => detailData);
-
+    
     const handleSaveCell = (cell, value) => {
       //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here
       tableData[cell.row.index][cell.column.id] = value;
@@ -28,6 +33,19 @@ function ClassDetailTable({ classes }) {
       setTableData([...tableData]); //re-render with new data
     };
 
+    const handleDeleteRow = useCallback(
+        (row) => {
+          if (
+            !confirm(`確定刪除此欄資料`)
+          ) {
+            return;
+          }
+          //send api delete request here, then refetch or update local table data for re-render
+          tableData.splice(row.index, 1);
+          setTableData([...tableData]);
+        },
+        [tableData],
+      );
 
     console.log("tableData",tableData)
     const columns = [ //表格有的資料
@@ -89,12 +107,22 @@ function ClassDetailTable({ classes }) {
         enableHiding={false} //column hiding does not work with memoized table body
         enableStickyHeader
         enableFacetedValues          
-        enableRowSelection
-        getRowId={(row) => row.userId} //give each row a more useful id
-        onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
-        state={{ rowSelection }} //pass our managed row selection state to the table to use
+        // enableRowSelection
+        enableRowActions
+        // getRowId={(row) => row.userId} //give each row a more useful id
+        // onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
+        // state={{ rowSelection }} //pass our managed row selection state to the table to use
         editingMode="cell"
-        enableEditing     
+        enableEditing 
+        renderRowActions={({ row }) => (
+            <Box sx={{ display: 'flex', gap: '1rem' }}>
+                <Tooltip arrow placement="right" title="Delete">
+                    <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                        <Delete />
+                    </IconButton>
+                </Tooltip>
+            </Box>
+          )}
         muiTableBodyCellEditTextFieldProps={({ cell }) => ({
             //onBlur is more efficient, but could use onChange instead
             onBlur: (event) => {
@@ -105,7 +133,12 @@ function ClassDetailTable({ classes }) {
             <Typography sx={{  p: '16px', fontWeight:"900" }} variant="body2">
                 雙擊要修改的內容進行修改
             </Typography>
-        )}             
+        )}  
+        localization={{
+            header: {
+              actions: '',
+            }
+          }}           
         // renderTopToolbarCustomActions={({ table ,detailData}) => {
 
         //     return (

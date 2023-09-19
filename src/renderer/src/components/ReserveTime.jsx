@@ -31,6 +31,7 @@ function generateUniqueID(existingIDs) {
   // 去重并创建选项列表
   const uniqueReserveStu = Array.from(new Set(reserveStuData));
   
+    console.log("預約頁", props)
     const handleInputChange = (event) => {
       // 從事件對象中獲取輸入的名稱和值
       const{name,value}=event.target;
@@ -75,14 +76,39 @@ function generateUniqueID(existingIDs) {
         }
       });
       
-      console.log(updatedJsonData);
+      console.log("updatedJsonData",updatedJsonData);
   
       // 清除表单数据（可选）
       setReserveForm(initialFormData);
 
       console.log(jsonData);
     };
-   
+
+    //毛毛嘗試
+    let targetClassID = props.classes.classID
+    console.log("預約頁targetClassID", targetClassID)
+    // 找到具有指定 classID 的 classDetail 物件
+    const stuBuyDetail = jsonData.find(item => item.category === "student");
+    console.log("新的data",stuBuyDetail);
+    const stuBuyNameDetail = []
+    const stuNames = []
+
+    stuBuyDetail.stuDetail.forEach(item => {
+      item.buyDetail.forEach(names => {
+        if (names.classID == targetClassID) {
+          const newStuData = {
+            stuName: item.stuName,
+            courseType: names.courseType,
+            stuID: item.stuID
+          };
+          stuBuyNameDetail.push(newStuData)
+          stuNames.push(item.stuName)
+        }
+      })
+    })
+    console.log("stuBuyNameDetail",stuBuyNameDetail);
+    console.log("props", props)
+
     return (
       <div className="reservetab">
         <p className="reserveboxtitle">學員預約</p>
@@ -118,13 +144,16 @@ function generateUniqueID(existingIDs) {
             <div className="DatePicksTitle col-9">
             <select 
               class="form-control"
-              name="reserveStu"
-              value={reserveForm.reserveStu} 
-              onChange={handleInputChange}
+              // name="reserveStu"
+              // value={stuNames} 
+              // onChange={handleInputChange}
             >
-             <option value="option1">選項1</option>
-              <option value="option2">選項2</option>
-              <option value="option3">選項3</option>
+              {stuNames.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+    
             </select>
             </div>
           </div>

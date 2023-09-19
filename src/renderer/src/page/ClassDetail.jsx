@@ -53,18 +53,18 @@ function ClassDetail() {
                                         編輯
                                         </button>
                                     </div> */}
-                                    <div className="btnbox-item">
+                                    {/* <div className="btnbox-item">
                                         <button type="button" className="btn btn-danger">
                                         刪除
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             
                             </div>
                             <ClassDetailTable classes={Class} /> 
                         </div>
                         <div className='col-3'>
-                            <ReserveTime />
+                            <ReserveTime classes={Class}/>
                         </div>
                     </div>
 
