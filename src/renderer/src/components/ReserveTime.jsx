@@ -21,6 +21,15 @@ function generateUniqueID(existingIDs) {
       reserveStu:'',
     }
     const [reserveForm, setReserveForm] = useState(initialFormData); // 存儲選擇的日期
+
+    const reserveStuData = jsonData
+    .find((item) => item.category === 'class')
+    .classDetail.flatMap((classItem) => 
+      classItem.reserveDetail.map((reserve) => reserve.reserveStu)
+    );
+
+  // 去重并创建选项列表
+  const uniqueReserveStu = Array.from(new Set(reserveStuData));
   
     const handleInputChange = (event) => {
       // 從事件對象中獲取輸入的名稱和值
@@ -113,7 +122,7 @@ function generateUniqueID(existingIDs) {
               value={reserveForm.reserveStu} 
               onChange={handleInputChange}
             >
-              <option value="option1">選項1</option>
+             <option value="option1">選項1</option>
               <option value="option2">選項2</option>
               <option value="option3">選項3</option>
             </select>
