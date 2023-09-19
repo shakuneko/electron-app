@@ -18,7 +18,7 @@ function generateUniqueID(existingIDs) {
     const initialFormData = {
       reserveDate:'',
       reserveTime:'',
-      reserveStu:'',
+      reserveStu:[],
     }
     const [reserveForm, setReserveForm] = useState(initialFormData); // 存儲選擇的日期
 
@@ -36,10 +36,19 @@ function generateUniqueID(existingIDs) {
       // 從事件對象中獲取輸入的名稱和值
       const{name,value}=event.target;
     
-      setReserveForm ({
-        ...reserveForm,
-        [name]: value,
-      });
+      if (name === "reserveStu") {
+        // 将stuBuyNameDetail中的数据设置为reserveStu
+        const stuData = stuBuyNameDetail.map((data) => data.stuName);
+        setReserveForm({
+          ...reserveForm,
+          reserveStu: stuData, // 设置为stuBuyNameDetail中的学员名称数组
+        });
+      } else {
+        setReserveForm({
+          ...reserveForm,
+          [name]: value,
+        });
+      }
     };
     const handleSubmit = () => {
       // 调用Redux操作以更新预约数据
@@ -69,11 +78,20 @@ function generateUniqueID(existingIDs) {
         .find((item) => item.category === 'class')
         .classDetail;
       
-      // 循环处理每个classItem并将新的reserveData添加到它们的reserveDetail数组中
-      classDetail.forEach((classItem) => {
-        if (classItem.reserveDetail) {
-          classItem.reserveDetail.push(neweReserveData);
-        }
+     // 循环处理每个classItem并将新的reserveData添加到它们的reserveDetail数组中
+     classDetail.forEach((classItem) => {
+      if (classItem.reserveDetail) {
+        classItem.reserveDetail.push(neweReserveData);
+  
+        // 将reserveStu的值添加到相应的student数组中
+        classItem.reserveDetail.forEach((reserve) => {
+          reserve.student = reserve.reserveStu.map((stu) => ({
+            stuID: stu.stuID,
+            courseType: stu.courseType,
+            stuName: stu.stuName,
+          }));
+        });
+      }
       });
       
       console.log("updatedJsonData",updatedJsonData);
@@ -82,14 +100,13 @@ function generateUniqueID(existingIDs) {
       setReserveForm(initialFormData);
 
       console.log(jsonData);
+
     };
 
     //毛毛嘗試
     let targetClassID = props.classes.classID
-    console.log("預約頁targetClassID", targetClassID)
     // 找到具有指定 classID 的 classDetail 物件
     const stuBuyDetail = jsonData.find(item => item.category === "student");
-    console.log("新的data",stuBuyDetail);
     const stuBuyNameDetail = []
     const stuNames = []
 
@@ -107,7 +124,6 @@ function generateUniqueID(existingIDs) {
       })
     })
     console.log("stuBuyNameDetail",stuBuyNameDetail);
-    console.log("props", props)
 
     return (
       <div className="reservetab">
@@ -144,7 +160,7 @@ function generateUniqueID(existingIDs) {
             <div className="DatePicksTitle col-9">
             <select 
               class="form-control"
-              // name="reserveStu"
+               // name="reserveStu"
               // value={stuNames} 
               // onChange={handleInputChange}
             >

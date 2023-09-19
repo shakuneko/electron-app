@@ -225,7 +225,7 @@ if (classDetailToUpdate) {
   classDetailToUpdate.coach.push(newClassCoach);
 
   
-  // classDetail>reserveDetail>student
+  // // classDetail>reserveDetail>student
   // const newReserveStudent = [
   //   {
   //     stuID: findStudentIDByName(classForm[currentPage].stuName),
@@ -243,14 +243,14 @@ if (classDetailToUpdate) {
   //   reserveID:newReserveID,
   //   reserveDate: '', // 你需要填充正确的日期和时间
   //   reserveTime: '',
-  //   reserveStu:newReserveStudent,
+  //   reserveStu:[],
   //   cancel: '',
   //   attandence: '',
   //   note: '',
   //   student: newReserveStudent,
   // };
 
-  // // 添加新的reserveDetail对象到课程对象的 "reserveDetail" 数组中
+  // 添加新的reserveDetail对象到课程对象的 "reserveDetail" 数组中
   // classDetailToUpdate.reserveDetail.push(newReserveDetail);
 }
 
