@@ -1,10 +1,10 @@
-
 import React, { useState, useEffect} from "react";
-import { connect } from "react-redux";
+import { connect,useDispatch } from 'react-redux';
 import { updateReserveTime } from "../redux/Actions/formActions"
 import jsonData from '../json/new_class.json'
 
   function ReserveTime(props) {
+    const dispatch = useDispatch(); // 获取dispatch函数的引用
     const {tableData,setTableData} = props;
     const initialFormData = {
       reserveDate:'',
@@ -78,6 +78,7 @@ import jsonData from '../json/new_class.json'
 
 const handleSubmit = () => {
   // 获取当前用户选择的学员名称
+  dispatch(updateReserveTime(reserveForm));
   const selectedStudentNames = reserveForm.reserveStu;
   //找當前classID裡面的reserveID
   const selectedClass = jsonData.find((item) => item.category === 'class').classDetail.find((classItem) => classItem.classID === props.classes.classID);
@@ -208,8 +209,6 @@ const handleSubmit = () => {
       </div>
     );
   }
-  const mapDispatchToProps = {
-    updateReserveTime,
-  };
+ 
   
-  export default connect(null, mapDispatchToProps)(ReserveTime);
+  export default ReserveTime;

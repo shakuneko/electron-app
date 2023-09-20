@@ -1,6 +1,6 @@
 import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { connect } from 'react-redux';
+import { connect,useDispatch } from 'react-redux';
 import { updateClassForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 
@@ -36,6 +36,7 @@ function generateUniqueReserveID(reserveDetailArray) {
 }
 
 function ClassForm(props) {
+  const dispatch = useDispatch(); // 获取dispatch函数的引用
   //設定每個分頁的初始狀態
   const initialFormData = {
     page1: {
@@ -159,8 +160,8 @@ const handleRadioChange = (event, page) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  props.updateClassForm(currentPage,classForm[currentPage])
-
+  // props.updateClassForm(currentPage,classForm[currentPage])
+  dispatch(updateClassForm(currentPage,classForm[currentPage]));
   // 获取已有的 classID 列表
  const existingClassIDs = jsonData
  .find((item) => item.category === 'class')
@@ -990,11 +991,9 @@ useEffect(() => {
       </div>
   )
   }
-  const mapDispatchToProps = {
-    updateClassForm,
-  };
   
-  export default connect(null, mapDispatchToProps)(ClassForm);
+  
+  export default ClassForm;
 
 // import React from 'react';
 // import { useSelector } from 'react-redux';
