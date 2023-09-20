@@ -37,7 +37,7 @@ function App() {
   const dispatch = useDispatch()
 
   //use redux state variable
-  // const fileContent = useSelector(selectFileName)
+  //const fileContent = useSelector(selectFileName)
   // const hasInit = useSelector(selectHasInit)
   const fileContent = useSelector((state) => state.root.save.fileName)
   const hasInit = useSelector((state) => state.root.save.hasInit)
@@ -58,7 +58,8 @@ function App() {
 
   //ready to close window and save file
   const onReadyToCloseWindows= async () => {
-    const data = JSON.stringify({ fileContent })
+    console.log("fileContentjson:", fileContent)
+    const data = JSON.stringify( fileContent )
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
     await window.api.closeWindow();
   }
@@ -76,7 +77,7 @@ function App() {
   }
 
 
-  console.log("fileContentjson:", fileContent.newJsonData)
+  
   console.log("is init??:", hasInit)
 
   useEffect(() => {

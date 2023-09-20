@@ -66,7 +66,7 @@ function Navbar() {
   const { ipcRenderer } = window.electron
 
   const onSaveToFile = async () => {
-    const data = JSON.stringify({ testModified })//set the dhould save json here - use redux's state
+    const data = JSON.stringify({ testModified })//set the should save json here - use redux's state
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
   }
   

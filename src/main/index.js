@@ -55,7 +55,7 @@ function createWindow() {
         }
       })
     } catch (err) {
-      console.error(err)
+      console.error("isError",err)
     }
   })
 
