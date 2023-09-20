@@ -28,7 +28,6 @@ function Revenue({ classes }) {
       })
     }
   })
-
   // 将 Map 转换为数组
   const coachCoursesArray = [...coachCoursesMap]
 
