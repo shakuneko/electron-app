@@ -9,15 +9,23 @@ import {
   import { Delete } from '@mui/icons-material';
   import jsonData from '../json/new_class.json'
 
-function ClassDetailTable({ classes, courseLeft, setCourseLeft }) {
-    let detailData = []
-    for (let i = 0; i < classes.reserveDetail.length; i++) {
-        detailData.push(classes.reserveDetail[i])
-    }
+function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCourseLeft}) {
+    // let detailData = []
+    
+    // for (let i = 0; i < classes.reserveDetail.length; i++) {
+    //     detailData.push(classes.reserveDetail[i])
+        
+    // }
 
-    //optionally, you can manage the row selection state yourself
-    // const [rowSelection, setRowSelection] = useState({});
-    const [tableData, setTableData] = useState(() => detailData);
+    // //optionally, you can manage the row selection state yourself
+    const [rowSelection, setRowSelection] = useState({});
+    // const [tableData, setTableData] = useState(() => detailData);
+
+
+    // useEffect(() => {
+    //     //do something when the row selection changes...
+    //     console.info({ rowSelection });
+    // }, [rowSelection]);
     
 
     // 在 courseLeft 改变时更新状态

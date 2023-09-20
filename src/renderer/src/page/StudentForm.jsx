@@ -1,6 +1,6 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { connect } from 'react-redux';
+import { connect,useDispatch } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 
@@ -15,6 +15,7 @@ function generateUniqueID(existingIDs) {
 }
 
 function StudentForm(props){
+  const dispatch = useDispatch(); // 获取dispatch函数的引用
   const initialFormData = {
     stuName:'',
     stuGender: '',
@@ -46,8 +47,8 @@ function StudentForm(props){
   // 提交表單的函數
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.updateStuForm(stuForm)
-
+    // props.updateStuForm(stuForm)
+    dispatch(updateStuForm(stuForm));
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
 
@@ -237,8 +238,6 @@ function StudentForm(props){
     </div>
   )
 }
-const mapDispatchToProps = {
-  updateStuForm,
-};
 
-export default connect(null, mapDispatchToProps)(StudentForm);
+
+export default StudentForm;

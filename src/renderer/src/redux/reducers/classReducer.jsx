@@ -1,4 +1,4 @@
-
+import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     classForm:{
       page1: {
@@ -46,24 +46,37 @@ const initialState = {
       },
     },
   };
+  const formSlice = createSlice({
+    name: 'form',
+    initialState,
+    reducers: {
+      updateClassForm: (state, action) => {
+        const { page, data } = action.payload;
+        state.classForm[page] = data;
+      },
+    },
+  });
   
-  const formReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'UPDATE_CLASS_FORM':
-        const { page,data} = action.payload;
-        return {
-          ...state,
-          classForm:{
-                ...state.classForm,
-            [page]:data,
+  export const { updateClassForm } = formSlice.actions;
+  
+  export default formSlice.reducer;
+  // const formReducer = (state = initialState, action) => {
+  //   switch (action.type) {
+  //     case 'UPDATE_CLASS_FORM':
+  //       const { page,data} = action.payload;
+  //       return {
+  //         ...state,
+  //         classForm:{
+  //               ...state.classForm,
+  //           [page]:data,
          
-            },
+  //           },
   
-        };
+  //       };
   
-      default:
-        return state;
-    }
-  };
+  //     default:
+  //       return state;
+  //   }
+  // };
   
-  export default formReducer;
+  // export default formReducer;
