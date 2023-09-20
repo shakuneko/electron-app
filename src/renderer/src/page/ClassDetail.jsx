@@ -13,8 +13,8 @@ function ClassDetail() {
     const Class = newJason[0].classDetail.find(
        (x) => x.classID === id
     );
+
     let detailData = []
-    
     for (let i = 0; i < Class.reserveDetail.length; i++) {
         detailData.push(Class.reserveDetail[i])
         

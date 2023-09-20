@@ -217,13 +217,24 @@ if (classDetailToUpdate) {
       stuName: classForm[currentPage].stuName2,
     },
   ];
+  const newClassStudent2 = {
+    stuID: findStudentIDByName(classForm[currentPage].stuName),
+      courseType: selectedCourse, 
+      stuName: classForm[currentPage].stuName,
+  }
   const newClassCoach = {
     coachID: findCoachIDByName(classForm[currentPage].coachName),
     coachName: classForm[currentPage].coachName,
   }
   // 添加学生信息到课程对象的 "student、coach" 数组中
+  if (currentPage == 'page1') {
   classDetailToUpdate.student.push(...newClassStudent);
   classDetailToUpdate.coach.push(newClassCoach);
+  }
+  else{
+  classDetailToUpdate.student.push(newClassStudent2);
+  classDetailToUpdate.coach.push(newClassCoach);
+  }
 }
 
 //coach>coachDetail>TeachClass
