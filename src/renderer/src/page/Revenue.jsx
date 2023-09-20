@@ -30,11 +30,88 @@ function Revenue({ classes }) {
   })
   // 将 Map 转换为数组
   const coachCoursesArray = [...coachCoursesMap]
-
-  // coachCoursesArray 包含每位教练对应的课程类型数组
+  // coachCoursesArray 包含每位教练id对应的课程类型数组
   console.log(coachCoursesArray)
 
 
+  const coachSalaryMap = new Map();
+  // 遍历 JSON 数据，打印每个教练的 ID、课程类型和 coursesAll
+  nJson.forEach((category) => {
+    if (category.category === 'class') {
+      category.classDetail.forEach((classData) => {
+        const coachID = classData.coach[0].coachID
+        const courseType = classData.courseType
+        const coursesAll = classData.coursesAll
+
+        // 打印教练 ID、课程类型和 coursesAll
+        console.log(`教练 ID: ${coachID}, 课程类型: ${courseType}, coursesAll: ${coursesAll}`)
+
+        // 查找对应教练的薪资信息
+        const coachInfo = nJson.find(
+          (item) =>
+            item.category === 'coach' && item.coachDetail.some((coach) => coach.coachID === coachID)
+        )
+
+        if (coachInfo) {
+          const ptSalary = coachInfo.coachDetail.find((coach) => coach.coachID === coachID).PtSalary
+          const groupSalary = coachInfo.coachDetail.find(
+            (coach) => coach.coachID === coachID
+          ).GroupSalary
+          const massageSalary = coachInfo.coachDetail.find(
+            (coach) => coach.coachID === coachID
+          ).MassageSalary
+          const pilatesSalary = coachInfo.coachDetail.find(
+            (coach) => coach.coachID === coachID
+          ).PilatesSalary
+
+          // 计算薪资乘以 coursesAll，并存储到 Map 中
+          coachSalaryMap.set(coachID, {
+            ptSalary: courseType === 'PT' ? ptSalary * coursesAll : 0,
+  groupSalary: courseType === '團課' ? groupSalary * coursesAll : 0,
+  massageSalary: courseType === '運動舒緩' ? massageSalary * coursesAll : 0,
+  pilatesSalary: courseType === '皮拉提斯' ? pilatesSalary * coursesAll : 0,
+          })
+        }
+      })
+    }
+  })
+  // 将 Map 转换为数组
+const coachSalaryArray = [...coachSalaryMap];
+
+// coachSalaryArray 包含每位教练的薪资信息
+//console.log(coachSalaryArray);
+// 遍历教练薪资 Map
+coachSalaryMap.forEach((salaries, coachID) => {
+    console.log(`Coach ID: ${coachID}`);
+    console.log(`PT Salary: ${salaries.ptSalary}`);
+    console.log(`Group Salary: ${salaries.groupSalary}`);
+    console.log(`Massage Salary: ${salaries.massageSalary}`);
+    console.log(`Pilates Salary: ${salaries.pilatesSalary}`);
+    console.log('-----------------------------');
+  });
+
+  //total salary個別教練總薪水
+  coachSalaryMap.forEach((salaries, coachID) => {
+    const totalSalary =
+      salaries.ptSalary +
+      salaries.groupSalary +
+      salaries.massageSalary +
+      salaries.pilatesSalary;
+    console.log(`Coach ID: ${coachID}, Total Salary: ${totalSalary}`);
+  });
+
+    //total salary所有教練加總 總薪水
+    let totalSalarySum = 0;
+
+    coachSalaryMap.forEach((salaries) => {
+      const { ptSalary, groupSalary, massageSalary, pilatesSalary } = salaries;
+      totalSalarySum +=
+        ptSalary +
+        groupSalary +
+        massageSalary +
+        pilatesSalary;
+    });
+    console.log(`所有教练的薪水总和: ${totalSalarySum}`);
 
   //計算營業額
   let sum = 0
@@ -130,6 +207,7 @@ function Revenue({ classes }) {
               </div>
             </div>
             <RevenueSetTable classes={classes} columns={columnsMoney} />
+            <div>{coachCoursesArray}</div>
           </div>
         </div>
       </div>
