@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import React, {  useState } from 'react';
 import Navbar from '../components/Navbar'
 import ReserveTime from '../components/ReserveTime'
 import ClassDetailTable from '../components/ClassDetailTable'
@@ -25,7 +26,7 @@ function ClassDetail() {
         return coachNameArray
     })
 
-
+    const [courseLeft, setCourseLeft] = useState(Class.courseLeft);
 
   return (
     <div className="container-fluid" >
@@ -61,7 +62,11 @@ function ClassDetail() {
                                 </div>
                             
                             </div>
-                            <ClassDetailTable classes={Class} /> 
+                            <ClassDetailTable 
+                                classes={Class}
+                                courseLeft={courseLeft}
+                                setCourseLeft={setCourseLeft}
+                                 /> 
                         </div>
                         <div className='col-3'>
                             <ReserveTime classes={Class}/>
