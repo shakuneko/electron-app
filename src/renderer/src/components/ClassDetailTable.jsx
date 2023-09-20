@@ -9,15 +9,18 @@ import {
   import { Delete } from '@mui/icons-material';
   import jsonData from '../json/new_class.json'
 
-function ClassDetailTable({ classes }) {
-    let detailData = []
-    for (let i = 0; i < classes.reserveDetail.length; i++) {
-        detailData.push(classes.reserveDetail[i])
-    }
+function ClassDetailTable({ classes ,tableData,setTableData}) {
+    // let detailData = []
+    
+    // for (let i = 0; i < classes.reserveDetail.length; i++) {
+    //     detailData.push(classes.reserveDetail[i])
+        
+    // }
 
-    //optionally, you can manage the row selection state yourself
-    // const [rowSelection, setRowSelection] = useState({});
-    const [tableData, setTableData] = useState(() => detailData);
+    // //optionally, you can manage the row selection state yourself
+    const [rowSelection, setRowSelection] = useState({});
+    // const [tableData, setTableData] = useState(() => detailData);
+
 
     // useEffect(() => {
     //     //do something when the row selection changes...

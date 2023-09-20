@@ -1,6 +1,6 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateCoachName } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 
@@ -15,7 +15,7 @@ function generateUniqueID(existingIDs) {
 }
 
 function CoachForm(props) {
-  
+  const dispatch = useDispatch(); // 获取dispatch函数的引用
   const initialFormData = {
     coachName:'',
     coachGender: '',
@@ -77,7 +77,8 @@ const handleItemClick = (item) => {
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
-props.updateCoachName(coachForm)
+dispatch(updateCoachName(coachForm));
+// props.updateCoachName(coachForm)
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
 // const existingClassIDs = jsonData.find((item) => item.category === 'class').classDetail.map((class_category) => parseInt(class_category.classID));
@@ -213,7 +214,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
                       type="button" 
                       onClick={() => handleItemClick('皮拉提斯')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('皮拉提斯') ? 'active' : ''}`}>皮拉提斯</button>
-                    <button 
+                    <button
                       type="button" 
                       onClick={() => handleItemClick('運動按摩')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('運動按摩') ? 'active' : ''}`}>運動按摩</button>
@@ -352,11 +353,8 @@ const newCoachID = generateUniqueID(existingCoachIDs);
     </div>
   )
 }
-const mapDispatchToProps = {
-  updateCoachName,
-};
 
-export default connect(null, mapDispatchToProps)(CoachForm);
+export default CoachForm;
 
 
 // import React from 'react';
