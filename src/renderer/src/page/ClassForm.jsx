@@ -173,6 +173,7 @@ const handleSubmit = (event) => {
 // //  const newStuID = generateUniqueID(existingStudentIDs)
 // 获取已有的 class 数据
 const classData = jsonData.find((item) => item.category === 'class');
+
 const newClassItem = {
   classID: newClassID, 
   courseType: selectedCourse, 
@@ -182,9 +183,10 @@ const newClassItem = {
   coach:[],
   student:[],
 };
-
+if (currentPage !== 'page5') {
 // 推送新的 class 数据对象到 class 数据数组中
 classData.classDetail.push(newClassItem);
+}
 
 
 //傳到classDetail下的student
@@ -199,8 +201,7 @@ const existingReserveIDs = jsonData
   .classDetail.flatMap((classItem) => 
     classItem.reserveDetail.map((reserveItem) => reserveItem.reserveID)
   );
-// 生成唯一的预约ID
-const newReserveID = generateUniqueReserveID(existingReserveIDs);
+
 
 //classDetail>student&coach
 if (classDetailToUpdate) {
@@ -242,8 +243,8 @@ if (classDetailToUpdate) {
  const newBuyDetail = {
   classID: newClassID,
   coachName: classForm[currentPage].coachName,
-  stuName: classForm[currentPage].stuName,
-  stuName2: classForm[currentPage].stuName2,
+  // stuName: classForm[currentPage].stuName,
+  // stuName2: classForm[currentPage].stuName2,
   coursesAll: classForm[currentPage].coursesAll,
   coursePrice: classForm[currentPage].coursePrice,
   courseType: selectedCourse,
@@ -793,7 +794,7 @@ useEffect(() => {
                 <div className="class_category">
                       <div className="form-group4">
                         <div className="form-group4-1"> 
-                          <label for="exampleInputEmail1">學員1:</label>
+                          <label for="exampleInputEmail1">學員:</label>
                           <div className="select">
                           <select 
                             class="form-select"

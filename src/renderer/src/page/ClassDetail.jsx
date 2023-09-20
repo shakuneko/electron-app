@@ -5,6 +5,7 @@ import ClassDetailTable from '../components/ClassDetailTable'
 import testClasses from '../json/test_class.json'
 import newJason from '../json/new_class.json'
 import { splitData } from '../components/TableSelectOptions'
+import React, { useState} from "react";
 
 function ClassDetail() {
 
@@ -12,7 +13,14 @@ function ClassDetail() {
     const Class = newJason[0].classDetail.find(
        (x) => x.classID === id
     );
-                
+    let detailData = []
+    
+    for (let i = 0; i < Class.reserveDetail.length; i++) {
+        detailData.push(Class.reserveDetail[i])
+        
+    }
+    const [tableData, setTableData] = useState(() => detailData); 
+
     const coachNames = Class.coach.map((item) =>{
         const coachNameArray = []
         coachNameArray.push(item.coachName)
@@ -61,10 +69,18 @@ function ClassDetail() {
                                 </div>
                             
                             </div>
-                            <ClassDetailTable classes={Class} /> 
+                            <ClassDetailTable 
+                            classes={Class}
+                            tableData={tableData}
+                            setTableData={setTableData}
+                             /> 
                         </div>
                         <div className='col-3'>
-                            <ReserveTime classes={Class}/>
+                            <ReserveTime 
+                            classes={Class}
+                            tableData={tableData}
+                            setTableData={setTableData}
+                            />
                         </div>
                     </div>
 

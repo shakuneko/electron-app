@@ -8,17 +8,17 @@ import {
   } from '@mui/material';
   import { Delete } from '@mui/icons-material';
 
-function ClassDetailTable({ classes }) {
-    let detailData = []
+function ClassDetailTable({ classes ,tableData,setTableData}) {
+    // let detailData = []
     
-    for (let i = 0; i < classes.reserveDetail.length; i++) {
-        detailData.push(classes.reserveDetail[i])
+    // for (let i = 0; i < classes.reserveDetail.length; i++) {
+    //     detailData.push(classes.reserveDetail[i])
         
-    }
+    // }
 
-    //optionally, you can manage the row selection state yourself
+    // //optionally, you can manage the row selection state yourself
     const [rowSelection, setRowSelection] = useState({});
-    const [tableData, setTableData] = useState(() => detailData);
+    // const [tableData, setTableData] = useState(() => detailData);
 
     useEffect(() => {
         //do something when the row selection changes...
