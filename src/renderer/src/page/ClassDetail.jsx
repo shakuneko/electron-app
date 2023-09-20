@@ -6,7 +6,6 @@ import ClassDetailTable from '../components/ClassDetailTable'
 import testClasses from '../json/test_class.json'
 import newJason from '../json/new_class.json'
 import { splitData } from '../components/TableSelectOptions'
-import React, { useState} from "react";
 
 function ClassDetail() {
 
