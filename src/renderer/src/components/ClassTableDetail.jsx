@@ -85,12 +85,14 @@ function ClassTableDetail({classes}) {
                 else return<>{renderedCellValue}</>
                 
             },
+          
         },
         {
             accessorKey:"status",
             header:"狀態",
             size:100,
-            Cell: AddBGC
+            Cell: AddBGC,
+            filterVariant: 'select',
         },
         {
             accessorKey:"classID",
