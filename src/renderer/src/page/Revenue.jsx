@@ -112,8 +112,147 @@ coachSalaryMap.forEach((salaries, coachID) => {
         pilatesSalary;
     });
     console.log(`所有教练的薪水总和: ${totalSalarySum}`);
+//-------------------------------------------------------------------
 
+  
+  // 创建一个对象来存储按 courseType 分类的数据
+  const courseTypeData = {};
+  
+  // 遍历 JSON 数据并整理
+  nJson.forEach(categoryItem => {
+    if (categoryItem.category === 'class' && categoryItem.classDetail) {
+      categoryItem.classDetail.forEach(classItem => {
+        const courseType = classItem.courseType;
+        const courseLeft = parseInt(classItem.courseLeft) || 0;
+        let totalSalary = 0;
+        console.log("課程對應未核銷堂數",courseType,courseLeft);
+
+        // 查找该班级的 coach 数据
+        if (classItem.coach && classItem.coach.length > 0) {
+          const coachID = classItem.coach[0].coachID;
+            //console.log("課程對應教練ID",coachID);
+          // 查找对应的 coach 数据
+          const coachData = nJson.find(item => item.category === 'coach' && item.coachDetail.find(coach => coach.coachID === coachID));
+          
+          if (coachData) {
+            let coachSalary = 0;
+            switch (courseType) {
+              case 'PT':
+                coachSalary = coachData.coachDetail[0].PtSalary || 0;
+                break;
+              case '團課':
+                coachSalary = coachData.coachDetail[0].GroupSalary || 0;
+                break;
+              case '運動按摩':
+                coachSalary = coachData.coachDetail[0].MassageSalary || 0;
+                break;
+              case '皮拉提斯':
+                coachSalary = coachData.coachDetail[0].PilatesSalary || 0;
+                break;
+              default:
+                break;
+            }
+            
+            // 计算 totalSalary
+            totalSalary = courseLeft * coachSalary;
+          
+          }
+        }
+  
+        if (!courseTypeData[courseType]) {
+          courseTypeData[courseType] = {
+            totalSalary: 0,
+          };
+        }
+  
+        courseTypeData[courseType].totalSalary += totalSalary;
+      });
+    }
+  });
+  
+  // 输出整理后的数据
+  console.log("AAA",courseTypeData);
     
+
+
+
+//下方表格使用---------------------------------------------------
+    const coachInfo = [];
+
+// 遍历包含 coach 信息的数组
+nJson.forEach(categoryItem => {
+  if (categoryItem.category === 'coach' && categoryItem.coachDetail) {
+    categoryItem.coachDetail.forEach(coachItem => {
+      const coachData = {
+        coachID: coachItem.coachID,
+        coachName: coachItem.coachName,
+        major: coachItem.major,
+        teachClass: []
+      };
+
+      // 遍历 teachClass 数组并提取 classID
+      if (coachItem.teachClass) {
+        coachItem.teachClass.forEach(teachClassItem => {
+          coachData.teachClass.push(teachClassItem.classID);
+        });
+      }
+
+      // 将提取的教练信息添加到结果数组中
+      coachInfo.push(coachData);
+    });
+  }
+});
+// 输出结果
+console.log("AAAcoachInfo",coachInfo);
+
+//課程核銷相關
+const classInfo = [];
+// 遍历包含 class 信息的数组
+nJson.forEach(categoryItem => {
+  if (categoryItem.category === 'class' && categoryItem.classDetail) {
+    categoryItem.classDetail.forEach(classItem => {
+      const classData = {
+        classID: classItem.classID,
+        coursesAll: classItem.coursesAll,
+        coursesFIN: classItem.coursesFIN,
+        courseLeft: classItem.courseLeft
+      };
+
+      // 将提取的班级信息添加到结果数组中
+      classInfo.push(classData);
+    });
+  }
+});
+// 输出结果
+console.log("AAAclassInfo",classInfo);
+
+// const mergeInfo = coachInfo.reduce((result,itemB) => {
+//     itemB.teachClass.forEach((classIDs) => {
+//         const matchingClass = classIDs.map((classID) => 
+//         classInfo.find((itemC) => itemC.classID === classID)
+//         );
+//         result.push({ ...itemB, ...matchingClass });
+//     });
+//     return result;
+// }, []);
+// console.log("AAAmergeInfo",mergeInfo);
+const mergeInfo = coachInfo.reduce((result, itemB) => {
+    itemB.teachClass.forEach((classIDs) => {
+      const matchingClassID = classIDs[0]; // 假设每个班级只有一项
+  
+      // 查找匹配的班级信息
+      const matchingClass = classInfo.find((itemC) => itemC.classID === matchingClassID);
+  
+      if (matchingClass) {
+        result.push({ ...itemB, ...matchingClass });
+      }
+    });
+    return result;
+  }, []);
+  console.log("AAAmergeInfo", mergeInfo);
+//下方表格使用---------------------------------------------------END
+
+
 
   //計算營業額
   let sum = 0
@@ -189,7 +328,7 @@ coachSalaryMap.forEach((salaries, coachID) => {
             <h1 className="title">營業額</h1>
             <div>
               <div>總收入/月</div>
-              <h1 className="money-title mt-2 title">$ {sum}</h1>
+              <h1 className="money-title mt-2 title">$ {totalSalarySum}</h1>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
             <RevenueSetTable classes={products} columns={columnsRevenue} />
@@ -209,7 +348,7 @@ coachSalaryMap.forEach((salaries, coachID) => {
               </div>
             </div>
             <RevenueSetTable classes={classes} columns={columnsMoney} />
-            <div>{coachCoursesArray}</div>
+            <div></div>
           </div>
         </div>
       </div>
