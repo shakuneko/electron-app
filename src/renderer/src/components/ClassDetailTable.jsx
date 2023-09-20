@@ -15,33 +15,29 @@ function ClassDetailTable({ classes }) {
         detailData.push(classes.reserveDetail[i])
     }
 
-    const stuClassBuyDetail = []
-    //先從classDetail的reserveDetail看每次上課的學生有哪些，找到學生，再找他的classID，之後修改資料
-    // const whichStus = detailData.student.find(item => item.classID === "student");
-    // const stuBuyDetail = jsonData.find(item => item.category === "student");
-    detailData.forEach(item => {
-        item.student.forEach(names => {
-            stuClassBuyDetail.push(names.stuID)
-    
-        })
-    })
-    //   console.log("stuBuyDetail",stuBuyDetail)
-
-      console.log("stuClassBuyDetail",stuClassBuyDetail)
-
     //optionally, you can manage the row selection state yourself
-    const [rowSelection, setRowSelection] = useState({});
+    // const [rowSelection, setRowSelection] = useState({});
     const [tableData, setTableData] = useState(() => detailData);
 
-    useEffect(() => {
-        //do something when the row selection changes...
-        console.info({ rowSelection });
-    }, [rowSelection]);
+    // useEffect(() => {
+    //     //do something when the row selection changes...
+    //     console.info({ rowSelection });
+    // }, [rowSelection]);
     
-    const handleSaveCell = useCallback(
-        (cell, value, classes) => {
-            console.log("test01",cell.row.original)
-            console.log("test02",value)
+    const handleSaveCell = useCallback( // 儲存修改的資料
+        (cell, value, classes, row) => {
+            const stuItem = [] //找到這一row的stuID
+            row.original.student.forEach(item => {
+                    stuItem.push(item.stuID)
+            })
+
+            const filteredStudents = jsonData
+            .find(item => item.category === "student") // 找到包含学生信息的数据项
+            .stuDetail
+            .filter(student => stuItem.includes(student.stuID))          
+
+            console.log("test01",stuItem)
+            console.log("test02",filteredStudents)
         if ( tableData[cell.row.index][cell.column.id] !== value){
             //send api delete request here, then refetch or update local table data for re-render
             tableData[cell.row.index][cell.column.id] = value;
@@ -50,9 +46,21 @@ function ClassDetailTable({ classes }) {
                 //預約且來了，扣課堂數
                 classes.coursesFIN = parseInt(classes.coursesFIN, 10) + 1
                 classes.courseLeft = parseInt(classes.courseLeft, 10) - 1
+                filteredStudents.forEach(student => {
+                    student.buyDetail = student.buyDetail.map(detail => {
+                      if (detail.classID === classes.classID) {
+                        // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
+                        detail.coursesFIN = parseInt(detail.coursesFIN, 10) + 1
+                        detail.courseLeft = parseInt(detail.courseLeft, 10) - 1
+                      }
+                      return detail;
+                    });
+                  });    
                 console.log("預約且來了，扣課堂數")
-                console.log("attandence",classes.coursesFIN)
-                console.log("courseLeft",classes.courseLeft)
+                console.log("classes", classes)
+                console.log("coursesFIN", classes.coursesFIN)
+                console.log("courseLeft", classes.courseLeft)
+                console.log("filteredStudents",filteredStudents)
             }
             else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "是"){
                 //取消預約卻出現
@@ -63,17 +71,41 @@ function ClassDetailTable({ classes }) {
                 //取消預約，課堂數回來
                 classes.coursesFIN = parseInt(classes.coursesFIN, 10) - 1
                 classes.courseLeft = parseInt(classes.courseLeft, 10) + 1
+                filteredStudents.forEach(student => {
+                    student.buyDetail = student.buyDetail.map(detail => {
+                      if (detail.classID === classes.classID) {
+                        // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
+                        detail.coursesFIN = parseInt(detail.coursesFIN, 10) - 1
+                        detail.courseLeft = parseInt(detail.courseLeft, 10) + 1
+                      }
+                      return detail;
+                    });
+                  });    
                 console.log("取消預約，課堂數回來")
-                console.log("coursesFIN",classes.coursesFIN)
-                console.log("courseLeft",classes.courseLeft)
+                console.log("classes", classes)
+                console.log("coursesFIN", classes.coursesFIN)
+                console.log("courseLeft", classes.courseLeft)
+                console.log("filteredStudents",filteredStudents)
             }
             else if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "否"){
                 //預約了，但沒來上課
                 classes.coursesFIN = parseInt(classes.coursesFIN, 10) + 1
                 classes.courseLeft = parseInt(classes.courseLeft, 10) - 1
+                filteredStudents.forEach(student => {
+                    student.buyDetail = student.buyDetail.map(detail => {
+                      if (detail.classID === classes.classID) {
+                        // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
+                        detail.coursesFIN = parseInt(detail.coursesFIN, 10) + 1
+                        detail.courseLeft = parseInt(detail.courseLeft, 10) - 1
+                      }
+                      return detail;
+                    });
+                  });  
                 console.log("預約了，但沒來上課")
-                console.log("attandence",classes.coursesFIN)
-                console.log("courseLeft",classes.courseLeft)
+                console.log("classes", classes)
+                console.log("coursesFIN", classes.coursesFIN)
+                console.log("courseLeft", classes.courseLeft)
+                console.log("filteredStudents",filteredStudents)
             }
         }
             setTableData([...tableData]); //re-render with new data
@@ -83,8 +115,8 @@ function ClassDetailTable({ classes }) {
         [tableData],
       );
 
-      console.log("classes",classes)
-    const handleDeleteRow = useCallback(
+    //   console.log("classes",classes)
+    const handleDeleteRow = useCallback( //  儲存刪除
         (row) => {
           if (
             !confirm(`確定刪除此欄資料`)
@@ -98,7 +130,7 @@ function ClassDetailTable({ classes }) {
         [tableData],
       );
 
-    console.log("tableData",tableData)
+    // console.log("tableData",tableData)
     const columns = [ //表格有的資料
         {
             accessorFn: (row) => {
@@ -175,10 +207,10 @@ function ClassDetailTable({ classes }) {
                 </Tooltip>
             </Box>
           )}
-        muiTableBodyCellEditTextFieldProps={({ cell }) => ({
+        muiTableBodyCellEditTextFieldProps={({ cell, row }) => ({
             //onBlur is more efficient, but could use onChange instead
             onBlur: (event) => {
-            handleSaveCell(cell, event.target.value, classes);
+            handleSaveCell(cell, event.target.value, classes, row);
             },
         })}
         renderBottomToolbarCustomActions={() => (
@@ -191,16 +223,6 @@ function ClassDetailTable({ classes }) {
               actions: '',
             }
           }}           
-        // renderTopToolbarCustomActions={({ table ,detailData}) => {
-
-        //     return (
-        //         <div style={{ display: 'flex', gap: '0.5rem' }}>
-        //         <button onClick={()=> console.log(table.getRowModel().rows)}>ppp</button>
-        //         <button onClick={()=> console.log(detailData)}>pp0</button>
-        //         <button onClick={()=> console.log(detailData.reserveDetail[0])}>p</button>
-        //         </div>
-        //     );
-        //     }}  
     />
 
   )
