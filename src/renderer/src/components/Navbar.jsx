@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { checkPageHash } from '../redux/reducers/saveSlice'
 import testModified from '../json/test_class.json'
-
+import { setFileName } from '../redux/reducers/saveSlice'
 
 
 function Navbar() {
@@ -25,7 +25,10 @@ function Navbar() {
   const isSame = useSelector((state) => state.root.save.isSameObject)
   const dispatch = useDispatch()
 
-  const testJsonModified = hash(testModified)
+  const fileContentOnNav = useSelector((state) => state.root.save.fileName)
+  console.log("fileContentOnNav",fileContentOnNav)
+
+  const testJsonModified = hash(fileContentOnNav)
 
   console.log('oldHash:', oldHash)
   console.log('modifiedHash:', testJsonModified)
@@ -66,7 +69,7 @@ function Navbar() {
   const { ipcRenderer } = window.electron
 
   const onSaveToFile = async () => {
-    const data = JSON.stringify({ testModified })//set the should save json here - use redux's state
+    const data = JSON.stringify(fileContentOnNav)//set the should save json here - use redux's state
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
   }
   
@@ -96,7 +99,8 @@ function Navbar() {
   //handle hash function onclick
   const handleHashOnClick = () => {
     //dispatch(checkPageHash(hash(testModified)));
-    dispatch(checkPageHash(hash(tester)))
+    // dispatch(checkPageHash(hash(tester)))
+    dispatch(checkPageHash(hash(fileContentOnNav)))
 
     // const currentHash = hash(currentState);
     // console.log('Old Hash:', oldHash);
@@ -110,8 +114,8 @@ function Navbar() {
     // }
 
     if (isSame == false) {
-      //onSaveToFile()
-      console.log('save file here:',filePathInfo)
+      onSaveToFile()
+      console.log('Nav-save file here:',filePathInfo)
     }
 
     tester.id = tester.id + 1
