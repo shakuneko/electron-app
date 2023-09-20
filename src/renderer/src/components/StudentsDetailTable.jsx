@@ -4,7 +4,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Typography } from '@mui/material';
 
 function StudentsDetailTable({ stuBuyDetailData }) {
-
     const [tableData, setTableData] = useState(() => stuBuyDetailData);
 
     const handleSaveCell = (cell, value) => {
@@ -12,6 +11,7 @@ function StudentsDetailTable({ stuBuyDetailData }) {
       tableData[cell.row.index][cell.column.id] = value;
       //send/receive api updates here
       setTableData([...tableData]); //re-render with new data
+
     };
 
     console.log("tableData",tableData)

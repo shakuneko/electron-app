@@ -24,7 +24,7 @@
                         "stuName": "甜甜"
                     }],
                     "cancel":"否",
-                    "attandence":"是",
+                    "attandence":"-",
                     "note":"你好",
                     "student":[{
                         "stuID":"1",
@@ -52,7 +52,7 @@
                         "stuName": "甜甜"
                     }],
                     "cancel":"否",
-                    "attandence":"是",
+                    "attandence":"-",
                     "note":"～～～～",
                     "student":[{
                         "stuID":"1",
@@ -122,8 +122,8 @@
                 "courseType":"團課",
                 "exCourse":"否",
                 "coursesAll":"-",
-                "coursesFIN":"-",
-                "courseLeft":"-",
+                "coursesFIN":"0",
+                "courseLeft":"0",
                 "reserveDetail": [
                     {
                         "reserveID": "1",

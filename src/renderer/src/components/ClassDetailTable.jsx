@@ -7,14 +7,27 @@ import {
     Tooltip,
   } from '@mui/material';
   import { Delete } from '@mui/icons-material';
+  import jsonData from '../json/new_class.json'
 
 function ClassDetailTable({ classes }) {
     let detailData = []
-    
     for (let i = 0; i < classes.reserveDetail.length; i++) {
         detailData.push(classes.reserveDetail[i])
-        
     }
+
+    const stuClassBuyDetail = []
+    //先從classDetail的reserveDetail看每次上課的學生有哪些，找到學生，再找他的classID，之後修改資料
+    // const whichStus = detailData.student.find(item => item.classID === "student");
+    // const stuBuyDetail = jsonData.find(item => item.category === "student");
+    detailData.forEach(item => {
+        item.student.forEach(names => {
+            stuClassBuyDetail.push(names.stuID)
+    
+        })
+    })
+    //   console.log("stuBuyDetail",stuBuyDetail)
+
+      console.log("stuClassBuyDetail",stuClassBuyDetail)
 
     //optionally, you can manage the row selection state yourself
     const [rowSelection, setRowSelection] = useState({});
@@ -24,15 +37,53 @@ function ClassDetailTable({ classes }) {
         //do something when the row selection changes...
         console.info({ rowSelection });
     }, [rowSelection]);
-
     
-    const handleSaveCell = (cell, value) => {
-      //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here
-      tableData[cell.row.index][cell.column.id] = value;
-      //send/receive api updates here
-      setTableData([...tableData]); //re-render with new data
-    };
+    const handleSaveCell = useCallback(
+        (cell, value, classes) => {
+            console.log("test01",cell.row.original)
+            console.log("test02",value)
+        if ( tableData[cell.row.index][cell.column.id] !== value){
+            //send api delete request here, then refetch or update local table data for re-render
+            tableData[cell.row.index][cell.column.id] = value;
+            console.log("test03",cell.row.original.attandence)
+            if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "是"){
+                //預約且來了，扣課堂數
+                classes.coursesFIN = parseInt(classes.coursesFIN, 10) + 1
+                classes.courseLeft = parseInt(classes.courseLeft, 10) - 1
+                console.log("預約且來了，扣課堂數")
+                console.log("attandence",classes.coursesFIN)
+                console.log("courseLeft",classes.courseLeft)
+            }
+            else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "是"){
+                //取消預約卻出現
+                !confirm(`學生出席跟預約有錯誤，不會取消預約卻來上課`)
+                console.log("錯誤")
+            }
+            else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "否"){
+                //取消預約，課堂數回來
+                classes.coursesFIN = parseInt(classes.coursesFIN, 10) - 1
+                classes.courseLeft = parseInt(classes.courseLeft, 10) + 1
+                console.log("取消預約，課堂數回來")
+                console.log("coursesFIN",classes.coursesFIN)
+                console.log("courseLeft",classes.courseLeft)
+            }
+            else if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "否"){
+                //預約了，但沒來上課
+                classes.coursesFIN = parseInt(classes.coursesFIN, 10) + 1
+                classes.courseLeft = parseInt(classes.courseLeft, 10) - 1
+                console.log("預約了，但沒來上課")
+                console.log("attandence",classes.coursesFIN)
+                console.log("courseLeft",classes.courseLeft)
+            }
+        }
+            setTableData([...tableData]); //re-render with new data
+           
+            // console.log("test",cell.row.original.attandence)
+        },
+        [tableData],
+      );
 
+      console.log("classes",classes)
     const handleDeleteRow = useCallback(
         (row) => {
           if (
@@ -82,7 +133,8 @@ function ClassDetailTable({ classes }) {
         {
             accessorKey:"cancel",
             header:"取消預約",
-            id:"cansole",
+            // id:"cansole", 影響編輯
+            //影響說明：雖然值一樣，但是如果用滑鼠再框格中點一下取消反白，或是點擊框框中的文字也會被視為修改資料，單單出席跟取消預約有問題
             size:50,
             enableSorting: false,
         },
@@ -126,7 +178,7 @@ function ClassDetailTable({ classes }) {
         muiTableBodyCellEditTextFieldProps={({ cell }) => ({
             //onBlur is more efficient, but could use onChange instead
             onBlur: (event) => {
-            handleSaveCell(cell, event.target.value);
+            handleSaveCell(cell, event.target.value, classes);
             },
         })}
         renderBottomToolbarCustomActions={() => (

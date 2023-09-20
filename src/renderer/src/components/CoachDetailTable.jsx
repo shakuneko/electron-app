@@ -11,7 +11,6 @@ import {
 import { Delete } from '@mui/icons-material';
 
 function CoachDetailTable({ classes }) {
-
   //optionally, you can manage the row selection state yourself
     // 獲取教練所教授的課程的 classID
   const teachClassIDs = classes.teachClass.map(students => students.classID);
