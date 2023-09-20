@@ -68,7 +68,7 @@ function Revenue({ classes }) {
           coachSalaryMap.set(coachID, {
             ptSalary: courseType === 'PT' ? ptSalary * coursesAll : 0,
   groupSalary: courseType === '團課' ? groupSalary * coursesAll : 0,
-  massageSalary: courseType === '運動舒緩' ? massageSalary * coursesAll : 0,
+  massageSalary: courseType === '運動按摩' ? massageSalary * coursesAll : 0,
   pilatesSalary: courseType === '皮拉提斯' ? pilatesSalary * coursesAll : 0,
           })
         }
@@ -80,7 +80,7 @@ const coachSalaryArray = [...coachSalaryMap];
 
 // coachSalaryArray 包含每位教练的薪资信息
 //console.log(coachSalaryArray);
-// 遍历教练薪资 Map
+// 遍历教练薪资 Map，打印每位教练的薪资
 coachSalaryMap.forEach((salaries, coachID) => {
     console.log(`Coach ID: ${coachID}`);
     console.log(`PT Salary: ${salaries.ptSalary}`);
@@ -90,7 +90,7 @@ coachSalaryMap.forEach((salaries, coachID) => {
     console.log('-----------------------------');
   });
 
-  //total salary個別教練總薪水
+  //total salary個別教練 總薪水
   coachSalaryMap.forEach((salaries, coachID) => {
     const totalSalary =
       salaries.ptSalary +
@@ -112,6 +112,8 @@ coachSalaryMap.forEach((salaries, coachID) => {
         pilatesSalary;
     });
     console.log(`所有教练的薪水总和: ${totalSalarySum}`);
+
+    
 
   //計算營業額
   let sum = 0
