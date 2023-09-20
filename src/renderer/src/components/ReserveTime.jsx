@@ -18,10 +18,10 @@ function generateUniqueID(existingIDs) {
     const initialFormData = {
       reserveDate:'',
       reserveTime:'',
-      reserveStu:'',
+      reserveStu:[],
     }
     const [reserveForm, setReserveForm] = useState(initialFormData); // 存儲選擇的日期
-    const [selectedStudent, setSelectedStudent] = useState(null);
+    const [selectedStudents, setSelectedStudents] = useState([]);
     const [matchingStudents, setMatchingStudents] =  useState(new Set());
     const [selectedStudentType, setSelectedStudentType] = useState(new Set()); // 存储选定的学员类型
 
@@ -35,35 +35,24 @@ function generateUniqueID(existingIDs) {
   // const uniqueReserveStu = Array.from(new Set(reserveStuData));
   
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, options } = event.target;
+    const selectedStudents = Array.from(options)
+      .filter((option) => option.selected)
+      .map((option) => option.value);
   
-    if (name === "reserveStu") {
-      // 如果用户在下拉菜单中选择了学员，只更新学员名称
-      setReserveForm({
-        ...reserveForm,
-        [name]: value,
-      });
-  
-      // 根据所选学员名称在 matchingStudents 中查找相应的学员信息
-      const selectedStudentInfo = matchingStudents.find((student) => student.stuName === value);
-  
-      // 更新选中的学员信息
-      setSelectedStudent(selectedStudentInfo);
-    } else {
-      // 对于其他表单字段，正常更新
-      setReserveForm({
-        ...reserveForm,
-        [name]: value,
-      });
-    }
+    // 更新预约表单中的学员信息
+    setReserveForm({
+      ...reserveForm,
+      [name]: selectedStudents, // 存储选中的学员名称的数组
+    });
   };
   
   
-   // 更新 matchingStudents 的示例
+   // 更新 matchingStudents與selectedStudentType的示例
    useEffect(() => {
     const newClassID = props.classes.classID;
     const newMatchingStudents = new Set(); // 使用 Set 来确保唯一性
-    const newMatchingType = new Set(); // 使用 Set 来确保唯一性
+    const newMatchingType = new Set(); 
     const newClassType = props.classes.courseType;
     jsonData.find((item) => item.category === 'student').stuDetail.forEach((student) => {
       student.buyDetail.forEach((buyInfo) => {
@@ -88,12 +77,12 @@ function generateUniqueID(existingIDs) {
     setSelectedStudentType(Array.from(newMatchingType));
   }, [props.classes.classID,props.classes.courseType]);
 
-  console.log('newMatchingStudents:', matchingStudents);
-  console.log('newMatchingType:', selectedStudentType);
+  // console.log('newMatchingStudents:', matchingStudents);
+  // console.log('newMatchingType:', selectedStudentType);
 
 const handleSubmit = () => {
   // 获取当前用户选择的学员名称
-  const selectedStudentName = reserveForm.reserveStu;
+  const selectedStudentNames = reserveForm.reserveStu;
   const existingReserveIDs = jsonData.find((item) => item.category === 'class').classDetail.flatMap((classItem)=>classItem.reserveDetail.map((reserve) => parseInt(reserve.reserveID)));
   const newReserveID = generateUniqueID(existingReserveIDs);
   // 创建用于新预约数据的对象
@@ -109,27 +98,37 @@ const handleSubmit = () => {
   };
 
   // 更新 student 属性
-  if (selectedStudentName) {
-    const selectedStudentInfo = matchingStudents.find(
-      (student) => student.stuName === selectedStudentName
-    );
+  selectedStudentNames.forEach((selectedStudentName) => {
+    let selectedStudentInfo;
+  
+    // 根据课程类型来选择要添加到学员信息的来源
+    if (props.classes.courseType === '團課') {
+      selectedStudentInfo = selectedStudentType.find(
+        (student) => student.stuName === selectedStudentName
+      );
+    } else {
+      selectedStudentInfo = matchingStudents.find(
+        (student) => student.stuName === selectedStudentName
+      );
+    }
+  
     if (selectedStudentInfo) {
       newReserveData.student.push({
         stuID: selectedStudentInfo.stuID,
         courseType: selectedStudentInfo.courseType,
         stuName: selectedStudentInfo.stuName,
       });
-
-      // // 判断是否需要添加 '團課學生' 的学员信息到 reserveStu
-      // if (selectedStudentInfo.courseType === '團課學生') {
-      //   newReserveData.reserveStu = {
-      //     stuID: selectedStudentInfo.stuID,
-      //     courseType: selectedStudentInfo.courseType,
-      //     stuName: selectedStudentInfo.stuName,
-      //   };
-      // }
+  
+      // 判断是否需要添加 '團課學生' 的学员信息到 reserveStu
+      if (selectedStudentInfo.courseType === '團課學生') {
+        newReserveData.reserveStu = {
+          stuID: selectedStudentInfo.stuID,
+          courseType: selectedStudentInfo.courseType,
+          stuName: selectedStudentInfo.stuName,
+        };
+      }
     }
-  }
+  });
     // 这里可以添加逻辑来判断当前课程是否是 '團課教練'
     const currentClass = jsonData.find((item) => item.category === 'class').classDetail.find((classItem) => classItem.classID === props.classes.classID);
     if (currentClass && currentClass.courseType === '團課教練') {
@@ -191,10 +190,10 @@ const handleSubmit = () => {
              <select 
               class="form-control"
                name="reserveStu"
-              value={reserveForm.reserveStu} 
+               multiple={true}  // 启用多选功能
+               value={reserveForm.reserveStu} // 存储选中的学员名称的数组 
               onChange={handleInputChange}
             >
-             <option value="">请选择学员</option>
               {props.classes.courseType === '團課'
                 ? Array.from(selectedStudentType).map((student) => (
                     <option key={student.stuID} value={student.stuName}>
