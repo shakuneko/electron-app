@@ -166,7 +166,7 @@ const handleSubmit = () => {
                   id="startDate" 
                   class="form-control" 
                   type="text"
-                  placeholder="09:00-11:00"
+                  placeholder="例：09:00-11:00"
                   name="reserveTime"
                   value={reserveForm.reserveTime}
                   onChange={handleInputChange}
