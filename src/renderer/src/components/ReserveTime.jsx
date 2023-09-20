@@ -35,17 +35,33 @@ function generateUniqueID(existingIDs) {
   // const uniqueReserveStu = Array.from(new Set(reserveStuData));
   
   const handleInputChange = (event) => {
-    const { name, options } = event.target;
-    const selectedStudents = Array.from(options)
-      .filter((option) => option.selected)
-      .map((option) => option.value);
+    const { name, options, value } = event.target;
   
-    // 更新预约表单中的学员信息
-    setReserveForm({
-      ...reserveForm,
-      [name]: selectedStudents, // 存储选中的学员名称的数组
-    });
+    if (name === "reserveStu") {
+      // 如果用户在下拉菜单中选择了学员，只更新学员名称
+      setReserveForm((prevForm) => ({
+        ...prevForm,
+        [name]: options
+          ? Array.from(options)
+              .filter((option) => option.selected)
+              .map((option) => option.value)
+          : [value], // 如果用户未选择任何选项，则使用当前值
+      }));
+  
+      // 根据所选学员名称在 matchingStudents 中查找相应的学员信息
+      const selectedStudentInfo = matchingStudents.find((student) => student.stuName === value);
+  
+      // 更新选中的学员信息
+      setSelectedStudents(selectedStudentInfo);
+    } else {
+      // 对于其他表单字段，正常更新
+      setReserveForm((prevForm) => ({
+        ...prevForm,
+        [name]: value,
+      }));
+    }
   };
+  
   
   
    // 更新 matchingStudents與selectedStudentType的示例
@@ -83,8 +99,14 @@ function generateUniqueID(existingIDs) {
 const handleSubmit = () => {
   // 获取当前用户选择的学员名称
   const selectedStudentNames = reserveForm.reserveStu;
-  const existingReserveIDs = jsonData.find((item) => item.category === 'class').classDetail.flatMap((classItem)=>classItem.reserveDetail.map((reserve) => parseInt(reserve.reserveID)));
-  const newReserveID = generateUniqueID(existingReserveIDs);
+  const selectedClass = jsonData.find((item) => item.category === 'class').classDetail.find((classItem) => classItem.classID === props.classes.classID);
+
+  if (selectedClass) {
+    const existingReserveIDs = selectedClass.reserveDetail.flatMap((reserve) => parseInt(reserve.reserveID));
+    // 计算新的reserveID
+    const newReserveID = (existingReserveIDs.length > 0 ? (Math.max(...existingReserveIDs) + 1) : 1).toString();
+  
+
   // 创建用于新预约数据的对象
   const newReserveData = {
     reserveID: newReserveID,
@@ -152,8 +174,8 @@ const handleSubmit = () => {
   setReserveForm(initialFormData);
 
   console.log(updatedJsonData);
+  }
 };
-
     return (
       <div className="reservetab">
         <p className="reserveboxtitle">學員預約</p>
