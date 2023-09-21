@@ -1,6 +1,6 @@
 import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { connect } from 'react-redux';
+import { connect,useDispatch } from 'react-redux';
 import { updateClassForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 
@@ -36,6 +36,7 @@ function generateUniqueReserveID(reserveDetailArray) {
 }
 
 function ClassForm(props) {
+  const dispatch = useDispatch(); // 获取dispatch函数的引用
   //設定每個分頁的初始狀態
   const initialFormData = {
     page1: {
@@ -159,8 +160,8 @@ const handleRadioChange = (event, page) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  props.updateClassForm(currentPage,classForm[currentPage])
-
+  // props.updateClassForm(currentPage,classForm[currentPage])
+  dispatch(updateClassForm(currentPage,classForm[currentPage]));
   // 获取已有的 classID 列表
  const existingClassIDs = jsonData
  .find((item) => item.category === 'class')
@@ -173,6 +174,7 @@ const handleSubmit = (event) => {
 // //  const newStuID = generateUniqueID(existingStudentIDs)
 // 获取已有的 class 数据
 const classData = jsonData.find((item) => item.category === 'class');
+
 const newClassItem = {
   classID: newClassID, 
   courseType: selectedCourse, 
@@ -182,9 +184,10 @@ const newClassItem = {
   coach:[],
   student:[],
 };
-
+if (currentPage !== 'page5') {
 // 推送新的 class 数据对象到 class 数据数组中
 classData.classDetail.push(newClassItem);
+}
 
 
 //傳到classDetail下的student
@@ -199,8 +202,7 @@ const existingReserveIDs = jsonData
   .classDetail.flatMap((classItem) => 
     classItem.reserveDetail.map((reserveItem) => reserveItem.reserveID)
   );
-// 生成唯一的预约ID
-const newReserveID = generateUniqueReserveID(existingReserveIDs);
+
 
 //classDetail>student&coach
 if (classDetailToUpdate) {
@@ -216,41 +218,24 @@ if (classDetailToUpdate) {
       stuName: classForm[currentPage].stuName2,
     },
   ];
+  const newClassStudent2 = {
+    stuID: findStudentIDByName(classForm[currentPage].stuName),
+      courseType: selectedCourse, 
+      stuName: classForm[currentPage].stuName,
+  }
   const newClassCoach = {
-    coachID: findStudentIDByName(classForm[currentPage].coachName),
+    coachID: findCoachIDByName(classForm[currentPage].coachName),
     coachName: classForm[currentPage].coachName,
   }
   // 添加学生信息到课程对象的 "student、coach" 数组中
+  if (currentPage == 'page1') {
   classDetailToUpdate.student.push(...newClassStudent);
   classDetailToUpdate.coach.push(newClassCoach);
-
-  
-  // classDetail>reserveDetail>student
-  const newReserveStudent = [
-    {
-      stuID: findStudentIDByName(classForm[currentPage].stuName),
-      courseType: selectedCourse, 
-      stuName: classForm[currentPage].stuName,
-    },
-    {
-      stuID: findStudentIDByName(classForm[currentPage].stuName2),
-      courseType: selectedCourse,
-      stuName: classForm[currentPage].stuName2,
-    },
-  ]
-
-  const newReserveDetail = {
-    reserveID:newReserveID,
-    reserveDate: '', // 你需要填充正确的日期和时间
-    reserveTime: '',
-    cancel: '',
-    attandence: '',
-    note: '你好',
-    student: newReserveStudent,
-  };
-
-  // 添加新的reserveDetail对象到课程对象的 "reserveDetail" 数组中
-  classDetailToUpdate.reserveDetail.push(newReserveDetail);
+  }
+  else{
+  classDetailToUpdate.student.push(newClassStudent2);
+  classDetailToUpdate.coach.push(newClassCoach);
+  }
 }
 
 //coach>coachDetail>TeachClass
@@ -270,8 +255,8 @@ if (classDetailToUpdate) {
  const newBuyDetail = {
   classID: newClassID,
   coachName: classForm[currentPage].coachName,
-  stuName: classForm[currentPage].stuName,
-  stuName2: classForm[currentPage].stuName2,
+  // stuName: classForm[currentPage].stuName,
+  // stuName2: classForm[currentPage].stuName2,
   coursesAll: classForm[currentPage].coursesAll,
   coursePrice: classForm[currentPage].coursePrice,
   courseType: selectedCourse,
@@ -305,6 +290,7 @@ if (classDetailToUpdate) {
    if(selectedStudent2){
      selectedStudent2.buyDetail.push(newBuyDetail);
    }
+
    // 清除表单数据为初始状态
    setClassForm(initialFormData);
 
@@ -373,8 +359,8 @@ useEffect(() => {
                     <button className={`btn btn-outline-golden page-button ${currentPage === 'page1' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page1','PT')}>PT</button>
                     <button className={`btn btn-outline-golden page-button ${currentPage === 'page2' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page2','皮拉提斯')}>皮拉提斯</button>
                     <button className={`btn btn-outline-golden page-button ${currentPage === 'page3' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page3','運動按摩')}>運動按摩</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page4' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page4','團課教練')}>團課教練</button>
-                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page5' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page5','團課學員')}>團課學員</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page4' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page4','團課')}>團課教練</button>
+                    <button className={`btn btn-outline-golden page-button ${currentPage === 'page5' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page5','團課')}>團課學員</button>
                     <button className={`btn btn-outline-golden page-button ${currentPage === 'page6' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page6','場地租借')}>場地租借</button>
                   </div>
               </div>
@@ -820,7 +806,7 @@ useEffect(() => {
                 <div className="class_category">
                       <div className="form-group4">
                         <div className="form-group4-1"> 
-                          <label for="exampleInputEmail1">學員1:</label>
+                          <label for="exampleInputEmail1">學員:</label>
                           <div className="select">
                           <select 
                             class="form-select"
@@ -1005,11 +991,9 @@ useEffect(() => {
       </div>
   )
   }
-  const mapDispatchToProps = {
-    updateClassForm,
-  };
   
-  export default connect(null, mapDispatchToProps)(ClassForm);
+  
+  export default ClassForm;
 
 // import React from 'react';
 // import { useSelector } from 'react-redux';

@@ -1,11 +1,16 @@
 import { Link } from 'react-router-dom'
 import { MaterialReactTable } from 'material-react-table'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useCallback, useState } from 'react';
 import newJson from '../json/new_class.json'
 import { selectOptions, CheckOut, splitData } from './TableSelectOptions'
+import {
+  Box,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
 function CoachDetailTable({ classes }) {
-
   //optionally, you can manage the row selection state yourself
     // 獲取教練所教授的課程的 classID
   const teachClassIDs = classes.teachClass.map(students => students.classID);
@@ -30,6 +35,21 @@ function CoachDetailTable({ classes }) {
     //do something when the row selection changes...
     //console.info({ rowSelection });
   }, [rowSelection])
+
+  const [tableData, setTableData] = useState(() => reserveData);
+  const handleDeleteRow = useCallback(
+    (row) => {
+      if (
+        !confirm(`確定刪除此欄資料`)
+      ) {
+        return;
+      }
+      //send api delete request here, then refetch or update local table data for re-render
+      tableData.splice(row.index, 1);
+      setTableData([...tableData]);
+    },
+    [tableData],
+  );
 
   const columns = [
     //表格有的資料
@@ -89,7 +109,7 @@ function CoachDetailTable({ classes }) {
   return (
     <MaterialReactTable
       columns={columns}
-      data={reserveData}
+      data={tableData}
       initialState={{ showGlobalFilter: true }} //show filters by default
       enableColumnActions={false} //no need for column actions if none of them are enabled
       enableDensityToggle={false} //density does not work with memoized table body
@@ -97,10 +117,20 @@ function CoachDetailTable({ classes }) {
       enableHiding={false} //column hiding does not work with memoized table body
       enableStickyHeader
       enableFacetedValues
-      enableRowSelection
-      getRowId={(row) => row.userId} //give each row a more useful id
-      onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
-      state={{ rowSelection }} //pass our managed row selection state to the table to use
+      // enableRowSelection
+      // getRowId={(row) => row.userId} //give each row a more useful id
+      // onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
+      // state={{ rowSelection }} //pass our managed row selection state to the table to use
+      enableRowActions
+      renderRowActions={({ row }) => (
+        <Box sx={{ display: 'flex', gap: '1rem' }}>
+            <Tooltip arrow placement="right" title="Delete">
+                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                    <Delete />
+                </IconButton>
+            </Tooltip>
+        </Box>
+      )}
     />
   )
 }

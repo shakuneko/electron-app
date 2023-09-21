@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import React, {  useState } from 'react';
 import Navbar from '../components/Navbar'
 import ReserveTime from '../components/ReserveTime'
 import ClassDetailTable from '../components/ClassDetailTable'
@@ -12,7 +13,15 @@ function ClassDetail() {
     const Class = newJason[0].classDetail.find(
        (x) => x.classID === id
     );
-                
+
+    let detailData = []
+    for (let i = 0; i < Class.reserveDetail.length; i++) {
+        detailData.push(Class.reserveDetail[i])
+        
+    }
+    const [tableData, setTableData] = useState(() => detailData); 
+    const [courseLeft, setCourseLeft] = useState(Class.courseLeft);
+
     const coachNames = Class.coach.map((item) =>{
         const coachNameArray = []
         coachNameArray.push(item.coachName)
@@ -53,18 +62,29 @@ function ClassDetail() {
                                         編輯
                                         </button>
                                     </div> */}
-                                    <div className="btnbox-item">
+                                    {/* <div className="btnbox-item">
                                         <button type="button" className="btn btn-danger">
                                         刪除
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             
                             </div>
-                            <ClassDetailTable classes={Class} /> 
+                            <ClassDetailTable 
+                                classes={Class}
+                                courseLeft={courseLeft}
+                                setCourseLeft={setCourseLeft}
+                                tableData={tableData}
+                                setTableData={setTableData}
+                                 /> 
+
                         </div>
                         <div className='col-3'>
-                            <ReserveTime />
+                            <ReserveTime 
+                            classes={Class}
+                            tableData={tableData}
+                            setTableData={setTableData}
+                            />
                         </div>
                     </div>
 

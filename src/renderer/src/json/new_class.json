@@ -13,9 +13,18 @@
                     "reserveID": "1",
                     "reserveDate": "2023/06/09",
                     "reserveTime": "13:00-14:00",
-                    "reserveStu":[],
+                    "reserveStu":[{
+                        "stuID":"1",
+                        "courseType":"皮拉提斯",
+                        "stuName": "Lulu"
+                    },
+                    {
+                        "stuID":"2",
+                        "courseType":"皮拉提斯",
+                        "stuName": "甜甜"
+                    }],
                     "cancel":"否",
-                    "attandence":"是",
+                    "attandence":"-",
                     "note":"你好",
                     "student":[{
                         "stuID":"1",
@@ -32,9 +41,18 @@
                     "reserveID": "2",
                     "reserveDate": "2023/06/10",
                     "reserveTime": "13:00-14:00",
-                    "reserveStu":[],
+                    "reserveStu":[{
+                        "stuID":"1",
+                        "courseType":"皮拉提斯",
+                        "stuName": "Lulu"
+                    },
+                    {
+                        "stuID":"2",
+                        "courseType":"皮拉提斯",
+                        "stuName": "甜甜"
+                    }],
                     "cancel":"否",
-                    "attandence":"是",
+                    "attandence":"-",
                     "note":"～～～～",
                     "student":[{
                         "stuID":"1",
@@ -159,8 +177,8 @@
                     "courseType":"運動按摩",
                     "exCourse":"否",
                     "coursesAll":"10",
-                    "coursesFIN":"7",
-                    "courseLeft":"3",
+                    "coursesFIN":"8",
+                    "courseLeft":"2",
                     "reserveDetail": [
                         {
                             "reserveID": "1",
@@ -278,10 +296,10 @@
                 "classID":"2",
                 "courseType":"PT",
                 "coachName": "C",
-                "coursesAll":"10",
-                "coursesFIN":"3",
-                "courseLeft":"7",
-                "preCourseLeft":"9",
+                "coursesAll":"1",
+                "coursesFIN":"1",
+                "courseLeft":"0",
+                "preCourseLeft":"1",
                 "payMethod":"現金",
                 "invoiceNum" :"12345678",
                 "buyDate":"2022/06/23",
