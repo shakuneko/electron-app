@@ -105,6 +105,7 @@ function App() {
     // }
   }, [])
 
+  console.log("fileContent:", fileContent)
   return (
     isLoading?(<div>loading...</div> ):(
     <HashRouter>

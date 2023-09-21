@@ -118,8 +118,8 @@ function Navbar() {
       console.log('Nav-save file here:',filePathInfo)
     }
 
-    tester.id = tester.id + 1
-    console.log('tester.id:', tester.id)
+    // tester.id = tester.id + 1
+    // console.log('tester.id:', tester.id)
   }
 
   return (

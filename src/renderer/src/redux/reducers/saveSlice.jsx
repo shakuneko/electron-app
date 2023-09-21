@@ -4,7 +4,7 @@ import hash from 'object-hash'
 import originalJson from '../../json/class.json'
 
 const initialState = {
-  fileName: '',
+  fileName: {},
   hasInit: false,
   currentPageHash: '',//傳進來的value
   oldHash: hash(originalJson),
