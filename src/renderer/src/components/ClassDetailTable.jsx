@@ -7,124 +7,113 @@ import {
     Tooltip,
   } from '@mui/material';
   import { Delete } from '@mui/icons-material';
-  import jsonData from '../json/new_class.json'
+  import { useDispatch } from 'react-redux';
+  import { updateTableData } from '../redux/Actions/saveActions'; // 导入您的更新动作
+  // import jsonData from '../json/new_class.json'
 
-function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCourseLeft}) {
-    // let detailData = []
-    
-    // for (let i = 0; i < classes.reserveDetail.length; i++) {
-    //     detailData.push(classes.reserveDetail[i])
-        
-    // }
-
-    // //optionally, you can manage the row selection state yourself
-    const [rowSelection, setRowSelection] = useState({});
-    // const [tableData, setTableData] = useState(() => detailData);
+function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCourseLeft,splitClasses}) {
+  const dispatch = useDispatch();
 
 
-    // useEffect(() => {
-    //     //do something when the row selection changes...
-    //     console.info({ rowSelection });
-    // }, [rowSelection]);
-    
-
-    // 在 courseLeft 改变时更新状态
-    // useEffect(() => {
-    //     setCourseLeft(classes.courseLeft);
-    // }, [classes.courseLeft]);
-            
     const handleSaveCell = useCallback( // 儲存修改的資料
-        (cell, value, classes, row) => {
+        (cell, value, splitClasses, row) => {
             const stuItem = [] //找到這一row的stuID
             row.original.student.forEach(item => {
                     stuItem.push(item.stuID)
             })
 
-            const filteredStudents = jsonData
+            const filteredStudents = classes
             .find(item => item.category === "student") // 找到包含学生信息的数据项
             .stuDetail
             .filter(student => stuItem.includes(student.stuID))          
 
-            console.log("test01",stuItem)
-            console.log("test02",filteredStudents)
+            console.log("test01",classes)
+            console.log("test02",cell.row.original)
+            console.log("filteredStudents",tableData)
         if ( tableData[cell.row.index][cell.column.id] !== value){
             //send api delete request here, then refetch or update local table data for re-render
-            tableData[cell.row.index][cell.column.id] = value;
-            console.log("test03",cell.row.original.attandence)
-            if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "是"){
-                //預約且來了，扣課堂數
-                classes.coursesFIN = parseInt(classes.coursesFIN, 10) + 1
-                classes.courseLeft = parseInt(classes.courseLeft, 10) - 1
-                filteredStudents.forEach(student => {
-                    student.buyDetail = student.buyDetail.map(detail => {
-                      if (detail.classID === classes.classID) {
-                        // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
-                        detail.coursesFIN = parseInt(detail.coursesFIN, 10) + 1
-                        detail.courseLeft = parseInt(detail.courseLeft, 10) - 1
-                      }
-                      return detail;
-                    });
-                  });    
-                console.log("預約且來了，扣課堂數")
-                console.log("classes", classes)
-                console.log("coursesFIN", classes.coursesFIN)
-                console.log("courseLeft", classes.courseLeft)
-                console.log("filteredStudents",filteredStudents)
+            let newTableData = [...tableData];
+            console.log("test03",newTableData[cell.row.index][cell.column.id])
+            newTableData[cell.row.index][cell.column.id] = value;
+            setTableData(newTableData);  // 更新到 Redux
+            console.log("test03",cell.column.id)
+           
+            // if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "是"){
+            //     //預約且來了，扣課堂數
+            //     splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) + 1
+            //     splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) - 1
+                // filteredStudents.forEach(student => {
+                //     student.buyDetail = student.buyDetail.map(detail => {
+                //       if (detail.classID === splitClasses.classID) {
+                //         // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
+                //         detail.coursesFIN = parseInt(detail.coursesFIN, 10) + 1
+                //         detail.courseLeft = parseInt(detail.courseLeft, 10) - 1
+                //       }
+                //       return detail;
+                //     });
+                //   });    
+                // console.log("預約且來了，扣課堂數")
+                // console.log("splitClasses", splitClasses)
+                // console.log("coursesFIN", splitClasses.coursesFIN)
+                // console.log("courseLeft", splitClasses.courseLeft)
+                // console.log("filteredStudents",filteredStudents)
+                dispatch(updateTableData(newTableData));
             }
-            else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "是"){
-                //取消預約卻出現
-                !confirm(`學生出席跟預約有錯誤，不會取消預約卻來上課`)
-                console.log("錯誤")
-            }
-            else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "否"){
-                //取消預約，課堂數回來
-                classes.coursesFIN = parseInt(classes.coursesFIN, 10) - 1
-                classes.courseLeft = parseInt(classes.courseLeft, 10) + 1
-                filteredStudents.forEach(student => {
-                    student.buyDetail = student.buyDetail.map(detail => {
-                      if (detail.classID === classes.classID) {
-                        // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
-                        detail.coursesFIN = parseInt(detail.coursesFIN, 10) - 1
-                        detail.courseLeft = parseInt(detail.courseLeft, 10) + 1
-                      }
-                      return detail;
-                    });
-                  });    
-                console.log("取消預約，課堂數回來")
-                console.log("classes", classes)
-                console.log("coursesFIN", classes.coursesFIN)
-                console.log("courseLeft", classes.courseLeft)
-                console.log("filteredStudents",filteredStudents)
-            }
-            else if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "否"){
+            // else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "是"){
+            //     //取消預約卻出現
+            //     !confirm(`學生出席跟預約有錯誤，不會取消預約卻來上課`)
+            //     console.log("錯誤")
+            // }
+            // else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "否"){
+            //     //取消預約，課堂數回來
+            //     splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) - 1
+            //     splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) + 1
+            //     filteredStudents.forEach(student => {
+            //         student.buyDetail = student.buyDetail.map(detail => {
+            //           if (detail.classID === splitClasses.classID) {
+            //             // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
+            //             detail.coursesFIN = parseInt(detail.coursesFIN, 10) - 1
+            //             detail.courseLeft = parseInt(detail.courseLeft, 10) + 1
+            //           }
+            //           return detail;
+            //         });
+            //       });    
+            //     console.log("取消預約，課堂數回來")
+            //     console.log("splitClasses", splitClasses)
+            //     console.log("coursesFIN", splitClasses.coursesFIN)
+            //     console.log("courseLeft", splitClasses.courseLeft)
+            //     console.log("filteredStudents",filteredStudents)
+            // }
+            else if ( cell.row.original.attandence == "否"){
                 //預約了，但沒來上課
-                classes.coursesFIN = parseInt(classes.coursesFIN, 10) + 1
-                classes.courseLeft = parseInt(classes.courseLeft, 10) - 1
-                filteredStudents.forEach(student => {
-                    student.buyDetail = student.buyDetail.map(detail => {
-                      if (detail.classID === classes.classID) {
-                        // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
-                        detail.coursesFIN = parseInt(detail.coursesFIN, 10) + 1
-                        detail.courseLeft = parseInt(detail.courseLeft, 10) - 1
-                      }
-                      return detail;
-                    });
-                  });  
+            //     // splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) + 1
+            //     // splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) - 1
+            //     // filteredStudents.forEach(student => {
+            //     //     student.buyDetail = student.buyDetail.map(detail => {
+            //     //       if (detail.classID === splitClasses.classID) {
+            //     //         // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
+            //     //         detail.coursesFIN = parseInt(detail.coursesFIN, 10) + 1
+            //     //         detail.courseLeft = parseInt(detail.courseLeft, 10) - 1
+            //     //       }
+            //     //       return detail;
+            //     //     });
+            //     //   });  
                 console.log("預約了，但沒來上課")
-                console.log("classes", classes)
-                console.log("coursesFIN", classes.coursesFIN)
-                console.log("courseLeft", classes.courseLeft)
-                console.log("filteredStudents",filteredStudents)
+                // console.log("splitClasses", splitClasses)
+                // console.log("coursesFIN", splitClasses.coursesFIN)
+                // console.log("courseLeft", splitClasses.courseLeft)
+                console.log("filteredStudents",splitClasses)
             }
-        }
+        // }
+            // const content = JSON.parse(tableData)
             setTableData([...tableData]); //re-render with new data
-            setCourseLeft(classes.courseLeft)
+            setCourseLeft(splitClasses.courseLeft)
             // console.log("test",cell.row.original.attandence)
         },
-        [tableData],
+        [dispatch,tableData],
       );
 
-    //   console.log("classes",classes)
+    //   console.log("splitClasses",splitClasses)
     const handleDeleteRow = useCallback( //  儲存刪除
         (row) => {
           if (
@@ -220,7 +209,7 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             muiTableBodyCellEditTextFieldProps={({ cell, row }) => ({
                 //onBlur is more efficient, but could use onChange instead
                 onBlur: (event) => {
-                handleSaveCell(cell, event.target.value, classes, row);
+                handleSaveCell(cell, event.target.value, splitClasses, row);
                 },
             })}
             renderBottomToolbarCustomActions={() => (

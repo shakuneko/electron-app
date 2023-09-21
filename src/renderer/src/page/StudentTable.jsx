@@ -1,10 +1,10 @@
 import Navbar from '../components/Navbar'
 import StudentTableDetail from '../components/StudentTableDetail';
 import testClasses from '../json/test_class.json'
-import newJason from '../json/new_class.json'
+// import newJason from '../json/new_class.json'
 
-function StudentTable() {
-    const stuDetail = newJason[1].stuDetail
+function StudentTable({classes}) {
+    const stuDetail = classes[1].stuDetail
     
     return (
         <div className="container-fluid">
