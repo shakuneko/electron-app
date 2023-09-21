@@ -7,7 +7,7 @@ import {
     Tooltip,
   } from '@mui/material';
   import { Delete } from '@mui/icons-material';
-  import { useDispatch } from 'react-redux';
+  import { useDispatch, useSelector } from 'react-redux';
   import { updateTableData } from '../redux/Actions/saveActions'; // 导入您的更新动作
   // import jsonData from '../json/new_class.json'
 
@@ -25,23 +25,40 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             const filteredStudents = classes
             .find(item => item.category === "student") // 找到包含学生信息的数据项
             .stuDetail
-            .filter(student => stuItem.includes(student.stuID))          
+            .filter(student => stuItem.includes(student.stuID))
 
             console.log("test01",classes)
             console.log("test02",cell.row.original)
             console.log("filteredStudents",tableData)
         if ( tableData[cell.row.index][cell.column.id] !== value){
             //send api delete request here, then refetch or update local table data for re-render
-            let newTableData = [...tableData];
-            console.log("test03",newTableData[cell.row.index][cell.column.id])
-            newTableData[cell.row.index][cell.column.id] = value;
-            setTableData(newTableData);  // 更新到 Redux
-            console.log("test03",cell.column.id)
-           
-            // if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "是"){
-            //     //預約且來了，扣課堂數
-            //     splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) + 1
-            //     splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) - 1
+            // let newTableData = [...tableData];
+
+            let newTableData = tableData.map((item, index) => {
+                if (index === cell.row.index) {
+                    return {
+                        ...item,
+                        [cell.column.id]: value
+                    }
+                }
+                return item
+            });
+            console.log("test03_compare_value",newTableData[cell.row.index][cell.column.id], value)
+            setTableData(newTableData);  // 更新到 local
+            dispatch(updateTableData(newTableData));
+            // console.log("splitClasses",splitClasses)
+            if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "是"){
+                //預約且來了，扣課堂數
+                // splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) + 1
+                // splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) - 1
+                let newTableData = splitClasses.map((item, index) => {
+                  return {
+                      ...item,
+                      [coursesFIN]: parseInt(item.coursesFIN, 10) + 1,
+                      [courseLeft]: parseInt(item.courseLeft, 10) - 1
+                  }
+              });
+              console.log("splitClasses_test",splitClasses)
                 // filteredStudents.forEach(student => {
                 //     student.buyDetail = student.buyDetail.map(detail => {
                 //       if (detail.classID === splitClasses.classID) {
@@ -51,12 +68,13 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 //       }
                 //       return detail;
                 //     });
-                //   });    
+                //   });
                 // console.log("預約且來了，扣課堂數")
                 // console.log("splitClasses", splitClasses)
                 // console.log("coursesFIN", splitClasses.coursesFIN)
                 // console.log("courseLeft", splitClasses.courseLeft)
                 // console.log("filteredStudents",filteredStudents)
+                // setTableData(newTableData); 
                 dispatch(updateTableData(newTableData));
             }
             // else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "是"){
@@ -77,7 +95,7 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             //           }
             //           return detail;
             //         });
-            //       });    
+            //       });
             //     console.log("取消預約，課堂數回來")
             //     console.log("splitClasses", splitClasses)
             //     console.log("coursesFIN", splitClasses.coursesFIN)
@@ -97,20 +115,20 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             //     //       }
             //     //       return detail;
             //     //     });
-            //     //   });  
-                console.log("預約了，但沒來上課")
+            //     //   });
+                // console.log("預約了，但沒來上課")
                 // console.log("splitClasses", splitClasses)
                 // console.log("coursesFIN", splitClasses.coursesFIN)
                 // console.log("courseLeft", splitClasses.courseLeft)
-                console.log("filteredStudents",splitClasses)
+                // console.log("filteredStudents",splitClasses)
             }
-        // }
+        }
             // const content = JSON.parse(tableData)
             setTableData([...tableData]); //re-render with new data
-            setCourseLeft(splitClasses.courseLeft)
+            // setCourseLeft(splitClasses.courseLeft)
             // console.log("test",cell.row.original.attandence)
         },
-        [dispatch,tableData],
+        [dispatch, tableData],
       );
 
     //   console.log("splitClasses",splitClasses)
@@ -122,8 +140,10 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             return;
           }
           //send api delete request here, then refetch or update local table data for re-render
-          tableData.splice(row.index, 1);
+          // tableData.splice(row.index, 1);
           setTableData([...tableData]);
+          const newTableData = tableData.filter((item, index) => index !== row.index);
+          dispatch(updateTableData(newTableData));
         },
         [tableData],
       );
@@ -180,23 +200,23 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
   return (
     <div>
         {/* <p>剩餘堂數：{courseLeft}</p> */}
-        <MaterialReactTable 
+        <MaterialReactTable
             columns={columns}
-            data={tableData} 
+            data={tableData}
             initialState={{ showGlobalFilter: true }} //show filters by default
             enableColumnActions={false} //no need for column actions if none of them are enabled
             enableDensityToggle={false} //density does not work with memoized table body
             enableFullScreenToggle={false}
             enableHiding={false} //column hiding does not work with memoized table body
             enableStickyHeader
-            enableFacetedValues          
+            enableFacetedValues
             // enableRowSelection
             enableRowActions
             // getRowId={(row) => row.userId} //give each row a more useful id
             // onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
             // state={{ rowSelection }} //pass our managed row selection state to the table to use
             editingMode="cell"
-            enableEditing 
+            enableEditing
             renderRowActions={({ row }) => (
                 <Box sx={{ display: 'flex', gap: '1rem' }}>
                     <Tooltip arrow placement="right" title="Delete">
@@ -216,15 +236,15 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 <Typography sx={{  p: '16px', fontWeight:"900" }} variant="body2">
                     雙擊要修改的內容進行修改
                 </Typography>
-            )}  
+            )}
             localization={{
                 header: {
                 actions: '',
                 }
-            }}           
+            }}
         />
     </div>
-   
+
 
   )
 }
