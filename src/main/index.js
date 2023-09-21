@@ -69,7 +69,7 @@ function createWindow() {
 
   //write file
   ipcMain.handle('writeFile', (event, arg) => {
-    const filePath = `${homedir}/Desktop/AzusaBackUp/${arg.fileName}`
+    const filePath = `${directoryPath}/${arg.fileName}`
     mainWindow.webContents.send('filePathInfo', filePath)
     try {
       fs.writeFile(filePath, arg.data, (err) => {
@@ -87,13 +87,12 @@ function createWindow() {
 
   //read file
   ipcMain.handle('readFile', (event, arg) => {
-    const filePath = `${homedir}/Desktop/AzusaBackUp/${arg.fileName}`
+    const filePath = `${directoryPath}/${arg.fileName}`
     return fs.readFile(filePath, 'utf-8')
   })
 
   //close window and save file
-  mainWindow.on('closeWindow', () => {
-   
+  ipcMain.handle('closeWindow', () => {
     mainWindow.destroy()
   })
   mainWindow.on('close', (event) => {
