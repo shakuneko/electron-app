@@ -2,10 +2,10 @@ import { Link, useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import StudentDetailPage from '../components/StudentDetailPage'
 import testClasses from '../json/test_class.json'
-import newJason from '../json/new_class.json'
+// import newJason from '../json/new_class.json'
 
-function StudentDetail() {
-    const stuDetail = newJason[1].stuDetail
+function StudentDetail({classes}) {
+    const stuDetail = classes[1].stuDetail
     const { stuID } = useParams();
     const stuData = stuDetail.find(
         (x) => x.stuID === stuID

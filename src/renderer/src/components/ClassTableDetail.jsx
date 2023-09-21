@@ -1,8 +1,6 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
-import { selectOptions, CheckOut, splitData } from './TableSelectOptions'
-
 
 function ClassTableDetail({classes}) {
 
