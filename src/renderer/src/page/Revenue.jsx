@@ -4,7 +4,8 @@ import { columnsRevenue, columnsMoney } from '../components/TableSelectOptions'
 import newJson from '../json/new_class.json'
 function Revenue({ classes }) {
   //new json new_class
-  const nJson = newJson
+//   const nJson = newJson
+  const nJson = classes
   // 创建一个新的 Map 对象，用于存储教练与其课程类型的关系
   const coachCoursesMap = new Map()
 
