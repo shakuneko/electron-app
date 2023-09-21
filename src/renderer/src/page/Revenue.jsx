@@ -79,8 +79,6 @@ function Revenue({ classes }) {
 const coachSalaryArray = [...coachSalaryMap];
 
 // coachSalaryArray 包含每位教练的薪资信息
-//console.log(coachSalaryArray);
-// 遍历教练薪资 Map，打印每位教练的薪资
 coachSalaryMap.forEach((salaries, coachID) => {
     console.log(`Coach ID: ${coachID}`);
     console.log(`PT Salary: ${salaries.ptSalary}`);
@@ -120,6 +118,12 @@ coachSalaryMap.forEach((salaries, coachID) => {
   // 按 courseType 分类的数据 計算為未核銷金額
   const courseTypeLeftData = {};
   let totalLeftCourseCount = 0;
+
+  let totalLeftPtClass = 0;
+  let totalLeftGroupClass = 0;
+  let totalLeftMassageClass = 0;
+  let totalLeftPilatesClass = 0;
+
   // 遍历 JSON 数据并整理
   nJson.forEach(categoryItem => {
     if (categoryItem.category === 'class' && categoryItem.classDetail) {
@@ -128,6 +132,8 @@ coachSalaryMap.forEach((salaries, coachID) => {
         const courseLeft = parseInt(classItem.courseLeft) || 0;
         let totalLeftSalary = 0;
         
+       
+
         console.log("課程對應未核銷堂數",courseType,courseLeft);
 
         // 查找该班级的 coach 数据
@@ -156,6 +162,17 @@ coachSalaryMap.forEach((salaries, coachID) => {
                 break;
             }
             
+            if(classItem.courseType === 'PT'){
+                totalLeftPtClass += courseLeft;
+            }else if(classItem.courseType === '團課'){
+                totalLeftGroupClass += courseLeft;
+            }else if(classItem.courseType === '運動按摩'){
+                totalLeftMassageClass += courseLeft;
+            }else if(classItem.courseType === '皮拉提斯'){
+                totalLeftPilatesClass += courseLeft;
+            }
+
+
             // 计算 totalLeftSalary
             totalLeftSalary = courseLeft * coachSalary;
           //count totalLeftCourseCount
@@ -173,13 +190,48 @@ coachSalaryMap.forEach((salaries, coachID) => {
       });
     }
   });
+
   const totalSumLeft = Object.values(courseTypeLeftData).reduce((sum, typeData) => sum + typeData.totalLeftSalary, 0);
+  //for title's count
   console.log("AAAtotalSumLeft",totalSumLeft);
   console.log("AAAtotalLeftCourseCount",totalLeftCourseCount);
   // 输出整理后的数据
-  console.log("AAAleftcourseTotal",courseTypeLeftData);
-    
-  //計算為已核銷金額
+  //console.log("BBBleftcourseTotal",courseTypeLeftData);
+
+  //-------------------------------------------------------------------計算未核銷堂數並以課程分類
+  const classLeftData = {
+    "PT": totalLeftPtClass,
+    "團課": totalLeftGroupClass,
+    "運動按摩": totalLeftMassageClass,
+    "皮拉提斯": totalLeftPilatesClass,
+  };
+  Object.keys(classLeftData).forEach(courseType => {
+    if (courseTypeLeftData[courseType]) {
+      courseTypeLeftData[courseType].classLeft = classLeftData[courseType];
+    }
+  });
+
+  //***************  use for up table  *********************
+  //console.log("BBBcourseTypeLeftData", courseTypeLeftData);
+  
+  // 新的陣列
+const newArray = [];
+
+// 遍歷原始物件並轉換成新的陣列
+for (const classType in courseTypeLeftData) {
+  if (courseTypeLeftData.hasOwnProperty(classType)) {
+    const classData = courseTypeLeftData[classType];
+    newArray.push({
+      totalLeftSalary: classData.totalLeftSalary,
+      classLeft: classData.classLeft,
+      classType: classType
+    });
+  }
+}
+console.log("BBBcourseTypeLeftData", newArray);
+
+
+  //計算為已核銷金額---------------------------------------------------
   // 创建一个对象来存储按 courseType 分类的数据 計算為未核銷金額
   const courseTypeFINData = {};
   let totalFINCourseCount = 0;
@@ -241,10 +293,60 @@ coachSalaryMap.forEach((salaries, coachID) => {
   console.log("AAAfincoursetotal",courseTypeFINData);
 
 
+  //下方表格使用---------------------------------------------------
+//計算coachFin,coachLeft以教練分類---------------------------------------------------
+const courseInfo = [];
+// 遍历 JSON 数据并整理课程信息
+nJson.forEach(categoryItem => {
+  if (categoryItem.category === 'class' && categoryItem.classDetail) {
+    categoryItem.classDetail.forEach(classItem => {
+      const courseLeft = parseInt(classItem.courseLeft) || 0;
+      const coursesFIN = parseInt(classItem.coursesFIN) || 0;
+      
+      courseInfo.push({
+        classID: classItem.classID,
+        courseLeft,
+        coursesFIN
+      });
+    });
+  }
+});
+
+const coachInfo2 = {};
+
+// 遍历 JSON 数据并根据 coach 对教练进行分类
+nJson.forEach(categoryItem => {
+  if (categoryItem.category === 'class' && categoryItem.classDetail) {
+    categoryItem.classDetail.forEach(classItem => {
+      const coach = classItem.coach[0]; // 假设每个班级只有一个教练
+      const coachID = coach.coachID;
+      const coachName = coach.coachName;
+      
+      if (!coachInfo2[coachID]) {
+        coachInfo2[coachID] = {
+          coachName,
+          courseLeftTotal: 0,
+          coursesFINTotal: 0,
+        };
+      }
+      
+      const courseLeft = parseInt(classItem.courseLeft) || 0;
+      const coursesFIN = parseInt(classItem.coursesFIN) || 0;
+      
+      coachInfo2[coachID].courseLeftTotal += courseLeft;
+      coachInfo2[coachID].coursesFINTotal += coursesFIN;
+    });
+  }
+});
+
+// 打印课程信息
+console.log("课程信息", courseInfo);
+
+// 打印教练信息
+console.log("教练信息", coachInfo2);
 
 
-
-//下方表格使用---------------------------------------------------
+// 根据 coachName 分类合并信息with major---------------------------------------------------
     const coachInfo = [];
 
 // 遍历包含 coach 信息的数组
@@ -343,42 +445,54 @@ nJson.forEach(categoryItem => {
 // 输出每个教练的 exCourse 总数
 console.log("coachExCourseCount",coachExCourseCounts);
 
+// 根据 coachName 分类合并信息
+const mergeInfoLast = mergeInfo.map(coach => {
+    const coachName = coach.coachName;
+    const exCourseCount = coachExCourseCounts[coachName] || 0;
+    
+    return {
+      ...coach,
+      exCourseCount,
+    };
+  });
+  
+  console.log("完全合并的(table below)", mergeInfoLast);
 
 //下方表格使用---------------------------------------------------END
 
 
 //old---------------------------------------------------
   //計算營業額
-  let sum = 0
-  let finCourse = 0
-  let finMoney = 0
-  let leftCourse = 0
-  let leftMoney = 0
+//   let sum = 0
+//   let finCourse = 0
+//   let finMoney = 0
+//   let leftCourse = 0
+//   let leftMoney = 0
 
-  for (let i = 0; i < classes.length; i++) {
-    if (i == 0) {
-      sum = classes[i].salary * classes[i].coursesAll
-      finCourse = classes[i].coursesFIN * 1
-      finMoney = classes[i].salary * classes[i].coursesFIN
+//   for (let i = 0; i < classes.length; i++) {
+//     if (i == 0) {
+//       sum = classes[i].salary * classes[i].coursesAll
+//       finCourse = classes[i].coursesFIN * 1
+//       finMoney = classes[i].salary * classes[i].coursesFIN
 
-      leftCourse = classes[i].courseLeft * 1
-      leftMoney = classes[i].courseLeft * classes[i].salary
-    } else {
-      sum += classes[i].salary * classes[i].coursesAll
-      finCourse += classes[i].coursesFIN * 1
-      finMoney += classes[i].salary * classes[i].coursesFIN
+//       leftCourse = classes[i].courseLeft * 1
+//       leftMoney = classes[i].courseLeft * classes[i].salary
+//     } else {
+//       sum += classes[i].salary * classes[i].coursesAll
+//       finCourse += classes[i].coursesFIN * 1
+//       finMoney += classes[i].salary * classes[i].coursesFIN
 
-      leftCourse += classes[i].courseLeft * 1
-      leftMoney += classes[i].courseLeft * classes[i].salary
-      // sum +=  each
-      // finCoures += course
-    }
-  }
+//       leftCourse += classes[i].courseLeft * 1
+//       leftMoney += classes[i].courseLeft * classes[i].salary
+//       // sum +=  each
+//       // finCoures += course
+//     }
+//   }
   const products = [
     {
       id: '0',
       courseType: 'PT',
-      courseLeft: '15',
+      courseLeft: '3',
       preCourseLeft: '16',
       salary: '650'
     },
@@ -427,7 +541,7 @@ console.log("coachExCourseCount",coachExCourseCounts);
               <h1 className="money-title mt-2 title">$ {totalSalarySum}</h1>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
-            <RevenueSetTable classes={products} columns={columnsRevenue} />
+            <RevenueSetTable classes={newArray} columns={columnsRevenue} />
             <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">
@@ -443,7 +557,7 @@ console.log("coachExCourseCount",coachExCourseCounts);
                 </h1>
               </div>
             </div>
-            <RevenueSetTable classes={classes} columns={columnsMoney} />
+            <RevenueSetTable classes={mergeInfoLast} columns={columnsMoney} />
             <div></div>
           </div>
         </div>
