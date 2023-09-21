@@ -112,19 +112,22 @@ coachSalaryMap.forEach((salaries, coachID) => {
         pilatesSalary;
     });
     console.log(`所有教练的薪水总和: ${totalSalarySum}`);
-//-------------------------------------------------------------------
 
-  
-  // 创建一个对象来存储按 courseType 分类的数据
-  const courseTypeData = {};
-  
+
+
+
+//-------------------------------------------------------------------
+  // 按 courseType 分类的数据 計算為未核銷金額
+  const courseTypeLeftData = {};
+  let totalLeftCourseCount = 0;
   // 遍历 JSON 数据并整理
   nJson.forEach(categoryItem => {
     if (categoryItem.category === 'class' && categoryItem.classDetail) {
       categoryItem.classDetail.forEach(classItem => {
         const courseType = classItem.courseType;
         const courseLeft = parseInt(classItem.courseLeft) || 0;
-        let totalSalary = 0;
+        let totalLeftSalary = 0;
+        
         console.log("課程對應未核銷堂數",courseType,courseLeft);
 
         // 查找该班级的 coach 数据
@@ -153,26 +156,91 @@ coachSalaryMap.forEach((salaries, coachID) => {
                 break;
             }
             
-            // 计算 totalSalary
-            totalSalary = courseLeft * coachSalary;
-          
+            // 计算 totalLeftSalary
+            totalLeftSalary = courseLeft * coachSalary;
+          //count totalLeftCourseCount
+            totalLeftCourseCount += courseLeft;
           }
         }
   
-        if (!courseTypeData[courseType]) {
-          courseTypeData[courseType] = {
-            totalSalary: 0,
+        if (!courseTypeLeftData[courseType]) {
+            courseTypeLeftData[courseType] = {
+            totalLeftSalary: 0,
           };
         }
   
-        courseTypeData[courseType].totalSalary += totalSalary;
+        courseTypeLeftData[courseType].totalLeftSalary += totalLeftSalary;
       });
     }
   });
-  
+  const totalSumLeft = Object.values(courseTypeLeftData).reduce((sum, typeData) => sum + typeData.totalLeftSalary, 0);
+  console.log("AAAtotalSumLeft",totalSumLeft);
+  console.log("AAAtotalLeftCourseCount",totalLeftCourseCount);
   // 输出整理后的数据
-  console.log("AAA",courseTypeData);
+  console.log("AAAleftcourseTotal",courseTypeLeftData);
     
+  //計算為已核銷金額
+  // 创建一个对象来存储按 courseType 分类的数据 計算為未核銷金額
+  const courseTypeFINData = {};
+  let totalFINCourseCount = 0;
+  // 遍历 JSON 数据并整理
+  nJson.forEach(categoryItem => {
+    if (categoryItem.category === 'class' && categoryItem.classDetail) {
+      categoryItem.classDetail.forEach(classItem => {
+        const courseType = classItem.courseType;
+        const coursesFIN = parseInt(classItem.coursesFIN) || 0;
+        let totalFINSalary = 0;
+        //console.log("課程對應核銷堂數",courseType,coursesFIN);
+
+        // 查找该班级的 coach 数据
+        if (classItem.coach && classItem.coach.length > 0) {
+          const coachID = classItem.coach[0].coachID;
+            //console.log("課程對應教練ID",coachID);
+          // 查找对应的 coach 数据
+          const coachData = nJson.find(item => item.category === 'coach' && item.coachDetail.find(coach => coach.coachID === coachID));
+          
+          if (coachData) {
+            let coachSalary = 0;
+            switch (courseType) {
+              case 'PT':
+                coachSalary = coachData.coachDetail[0].PtSalary || 0;
+                break;
+              case '團課':
+                coachSalary = coachData.coachDetail[0].GroupSalary || 0;
+                break;
+              case '運動按摩':
+                coachSalary = coachData.coachDetail[0].MassageSalary || 0;
+                break;
+              case '皮拉提斯':
+                coachSalary = coachData.coachDetail[0].PilatesSalary || 0;
+                break;
+              default:
+                break;
+            }
+            
+            // 计算 totalSalary
+            totalFINSalary = coursesFIN * coachSalary;
+            totalFINCourseCount += coursesFIN;
+          }
+        }
+  
+        if (!courseTypeFINData[courseType]) {
+            courseTypeFINData[courseType] = {
+            totalFINSalary: 0,
+          };
+        }
+  
+        courseTypeFINData[courseType].totalFINSalary += totalFINSalary;
+      });
+    }
+  });
+  const totalSumFIN = Object.values(courseTypeFINData).reduce((sum, typeData) => sum + typeData.totalFINSalary, 0);
+  console.log("AAAtotalSumFIN",totalSumFIN);
+    console.log("AAAtotalFINCourseCount",totalFINCourseCount);
+  // 输出整理后的数据
+  console.log("AAAfincoursetotal",courseTypeFINData);
+
+
 
 
 
@@ -250,10 +318,36 @@ const mergeInfo = coachInfo.reduce((result, itemB) => {
     return result;
   }, []);
   console.log("AAAmergeInfo", mergeInfo);
+
+//計算體驗課堂數exCourse---------------------------------------------------
+const coachExCourseCounts = {};
+
+// 遍历 JSON 数据
+nJson.forEach(categoryItem => {
+  if (categoryItem.category === 'class' && categoryItem.classDetail) {
+    categoryItem.classDetail.forEach(classItem => {
+      const coachName = classItem.coach[0].coachName;
+      const exCourse = classItem.exCourse;
+
+      if (!coachExCourseCounts[coachName]) {
+        coachExCourseCounts[coachName] = 0;
+      }
+
+      if (exCourse === '是') {
+        coachExCourseCounts[coachName]++;
+      }
+    });
+  }
+});
+
+// 输出每个教练的 exCourse 总数
+console.log("coachExCourseCount",coachExCourseCounts);
+
+
 //下方表格使用---------------------------------------------------END
 
 
-
+//old---------------------------------------------------
   //計算營業額
   let sum = 0
   let finCourse = 0
@@ -317,6 +411,8 @@ const mergeInfo = coachInfo.reduce((result, itemB) => {
       salary: '650'
     }
   ]
+  //---------------------------------------------------old above
+
   return (
     <div className="container-fluid" style={{ backgroundColor: 'white' }}>
       <div className="row form_class row-no-gutters">
@@ -337,13 +433,13 @@ const mergeInfo = coachInfo.reduce((result, itemB) => {
               <div className="col-6">
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {finMoney} / {finCourse}堂
+                  $ {totalSumFIN} / {totalFINCourseCount}堂
                 </h1>
               </div>
               <div className="col-6">
                 <div>未核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {leftMoney} / {leftCourse}堂
+                  $ {totalSumLeft} / {totalLeftCourseCount}堂
                 </h1>
               </div>
             </div>
