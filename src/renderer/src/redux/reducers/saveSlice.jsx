@@ -59,7 +59,7 @@ const saveSlice = createSlice({
             ...coach,
             coachDetail: action.payload.data
       }
-      state.fileName.newJsonData[1] = newData
+      state.fileName.newJsonData[2] = newData
       console.log("setCoachFormSave state", current(state));
     },
     addReserveTableData: (state, action) => {
