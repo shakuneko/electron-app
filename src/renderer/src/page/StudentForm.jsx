@@ -1,9 +1,9 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { connect,useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
-
+import { setStudentFormSave } from "../redux/reducers/saveSlice";
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
   const maxID = Math.max(...existingIDs);
@@ -16,6 +16,7 @@ function generateUniqueID(existingIDs) {
 
 function StudentForm(props){
   const dispatch = useDispatch(); // 获取dispatch函数的引用
+  const [newStudentData, setNewStudentData] = useState({});
   const initialFormData = {
     stuName:'',
     stuGender: '',
@@ -48,7 +49,8 @@ function StudentForm(props){
   const handleSubmit = (event) => {
     event.preventDefault();
     // props.updateStuForm(stuForm)
-    dispatch(updateStuForm(stuForm));
+    // dispatch(updateStuForm(stuForm));
+    
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
 
@@ -58,20 +60,28 @@ function StudentForm(props){
     const newStudentID = generateUniqueID(existingStudentIDs);
     // 根据你的需求更新JSON数据
     // 假设你要将新的学生数据添加到"student"类别下
-    const newStudentData = {
-    stuID: newStudentID,
-    stuName: stuForm.stuName,
-    stuGender: stuForm.stuGender,
-    stuPhone: stuForm.stuPhone,
-    stuEmail: stuForm.stuEmail,
-    stuAddress: stuForm.stuAddress,
-    stuContact: stuForm.stuContact,
-    stuRelation:stuForm.stuRelation,
-    stuContact_tel:stuForm.stuContact_tel,
-    stuNote:stuForm.stuNote,
-    createDate:stuForm.createDate,
-    buyDetail:[],
-  };
+    let _newStudentData = {
+      stuID: newStudentID,
+      stuName: stuForm.stuName,
+      stuGender: stuForm.stuGender,
+      stuPhone: stuForm.stuPhone,
+      stuEmail: stuForm.stuEmail,
+      stuAddress: stuForm.stuAddress,
+      stuContact: stuForm.stuContact,
+      stuRelation: stuForm.stuRelation,
+      stuContact_tel: stuForm.stuContact_tel,
+      stuNote: stuForm.stuNote,
+      createDate: stuForm.createDate,
+      buyDetail: [],
+    };
+    setNewStudentData(
+      _newStudentData
+    );
+
+    dispatch(setStudentForm({
+      data: stuForm,
+      id: newStudentID
+    }));
     // 导入JSON数据
     const updatedJsonData = [...jsonData];
     // 将新的学生数据添加到JSON中
