@@ -62,7 +62,7 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
-    margin: 15px;
+    margin-bottom: 15px;
     white-space:nowrap;
 
 }
@@ -72,7 +72,7 @@
 .form-group2{
     width: 60%;
     display: flex;
-    margin: 15px;
+    margin-bottom: 15px;
     justify-content:space-between;
 
 }
@@ -86,7 +86,7 @@
     width: 60%;
     display: flex;
     justify-content:space-between;
-    margin: 15px;
+    margin-bottom: 15px;
 
 
 }
