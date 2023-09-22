@@ -2,6 +2,8 @@ import React, { useState, useEffect} from "react";
 import { connect,useDispatch } from 'react-redux';
 import { updateReserveTime } from "../redux/Actions/formActions"
 import jsonData from '../json/new_class.json'
+import { updateTableData } from '../redux/Actions/saveActions'; // 导入您的更新动作
+import { addReserveTableData } from "../redux/reducers/saveSlice"
 
   function ReserveTime(props) {
     const dispatch = useDispatch(); // 获取dispatch函数的引用
@@ -130,8 +132,10 @@ const handleSubmit = () => {
         classItem.reserveDetail = []; // 如果没有 reserveDetail 数组，先创建一个
       }
 
-      classItem.reserveDetail.push(newReserveData);
-      setTableData(classItem.reserveDetail);
+      // classItem.reserveDetail.push(newReserveData);
+      // setTableData(classItem.reserveDetail);
+      dispatch(updateTableData([...tableData, newReserveData]))
+      // dispatch(addReserveTableData({data: newReserveData, classID: id}));
     } 
   });
 

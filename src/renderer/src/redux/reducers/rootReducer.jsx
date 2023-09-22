@@ -5,6 +5,8 @@ import classReducer from './classReducer'
 import reserveReducer from './reserveReducer'
 import saveReducer from './saveSlice';
 import tableUpdatReducer from './tableUpdatReducer';
+import classCourseDataReducer from './classCourseDataReducer';
+import stuCourseDataReducer from './stuCourseDataReducer';
 // 使用 combineReducers 合并多个 reducer
 const rootReducer = combineReducers({
   coach: coachReducer, // 将 coachReducer 添加到 rootReducer 中
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
   reserve:reserveReducer,
   save: saveReducer,
   table: tableUpdatReducer,
+  classCourse: classCourseDataReducer,
+  stuCourse: stuCourseDataReducer,
   // 如果有其他 reducer，也在这里添加
 });
 

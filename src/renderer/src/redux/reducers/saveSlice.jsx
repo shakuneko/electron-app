@@ -34,8 +34,38 @@ const saveSlice = createSlice({
         
       } 
       state.oldHash = state.currentPageHash
-    }
-    //other reducers
+    },
+    addReserveTableData: (state, action) => {
+      console.log("test payload", state.fileName.newJsonData[0].classDetail);
+      state.fileName.newJsonData[0].classDetail= state.fileName.newJsonData[0].classDetail.map((item) => {
+        if(item.classID === action.payload.classID) {
+          console.log("test payload", action.payload);
+          return {
+            ...item,
+            reserveDetail: action.payload.data
+          }
+        }
+        return item;
+          
+      })
+
+    },
+    upDateClassCourse: (state, action) => {
+      state.fileName.newJsonData[0].classDetail= state.fileName.newJsonData [0].classDetail.map((item) => {
+        if(item.classID === action.payload.classID) {
+          console.log("test class course payload", action.payload);
+          return {
+            ...action.payload.data
+          }
+        }
+        return item;
+          
+      })
+    },
+    // upDateStuCourse: (state, action) => {
+
+    // },
+    // //other reducers
    
   }
 })
@@ -49,7 +79,7 @@ export const selectIsSamePage = (state) => state.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse } = saveSlice.actions
 
 // export reducer to global
 export default saveSlice.reducer

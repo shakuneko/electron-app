@@ -8,28 +8,43 @@ import {
   } from '@mui/material';
   import { Delete } from '@mui/icons-material';
   import { useDispatch, useSelector } from 'react-redux';
-  import { updateTableData } from '../redux/Actions/saveActions'; // 导入您的更新动作
+  import { updateTableData,updateClassCourseData } from '../redux/Actions/saveActions'; // 导入您的更新动作
+  import { addReserveTableData, upDateClassCourse } from "../redux/reducers/saveSlice"
+  import { setFileName } from '../redux/reducers/saveSlice'
   // import jsonData from '../json/new_class.json'
 
-function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCourseLeft,splitClasses}) {
-  const dispatch = useDispatch();
-
-
+function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCourseLeft,classCourse,setClassCourse}) {
+    const dispatch = useDispatch();
+    // const filteredStudents = []
+    // const [_stuCourse, setStuCourse] = useState(() => filteredStudents);
+    
+    const id = classCourse.classID    
+    console.log("classCourse",id)
     const handleSaveCell = useCallback( // 儲存修改的資料
-        (cell, value, splitClasses, row) => {
+        (cell, value, row) => {
             const stuItem = [] //找到這一row的stuID
             row.original.student.forEach(item => {
                     stuItem.push(item.stuID)
             })
 
-            const filteredStudents = classes
-            .find(item => item.category === "student") // 找到包含学生信息的数据项
-            .stuDetail
-            .filter(student => stuItem.includes(student.stuID))
+            // filteredStudents = classes
+            // .find(item => item.category === "student") // 找到包含学生信息的数据项
+            // .stuDetail
+            // .filter(student => stuItem.includes(student.stuID))
+            // dispatch(updateStuCourseData(filteredStudents));
+            // const { stuCourse } = useSelector((state) => state.root.stuCourse);
+            
+         
+
+          //   const [_stuCourse, setStuCourse] = useState(() => filteredStudents);
+          //   const { stuCourse } = useSelector((state) => state.root.stuCourse);
+          //   useEffect ( () => {
+          //     console.log("stu courses update", stuCourse)
+          // ``}, [stuCourse])
 
             console.log("test01",classes)
             console.log("test02",cell.row.original)
-            console.log("filteredStudents",tableData)
+            // console.log("filteredStudents",filteredStudents)
         if ( tableData[cell.row.index][cell.column.id] !== value){
             //send api delete request here, then refetch or update local table data for re-render
             // let newTableData = [...tableData];
@@ -43,22 +58,51 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 }
                 return item
             });
+            console.log("newTableData",newTableData)
             console.log("test03_compare_value",newTableData[cell.row.index][cell.column.id], value)
             setTableData(newTableData);  // 更新到 local
             dispatch(updateTableData(newTableData));
-            // console.log("splitClasses",splitClasses)
-            if ( cell.row.original.cancel == "否" && cell.row.original.attandence == "是"){
+            dispatch(addReserveTableData({data: newTableData, classID: id}));
+            console.log("!!!!!!!!!!", cell.row.original.cancel, cell.row.original.attandence)
+            if ( newTableData[cell.row.index].cancel == "否" && newTableData[cell.row.index].attandence == "是"){
                 //預約且來了，扣課堂數
-                // splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) + 1
-                // splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) - 1
-                let newTableData = splitClasses.map((item, index) => {
-                  return {
-                      ...item,
-                      [coursesFIN]: parseInt(item.coursesFIN, 10) + 1,
-                      [courseLeft]: parseInt(item.courseLeft, 10) - 1
-                  }
-              });
-              console.log("splitClasses_test",splitClasses)
+                const newClassCourse = {
+                  ...classCourse,
+                  coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),
+                  courseLeft: (parseInt(classCourse.courseLeft, 10) - 1).toString(),
+                };
+                
+                console.log("newClassCourse", newClassCourse);
+                console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
+                dispatch(updateClassCourseData(newClassCourse));
+                dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
+
+                console.log("預約且來了，扣課堂數")
+            }
+
+            else if ( newTableData[cell.row.index].cancel == "是" && newTableData[cell.row.index].attandence == "是"){
+                //取消預約卻出現
+                !confirm(`學生出席跟預約有錯誤，不會取消預約卻來上課`)
+                console.log("錯誤")
+            }
+
+            else if ( newTableData[cell.row.index].cancel == "是" && newTableData[cell.row.index].attandence == "否"){
+                //取消預約，課堂數回來
+                const newClassCourse = {
+                  ...classCourse,
+                  coursesFIN: (parseInt(classCourse.coursesFIN, 10) - 1).toString(),
+                  courseLeft: (parseInt(classCourse.courseLeft, 10) + 1).toString(),
+                };
+                
+                console.log("newClassCourse", newClassCourse);
+                console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
+                dispatch(updateClassCourseData(newClassCourse));
+                dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
+                console.log("取消預約，課堂數回來")
+            }
+
+            else if ( newTableData[cell.row.index].attandence == "否" && newTableData[cell.row.index].attandence == "否"){
+                //預約了，但沒來上課
                 // filteredStudents.forEach(student => {
                 //     student.buyDetail = student.buyDetail.map(detail => {
                 //       if (detail.classID === splitClasses.classID) {
@@ -69,58 +113,19 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 //       return detail;
                 //     });
                 //   });
-                // console.log("預約且來了，扣課堂數")
-                // console.log("splitClasses", splitClasses)
-                // console.log("coursesFIN", splitClasses.coursesFIN)
-                // console.log("courseLeft", splitClasses.courseLeft)
-                // console.log("filteredStudents",filteredStudents)
-                // setTableData(newTableData); 
-                dispatch(updateTableData(newTableData));
-            }
-            // else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "是"){
-            //     //取消預約卻出現
-            //     !confirm(`學生出席跟預約有錯誤，不會取消預約卻來上課`)
-            //     console.log("錯誤")
-            // }
-            // else if ( cell.row.original.cancel == "是" && cell.row.original.attandence == "否"){
-            //     //取消預約，課堂數回來
-            //     splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) - 1
-            //     splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) + 1
-            //     filteredStudents.forEach(student => {
-            //         student.buyDetail = student.buyDetail.map(detail => {
-            //           if (detail.classID === splitClasses.classID) {
-            //             // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
-            //             detail.coursesFIN = parseInt(detail.coursesFIN, 10) - 1
-            //             detail.courseLeft = parseInt(detail.courseLeft, 10) + 1
-            //           }
-            //           return detail;
-            //         });
-            //       });
-            //     console.log("取消預約，課堂數回來")
-            //     console.log("splitClasses", splitClasses)
-            //     console.log("coursesFIN", splitClasses.coursesFIN)
-            //     console.log("courseLeft", splitClasses.courseLeft)
-            //     console.log("filteredStudents",filteredStudents)
-            // }
-            else if ( cell.row.original.attandence == "否"){
-                //預約了，但沒來上課
-            //     // splitClasses.coursesFIN = parseInt(splitClasses.coursesFIN, 10) + 1
-            //     // splitClasses.courseLeft = parseInt(splitClasses.courseLeft, 10) - 1
-            //     // filteredStudents.forEach(student => {
-            //     //     student.buyDetail = student.buyDetail.map(detail => {
-            //     //       if (detail.classID === splitClasses.classID) {
-            //     //         // 如果 classID 匹配目标 classID，则修改 courseLEFT 和 courseFIN 的值
-            //     //         detail.coursesFIN = parseInt(detail.coursesFIN, 10) + 1
-            //     //         detail.courseLeft = parseInt(detail.courseLeft, 10) - 1
-            //     //       }
-            //     //       return detail;
-            //     //     });
-            //     //   });
-                // console.log("預約了，但沒來上課")
-                // console.log("splitClasses", splitClasses)
-                // console.log("coursesFIN", splitClasses.coursesFIN)
-                // console.log("courseLeft", splitClasses.courseLeft)
-                // console.log("filteredStudents",splitClasses)
+                const newClassCourse = {
+                  ...classCourse,
+                  coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),
+                  courseLeft: (parseInt(classCourse.courseLeft, 10) - 1).toString(),
+                };
+                
+                console.log("newClassCourse", newClassCourse);
+                console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
+                dispatch(updateClassCourseData(newClassCourse));
+                dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
+
+                console.log("預約了，但沒來上課")
+                
             }
         }
             // const content = JSON.parse(tableData)
@@ -229,7 +234,7 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             muiTableBodyCellEditTextFieldProps={({ cell, row }) => ({
                 //onBlur is more efficient, but could use onChange instead
                 onBlur: (event) => {
-                handleSaveCell(cell, event.target.value, splitClasses, row);
+                handleSaveCell(cell, event.target.value, row);
                 },
             })}
             renderBottomToolbarCustomActions={() => (
