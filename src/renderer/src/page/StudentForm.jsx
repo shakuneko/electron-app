@@ -18,6 +18,7 @@ function StudentForm(props){
   const dispatch = useDispatch(); // 获取dispatch函数的引用
   const [newStudentData, setNewStudentData] = useState({});
   const initialFormData = {
+    stuID:'',
     stuName:'',
     stuGender: '',
     stuPhone: '',
@@ -28,6 +29,7 @@ function StudentForm(props){
     stuContact_tel:'',
     stuNote:'',
     createDate:'',
+    buyDetail: [],
   };
    // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
@@ -77,9 +79,9 @@ function StudentForm(props){
     setNewStudentData(
       _newStudentData
     );
-
+    dispatch(updateStuForm([...stuForm, _newStudentData]))
     dispatch(setStudentFormSave({
-      data: stuForm,
+      data:[...stuForm, _newStudentData],
       id: newStudentID
     }));
     // 导入JSON数据
