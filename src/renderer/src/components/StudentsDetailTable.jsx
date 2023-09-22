@@ -21,7 +21,7 @@ function StudentsDetailTable({ stuBuyDetailData }) {
             accessorKey:"buyDate",
             header:"日期",
             size:100,
-            enableEditing:false
+            enableEditing:false,
         },
         {
             accessorKey:"courseType",
@@ -66,7 +66,8 @@ function StudentsDetailTable({ stuBuyDetailData }) {
             accessorKey:"buyNote",
             header:"備註",
             size:100,
-            enableSorting: false
+            enableSorting: false,
+            enableEditing:false
         }
     ];
 
@@ -85,8 +86,8 @@ function StudentsDetailTable({ stuBuyDetailData }) {
             enableHiding={false} //column hiding does not work with memoized table body
             enableStickyHeader
             enableFacetedValues
-            editingMode="cell"
-            enableEditing     
+            // editingMode="cell"
+            // enableEditing     
             muiTableBodyCellEditTextFieldProps={({ cell }) => ({
                 //onBlur is more efficient, but could use onChange instead
                 onBlur: (event) => {
