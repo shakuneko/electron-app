@@ -37,15 +37,16 @@ const saveSlice = createSlice({
     },
     setStudentFormSave: (state, action) => {
       console.log('setStudentForm Action:', action.payload)
-      console.log("addReserveTableData state", state);
+      console.log("addReserveTableData state", current(state.fileName.newJsonData[1]));
       let current_state = current(state)
       const id = action.payload.id;
-      state.fileName.newJsonData[1].stuDetail=current_state.fileName.newJsonData[1].stuDetail.map((item) => {
-        if (item.id == id) {
-          state.fileName.newJsonData[1].stuDetail = action.payload.data;
-        }
+      let student = current_state.fileName.newJsonData[1]
+      const newData = student= {
+            ...student,
+            stuDetail: action.payload.data
       }
-      )
+      state.fileName.newJsonData[1] = newData
+      console.log("setStudentFormSave state", current(state));
     },
     addReserveTableData: (state, action) => {
       console.log("addReserveTableData payload", action.payload);

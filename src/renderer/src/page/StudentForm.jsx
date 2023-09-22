@@ -33,8 +33,11 @@ function StudentForm(props){
   };
    // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
+   let newStuData = props.classes[1].stuDetail.map((item, index) => {
+      return item
+    });
 
-
+    console.log("newStuData",newStuData)
    // 定義一個處理表單輸入變化的函數
    const handleInputChange = (event) => {
       // 從事件對象中獲取輸入的名稱和值
@@ -79,9 +82,10 @@ function StudentForm(props){
     setNewStudentData(
       _newStudentData
     );
-    dispatch(updateStuForm([...stuForm, _newStudentData]))
+    dispatch(updateStuForm([...newStuData, _newStudentData]))
     dispatch(setStudentFormSave({
-      data:[...stuForm, _newStudentData],
+      data:[...newStuData, _newStudentData],
+      category: "student",
       id: newStudentID
     }));
     // 导入JSON数据
