@@ -78,7 +78,7 @@ function StudentForm(props){
       _newStudentData
     );
 
-    dispatch(setStudentForm({
+    dispatch(setStudentFormSave({
       data: stuForm,
       id: newStudentID
     }));
