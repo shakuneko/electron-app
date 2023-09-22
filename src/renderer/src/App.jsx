@@ -136,7 +136,7 @@ function App() {
 
         <Route path="/coach">
 
-          <Route path="form" element={<CoachFrom classes={classes} />} />
+          <Route path="form" element={<CoachFrom classes={fileContent.newJsonData} />} />
           {/* <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} /> */}
           <Route path="name/:coachID" element={<CoachDetail classes={fileContent.newJsonData} />} />
 

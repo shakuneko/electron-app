@@ -37,6 +37,12 @@ function CoachForm(props) {
   };
 // 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
+
+let newCoachData = props.classes[2].coachDetail.map((item, index) => {
+  return item
+});
+console.log("newCoachData",newCoachData)
+
 //複選按鈕
 const [selectedOptions, setSelectedOptions] = useState([]); // 用于存储选中的选项
 // 定義一個處理表單輸入變化的函數
