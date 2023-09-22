@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch } from 'react-redux';
 import { updateCoachName } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
-
+import { setCoachFormSave } from "../redux/reducers/saveSlice";
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
   const maxID = Math.max(...existingIDs);
@@ -16,6 +16,7 @@ function generateUniqueID(existingIDs) {
 
 function CoachForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
+  const [newCoaData, setNewCoaData] = useState({});
   const initialFormData = {
     coachName:'',
     coachGender: '',
@@ -37,6 +38,10 @@ function CoachForm(props) {
   };
 // 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
+let newCoachData = props.classes[2].coachDetail.map((item, index) => {
+  return item
+});
+console.log("newCoachData",newCoachData)
 //複選按鈕
 const [selectedOptions, setSelectedOptions] = useState([]); // 用于存储选中的选项
 // 定義一個處理表單輸入變化的函數
@@ -77,7 +82,7 @@ const handleItemClick = (item) => {
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
-dispatch(updateCoachName(coachForm));
+// dispatch(updateCoachName(coachForm));
 // props.updateCoachName(coachForm)
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
@@ -87,7 +92,7 @@ console.log('表单数据：', coachForm);
 const existingCoachIDs = jsonData.find((item) => item.category === 'coach').coachDetail.map((coach) => parseInt(coach.coachID));
 const newCoachID = generateUniqueID(existingCoachIDs);
 
- const newCoachData = {
+ let _newCoachData = {
   coachID: newCoachID,
   coachName:coachForm.coachName,
   coachGender:coachForm.coachGender,
@@ -108,10 +113,18 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   MassageSalary:coachForm.MassageSalary, 
   teachClass:[],
 };
-
+setNewCoaData(
+  _newCoachData
+);
+dispatch(updateCoachName([...newCoachData, _newCoachData]))
+    dispatch(setCoachFormSave({
+      data:[...newCoachData, _newCoachData],
+      category: "coach",
+      id:  newCoachID
+    }));
   const updatedJsonData = [...jsonData];
     // 将新的学生数据添加到JSON中
-  updatedJsonData.find((item) => item.category === 'coach').coachDetail.push(newCoachData);
+  updatedJsonData.find((item) => item.category === 'coach').coachDetail.push(_newCoachData);
 
   // 清除表单数据为初始状态
   setCoachForm(initialFormData);

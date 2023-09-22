@@ -37,6 +37,31 @@ const saveSlice = createSlice({
       } 
       state.oldHash = state.currentPageHash
     },
+    setStudentFormSave: (state, action) => {
+      console.log('setStudentForm Action:', action.payload)
+      console.log("addReserveTableData state", current(state.fileName.newJsonData[1]));
+      let current_state = current(state)
+      const id = action.payload.id;
+      let student = current_state.fileName.newJsonData[1]
+      const newData = student= {
+            ...student,
+            stuDetail: action.payload.data
+      }
+      state.fileName.newJsonData[1] = newData
+      console.log("setCoachForm state", current(state));
+    },
+    setCoachFormSave: (state, action) => {
+      console.log('setCoachForm Action:', action.payload)
+      console.log("addReserveTableData state", current(state.fileName.newJsonData[2]));
+      let current_state = current(state)
+      let coach = current_state.fileName.newJsonData[2]
+      const newData = coach= {
+            ...coach,
+            coachDetail: action.payload.data
+      }
+      state.fileName.newJsonData[2] = newData
+      console.log("setCoachFormSave state", current(state));
+    },
     addReserveTableData: (state, action) => {
       console.log("addReserveTableData payload", action.payload);
       console.log("addReserveTableData state", state);
@@ -90,7 +115,7 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,setStudentFormSave,setCoachFormSave } = saveSlice.actions
 
 // export reducer to global
 export default saveSlice.reducer

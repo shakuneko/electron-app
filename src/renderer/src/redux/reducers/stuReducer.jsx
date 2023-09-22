@@ -1,55 +1,48 @@
 import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     stuForm:{
+      stuID:'',
       stuName:'',
       stuGender: '',
-      stutPhone: '',
+      stuPhone: '',
       stuEmail: '',
       stuAddress: '',
       stuContact: '',
       stuRelation:'',
       stuContact_tel:'',
       stuNote:'',
+      createDate:'',
+      buyDetail: [],
     },
-    jsonDate:[]
   };
-  const formSlice = createSlice({
-    name: 'form',
-    initialState,
-    reducers: {
-      updateStuForm: (state, action) => {
-        state.jsonDate = [...state.jsonDate, action.payload];
-      },
-    },
-  });
+//   const formSlice = createSlice({
+//     name: 'form',
+//     initialState,
+//     reducers: {
+//       updateStuForm: (state, action) => {
+//         state.jsonDate = [...state.jsonDate, action.payload];
+//       },
+//     },
+//   });
   
-  export const { updateStuForm } = formSlice.actions;
+//   export const { updateStuForm } = formSlice.actions;
   
-  export default formSlice.reducer;
-  // const formReducer = (state = initialState, action) => {
-  //   switch (action.type) {
-  //       case 'UPDATE_STU_FORM':
-  //         // const { stuName, stuGender, stuPhone, stuEmail, stuAddress, stuAccount, stuContact, stuRelation, stuContact_tel, stuNote } = action.payload;
-  //       return {
-  //         ...state,
-  //         jsonDate:state.jsonDate.concat(action.payload),
-  //         // stuForm: 
-  //         //   {...state.coachForm,
-  //         //     stuName,
-  //         //     stuGender, 
-  //         //     stuPhone, 
-  //         //     stuEmail, 
-  //         //     stuAddress,  
-  //         //     stuAccount, 
-  //         //     stuContact, 
-  //         //     stuRelation, 
-  //         //     stuContact_tel, 
-  //         //     stuNote }, 
-  //       };
+//   export default formSlice.reducer;
+  const formReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case 'UPDATE_STU_FORM':
+          // const { stuName, stuGender, stuPhone, stuEmail, stuAddress, stuAccount, stuContact, stuRelation, stuContact_tel, stuNote } = action.payload;
+          return {
+                    ...state,
+                    stuForm: {
+                      ...state.stuForm,
+                      ...action.payload,
+                    },
+                  };
       
-  //     default:
-  //       return state;
-  //   }
-  // };
+      default:
+        return state;
+    }
+  };
   
-  // export default formReducer;
+  export default formReducer;

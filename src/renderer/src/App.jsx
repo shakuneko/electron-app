@@ -130,13 +130,13 @@ function App() {
         </Route>
 
         <Route path="/student">
-          <Route path="form" element={<StudentForm />} />
+          <Route path="form" element={<StudentForm classes={fileContent.newJsonData}/>} />
           <Route path="name/:stuID" element={<StudentDetail classes={fileContent.newJsonData}/>} />
         </Route>
 
         <Route path="/coach">
 
-          <Route path="form" element={<CoachFrom classes={classes} />} />
+          <Route path="form" element={<CoachFrom classes={fileContent.newJsonData} />} />
           {/* <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} /> */}
           <Route path="name/:coachID" element={<CoachDetail classes={fileContent.newJsonData} />} />
 
