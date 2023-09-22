@@ -8,6 +8,9 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
   function ReserveTime(props) {
     const dispatch = useDispatch(); // 获取dispatch函数的引用
     const {tableData,setTableData} = props;
+    const classes = props.classes;
+    const id = props.classes.classID
+    console.log("classes", classes)
     const initialFormData = {
       reserveDate:'',
       reserveTime:'',
@@ -135,7 +138,7 @@ const handleSubmit = () => {
       // classItem.reserveDetail.push(newReserveData);
       // setTableData(classItem.reserveDetail);
       dispatch(updateTableData([...tableData, newReserveData]))
-      // dispatch(addReserveTableData({data: newReserveData, classID: id}));
+      dispatch(addReserveTableData({data: [...tableData, newReserveData], classID: id}));
     } 
   });
 
