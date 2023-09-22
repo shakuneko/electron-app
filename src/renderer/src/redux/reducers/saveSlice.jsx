@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 import hash from 'object-hash'
 // Part1: Define Slice (including reducers and actions)
 import originalJson from '../../json/class.json'
@@ -36,22 +36,29 @@ const saveSlice = createSlice({
       state.oldHash = state.currentPageHash
     },
     addReserveTableData: (state, action) => {
-      console.log("test payload", state.fileName.newJsonData[0].classDetail);
-      state.fileName.newJsonData[0].classDetail= state.fileName.newJsonData[0].classDetail.map((item) => {
-        if(item.classID === action.payload.classID) {
-          console.log("test payload", action.payload);
+      console.log("addReserveTableData payload", action.payload);
+      console.log("addReserveTableData state", state);
+
+      // console.log("addReserveTableData payload", state.fileName.newJsonData[0].classDetail);
+      let current_state = current(state)
+      state.fileName.newJsonData[0].classDetail = current_state.fileName.newJsonData[0].classDetail.map((item) => {
+        console.log('addReserveTableData item', item, action.payload.classID)
+        if (item.classID === action.payload.classID) {
+          console.log("addReserveTableData payload", action.payload);
           return {
             ...item,
             reserveDetail: action.payload.data
           }
         }
         return item;
-          
+
       })
+      console.log("addReserveTableData state", current(state));
 
     },
     upDateClassCourse: (state, action) => {
-      state.fileName.newJsonData[0].classDetail= state.fileName.newJsonData [0].classDetail.map((item) => {
+      let current_state = current(state)
+      state.fileName.newJsonData[0].classDetail= current_state.fileName.newJsonData [0].classDetail.map((item) => {
         if(item.classID === action.payload.classID) {
           console.log("test class course payload", action.payload);
           return {
@@ -61,6 +68,7 @@ const saveSlice = createSlice({
         return item;
           
       })
+      console.log("addReserveTableData state", current(state));
     },
     // upDateStuCourse: (state, action) => {
 
