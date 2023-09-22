@@ -101,7 +101,7 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 console.log("取消預約，課堂數回來")
             }
 
-            else if ( newTableData[cell.row.index].attandence == "否" && newTableData[cell.row.index].attandence == "否"){
+            else if (  newTableData[cell.row.index].attandence == "否" && newTableData[cell.row.index].attandence == "否"){
                 //預約了，但沒來上課
                 // filteredStudents.forEach(student => {
                 //     student.buyDetail = student.buyDetail.map(detail => {
@@ -149,12 +149,30 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
           setTableData([...tableData]);
           const newTableData = tableData.filter((item, index) => index !== row.index);
           dispatch(updateTableData(newTableData));
+          dispatch(addReserveTableData({data: newTableData, classID: id}));
         },
         [tableData],
       );
 
     // console.log("tableData",tableData)
     const columns = [ //表格有的資料
+          {
+            id:"delete",
+            header:"刪除",
+            Cell:({ row }) => {
+              return <>
+              <Box sx={{ display: 'flex' }}>
+                <Tooltip arrow placement="right" title="Delete">
+                    <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                        <Delete />
+                    </IconButton>
+                </Tooltip>
+              </Box>
+              </>
+
+            },
+            size:50,
+        },
         {
             accessorFn: (row) => {
                 const newData = row.student.map((item) => {
@@ -173,11 +191,13 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             accessorKey:"reserveDate",
             header:"日期",
             size:100,
+            enableEditing: false
         },
         {
             accessorKey:"reserveTime",
             header:"時間",
             size:100,
+            enableEditing: false
         },
         {
             accessorKey:"attandence",
@@ -197,7 +217,8 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             accessorKey:"note",
             header:"備註",
             size:200,
-            enableSorting: false
+            enableSorting: false,
+            enableEditing: false
          }
     ];
 
@@ -216,21 +237,21 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             enableStickyHeader
             enableFacetedValues
             // enableRowSelection
-            enableRowActions
+            // enableRowActions
             // getRowId={(row) => row.userId} //give each row a more useful id
             // onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
             // state={{ rowSelection }} //pass our managed row selection state to the table to use
             editingMode="cell"
             enableEditing
-            renderRowActions={({ row }) => (
-                <Box sx={{ display: 'flex', gap: '1rem' }}>
-                    <Tooltip arrow placement="right" title="Delete">
-                        <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                            <Delete />
-                        </IconButton>
-                    </Tooltip>
-                </Box>
-            )}
+            // renderRowActions={({ row }) => (
+            //     <Box sx={{ display: 'flex', gap: '1rem' }}>
+            //         <Tooltip arrow placement="right" title="Delete">
+            //             <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+            //                 <Delete />
+            //             </IconButton>
+            //         </Tooltip>
+            //     </Box>
+            // )}
             muiTableBodyCellEditTextFieldProps={({ cell, row }) => ({
                 //onBlur is more efficient, but could use onChange instead
                 onBlur: (event) => {

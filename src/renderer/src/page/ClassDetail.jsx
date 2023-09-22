@@ -84,7 +84,7 @@ function ClassDetail({classes}) {
                         <p className="classCoachBox-item">教練：{splitData(coachNames)}</p>
                         <p className="classCoachBox-item">學員：{splitData(stuNames)}</p>
                         <p className="classCoachBox-item">{Class.courseLeft} / {Class.coursesAll}</p>
-                        <button onClick={()=> console.log(classes)}>pp</button>
+                        {/* <button onClick={()=> console.log(classes)}>pp</button> */}
                     </div>
 
                     <div className="row">

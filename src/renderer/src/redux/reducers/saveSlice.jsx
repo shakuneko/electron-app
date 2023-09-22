@@ -17,6 +17,8 @@ const saveSlice = createSlice({
     setFileName:(state, action) => {
       // const fileName = action.payload;
       state.fileName = action.payload;
+      const current_state = current(state)
+      console.log("setFileName", current_state.fileName)
     },
     setHasinit: (state, action) => {
       const hasInit = action.payload;
@@ -56,6 +58,7 @@ const saveSlice = createSlice({
       let current_state = current(state)
       state.fileName.newJsonData[0].classDetail = current_state.fileName.newJsonData[0].classDetail.map((item) => {
         console.log('addReserveTableData item', item, action.payload.classID)
+        console.log('addReserveTableData classID', action.payload.classID)
         if (item.classID === action.payload.classID) {
           console.log("addReserveTableData payload", action.payload);
           return {
