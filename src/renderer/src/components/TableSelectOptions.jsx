@@ -29,27 +29,29 @@ export const selectOptions = [ //下拉選單篩選
 
 export const columnsRevenue = [
     {
-        accessorKey:"courseType",
+        accessorKey:"classType",
         header:"項目名稱"
     },
     {
-        accessorKey:"preCourseLeft",
+        accessorKey:"classLeft",
         header:"上月未核銷堂數",
     },
     {
-        accessorFn: (row) => `${row.salary*row.preCourseLeft} `,
+        // accessorFn: (row) => `${row.salary*row.preCourseLeft} `,
+        accessorKey:"totalLeftSalary",
         id:"lastMonthMoney",
         // accessorKey:"preCourseLeft",
         header:"上月未核銷金額",
         // Cell:CountMoney
     },
     {
-        accessorKey:"courseLeft",
+        accessorKey:"classLeft",
         header:"本月未核銷堂數",
         
     },
     {
-        accessorFn: (row) => `${row.salary*row.courseLeft} `,
+        // accessorFn: (row) => `${row.salary*row.courseLeft} `,
+        accessorKey:"totalLeftSalary",
         id:"thisMonthMoney",
         // accessorKey:"courseLeft",
         header:"本月未核銷金額",       
@@ -59,7 +61,7 @@ export const columnsRevenue = [
 
 export const columnsMoney = [
     {
-        accessorKey:"couch",
+        accessorKey:"coachName",
         header:"教練名稱",
         size:100
     },
@@ -79,11 +81,11 @@ export const columnsMoney = [
         id:"major",
         header:"課程種類",
         Cell: ({ renderedCellValue }) => (<span>{renderedCellValue}</span>),
-        size:100,
+        size:150,
         
     },
     {
-        accessorKey:"coursesAll",
+        accessorKey:"exCourseCount",
         header:"體驗課堂數",
         size:100
     }

@@ -4,7 +4,7 @@ import hash from 'object-hash'
 import originalJson from '../../json/class.json'
 
 const initialState = {
-  fileName: '',
+  fileName: {},
   hasInit: false,
   currentPageHash: '',//傳進來的value
   oldHash: hash(originalJson),
@@ -15,8 +15,8 @@ const saveSlice = createSlice({
   initialState,
   reducers: {
     setFileName:(state, action) => {
-      const fileName = action.payload;
-      state.fileName = fileName;
+      // const fileName = action.payload;
+      state.fileName = action.payload;
     },
     setHasinit: (state, action) => {
       const hasInit = action.payload;
@@ -71,11 +71,11 @@ const saveSlice = createSlice({
 })
 
 // export state to global
-export const selectFileName = (state) => state.save.fileName
-export const selectHasInit = (state) => state.save.hasInit
-export const selectSaveState = (state) => state.save.currentPageHash
-export const selectOldHash = (state) => state.save.oldHash
-export const selectIsSamePage = (state) => state.save.isSameObject
+export const selectFileName = (state) => state.root.save.fileName
+export const selectHasInit = (state) => state.root.save.hasInit
+export const selectSaveState = (state) => state.root.save.currentPageHash
+export const selectOldHash = (state) => state.root.save.oldHash
+export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global

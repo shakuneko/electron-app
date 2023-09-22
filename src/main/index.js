@@ -7,6 +7,32 @@ import os from 'os'
 
 //home directory
 const homedir = os.homedir()
+const directoryPath = `${homedir}/Desktop/AzusaBackUp`
+
+//check folder
+const checkFolder = async () => {
+  try {
+    fs.access(directoryPath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log('The directory does not exist.');
+        fs.mkdir(directoryPath, (err) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          console.log('The directory was created successfully!')
+        })
+      }
+
+      console.log('The directory exists.')
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+checkFolder()
+
 
 function createWindow() {
   // Create the browser window.
@@ -43,7 +69,7 @@ function createWindow() {
 
   //write file
   ipcMain.handle('writeFile', (event, arg) => {
-    const filePath = `${homedir}/Desktop/AzusaBackUp/${arg.fileName}`
+    const filePath = `${directoryPath}/${arg.fileName}`
     mainWindow.webContents.send('filePathInfo', filePath)
     try {
       fs.writeFile(filePath, arg.data, (err) => {
@@ -61,16 +87,12 @@ function createWindow() {
 
   //read file
   ipcMain.handle('readFile', (event, arg) => {
-    const filePath = `${homedir}/Desktop/AzusaBackUp/${arg.fileName}`
+    const filePath = `${directoryPath}/${arg.fileName}`
     return fs.readFile(filePath, 'utf-8')
   })
 
   //close window and save file
-  mainWindow.on('closeWindow', () => {
-    ipcMain.removeAllListeners()
-    ipcMain.removeHandler('writeFile')
-    ipcMain.removeHandler('readFile')
-    ipcMain.removeHandler('closeWindow')
+  ipcMain.handle('closeWindow', () => {
     mainWindow.destroy()
   })
   mainWindow.on('close', (event) => {
@@ -78,7 +100,11 @@ function createWindow() {
     mainWindow.webContents.send('readyToClose')
   })
   mainWindow.on('closed', () => {
-    mainWindow = null
+    ipcMain.removeAllListeners()
+    ipcMain.removeHandler('writeFile')
+    ipcMain.removeHandler('readFile')
+    ipcMain.removeHandler('closeWindow')
+   // mainWindow = null
   })
   // let showExitPrompt = true
   // win.on('close', (event) => {

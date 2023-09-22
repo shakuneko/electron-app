@@ -57,12 +57,19 @@ function App() {
   }
 
   //ready to close window and save file
+  
   const onReadyToCloseWindows= async () => {
+    console.log("fileContent:", fileContent)
+    console.log("fileContentjson:", fileContent.newJsonData, !!fileContent.newJsonData)
+    if(!!fileContent?.newJsonData){
     console.log("fileContentjson:", fileContent)
     const data = JSON.stringify( fileContent )
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
+    }
     await window.api.closeWindow();
+    
   }
+
 
   const onInitState = async () => {
     try{
@@ -96,6 +103,7 @@ function App() {
       setFilePathInfo(filePath)
     })
     ipcRenderer.on('readyToClose', (_) => {
+      console.log("ready to close",fileContent)
       onReadyToCloseWindows();
     })
     //now use hasInit flag to stop listening
@@ -105,15 +113,16 @@ function App() {
     // }
   }, [])
 
+  console.log("fileContent:", fileContent)
   return (
-    isLoading?(<div>loading...</div> ):(
+    isLoading||!fileContent.newJsonData ? (<div>loading...</div> ):(
     <HashRouter>
       <Routes>
         <Route path="/" element={<ClassTable classes={fileContent.newJsonData}/>} />
         <Route path="/student" element={<StudentTable classes={fileContent.newJsonData}/>}></Route>
         {/* <Route path="/coach" element={<CoachTable classes={newJson} />} /> */}
         <Route path="/coach" element={<CoachTable classes={fileContent.newJsonData} />} />
-        <Route path="/revenue" element={<Revenue classes={classes} />} />
+        <Route path="/revenue" element={<Revenue classes={fileContent.newJsonData} />} />
 
         <Route path="classes">
           <Route path="form" element={<ClassForm />} />
