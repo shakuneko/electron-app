@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { MaterialReactTable } from 'material-react-table'
 import React, { useEffect, useCallback, useState } from 'react';
-import newJson from '../json/new_class.json'
+// import newJson from '../json/new_class.json'
 import { selectOptions, CheckOut, splitData } from './TableSelectOptions'
 import {
   Box,
@@ -9,50 +9,52 @@ import {
   Tooltip,
 } from '@mui/material';
 import { Delete } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { updateTableData } from '../redux/Actions/saveActions'; // 导入您的更新动作
+import { addReserveTableData } from "../redux/reducers/saveSlice"
 
-function CoachDetailTable({ classes }) {
+function CoachDetailTable({ classes, tableData, setTableData }) {
   //optionally, you can manage the row selection state yourself
-    // 獲取教練所教授的課程的 classID
-  const teachClassIDs = classes.teachClass.map(students => students.classID);
+  const dispatch = useDispatch();
 
-  //使用 classID 在 classDetail 中找到相對應的課程資料
-  const classDetailData = newJson.find(item => item.category === "class").classDetail.filter(classData => teachClassIDs.includes(classData.classID));
-  console.log(classDetailData);
 
-  // 將預約資料放進去
-  let reserveData = []
-  classDetailData.forEach(item => {
-      for (let i = 0; i < item.reserveDetail.length; i++) {
-        reserveData.push(item.reserveDetail[i])
-      }
-  })
-  console.log('aaabclasses:', reserveData)
-
-  const [rowSelection, setRowSelection] = useState({})
-
-  //console.log('aaaclasses:', detailData)
-  useEffect(() => {
-    //do something when the row selection changes...
-    //console.info({ rowSelection });
-  }, [rowSelection])
-
-  const [tableData, setTableData] = useState(() => reserveData);
-  const handleDeleteRow = useCallback(
-    (row) => {
-      if (
-        !confirm(`確定刪除此欄資料`)
-      ) {
-        return;
-      }
-      //send api delete request here, then refetch or update local table data for re-render
-      tableData.splice(row.index, 1);
-      setTableData([...tableData]);
-    },
-    [tableData],
-  );
+  // const [tableData, setTableData] = useState(() => reserveData);
+  // const handleDeleteRow = useCallback( //  儲存刪除
+  // (row) => {
+  //     if (
+  //       !confirm(`確定刪除此欄資料`)
+  //     ) {
+  //       return;
+  //     }
+  //     //send api delete request here, then refetch or update local table data for re-render
+  //     // tableData.splice(row.index, 1);
+  //     setTableData([...tableData]);
+  //     const newTableData = tableData.filter((item, index) => index !== row.index);
+  //     dispatch(updateTableData(newTableData));
+  //     dispatch(addReserveTableData({data: newTableData, classID: id}));
+  //   },
+  //   [tableData],
+  // );
 
   const columns = [
     //表格有的資料
+    // {
+    //   id:"delete",
+    //   header:"刪除",
+    //   Cell:({ row }) => {
+    //     return <>
+    //     <Box sx={{ display: 'flex' }}>
+    //       <Tooltip arrow placement="right" title="Delete">
+    //           <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+    //               <Delete />
+    //           </IconButton>
+    //       </Tooltip>
+    //     </Box>
+    //     </>
+
+    //   },
+    //   size:50,
+    // },
     {
       accessorFn: (row) => `${row.student[0].courseType} `,
       id:"courseType",
@@ -121,16 +123,16 @@ function CoachDetailTable({ classes }) {
       // getRowId={(row) => row.userId} //give each row a more useful id
       // onRowSelectionChange={setRowSelection} //connect internal row selection state to your own
       // state={{ rowSelection }} //pass our managed row selection state to the table to use
-      enableRowActions
-      renderRowActions={({ row }) => (
-        <Box sx={{ display: 'flex', gap: '1rem' }}>
-            <Tooltip arrow placement="right" title="Delete">
-                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                    <Delete />
-                </IconButton>
-            </Tooltip>
-        </Box>
-      )}
+      // enableRowActions
+      // renderRowActions={({ row }) => (
+      //   <Box sx={{ display: 'flex', gap: '1rem' }}>
+      //       <Tooltip arrow placement="right" title="Delete">
+      //           <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+      //               <Delete />
+      //           </IconButton>
+      //       </Tooltip>
+      //   </Box>
+      // )}
     />
   )
 }
