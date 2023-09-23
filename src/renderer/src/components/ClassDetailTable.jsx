@@ -15,6 +15,7 @@ import {
 
 function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCourseLeft,classCourse,setClassCourse}) {
     const dispatch = useDispatch();
+    const [recordCourseCount, setRecordCourseCount] = useState([]);
     // const filteredStudents = []
     // const [_stuCourse, setStuCourse] = useState(() => filteredStudents);
     
@@ -58,51 +59,63 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 }
                 return item
             });
-            console.log("index num", cell.row.index)
-            console.log("newTableData",newTableData)
-            console.log("test03_compare_value",newTableData[cell.row.index][cell.column.id], value)
+
+            // console.log("newTableData",newTableData)
+            // console.log("test03_compare_value",newTableData[cell.row.index][cell.column.id], value)
             setTableData(newTableData);  // 更新到 local
             dispatch(updateTableData(newTableData));
             dispatch(addReserveTableData({data: newTableData, classID: id}));
-            console.log("!!!!!!!!!!", cell.row.original.cancel, cell.row.original.attandence)
+
             if ( newTableData[cell.row.index].cancel == "否" && newTableData[cell.row.index].attandence == "是"){
                 //預約且來了，扣課堂數
-                const newClassCourse = {
-                  ...classCourse,
-                  coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),
-                  courseLeft: (parseInt(classCourse.courseLeft, 10) - 1).toString(),
-                };
-                
-                console.log("newClassCourse", newClassCourse);
-                console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
-                dispatch(updateClassCourseData(newClassCourse));
-                dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
-
-                console.log("預約且來了，扣課堂數")
+                console.log("紀錄index 外面", recordCourseCount)
+                if (!recordCourseCount.includes(cell.row.index)){
+                    setRecordCourseCount([...recordCourseCount, cell.row.index]);
+                    console.log("紀錄index 裡面", recordCourseCount)
+                    const newClassCourse = {
+                      ...classCourse,
+                      coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),
+                      courseLeft: (parseInt(classCourse.courseLeft, 10) - 1).toString(),
+                    };
+                    
+                    console.log("newClassCourse", newClassCourse);
+                    console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
+                    dispatch(updateClassCourseData(newClassCourse));
+                    dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
+    
+                    console.log("預約且來了，扣課堂數")
+                } 
             }
 
             else if ( newTableData[cell.row.index].cancel == "是" && newTableData[cell.row.index].attandence == "是"){
                 //取消預約卻出現
-                !confirm(`學生出席跟預約有錯誤，不會取消預約卻來上課`)
+                // window.alert("學生出席跟預約有錯誤，不應取消預約卻來上課");
+                // setTimeout(() => { alert('學生出席跟預約有錯誤，不應取消預約卻來上課'); }, 1);
                 console.log("錯誤")
+                // return
             }
 
             else if ( newTableData[cell.row.index].cancel == "是" && newTableData[cell.row.index].attandence == "否"){
                 //取消預約，課堂數回來
-                const newClassCourse = {
-                  ...classCourse,
-                  coursesFIN: (parseInt(classCourse.coursesFIN, 10) - 1).toString(),
-                  courseLeft: (parseInt(classCourse.courseLeft, 10) + 1).toString(),
-                };
-                
-                console.log("newClassCourse", newClassCourse);
-                console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
-                dispatch(updateClassCourseData(newClassCourse));
-                dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
-                console.log("取消預約，課堂數回來")
+                console.log("紀錄index 外面", recordCourseCount)
+                if (recordCourseCount.includes(cell.row.index)){
+                    setRecordCourseCount([...recordCourseCount, cell.row.index]);
+                    console.log("紀錄index 裡面", recordCourseCount)
+                    const newClassCourse = {
+                      ...classCourse,
+                      coursesFIN: (parseInt(classCourse.coursesFIN, 10) - 1).toString(),
+                      courseLeft: (parseInt(classCourse.courseLeft, 10) + 1).toString(),
+                    };
+                    
+                    console.log("newClassCourse", newClassCourse);
+                    console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
+                    dispatch(updateClassCourseData(newClassCourse));
+                    dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
+                    console.log("取消預約，課堂數回來")
+                }
             }
 
-            else if (  newTableData[cell.row.index].attandence == "否" && newTableData[cell.row.index].attandence == "否"){
+            else if (  newTableData[cell.row.index].cancel == "否" && newTableData[cell.row.index].attandence == "否"){
                 //預約了，但沒來上課
                 // filteredStudents.forEach(student => {
                 //     student.buyDetail = student.buyDetail.map(detail => {
@@ -114,19 +127,23 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 //       return detail;
                 //     });
                 //   });
-                const newClassCourse = {
-                  ...classCourse,
-                  coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),
-                  courseLeft: (parseInt(classCourse.courseLeft, 10) - 1).toString(),
-                };
-                
-                console.log("newClassCourse", newClassCourse);
-                console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
-                dispatch(updateClassCourseData(newClassCourse));
-                dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
+                console.log("紀錄index 外面", recordCourseCount)
+                if (!recordCourseCount.includes(cell.row.index)){
+                    setRecordCourseCount([...recordCourseCount, cell.row.index]);
+                    console.log("紀錄index 裡面", recordCourseCount)
+                    const newClassCourse = {
+                      ...classCourse,
+                      coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),
+                      courseLeft: (parseInt(classCourse.courseLeft, 10) - 1).toString(),
+                    };
+                    
+                    console.log("newClassCourse", newClassCourse);
+                    console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
+                    dispatch(updateClassCourseData(newClassCourse));
+                    dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
 
-                console.log("預約了，但沒來上課")
-                
+                    console.log("預約了，但沒來上課")
+              }
             }
         }
             // const content = JSON.parse(tableData)
@@ -219,7 +236,7 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
             header:"備註",
             size:200,
             enableSorting: false,
-            enableEditing: false
+            // enableEditing: false
          }
     ];
 

@@ -63,8 +63,8 @@ const saveSlice = createSlice({
       console.log("setCoachFormSave state", current(state));
     },
     addReserveTableData: (state, action) => {
-      console.log("addReserveTableData payload", action.payload);
-      console.log("addReserveTableData state", state);
+      // console.log("addReserveTableData payload", action.payload);
+      // console.log("addReserveTableData state", state);
 
       // console.log("addReserveTableData payload", state.fileName.newJsonData[0].classDetail);
       let current_state = current(state)
