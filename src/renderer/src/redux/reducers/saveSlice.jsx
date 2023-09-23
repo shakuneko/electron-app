@@ -68,7 +68,7 @@ const saveSlice = createSlice({
 
       // console.log("addReserveTableData payload", state.fileName.newJsonData[0].classDetail);
       let current_state = current(state)
-      state.fileName.newJsonData[0].classDetail = current_state.fileName.newJsonData[0].classDetail.map((item) => {
+      let newTableData = current_state.fileName.newJsonData[0].classDetail.map((item) => {
         console.log('addReserveTableData item', item, action.payload.classID)
         console.log('addReserveTableData classID', action.payload.classID)
         if (item.classID === action.payload.classID) {
@@ -81,12 +81,13 @@ const saveSlice = createSlice({
         return item;
 
       })
+      state.fileName.newJsonData[0].classDetail = newTableData
       console.log("addReserveTableData state", current(state));
 
     },
     upDateClassCourse: (state, action) => {
       let current_state = current(state)
-      state.fileName.newJsonData[0].classDetail= current_state.fileName.newJsonData [0].classDetail.map((item) => {
+      let mewClassCourse = current_state.fileName.newJsonData [0].classDetail.map((item) => {
         if(item.classID === action.payload.classID) {
           console.log("test class course payload", action.payload);
           return {
@@ -96,6 +97,7 @@ const saveSlice = createSlice({
         return item;
           
       })
+      state.fileName.newJsonData[0].classDetail = mewClassCourse
       console.log("addReserveTableData state", current(state));
     },
     // upDateStuCourse: (state, action) => {

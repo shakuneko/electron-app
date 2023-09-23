@@ -58,6 +58,7 @@ function ClassDetailTable({ classes ,tableData,setTableData, courseLeft, setCour
                 }
                 return item
             });
+            console.log("index num", cell.row.index)
             console.log("newTableData",newTableData)
             console.log("test03_compare_value",newTableData[cell.row.index][cell.column.id], value)
             setTableData(newTableData);  // 更新到 local
