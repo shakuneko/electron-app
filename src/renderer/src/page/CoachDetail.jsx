@@ -71,7 +71,10 @@ function CoachDetail({ classes }) {
                             {/* </div> */}
                         
                             <div className="coachdetailright">
-                                <CoachTopBar coachValue={coachData} />
+                                <CoachTopBar 
+                                    coachValue={coachData} 
+                                    classes={classes}
+                                />
                                 <div className="chooseDateBox">
                                     
                                     <div className="DatePicksTitle">
@@ -79,11 +82,6 @@ function CoachDetail({ classes }) {
                                         {/* date picker here */}
                                         <input id="startDate" class="form-control" type="month" />
                                     </div>
-                                    {/* <div className="btnbox-item">
-                                        <button type="button" className="btn btn-danger">
-                                            刪除
-                                        </button>
-                                    </div> */}
                                 </div>
 
                                 <div>

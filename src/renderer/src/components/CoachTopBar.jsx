@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import newJson from '../json/new_class.json'
+// import newJson from '../json/new_class.json'
 
-function CoachTopBar({coachValue}) {
+function CoachTopBar({coachValue, classes}) {
     const { id } = useParams();
   //console.log('courseleft:', coachValue[id].student.courseLeft)
 
@@ -9,7 +9,7 @@ function CoachTopBar({coachValue}) {
     const courseLefts =[]
     const matchingStudentData = [];
     const teachClassIDs = coachValue.teachClass.map(students => students.classID);
-    for (const student of newJson.find(item => item.category === "student").stuDetail) {
+    for (const student of classes.find(item => item.category === "student").stuDetail) {
       // 遍歷每位學生的 buyDetail
       for (const buyDetail of student.buyDetail) {
           // 比對 classID 是否在目標 classIDs 中

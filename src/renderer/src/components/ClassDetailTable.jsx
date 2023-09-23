@@ -100,9 +100,9 @@ function ClassDetailTable({
                         const updatedBuyDetail = student.buyDetail.map((buyItem) => {
                           if (buyItem.classID === id) {
                             // 修改 courseLeft 和 coursesFIN
-                            const newCourseLeft = parseInt(buyItem.courseLeft, 10) + 1;
-                            const newCoursesFIN = parseInt(buyItem.coursesFIN, 10) - 1;
-                    
+                            const newCoursesFIN = parseInt(buyItem.coursesFIN, 10) + 1;
+                            const newCourseLeft = parseInt(buyItem.courseLeft, 10) - 1;
+                            
                             return {
                               ...buyItem,
                               courseLeft: newCourseLeft.toString(),
@@ -160,9 +160,9 @@ function ClassDetailTable({
                         const updatedBuyDetail = student.buyDetail.map((buyItem) => {
                           if (buyItem.classID === id) {
                             // 修改 courseLeft 和 coursesFIN
-                            const newCourseLeft = parseInt(buyItem.courseLeft, 10) - 1;
-                            const newCoursesFIN = parseInt(buyItem.coursesFIN, 10) + 1;
-                    
+                            const newCoursesFIN = parseInt(buyItem.coursesFIN, 10) - 1;
+                            const newCourseLeft = parseInt(buyItem.courseLeft, 10) + 1;
+                            
                             return {
                               ...buyItem,
                               courseLeft: newCourseLeft.toString(),
@@ -211,8 +211,8 @@ function ClassDetailTable({
                         const updatedBuyDetail = student.buyDetail.map((buyItem) => {
                           if (buyItem.classID === id) {
                             // 修改 courseLeft 和 coursesFIN
-                            const newCourseLeft = parseInt(buyItem.courseLeft, 10) + 1;
-                            const newCoursesFIN = parseInt(buyItem.coursesFIN, 10) - 1;
+                            const newCoursesFIN = parseInt(buyItem.coursesFIN, 10) + 1;
+                            const newCourseLeft = parseInt(buyItem.courseLeft, 10) - 1;
                     
                             return {
                               ...buyItem,
