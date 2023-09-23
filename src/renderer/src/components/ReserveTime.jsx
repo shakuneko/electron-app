@@ -10,7 +10,7 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     const {tableData,setTableData} = props;
     const classes = props.classes;
     const id = props.classes.classID
-    console.log("classes", classes)
+
     const initialFormData = {
       reserveDate:'',
       reserveTime:'',

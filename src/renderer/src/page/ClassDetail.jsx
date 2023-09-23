@@ -22,14 +22,19 @@ function ClassDetail({classes}) {
     if (Class.reserveDetail !== undefined)
     for (let i = 0; i < Class.reserveDetail.length; i++) {
         detailData.push(Class.reserveDetail[i])
-
     }
+
+    let stuDetailData = classes.find(item => item.category === "student").stuDetail
+    console.log("stuDetailData",stuDetailData);
 
     const [_tableData, setTableData] = useState(() => detailData);
     const { tableData } = useSelector((state) => state.root.table);
 
     const [_classCourse, setClassCourse] = useState(() => Class);
     const { classCourse } = useSelector((state) => state.root.classCourse);
+
+    const [_stuCourse, setStuCourse] = useState(() => stuDetailData);
+    const { stuCourse } = useSelector((state) => state.root.stuCourse);
     
     const [courseLeft, setCourseLeft] = useState(Class.courseLeft);
 
@@ -42,6 +47,10 @@ function ClassDetail({classes}) {
         console.log("class courses update", classCourse)
     }, [classCourse])
 
+    useEffect ( () => {
+        console.log("stu courses update", stuCourse)
+    }, [stuCourse])
+
     useEffect(() => {
         dispatch(updateTableData(detailData));
       }, [])
@@ -50,9 +59,9 @@ function ClassDetail({classes}) {
         dispatch(updateClassCourseData(Class));
     }, [])
 
-    // useEffect(() => {
-    //     dispatch(updateStuCourseData(filteredStudents));
-    // }, [])
+    useEffect(() => {
+        dispatch(updateStuCourseData(stuDetailData));
+    }, [])
 
 
     let coachNames = []
@@ -101,7 +110,8 @@ function ClassDetail({classes}) {
                                 tableData={tableData}
                                 setTableData={setTableData}
                                 setClassCourse={setClassCourse}
-
+                                stuCourse={stuCourse}
+                                setStuCourse={setStuCourse}
                                  />
 
                         </div>

@@ -68,9 +68,9 @@ const saveSlice = createSlice({
 
       // console.log("addReserveTableData payload", state.fileName.newJsonData[0].classDetail);
       let current_state = current(state)
-      let newTableData = current_state.fileName.newJsonData[0].classDetail.map((item) => {
-        console.log('addReserveTableData item', item, action.payload.classID)
-        console.log('addReserveTableData classID', action.payload.classID)
+      let newTableData = current_state.fileName.newJsonData.find(item => item.category === "class").classDetail.map((item) => {
+        // console.log('addReserveTableData item', item, action.payload.classID)
+        // console.log('addReserveTableData classID', action.payload.classID)
         if (item.classID === action.payload.classID) {
           console.log("addReserveTableData payload", action.payload);
           return {
@@ -81,15 +81,15 @@ const saveSlice = createSlice({
         return item;
 
       })
-      state.fileName.newJsonData[0].classDetail = newTableData
+      state.fileName.newJsonData[0].classDetail = newTableData;
       console.log("addReserveTableData state", current(state));
 
     },
     upDateClassCourse: (state, action) => {
       let current_state = current(state)
-      let mewClassCourse = current_state.fileName.newJsonData [0].classDetail.map((item) => {
+      let newClassCourse = current_state.fileName.newJsonData.find(item => item.category === "class").classDetail.map((item) => {
         if(item.classID === action.payload.classID) {
-          console.log("test class course payload", action.payload);
+          console.log("upDateClassCourse", action.payload);
           return {
             ...action.payload.data
           }
@@ -97,12 +97,24 @@ const saveSlice = createSlice({
         return item;
           
       })
-      state.fileName.newJsonData[0].classDetail = mewClassCourse
-      console.log("addReserveTableData state", current(state));
+      state.fileName.newJsonData[0].classDetail = newClassCourse
+      console.log("upDateClassCourse state", current(state));
     },
-    // upDateStuCourse: (state, action) => {
-
-    // },
+    upDateStuCourse: (state, action) => {
+      let current_state = current(state)
+      let student = current_state.fileName.newJsonData
+      const newData = student.map(item => {
+        if (item.category === "student") {
+          return {
+            ...item,
+            stuDetail: action.payload
+          };
+        }
+        return item;
+      });
+      state.fileName.newJsonData = newData;
+      console.log("upDateStuCourse state", current(state));
+    },
     // //other reducers
    
   }
@@ -117,7 +129,7 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,setStudentFormSave,setCoachFormSave } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse, upDateStuCourse, setStudentFormSave,setCoachFormSave } = saveSlice.actions
 
 // export reducer to global
 export default saveSlice.reducer
