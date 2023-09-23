@@ -170,10 +170,9 @@ const handleSubmit = () => {
             <p className="rstitle col-3">時間：</p>
             <div className="DatePicksTitle col-9">
                 <input 
-                  id="startDate" 
+                  id="startTime" 
                   class="form-control" 
-                  type="text"
-                  placeholder="例：09:00-11:00"
+                  type="time"
                   name="reserveTime"
                   value={reserveForm.reserveTime}
                   onChange={handleInputChange}

@@ -137,6 +137,19 @@ const newCoachID = generateUniqueID(existingCoachIDs);
             <p>新增教練</p>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
+            <div class="form-group">
+                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <div className="select">
+                    <input 
+                      type="text" 
+                      name="joinDate"
+                      class="form-select" 
+                      placeholder="例如：2023/09/23"
+                      value={coachForm.joinDate}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">姓名:</label>
                     <div className="select">
@@ -192,6 +205,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
                       type="text" 
                       name="coachEmail"
                       class="form-select" 
+                      placeholder="例如：123@gmail.com"
                       value={coachForm.coachEmail}
                       onChange={handleInputChange}
                     ></input>
@@ -237,6 +251,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
                       type="text" 
                       class="form-select" 
                       name="PtSalary"
+                      placeholder="例如：1200"
                       value={coachForm.PtSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -249,6 +264,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
                       type="text" 
                       class="form-select" 
                       name="PilatesSalary"
+                      placeholder="例如：1200"
                       value={coachForm.PilatesSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -261,6 +277,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
                       type="text" 
                       class="form-select" 
                       name="MassageSalary"
+                      placeholder="例如：1200"
                       value={coachForm.MassageSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -273,6 +290,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
                       type="text" 
                       class="form-select" 
                       name="GroupSalary"
+                      placeholder="例如：1200"
                       value={coachForm.GroupSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -322,18 +340,6 @@ const newCoachID = generateUniqueID(existingCoachIDs);
                       name="coachContact_tel"
                       class="form-select" 
                       value={coachForm.coachContact_tel}
-                      onChange={handleInputChange}
-                    ></input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">建檔日期:</label>
-                    <div className="select">
-                    <input 
-                      type="text" 
-                      name="joinDate"
-                      class="form-select" 
-                      value={coachForm.joinDate}
                       onChange={handleInputChange}
                     ></input>
                     </div>

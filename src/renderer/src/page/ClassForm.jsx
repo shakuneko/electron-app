@@ -1,6 +1,6 @@
 import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
-import { connect,useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateClassForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 
@@ -157,6 +157,22 @@ const handleRadioChange = (event, page) => {
   }));
   
 };
+//複選按鈕
+const [selectedOption, setSelectedOption] = useState(); // 用于存储选中的选项
+
+const handleItemClick = (item) => {
+  // 檢查是否選擇了相同的選項，如果是，則取消選擇；否則選擇新的選項
+  if (selectedOption === item) {
+    setSelectedOption(null); // 取消選擇
+  } else {
+    setSelectedOption(item); // 選擇新的選項
+  }
+
+  setCoachForm({
+    ...coachForm,
+    major: item, // 直接將選擇的選項設置為 major 屬性的值
+  });
+};
 
 const handleSubmit = (event) => {
   event.preventDefault();
@@ -306,27 +322,27 @@ if (classDetailToUpdate) {
 };
 
 //繳費按鈕
-const initialButtonData = [
-  { text: '已付款', clicked: false, visible: true },
-  { text: '未付款', clicked: false, visible: true },
+// const initialButtonData = [
+//   { text: '已付款', clicked: false, visible: true },
+//   { text: '未付款', clicked: false, visible: true },
 
-];
-const [buttons, setButtons] = useState(initialButtonData);
-const handleClick = (index, buttonValue) => {
-  // 处理按钮的点击事件，根据索引来确定点击的按钮
-  const updatedButtons = [...buttons];
-  updatedButtons[index].clicked = true;
-  setButtons(updatedButtons);
+// ];
+// const [buttons, setButtons] = useState(initialButtonData);
+// const handleClick = (index, buttonValue) => {
+//   // 处理按钮的点击事件，根据索引来确定点击的按钮
+//   const updatedButtons = [...buttons];
+//   updatedButtons[index].clicked = true;
+//   setButtons(updatedButtons);
 
-  // 切换按钮的文本内容
-  const updatedText = buttons[index].text === '未付款' ? '已付款' : '未付款';
-  const updatedButtonsText = [...buttons];
-  updatedButtonsText[index].text = updatedText;
-  setButtons(updatedButtonsText);
+//   // 切换按钮的文本内容
+//   const updatedText = buttons[index].text === '未付款' ? '已付款' : '未付款';
+//   const updatedButtonsText = [...buttons];
+//   updatedButtonsText[index].text = updatedText;
+//   setButtons(updatedButtonsText);
 
-  console.log('点击的按钮值：', buttonValue);
+//   console.log('点击的按钮值：', buttonValue);
 
-};
+// };
 
 //下拉選單
 useEffect(() => {
@@ -384,8 +400,7 @@ useEffect(() => {
                           </select>
                         </div>
                     </div>
-                    <div className="form-group4">
-                      <div className="form-group4-1"> 
+                    <div className="form-group">
                         <label for="exampleInputEmail1">學員1:</label>
                         <div className="select">
                         <select 
@@ -402,8 +417,7 @@ useEffect(() => {
                             ))}
                         </select>
                         </div>
-                        </div>
-                        {buttons[0].visible && (
+                        {/* {buttons[0].visible && (
                           <button
                             type="button"
                             className={`btn btn-originalgray ${buttons[0].clicked ? 'active' : ''}`}
@@ -411,11 +425,10 @@ useEffect(() => {
                           >
                             {buttons[0].text}
                           </button>
-                        )}
+                        )} */}
                         {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                     </div>
-                    <div className="form-group4"> 
-                      <div className="form-group4-1">
+                    <div className="form-group"> 
                           <label for="exampleInputEmail1">學員2:</label>
                           <div className="select">
                             <select 
@@ -431,9 +444,8 @@ useEffect(() => {
                               </option>
                             ))}
                             </select>
-                          </div>
                       </div>
-                      {buttons[1].visible && (
+                      {/* {buttons[1].visible && (
                           <div>
                             <button
                               type="button"
@@ -443,7 +455,7 @@ useEffect(() => {
                               {buttons[1].text}
                             </button>
                           </div>
-                        )}
+                        )} */}
                       {/* <button className="btn btn-originalgray" type="button">未付費</button> */}
                     </div>
                     <div className="form-group">
@@ -462,7 +474,7 @@ useEffect(() => {
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">購買價格:</label>
+                        <label for="exampleInputEmail1">購買金額:</label>
                         <div className="select">
                           <input 
                             type="text" 
@@ -473,7 +485,23 @@ useEffect(() => {
                           ></input>
                         </div>
                     </div>
-                    
+                    <div class="form-group">
+                  <label for="exampleInputEmail1">購買方式:</label>
+                    <div className="form_btn2">
+                      <button 
+                        type="button" 
+                        onClick={() => handleItemClick('PT')}
+                        className={`btn btn-outline-golden ${selectedOption === '現金' ? 'active' : ''}`}>現金</button>
+                      <button 
+                        type="button" 
+                        onClick={() => handleItemClick('皮拉提斯')}
+                        className={`btn btn-outline-golden ${selectedOption ==='匯款' ? 'active' : ''}`}>匯款</button>
+                      <button
+                        type="button" 
+                        onClick={() => handleItemClick('運動按摩')}
+                        className={`btn btn-outline-golden ${selectedOption === '刷卡' ? 'active' : ''}`}>刷卡</button>
+                    </div>
+                  </div>    
                     <div class="form-group">
                         <label  className="" for="exampleInputEmail1">體驗課:</label>
                         <div className=" check">
@@ -545,8 +573,7 @@ useEffect(() => {
                             </select>
                           </div>
                       </div>
-                      <div className="form-group4">
-                        <div className="form-group4-1"> 
+                      <div className="form-group">
                           <label for="exampleInputEmail1">學員:</label>
                           <div className="select">
                           <select 
@@ -562,9 +589,8 @@ useEffect(() => {
                             </option>
                             ))}
                           </select>
-                          </div>
-                          </div>
-                          <button className="btn btn-originalgray" type="button">已付費</button>
+                        </div>
+                        {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                       </div>
                       <div className="form-group">
                           <label for="exampleInputEmail1">堂數:</label>
@@ -582,7 +608,7 @@ useEffect(() => {
                           </div>
                       </div>
                       <div class="form-group">
-                          <label for="exampleInputEmail1">購買價格:</label>
+                          <label for="exampleInputEmail1">購買金額:</label>
                           <div className="select">
                             <input 
                             type="text" 
@@ -664,8 +690,7 @@ useEffect(() => {
                             </select>
                           </div>
                       </div>
-                      <div className="form-group4">
-                        <div className="form-group4-1"> 
+                      <div className="form-group">
                           <label for="exampleInputEmail1">學員:</label>
                           <div className="select">
                           <select 
@@ -681,9 +706,8 @@ useEffect(() => {
                               </option>
                             ))}
                           </select>
-                          </div>
-                          </div>
-                          <button className="btn btn-originalgray" type="button">已付費</button>
+                        </div>
+                        {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                       </div>
                       <div className="form-group">
                           <label for="exampleInputEmail1">堂數:</label>
@@ -701,7 +725,7 @@ useEffect(() => {
                           </div>
                       </div>
                       <div class="form-group">
-                          <label for="exampleInputEmail1">購買價格:</label>
+                          <label for="exampleInputEmail1">購買金額:</label>
                           <div className="select">
                             <input 
                             type="text" 
@@ -804,8 +828,7 @@ useEffect(() => {
                {/* 團課學員 */}
                {currentPage === 'page5' && (
                 <div className="class_category">
-                      <div className="form-group4">
-                        <div className="form-group4-1"> 
+                      <div className="form-group">
                           <label for="exampleInputEmail1">學員:</label>
                           <div className="select">
                           <select 
@@ -821,9 +844,8 @@ useEffect(() => {
                             </option>
                             ))}
                           </select>
-                          </div>
-                          </div>
-                          <button className="btn btn-originalgray" type="button">已付費</button>
+                        </div>
+                        {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                       </div>
                       <div className="form-group">
                           <label for="exampleInputEmail1">堂數:</label>
@@ -841,7 +863,7 @@ useEffect(() => {
                           </div>
                       </div>
                       <div class="form-group">
-                          <label for="exampleInputEmail1">購買價格:</label>
+                          <label for="exampleInputEmail1">購買金額:</label>
                           <div className="select">
                             <input 
                             type="text" 

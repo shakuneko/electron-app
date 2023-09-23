@@ -122,6 +122,7 @@ function StudentForm(props){
                       type="text" 
                       name="createDate"
                       class="form-select" 
+                      placeholder="例如：2023/09/23"
                       value={stuForm.createDate}
                       onChange={handleInputChange} 
                     ></input>
@@ -174,6 +175,7 @@ function StudentForm(props){
                       type="email" 
                       name="stuEmail"
                       class="form-select" 
+                      placeholder="例如：123@gmail.com"
                       value={stuForm.stuEmail}
                       onChange={handleInputChange} 
                     ></input>
