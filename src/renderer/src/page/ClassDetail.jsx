@@ -27,6 +27,38 @@ function ClassDetail({classes}) {
     let stuDetailData = classes.find(item => item.category === "student").stuDetail
     console.log("stuDetailData",stuDetailData);
 
+    const stuItem = [] //找到這一row的stuID
+    if (Class.student !== undefined)
+    for (let i = 0; i < Class.student.length; i++) {
+        stuItem.push(Class.student[i].stuID)
+    }
+
+    console.log("stuItem",stuItem)
+
+    const results = [];
+    stuItem.forEach((stuID) => {
+        // 使用 stuID 在 stuDetailData 中查找相应的学生数据
+        const studentData = stuDetailData.find((student) => student.stuID === stuID);
+      
+        if (studentData) {
+          // 使用 classID 在学生数据中的 buyDetail 数组中查找相符的购买数据
+          const buyDetail = studentData.buyDetail.find((detail) => detail.classID === id);
+      
+          if (buyDetail) {
+            // 记录学生的 stuName、courseLeft 和 courseFIN
+            const stuName = studentData.stuName;
+            const courseLeft = buyDetail.courseLeft;
+            const coursesAll = buyDetail.coursesAll;
+      
+            // 将结果存储在数组中
+            results.push({ name:stuName, left:courseLeft, all:coursesAll });
+          }
+        }
+    });
+
+    console.log("results",results)
+
+
     const [_tableData, setTableData] = useState(() => detailData);
     const { tableData } = useSelector((state) => state.root.table);
 
@@ -89,10 +121,18 @@ function ClassDetail({classes}) {
             <div className='col-10 container margin-left-right'>
                 <div className='table-container'>
                     <h1 className="title">課程</h1>
-                    <div className="classCoachBox">
+                    <div className="classStuBox" style={{marginBottom:"10px"}}>
                         <p className="classCoachBox-item">教練：{splitData(coachNames)}</p>
-                        <p className="classCoachBox-item">學員：{splitData(stuNames)}</p>
-                        <p className="classCoachBox-item">{Class.courseLeft} / {Class.coursesAll}</p>
+                        {results.map((result, index) => (
+                            <div key={index} className="classStuBox" >
+                                {Class.courseType !== "團課" && (
+                                <>
+                                    <p className="classCoachBox-item">學員：{result.name}</p>
+                                    <p className="classCoachBox-item">{result.left} / {result.all}</p>
+                                </>
+                                )}
+                            </div>
+                        ))}
                         {/* <button onClick={()=> console.log(classes)}>pp</button> */}
                     </div>
 

@@ -26,9 +26,6 @@ function ClassDetailTable({
 }) {
     const dispatch = useDispatch();
     const [recordCourseCount, setRecordCourseCount] = useState([]);
-    // const filteredStudents = []
-    // const [_stuCourse, setStuCourse] = useState(() => filteredStudents);
-    
     const id = classCourse.classID    
     console.log("classCourse",id)
     const handleSaveCell = useCallback( // 儲存修改的資料
@@ -37,21 +34,6 @@ function ClassDetailTable({
             row.original.student.forEach(item => {
                     stuItem.push(item.stuID)
             })
-
-            // filteredStudents = classes
-            // .find(item => item.category === "student") // 找到包含学生信息的数据项
-            // .stuDetail
-            // .filter(student => stuItem.includes(student.stuID))
-            // dispatch(updateStuCourseData(filteredStudents));
-            // const { stuCourse } = useSelector((state) => state.root.stuCourse);
-            
-         
-
-          //   const [_stuCourse, setStuCourse] = useState(() => filteredStudents);
-          //   const { stuCourse } = useSelector((state) => state.root.stuCourse);
-          //   useEffect ( () => {
-          //     console.log("stu courses update", stuCourse)
-          // ``}, [stuCourse])
 
             console.log("test01",classes)
             console.log("test02",cell.row.original)
