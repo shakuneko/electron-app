@@ -10,7 +10,7 @@ function StudentTableDetail({classes}) {
     const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         return<>
            <Link to={`/student/name/${renderedCellValue}`} className='table-link-underline-none'>
-                <button type="button" className="btn btn-golden">查看{renderedCellValue}</button> 
+                <button type="button" className="btn btn-golden">查看</button> 
             </Link>
         </>
     };

@@ -1,4 +1,4 @@
-function DoneClasses({ stuData, classes }) {
+function DoneClasses({ stuData}) {
   // 用于存储符合条件的 finCourse 对象的数组
   let finCourses = [];
 
