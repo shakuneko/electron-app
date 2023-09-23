@@ -89,6 +89,10 @@ function CoachTableDetail({classes}) {
                 <button type="button" className="btn btn-golden">新增教練</button> 
             </Link>
         )}
+        muiSearchTextFieldProps={{
+            placeholder: "搜尋想查找的名稱、堂數",
+            sx: { minWidth: '300px' },
+          }}
                                 
     />
                 

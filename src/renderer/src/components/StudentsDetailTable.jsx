@@ -99,6 +99,10 @@ function StudentsDetailTable({ stuBuyDetailData }) {
                     雙擊要修改的內容進行修改
                 </Typography>
             )}  
+            muiSearchTextFieldProps={{
+                placeholder: "搜尋想查找的名稱、堂數、金額",
+                sx: { minWidth: '300px' },
+            }}
         />
     </div>
   )

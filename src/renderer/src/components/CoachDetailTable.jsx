@@ -133,6 +133,10 @@ function CoachDetailTable({ classes, tableData, setTableData }) {
       //       </Tooltip>
       //   </Box>
       // )}
+      muiSearchTextFieldProps={{
+        placeholder: "請輸入想查詢的學生及時間",
+        sx: { minWidth: '300px' },
+      }}
     />
   )
 }

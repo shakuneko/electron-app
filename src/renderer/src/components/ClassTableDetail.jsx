@@ -114,6 +114,10 @@ function ClassTableDetail({classes}) {
         enableHiding={false} //column hiding does not work with memoized table body
         enableStickyHeader
         enableFacetedValues
+        muiSearchTextFieldProps={{
+            placeholder: "搜尋想查找的名稱、堂數",
+            sx: { minWidth: '300px' },
+          }}
         renderTopToolbarCustomActions={({table}) => (
             <div>
             <Link to="/classes/form" className='table-link-underline-none'>

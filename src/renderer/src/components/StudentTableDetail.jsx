@@ -78,6 +78,10 @@ function StudentTableDetail({classes}) {
                 {/* <button onClick={()=> console.log(stuArray)}>pp</button> */}
             </Link>
         )}
+        muiSearchTextFieldProps={{
+            placeholder: "搜尋想查找的名稱、堂數",
+            sx: { minWidth: '300px' },
+        }}
                                 
     />
                 

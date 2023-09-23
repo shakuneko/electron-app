@@ -240,10 +240,7 @@ function ClassDetailTable({
             }
             dispatch(addReserveTableData({data: newTableData, classID: id}));
         }
-            // const content = JSON.parse(tableData)
             setTableData([...tableData]); //re-render with new data
-            // setCourseLeft(splitClasses.courseLeft)
-            // console.log("test",cell.row.original.attandence)
         },
         [dispatch, tableData],
       );
@@ -370,16 +367,15 @@ function ClassDetailTable({
                 handleSaveCell(cell, event.target.value, row);
                 },
             })}
+            muiSearchTextFieldProps={{
+              placeholder: "請輸入想查詢的學生及時間",
+              sx: { minWidth: '300px' },
+            }}
             renderBottomToolbarCustomActions={() => (
                 <Typography sx={{  p: '16px', fontWeight:"900" }} variant="body2">
                     雙擊要修改的內容進行修改
                 </Typography>
             )}
-            localization={{
-                header: {
-                actions: '',
-                }
-            }}
         />
     </div>
 
