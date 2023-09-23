@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Navbar from './Navbar'
 import StudentsDetailTable from './StudentsDetailTable'
 import DoneClasses from './DoneClasses'
-function StudentDetailPage({ stuData }) {
+function StudentDetailPage({ stuData, classes }) {
 
   let courseLeftSum = 0
 
@@ -29,7 +29,7 @@ function StudentDetailPage({ stuData }) {
           </div>
           <div>
             {/* <button onClick={()=> console.log(stuData)}>pp</button> */}
-            <DoneClasses />
+            <DoneClasses stuData={stuData} classes={classes}/>
           </div>
           <StudentsDetailTable stuBuyDetailData={stuBuyDetailData} />
         </div>

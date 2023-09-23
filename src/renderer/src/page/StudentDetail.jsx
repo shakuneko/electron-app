@@ -34,7 +34,7 @@ function StudentDetail({classes}) {
                         {/* {testClasses["PT"].id} */}
                         {/* {stuArray[0].student.buyDetail.buyDate} */}
                         {/* <button onClick={()=> console.log(stuData)}>pp</button> */}
-                        <StudentDetailPage stuData={stuData} />
+                        <StudentDetailPage stuData={stuData} classes={classes}/>
                     </div>
                 </div>
                 
