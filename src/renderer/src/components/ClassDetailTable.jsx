@@ -1,6 +1,6 @@
 import { MaterialReactTable } from 'material-react-table';
 import React, { useEffect, useCallback, useState } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Checkbox } from '@mui/material';
 import {
     Box,
     IconButton,
@@ -27,7 +27,9 @@ function ClassDetailTable({
     const dispatch = useDispatch();
     const [recordCourseCount, setRecordCourseCount] = useState([]);
     const id = classCourse.classID    
-    console.log("classCourse",id)
+    const label = { inputProps: { 'aria-label': '確認' } };
+
+    // console.log("classCourse",id)
     const handleSaveCell = useCallback( // 儲存修改的資料
         (cell, value, row) => {
             const stuItem = [] //找到這一row的stuID
@@ -245,6 +247,9 @@ function ClassDetailTable({
         [tableData],
       );
 
+    const [value, setValue] = useState("否")
+    const [checkboxStates, setCheckboxStates] = useState({});
+
     // console.log("tableData",tableData)
     const columns = [ //表格有的資料
           {
@@ -294,7 +299,45 @@ function ClassDetailTable({
             accessorKey:"attandence",
             header:"是否來上課",
             size:100,
-            enableSorting: false
+            enableSorting: false,
+            // Cell:({ cell, row }) => {
+            //   return <>
+            //      <Checkbox
+            //       {...label}
+            //       value={value}
+            //       onChange={(event) => {
+            //           const isChecked = event.target.checked;
+            //           const newValue = isChecked ? '是' :'否';
+            //           const rowIndex = cell.row.index;
+
+            //           // 更新复选框状态
+            //           setCheckboxStates((prevState) => ({
+            //               ...prevState,
+            //               [rowIndex]: newValue,
+            //           }));
+                      
+
+            //           //更新 tableData
+            //           const newTableData = tableData.map((item, index) => {
+            //               if (index === rowIndex) {
+            //                   return {
+            //                       ...item,
+            //                       [cell.column.id]: newValue,
+            //                   };
+            //               }
+            //               return item;
+            //           });
+
+            //           setTableData(newTableData);
+            //           console.log("checkbox value",tableData[cell.row.index][cell.column.id])
+            //           // dispatch(updateTableData(newTableData));
+
+            //           // 其余的逻辑...
+            //       }}
+            //   />
+
+            //   </>
+            // }
         },
         {
             accessorKey:"cancel",
@@ -303,6 +346,9 @@ function ClassDetailTable({
             //影響說明：雖然值一樣，但是如果用滑鼠再框格中點一下取消反白，或是點擊框框中的文字也會被視為修改資料，單單出席跟取消預約有問題
             size:50,
             enableSorting: false,
+            // Cell:() => {
+            //   return <Checkbox {...label} />
+            // }
         },
         {
             accessorKey:"note",

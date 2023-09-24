@@ -18,6 +18,26 @@ const CountMoney = ( {row, renderedCellValue} ) => {
     return <>{ row.original.salary * renderedCellValue}</>
 }
 
+export const getStatusText = (dateString) => {
+    const currentDate = new Date(); // 当前日期
+    const inputDate = new Date(dateString); // 输入的日期
+    const fivMonthLater = new Date(inputDate);
+    fivMonthLater.setMonth(fivMonthLater.getMonth() + 5); // 当前日期减去1个月
+    const sixMonthsLater = new Date(inputDate);
+    sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6); // 当前日期减去6个月
+  
+    console.log("oneMonthAgo", fivMonthLater);
+    console.log("sixMonthsAgo", sixMonthsLater);
+    console.log("inputDate", inputDate);
+  
+    if (currentDate > fivMonthLater && currentDate < sixMonthsLater) {
+      return <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>快要截止</span>;
+    } else if (currentDate > sixMonthsLater) {
+      return <span style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>已截止</span>;
+    } else {
+      return <span>-</span>;
+    }
+}
 
 export const selectOptions = [ //下拉選單篩選
 { text: 'PT', value: 'PT' },

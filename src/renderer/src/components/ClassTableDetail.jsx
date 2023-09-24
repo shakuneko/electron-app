@@ -1,6 +1,7 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
+import { getStatusText } from './TableSelectOptions'
 
 function ClassTableDetail({classes}) {
 
@@ -26,6 +27,11 @@ function ClassTableDetail({classes}) {
         if (renderedCellValue === '1') return <span className="alert-mode">{renderedCellValue}</span>;
         else return<>{renderedCellValue}</>
     }
+
+    
+    // const inputDateString = "2023-8-30"; // 你的输入日期
+    // const result = getStatusText(inputDateString);
+    // console.log(result);
 
     const columns = [ //表格有的資料
         {

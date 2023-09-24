@@ -1,12 +1,8 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
-import { CheckOut } from "./TableSelectOptions"
 
 function StudentTableDetail({classes}) {
-
-
-
     const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         return<>
            <Link to={`/student/name/${renderedCellValue}`} className='table-link-underline-none'>
