@@ -2,7 +2,13 @@ import { Link } from 'react-router-dom'
 import Navbar from './Navbar'
 import StudentsDetailTable from './StudentsDetailTable'
 import DoneClasses from './DoneClasses'
+import Collapse from 'react-bootstrap/Collapse';
+import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
+import StudentDetailCollapse from './StudentDetailCollapse';
 function StudentDetailPage({ stuData }) {
+
+  const [open, setOpen] = useState(false);
 
   let courseLeftSum = 0
 
@@ -27,6 +33,27 @@ function StudentDetailPage({ stuData }) {
             <p className="classCoachBox-item">性別：{stuData.stuGender}</p>
             <p className="classCoachBox-item">剩餘堂數：{courseLeftSum}</p>
           </div>
+          
+        
+          <>
+      <Button
+        onClick={() => setOpen(!open)}
+        aria-controls="example-collapse-text"
+        aria-expanded={open}
+      >
+        詳細資料
+      </Button>
+      <Collapse in={open}>
+        <div id="example-collapse-text">
+       <span> <StudentDetailCollapse stuData={stuData}/></span>
+        </div>
+      </Collapse>
+    </>
+
+
+
+
+
           <div>
             {/* <button onClick={()=> console.log(stuData)}>pp</button> */}
             <DoneClasses stuData={stuData}/>
