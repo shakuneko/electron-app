@@ -1,12 +1,12 @@
-import React, {useState } from "react";
+import React, {useState ,useEffect} from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 import { setStudentFormSave } from "../redux/reducers/saveSlice";
-function generateUniqueID(existingIDs) {
+function generateUniqueID(existingStuIDs) {
   // 找到现有 ID 中的最大值
-  const maxID = Math.max(...existingIDs);
+  const maxID = Math.max(...existingStuIDs);
 
   // 将新的 ID 设置为最大值加一
   const newID = maxID + 1;
@@ -17,6 +17,7 @@ function generateUniqueID(existingIDs) {
 function StudentForm(props){
   const dispatch = useDispatch(); // 获取dispatch函数的引用
   const [newStudentData, setNewStudentData] = useState({});
+
   const initialFormData = {
     stuID:'',
     stuName:'',
@@ -29,10 +30,11 @@ function StudentForm(props){
     stuContact_tel:'',
     stuNote:'',
     createDate:'',
-    buyDetail: [],
   };
-   // 使用useState來創建一個狀態變數，並初始化為空字串
+  //  // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
+  //  const _stuForm = useSelector((state) => state.root.stu.stuForm);
+
    let newStuData = props.classes[1].stuDetail.map((item, index) => {
       return item
     });
@@ -60,9 +62,13 @@ function StudentForm(props){
     console.log('表单数据：', stuForm);
 
      // 获取已有的学生 ID 列表
-    const existingStudentIDs = jsonData.find((item) => item.category === 'student').stuDetail.map((student) => parseInt(student.stuID));
+    // const existingStudentIDs = jsonData.find((item) => item.category === 'student').stuDetail.map((student) => parseInt(student.stuID));
+    const existingStuIDs = newStuData.map((student) => student.stuID);
     // 生成唯一的学生ID
-    const newStudentID = generateUniqueID(existingStudentIDs);
+    let newStudentID = generateUniqueID(existingStuIDs);
+  
+    // 设置stuID为新生成的ID
+  
     // 根据你的需求更新JSON数据
     // 假设你要将新的学生数据添加到"student"类别下
     let _newStudentData = {
@@ -79,26 +85,29 @@ function StudentForm(props){
       createDate: stuForm.createDate,
       buyDetail: [],
     };
-    setNewStudentData(
-      _newStudentData
-    );
-    dispatch(updateStuForm([...newStuData, _newStudentData]))
+    const updatedStuData = [...newStuData, _newStudentData];
+    dispatch(updateStuForm(updatedStuData))
     dispatch(setStudentFormSave({
-      data:[...newStuData, _newStudentData],
+      data:updatedStuData,
       category: "student",
-      id: newStudentID
+     
     }));
-    // 导入JSON数据
-    const updatedJsonData = [...jsonData];
-    // 将新的学生数据添加到JSON中
-    updatedJsonData.find((item) => item.category === 'student').stuDetail.push(newStudentData);
+
+    // //导入JSON数据
+    // const updatedJsonData = [...jsonData];
+    // // 将新的学生数据添加到JSON中
+    // updatedJsonData.find((item) => item.category === 'student').stuDetail.push(_newStudentData);
 
     // 清除表单数据为初始状态
     setStuForm(initialFormData);
 
     // jsonData.push(stuForm);
 
-    console.log(jsonData);
+    console.log(updatedStuData);
+    console.log('stuform',_newStudentData)
+    console.log('stuID',newStudentID)
+    console.log('stuID',existingStuIDs)
+    
 
 
   };

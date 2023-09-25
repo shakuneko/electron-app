@@ -37,6 +37,18 @@ const saveSlice = createSlice({
       } 
       state.oldHash = state.currentPageHash
     },
+    setClassFormSave: (state, action) => {
+      console.log('setclassForm Action:', action.payload)
+      console.log("addReserveTableData state", current(state.fileName.newJsonData[0]));
+      let current_state = current(state)
+      let classdata = current_state.fileName.newJsonData[0]
+      const newData = classdata = {
+            ...classdata,
+            classDetail: action.payload.data
+      }
+      state.fileName.newJsonData[0] = newData
+      console.log("setCoachFormSave state", current(state));
+    },
     setStudentFormSave: (state, action) => {
       console.log('setStudentForm Action:', action.payload)
       console.log("addReserveTableData state", current(state.fileName.newJsonData[1]));
@@ -61,6 +73,14 @@ const saveSlice = createSlice({
       }
       state.fileName.newJsonData[2] = newData
       console.log("setCoachFormSave state", current(state));
+    },
+    addNewBuyDetail: (state, action) => {
+      const { selectedStudentName, newBuyDetail } = action.payload;
+      const selectedStudent = state.fileName.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
+
+      if (selectedStudent) {
+        selectedStudent.buyDetail.push(newBuyDetail);
+      }
     },
     addReserveTableData: (state, action) => {
       console.log("addReserveTableData payload", action.payload);
@@ -100,6 +120,8 @@ const saveSlice = createSlice({
     },
     // upDateStuCourse: (state, action) => {
 
+
+
     // },
     // //other reducers
    
@@ -115,7 +137,7 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,setStudentFormSave,setCoachFormSave } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail } = saveSlice.actions
 
 // export reducer to global
 export default saveSlice.reducer

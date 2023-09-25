@@ -1,14 +1,166 @@
 [
-    {
-        "stuID":"0",
-        "stuName":"",
+  {
+    "category": "class",
+    "classDetail": [
+      {
+        "classID": "",
+        "courseType": "",
+        "exCourse": "",
+        "coursesAll": "",
+        "coursesFIN": "",
+        "courseLeft": "",
+        "reserveDetail": [
+          {
+            "reserveID": "",
+            "reserveDate": "",
+            "reserveTime": "",
+            "reserveStu": [
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              },
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              }
+            ],
+            "cancel": "",
+            "attandence": "-",
+            "note": "",
+            "student": [
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              },
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              }
+            ]
+          },
+          {
+            "reserveID": "",
+            "reserveDate": "",
+            "reserveTime": "",
+            "reserveStu": [
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              },
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              }
+            ],
+            "cancel": "",
+            "attandence": "-",
+            "note": "",
+            "student": [
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              },
+              {
+                "stuID": "",
+                "courseType": "",
+                "stuName": ""
+              }
+            ]
+          }
+        ],
+        "status": "",
+        "classNote": "",
+        "student": [
+          {
+            "stuID": "",
+            "courseType": "",
+            "stuName": ""
+          },
+          {
+            "stuID": "",
+            "courseType": "",
+            "stuName": ""
+          }
+        ],
+        "coach": [
+          {
+            "coachID": "",
+            "coachName": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "student",
+    "stuDetail": [
+      {
+        "stuID": "",
+        "createDate": "",
+        "stuName": "",
         "stuGender": "",
+        "stuNote": "",
         "stuPhone": "",
         "stuEmail": "",
         "stuAddress": "",
         "stuContact": "",
-        "stuRelation":"",
-        "stuContact_tel":"",
-        "stuNote":""
+        "stuRelation": "",
+        "stuContact_tel": "",
+        "buyDetail": [
+          {
+            "classID": "",
+            "courseType": "",
+            "coachName": "",
+            "coursesAll": "",
+            "coursesFIN": "",
+            "courseLeft": "",
+            "preCourseLeft": "",
+            "payMethod": "",
+            "invoiceNum": "",
+            "buyDate": "",
+            "exCourse": "",
+            "coursePrice": "",
+            "buyNote": ""
+          }
+        ]
       }
+    ]
+  },
+  {
+    "category": "coach",
+    "coachDetail": [
+      {
+        "coachID": "",
+        "coachName": "",
+        "coachGender": "",
+        "coachIDcode": "",
+        "coachEmail": "",
+        "coachAddress": "",
+        "coachBank": "",
+        "coachContact": "",
+        "coachRelation": "",
+        "coachContact_tel": "",
+        "coachNote": "",
+        "coachPhone": "",
+        "major": [],
+        "joinDate": "",
+        "PtSalary": "",
+        "GroupSalary": "",
+        "MassageSalary": "",
+        "PilatesSalary": "",
+        "teachClass": [
+          {
+            "classID": ""
+          }
+        ]
+      }
+    ]
+  }
 ]

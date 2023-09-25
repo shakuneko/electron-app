@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { connect,useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateReserveTime } from "../redux/Actions/formActions"
 import jsonData from '../json/new_class.json'
 import { updateTableData } from '../redux/Actions/saveActions'; // 导入您的更新动作
@@ -20,7 +20,8 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     // const [selectedStudents, setSelectedStudents] = useState([]);
     const [matchingStudents, setMatchingStudents] =  useState(new Set());
     const [selectedStudentType, setSelectedStudentType] = useState(new Set()); // 存储选定的学员类型
-  
+    const studentFormData = useSelector((state) => state.root.save.fileName.newJsonData[1].stuDetail);
+    console.log("studentFormData", studentFormData)
   const handleInputChange = (event) => {
     const { name, options, value } = event.target;
   
@@ -55,7 +56,11 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     const newMatchingStudents = new Set(); // 使用 Set 来确保唯一性
     const newClassType = props.classes.courseType;
     const newMatchingType = new Set(); 
-    jsonData.find((item) => item.category === 'student').stuDetail.forEach((student) => {
+
+    // 假设您可以从 props 中获取学生数据
+    const studentData = studentFormData;
+    studentData.forEach((student) => {
+    // jsonData.find((item) => item.category === 'student').stuDetail.forEach((student) => {
       student.buyDetail.forEach((buyInfo) => {
         if (buyInfo.classID === newClassID ) { //ClassID一樣就放進來
           newMatchingStudents.add({
@@ -83,17 +88,18 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
 
 const handleSubmit = () => {
   // 获取当前用户选择的学员名称
-  dispatch(updateReserveTime(reserveForm));
+  // dispatch(updateReserveTime(reserveForm));
   const selectedStudentNames = reserveForm.reserveStu;
   //找當前classID裡面的reserveID
-  const selectedClass = jsonData.find((item) => item.category === 'class').classDetail.find((classItem) => classItem.classID === props.classes.classID);
+  const selectedClass = props.classes; // 假设 props.classes 包含了目标 class 的信息
   if (selectedClass) {
-    const existingReserveIDs = selectedClass.reserveDetail.flatMap((reserve) => parseInt(reserve.reserveID));
+    const reserveDetail = selectedClass.reserveDetail || []; // 获取目标 class 的 reserveDetail 数组，如果不存在则创建一个空数组
+    const existingReserveIDs = reserveDetail.map((reserve) => reserve.reserveID); // 提取已有的 reserveID 数组
     // 计算新的reserveID
-    const newReserveID = (existingReserveIDs.length > 0 ? (Math.max(...existingReserveIDs) + 1) : 1).toString();
+    let newReserveID = (existingReserveIDs.length > 0 ? (Math.max(...existingReserveIDs) + 1) : 1).toString();
   
   // 创建用于新预约数据的对象
-  const newReserveData = {
+  let newReserveData = {
     reserveID: newReserveID,
     reserveDate: reserveForm.reserveDate,
     reserveTime: reserveForm.reserveTime,
