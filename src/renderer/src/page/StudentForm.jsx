@@ -128,10 +128,10 @@ function StudentForm(props){
                     <div className="select">
                     <input 
                       id="tel" 
-                      type="text" 
+                      type="date" 
                       name="createDate"
                       class="form-select" 
-                      placeholder="例如：2023/09/23"
+                      // placeholder="例如：2023/09/23"
                       value={stuForm.createDate}
                       onChange={handleInputChange} 
                     ></input>

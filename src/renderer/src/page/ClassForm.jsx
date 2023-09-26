@@ -1,10 +1,9 @@
 import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateStuForm } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
-import { setClassFormSave } from "../redux/reducers/saveSlice";
-import { selectFileName,addNewBuyDetail } from '../redux/reducers/saveSlice'
+
+import { selectFileName,setClassFormSave,addNewBuyDetail } from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
@@ -105,9 +104,10 @@ function findCoachIDByName(CoachName) {
     },
     page4: {
       coachName:'',
+      stuName:'',
       floor: '',
-      date:'',
-      time: '',
+      coursesAll:'',
+      coursePrice:'',
       buyNote: '',
     },
     // page4: {
@@ -254,8 +254,6 @@ const newClassItem = {
   student:[],
 };
 
-
-
 //傳到classDetail下的student
 const classIDToUpdate = newClassID; // 你已经找到的课程ID
 // 找到要更新的课程对象
@@ -331,11 +329,13 @@ if (classDetailToUpdate) {
     courseType: selectedCourse,
     exCourse: classForm[currentPage].exCourse,
     buyNote: classForm[currentPage].buyNote,
+    buyDate:classForm[currentPage].buyDate,
     courseLeft:'',
     coursesFIN:'',
     invoiceNum:'',
     patMethod:'',
     preCourseLeft:'',
+    buyDate:'',
   };
  
   const selectedStudent = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
@@ -460,6 +460,18 @@ useEffect(() => {
               {/* PT課 */}
               {currentPage === 'page1' && (
                 <div className="class_category">
+                   <div class="form-group">
+                        <label for="exampleInputEmail1">建檔日期:</label>
+                        <div className="select">
+                          <input 
+                            type="date" 
+                            class="form-select"
+                            name="buyDate"
+                            value={classForm.page1.buyDate}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                          ></input>
+                        </div>
+                    </div>
                     <div className="form-group">
                         <label  for="exampleInputEmail1">教練:</label>
                         <div className="select">
@@ -656,6 +668,18 @@ useEffect(() => {
                {/* 皮拉提斯課 */}
                {currentPage === 'page2' && (
                 <div className="class_category">
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">建檔日期:</label>
+                          <div className="select">
+                            <input 
+                              type="date" 
+                              class="form-select"
+                              name="buyDate"
+                              value={classForm.page2.buyDate}
+                              onChange={(e) => handleInputChange(e, 'page1')}
+                            ></input>
+                          </div>
+                      </div>
                       <div className="form-group">
                           <label  for="exampleInputEmail1">教練:</label>
                           <div className="select">
@@ -813,6 +837,18 @@ useEffect(() => {
                {/* 運動按摩 */}
                {currentPage === 'page3' && (
                 <div className="class_category">
+                    <div class="form-group">
+                          <label for="exampleInputEmail1">建檔日期:</label>
+                          <div className="select">
+                            <input 
+                              type="date" 
+                              class="form-select"
+                              name="buyDate"
+                              value={classForm.page3.buyDate}
+                              onChange={(e) => handleInputChange(e, 'page3')}
+                            ></input>
+                          </div>
+                      </div>
                       <div className="form-group">
                           <label  for="exampleInputEmail1">教練:</label>
                           <div className="select">
@@ -970,6 +1006,18 @@ useEffect(() => {
                {/* 場租 */}
                {currentPage === 'page4' && (
                 <div className="class_category">
+                      <div class="form-group">
+                            <label for="exampleInputEmail1">建檔日期:</label>
+                            <div className="select">
+                              <input 
+                                type="date" 
+                                class="form-select"
+                                name="buyDate"
+                                value={classForm.page4.buyDate}
+                                onChange={(e) => handleInputChange(e, 'page4')}
+                              ></input>
+                            </div>
+                        </div>
                         <div className="form-group">
                             <label  for="exampleInputEmail1">教練:</label>
                             <div className="select">

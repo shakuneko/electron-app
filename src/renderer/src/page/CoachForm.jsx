@@ -148,10 +148,10 @@ dispatch(setCoachFormSave({
                     <label for="exampleInputEmail1">建檔日期:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="date" 
                       name="joinDate"
                       class="form-select" 
-                      placeholder="例如：2023/09/23"
+                      // placeholder="例如：2023/09/23"
                       value={coachForm.joinDate}
                       onChange={handleInputChange}
                     ></input>
