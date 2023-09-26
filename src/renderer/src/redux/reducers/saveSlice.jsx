@@ -79,9 +79,19 @@ const saveSlice = createSlice({
       const selectedStudent = state.fileName.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
 
       if (selectedStudent) {
-        selectedStudent.buyDetail.push(newBuyDetail);
+        // selectedStudent.buyDetail.push(newBuyDetail);
+        selectedStudent.buyDetail = [...selectedStudent.buyDetail, newBuyDetail];
       }
     },
+    addTeachClass: (state, action) => {
+      const { selectedCoachName, newTeachClass } = action.payload;
+      const selectedCoach = state.fileName.newJsonData[2].coachDetail.find((coach) => coach.coachName === selectedCoachName);
+      if (selectedCoach) {
+        selectedCoach.teachClass = [...selectedCoach.teachClass, newTeachClass];
+        // selectedCoach.teachClass.push(newTeachClass);
+      }
+    },
+
     addReserveTableData: (state, action) => {
       // console.log("addReserveTableData payload", action.payload);
       // console.log("addReserveTableData state", state);
@@ -150,7 +160,7 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass } = saveSlice.actions
 
 
 // export reducer to global

@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import jsonData from '../json/new_class.json'
 
-import { selectFileName,setClassFormSave,addNewBuyDetail } from '../redux/reducers/saveSlice'
+import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass } from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
@@ -302,16 +302,15 @@ if (classDetailToUpdate) {
 }
 
 //coach>coachDetail>TeachClass
-  const newTeachClass ={
+const selectedCoachName = classForm[currentPage].coachName;  
+const newTeachClass ={
     classID: newClassID,
   } 
-  const selectedCoachName = classForm[currentPage].coachName;
   const selectedCoach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === selectedCoachName);
-  // if (selectedCoach) {
-
-  //   selectedCoach.teachClass.push(newTeachClass);
-  // }
-
+  if (selectedCoach) {
+    dispatch(addTeachClass({ selectedCoachName, newTeachClass }));
+  }
+  console.log('newTeachClass', newTeachClass);
  // 要加到BuyDetail的資料
  
   // 在这里处理表单提交的逻辑
@@ -319,6 +318,7 @@ if (classDetailToUpdate) {
 
   // 找出ID對應的學員，把BuyDetail資料放進去
   const selectedStudentName = classForm[currentPage].stuName;
+
   const newBuyDetail = {
     classID: newClassID,
     coachName: classForm[currentPage].coachName,
