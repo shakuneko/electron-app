@@ -676,7 +676,7 @@ useEffect(() => {
                               class="form-select"
                               name="buyDate"
                               value={classForm.page2.buyDate}
-                              onChange={(e) => handleInputChange(e, 'page1')}
+                              onChange={(e) => handleInputChange(e, 'page2')}
                             ></input>
                           </div>
                       </div>
