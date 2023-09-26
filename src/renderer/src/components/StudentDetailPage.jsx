@@ -37,6 +37,7 @@ function StudentDetailPage({ stuData }) {
         
           <>
       <Button
+      className='btn btn-golden'
         onClick={() => setOpen(!open)}
         aria-controls="example-collapse-text"
         aria-expanded={open}
