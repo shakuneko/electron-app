@@ -490,5 +490,59 @@
         "selectedItem": null
       }
     ]
+  },{
+    "category": "revenue",
+    "revenueDetail": [
+      {
+        "revenueDateMonth": "2023/07",
+        "revenueList":[
+          {
+            "totalLeftSalary": 25000,
+            "classLeft": 6,
+            "classType": "皮拉提斯"
+          },
+          {
+            "totalLeftSalary": 13500,
+            "classLeft": 2,
+            "classType": "PT"
+          },
+          {
+            "totalLeftSalary": 12000,
+            "classLeft": 3,
+            "classType": "團課"
+          },
+          {
+            "totalLeftSalary": 16000,
+            "classLeft": 0,
+            "classType": "運動按摩"
+          }
+        ]
+      },{
+        "revenueDateMonth": "2023/08",
+        "revenueList":[
+          {
+            "totalLeftSalary": 25500,
+            "classLeft": 7,
+            "classType": "皮拉提斯"
+          },
+          {
+            "totalLeftSalary": 13500,
+            "classLeft": 1,
+            "classType": "PT"
+          },
+          {
+            "totalLeftSalary": 11500,
+            "classLeft": 2,
+            "classType": "團課"
+          },
+          {
+            "totalLeftSalary": 15000,
+            "classLeft": 0,
+            "classType": "運動按摩"
+          }
+        ]
+      }
+
+    ]
   }
 ]

@@ -45,8 +45,8 @@ function SaveJsonPage() {
   // 获取当前日期和时间
   const currentDateTime = DateTime.now()
   // 格式化日期为 "2022/03/03" 格式
-  const formattedDate = currentDateTime.toFormat('yyyy/MM/dd')
-  //console.log('当前日期：', formattedDate)
+  const formattedDate = currentDateTime.toFormat('yyyy/MM')
+  //console.log('日期：', formattedDate)
 
   return (
     <div className="row row-no-gutter margin-left-right container-fluid">

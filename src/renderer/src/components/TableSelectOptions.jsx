@@ -53,12 +53,12 @@ export const columnsRevenue = [
         header:"項目名稱"
     },
     {
-        accessorKey:"classLeft",
+        accessorKey:"classLeftLast",
         header:"上月未核銷堂數",
     },
     {
         // accessorFn: (row) => `${row.salary*row.preCourseLeft} `,
-        accessorKey:"totalLeftSalary",
+        accessorKey:"totalLeftSalaryLast",
         id:"lastMonthMoney",
         // accessorKey:"preCourseLeft",
         header:"上月未核銷金額",
