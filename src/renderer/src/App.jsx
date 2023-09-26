@@ -27,6 +27,8 @@ import { setFileName } from './redux/reducers/saveSlice'
 import { setHasinit } from './redux/reducers/saveSlice'
 import { selectFileName } from './redux/reducers/saveSlice'
 import { selectHasInit } from './redux/reducers/saveSlice'
+//time check
+import { DateTime } from 'luxon';
 
 function App() {
   const [isLoading,setIsLoading] = useState(true)
@@ -112,6 +114,18 @@ function App() {
     //   ipcRenderer.removeAllListeners('filePathInfo')
     // }
   }, [])
+
+  //check date and save value to last month
+  const currentDateTime = DateTime.now();
+  const formattedDate = currentDateTime.toFormat('yyyy/MM');
+// 将目标日期字符串转换为 Luxon DateTime 对象
+const targetDate = DateTime.fromFormat('2023/08', 'yyyy/MM');
+// 判断当前日期是否大于目标日期
+if (currentDateTime > targetDate) {
+  console.log('当前月份大于 2023/08');
+} else {
+  console.log('当前月份不大于 2023/08');
+}
 
   console.log("fileContent:", fileContent)
   return (

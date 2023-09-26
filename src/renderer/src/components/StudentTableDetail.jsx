@@ -1,16 +1,12 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
-import { CheckOut } from "./TableSelectOptions"
 
 function StudentTableDetail({classes}) {
-
-
-
     const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         return<>
            <Link to={`/student/name/${renderedCellValue}`} className='table-link-underline-none'>
-                <button type="button" className="btn btn-golden">查看{renderedCellValue}</button> 
+                <button type="button" className="btn btn-golden">查看</button> 
             </Link>
         </>
     };
@@ -78,6 +74,10 @@ function StudentTableDetail({classes}) {
                 {/* <button onClick={()=> console.log(stuArray)}>pp</button> */}
             </Link>
         )}
+        muiSearchTextFieldProps={{
+            placeholder: "搜尋想查找的名稱、堂數",
+            sx: { minWidth: '300px' },
+        }}
                                 
     />
                 

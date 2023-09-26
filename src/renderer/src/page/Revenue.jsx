@@ -2,13 +2,38 @@ import Navbar from '../components/Navbar'
 import RevenueSetTable from '../components/RevenueSetTable'
 import { columnsRevenue, columnsMoney } from '../components/TableSelectOptions'
 import newJson from '../json/new_class.json'
+import { DateTime } from 'luxon'
+
 function Revenue({ classes }) {
   //new json new_class
-//   const nJson = newJson
   const nJson = classes
+
+  //time date使用及判斷
+  // 获取当前日期和时间
+  const currentDateTime = DateTime.now()
+  // 减一個月
+  const previousMonthDateTime = currentDateTime.minus({ months: 1 })
+  // 格式化日期为 "yyyy/MM"
+  const formattedDate = previousMonthDateTime.toFormat('yyyy/MM')
+  let lastMonth = '沒有資料'
+  let lastMonthCourse = '沒有資料'
+  let lastMonthRevenue = '沒有資料'
+  let lastMonthRevenueTable = []
+  nJson.forEach((category) => {
+    if (category.category === 'revenue') {
+      category.revenueDetail.forEach((revenueData) => {
+        if (revenueData.revenueDateMonth === formattedDate) {
+          lastMonth = revenueData.revenueDateMonth
+          lastMonthRevenueTable = revenueData.revenueList
+        }
+      })
+    }
+  })
+  console.log('lastMonth', lastMonth)
+  console.log('BBBlastMonthRevenueTable', lastMonthRevenueTable)
+
   // 创建一个新的 Map 对象，用于存储教练与其课程类型的关系
   const coachCoursesMap = new Map()
-
   // 遍历 JSON 数据，将每个教练与其课程类型关联起来
   nJson.forEach((category) => {
     if (category.category === 'class') {
@@ -34,8 +59,7 @@ function Revenue({ classes }) {
   // coachCoursesArray 包含每位教练id对应的课程类型数组
   console.log(coachCoursesArray)
 
-
-  const coachSalaryMap = new Map();
+  const coachSalaryMap = new Map()
   // 遍历 JSON 数据，打印每个教练的 ID、课程类型和 coursesAll
   nJson.forEach((category) => {
     if (category.category === 'class') {
@@ -68,427 +92,424 @@ function Revenue({ classes }) {
           // 计算薪资乘以 coursesAll，并存储到 Map 中
           coachSalaryMap.set(coachID, {
             ptSalary: courseType === 'PT' ? ptSalary * coursesAll : 0,
-  groupSalary: courseType === '團課' ? groupSalary * coursesAll : 0,
-  massageSalary: courseType === '運動按摩' ? massageSalary * coursesAll : 0,
-  pilatesSalary: courseType === '皮拉提斯' ? pilatesSalary * coursesAll : 0,
+            groupSalary: courseType === '團課' ? groupSalary * coursesAll : 0,
+            massageSalary: courseType === '運動按摩' ? massageSalary * coursesAll : 0,
+            pilatesSalary: courseType === '皮拉提斯' ? pilatesSalary * coursesAll : 0
           })
         }
       })
     }
   })
   // 将 Map 转换为数组
-const coachSalaryArray = [...coachSalaryMap];
+  const coachSalaryArray = [...coachSalaryMap]
 
-// coachSalaryArray 包含每位教练的薪资信息
-coachSalaryMap.forEach((salaries, coachID) => {
-    console.log(`Coach ID: ${coachID}`);
-    console.log(`PT Salary: ${salaries.ptSalary}`);
-    console.log(`Group Salary: ${salaries.groupSalary}`);
-    console.log(`Massage Salary: ${salaries.massageSalary}`);
-    console.log(`Pilates Salary: ${salaries.pilatesSalary}`);
-    console.log('-----------------------------');
-  });
+  // coachSalaryArray 包含每位教练的薪资信息
+  coachSalaryMap.forEach((salaries, coachID) => {
+    console.log(`Coach ID: ${coachID}`)
+    console.log(`PT Salary: ${salaries.ptSalary}`)
+    console.log(`Group Salary: ${salaries.groupSalary}`)
+    console.log(`Massage Salary: ${salaries.massageSalary}`)
+    console.log(`Pilates Salary: ${salaries.pilatesSalary}`)
+    console.log('-----------------------------')
+  })
 
   //total salary個別教練 總薪水
   coachSalaryMap.forEach((salaries, coachID) => {
     const totalSalary =
-      salaries.ptSalary +
-      salaries.groupSalary +
-      salaries.massageSalary +
-      salaries.pilatesSalary;
-    console.log(`Coach ID: ${coachID}, Total Salary: ${totalSalary}`);
-  });
+      salaries.ptSalary + salaries.groupSalary + salaries.massageSalary + salaries.pilatesSalary
+    console.log(`Coach ID: ${coachID}, Total Salary: ${totalSalary}`)
+  })
 
-    //total salary所有教練加總 總薪水
-    let totalSalarySum = 0;
+  //total salary所有教練加總 總薪水
+  let totalSalarySum = 0
 
-    coachSalaryMap.forEach((salaries) => {
-      const { ptSalary, groupSalary, massageSalary, pilatesSalary } = salaries;
-      totalSalarySum +=
-        ptSalary +
-        groupSalary +
-        massageSalary +
-        pilatesSalary;
-    });
-    console.log(`所有教练的薪水总和: ${totalSalarySum}`);
+  coachSalaryMap.forEach((salaries) => {
+    const { ptSalary, groupSalary, massageSalary, pilatesSalary } = salaries
+    totalSalarySum += ptSalary + groupSalary + massageSalary + pilatesSalary
+  })
+  console.log(`所有教练的薪水总和: ${totalSalarySum}`)
 
-
-
-
-//-------------------------------------------------------------------
+  //-------------------------------------------------------------------
   // 按 courseType 分类的数据 計算為未核銷金額
-  const courseTypeLeftData = {};
-  let totalLeftCourseCount = 0;
+  const courseTypeLeftData = {}
+  let totalLeftCourseCount = 0
 
-  let totalLeftPtClass = 0;
-  let totalLeftGroupClass = 0;
-  let totalLeftMassageClass = 0;
-  let totalLeftPilatesClass = 0;
+  let totalLeftPtClass = 0
+  let totalLeftGroupClass = 0
+  let totalLeftMassageClass = 0
+  let totalLeftPilatesClass = 0
 
   // 遍历 JSON 数据并整理
-  nJson.forEach(categoryItem => {
+  nJson.forEach((categoryItem) => {
     if (categoryItem.category === 'class' && categoryItem.classDetail) {
-      categoryItem.classDetail.forEach(classItem => {
-        const courseType = classItem.courseType;
-        const courseLeft = parseInt(classItem.courseLeft) || 0;
-        let totalLeftSalary = 0;
-        
-       
+      categoryItem.classDetail.forEach((classItem) => {
+        const courseType = classItem.courseType
+        const courseLeft = parseInt(classItem.courseLeft) || 0
+        let totalLeftSalary = 0
 
-        console.log("課程對應未核銷堂數",courseType,courseLeft);
+        console.log('課程對應未核銷堂數', courseType, courseLeft)
 
         // 查找该班级的 coach 数据
         if (classItem.coach && classItem.coach.length > 0) {
-          const coachID = classItem.coach[0].coachID;
-            //console.log("課程對應教練ID",coachID);
+          const coachID = classItem.coach[0].coachID
+          //console.log("課程對應教練ID",coachID);
           // 查找对应的 coach 数据
-          const coachData = nJson.find(item => item.category === 'coach' && item.coachDetail.find(coach => coach.coachID === coachID));
-          
+          const coachData = nJson.find(
+            (item) =>
+              item.category === 'coach' &&
+              item.coachDetail.find((coach) => coach.coachID === coachID)
+          )
+
           if (coachData) {
-            let coachSalary = 0;
+            let coachSalary = 0
             switch (courseType) {
               case 'PT':
-                coachSalary = coachData.coachDetail[0].PtSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].PtSalary || 0
+                break
               case '團課':
-                coachSalary = coachData.coachDetail[0].GroupSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].GroupSalary || 0
+                break
               case '運動按摩':
-                coachSalary = coachData.coachDetail[0].MassageSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].MassageSalary || 0
+                break
               case '皮拉提斯':
-                coachSalary = coachData.coachDetail[0].PilatesSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].PilatesSalary || 0
+                break
               default:
-                break;
-            }
-            
-            if(classItem.courseType === 'PT'){
-                totalLeftPtClass += courseLeft;
-            }else if(classItem.courseType === '團課'){
-                totalLeftGroupClass += courseLeft;
-            }else if(classItem.courseType === '運動按摩'){
-                totalLeftMassageClass += courseLeft;
-            }else if(classItem.courseType === '皮拉提斯'){
-                totalLeftPilatesClass += courseLeft;
+                break
             }
 
+            if (classItem.courseType === 'PT') {
+              totalLeftPtClass += courseLeft
+            } else if (classItem.courseType === '團課') {
+              totalLeftGroupClass += courseLeft
+            } else if (classItem.courseType === '運動按摩') {
+              totalLeftMassageClass += courseLeft
+            } else if (classItem.courseType === '皮拉提斯') {
+              totalLeftPilatesClass += courseLeft
+            }
 
             // 计算 totalLeftSalary
-            totalLeftSalary = courseLeft * coachSalary;
-          //count totalLeftCourseCount
-            totalLeftCourseCount += courseLeft;
+            totalLeftSalary = courseLeft * coachSalary
+            //count totalLeftCourseCount
+            totalLeftCourseCount += courseLeft
           }
         }
-  
-        if (!courseTypeLeftData[courseType]) {
-            courseTypeLeftData[courseType] = {
-            totalLeftSalary: 0,
-          };
-        }
-  
-        courseTypeLeftData[courseType].totalLeftSalary += totalLeftSalary;
-      });
-    }
-  });
 
-  const totalSumLeft = Object.values(courseTypeLeftData).reduce((sum, typeData) => sum + typeData.totalLeftSalary, 0);
+        if (!courseTypeLeftData[courseType]) {
+          courseTypeLeftData[courseType] = {
+            totalLeftSalary: 0
+          }
+        }
+
+        courseTypeLeftData[courseType].totalLeftSalary += totalLeftSalary
+      })
+    }
+  })
+
+  const totalSumLeft = Object.values(courseTypeLeftData).reduce(
+    (sum, typeData) => sum + typeData.totalLeftSalary,
+    0
+  )
   //for title's count
-  console.log("AAAtotalSumLeft",totalSumLeft);
-  console.log("AAAtotalLeftCourseCount",totalLeftCourseCount);
+  console.log('AAAtotalSumLeft', totalSumLeft)
+  console.log('AAAtotalLeftCourseCount', totalLeftCourseCount)
   // 输出整理后的数据
   //console.log("BBBleftcourseTotal",courseTypeLeftData);
 
   //-------------------------------------------------------------------計算未核銷堂數並以課程分類
   const classLeftData = {
-    "PT": totalLeftPtClass,
-    "團課": totalLeftGroupClass,
-    "運動按摩": totalLeftMassageClass,
-    "皮拉提斯": totalLeftPilatesClass,
-  };
-  Object.keys(classLeftData).forEach(courseType => {
+    PT: totalLeftPtClass,
+    團課: totalLeftGroupClass,
+    運動按摩: totalLeftMassageClass,
+    皮拉提斯: totalLeftPilatesClass
+  }
+  Object.keys(classLeftData).forEach((courseType) => {
     if (courseTypeLeftData[courseType]) {
-      courseTypeLeftData[courseType].classLeft = classLeftData[courseType];
+      courseTypeLeftData[courseType].classLeft = classLeftData[courseType]
     }
-  });
+  })
 
   //***************  use for up table  *********************
   //console.log("BBBcourseTypeLeftData", courseTypeLeftData);
-  
+
   // 新的陣列
-const newArray = [];
+  const newArray = []
 
-// 遍歷原始物件並轉換成新的陣列
-for (const classType in courseTypeLeftData) {
-  if (courseTypeLeftData.hasOwnProperty(classType)) {
-    const classData = courseTypeLeftData[classType];
-    newArray.push({
-      totalLeftSalary: classData.totalLeftSalary,
-      classLeft: classData.classLeft,
-      classType: classType
-    });
+  // 遍歷原始物件並轉換成新的陣列
+  for (const classType in courseTypeLeftData) {
+    if (courseTypeLeftData.hasOwnProperty(classType)) {
+      const classData = courseTypeLeftData[classType]
+      newArray.push({
+        totalLeftSalary: classData.totalLeftSalary,
+        classLeft: classData.classLeft,
+        classType: classType
+      })
+    }
   }
-}
-console.log("BBBcourseTypeLeftData", newArray);
-
+  console.log('BBBcourseTypeLeftData', newArray)
 
   //計算為已核銷金額---------------------------------------------------
   // 创建一个对象来存储按 courseType 分类的数据 計算為未核銷金額
-  const courseTypeFINData = {};
-  let totalFINCourseCount = 0;
+  const courseTypeFINData = {}
+  let totalFINCourseCount = 0
   // 遍历 JSON 数据并整理
-  nJson.forEach(categoryItem => {
+  nJson.forEach((categoryItem) => {
     if (categoryItem.category === 'class' && categoryItem.classDetail) {
-      categoryItem.classDetail.forEach(classItem => {
-        const courseType = classItem.courseType;
-        const coursesFIN = parseInt(classItem.coursesFIN) || 0;
-        let totalFINSalary = 0;
+      categoryItem.classDetail.forEach((classItem) => {
+        const courseType = classItem.courseType
+        const coursesFIN = parseInt(classItem.coursesFIN) || 0
+        let totalFINSalary = 0
         //console.log("課程對應核銷堂數",courseType,coursesFIN);
 
         // 查找该班级的 coach 数据
         if (classItem.coach && classItem.coach.length > 0) {
-          const coachID = classItem.coach[0].coachID;
-            //console.log("課程對應教練ID",coachID);
+          const coachID = classItem.coach[0].coachID
+          //console.log("課程對應教練ID",coachID);
           // 查找对应的 coach 数据
-          const coachData = nJson.find(item => item.category === 'coach' && item.coachDetail.find(coach => coach.coachID === coachID));
-          
+          const coachData = nJson.find(
+            (item) =>
+              item.category === 'coach' &&
+              item.coachDetail.find((coach) => coach.coachID === coachID)
+          )
+
           if (coachData) {
-            let coachSalary = 0;
+            let coachSalary = 0
             switch (courseType) {
               case 'PT':
-                coachSalary = coachData.coachDetail[0].PtSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].PtSalary || 0
+                break
               case '團課':
-                coachSalary = coachData.coachDetail[0].GroupSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].GroupSalary || 0
+                break
               case '運動按摩':
-                coachSalary = coachData.coachDetail[0].MassageSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].MassageSalary || 0
+                break
               case '皮拉提斯':
-                coachSalary = coachData.coachDetail[0].PilatesSalary || 0;
-                break;
+                coachSalary = coachData.coachDetail[0].PilatesSalary || 0
+                break
               default:
-                break;
+                break
             }
-            
+
             // 计算 totalSalary
-            totalFINSalary = coursesFIN * coachSalary;
-            totalFINCourseCount += coursesFIN;
+            totalFINSalary = coursesFIN * coachSalary
+            totalFINCourseCount += coursesFIN
           }
         }
-  
-        if (!courseTypeFINData[courseType]) {
-            courseTypeFINData[courseType] = {
-            totalFINSalary: 0,
-          };
-        }
-  
-        courseTypeFINData[courseType].totalFINSalary += totalFINSalary;
-      });
-    }
-  });
-  const totalSumFIN = Object.values(courseTypeFINData).reduce((sum, typeData) => sum + typeData.totalFINSalary, 0);
-  console.log("AAAtotalSumFIN",totalSumFIN);
-    console.log("AAAtotalFINCourseCount",totalFINCourseCount);
-  // 输出整理后的数据
-  console.log("AAAfincoursetotal",courseTypeFINData);
 
+        if (!courseTypeFINData[courseType]) {
+          courseTypeFINData[courseType] = {
+            totalFINSalary: 0
+          }
+        }
+
+        courseTypeFINData[courseType].totalFINSalary += totalFINSalary
+      })
+    }
+  })
+  const totalSumFIN = Object.values(courseTypeFINData).reduce(
+    (sum, typeData) => sum + typeData.totalFINSalary,
+    0
+  )
+  console.log('AAAtotalSumFIN', totalSumFIN)
+  console.log('AAAtotalFINCourseCount', totalFINCourseCount)
+  // 输出整理后的数据
+  console.log('AAAfincoursetotal', courseTypeFINData)
 
   //下方表格使用---------------------------------------------------
-//計算coachFin,coachLeft以教練分類---------------------------------------------------
-const courseInfo = [];
-// 遍历 JSON 数据并整理课程信息
-nJson.forEach(categoryItem => {
-  if (categoryItem.category === 'class' && categoryItem.classDetail) {
-    categoryItem.classDetail.forEach(classItem => {
-      const courseLeft = parseInt(classItem.courseLeft) || 0;
-      const coursesFIN = parseInt(classItem.coursesFIN) || 0;
-      
-      courseInfo.push({
-        classID: classItem.classID,
-        courseLeft,
-        coursesFIN
-      });
-    });
-  }
-});
+  //計算coachFin,coachLeft以教練分類---------------------------------------------------
+  const courseInfo = []
+  // 遍历 JSON 数据并整理课程信息
+  nJson.forEach((categoryItem) => {
+    if (categoryItem.category === 'class' && categoryItem.classDetail) {
+      categoryItem.classDetail.forEach((classItem) => {
+        const courseLeft = parseInt(classItem.courseLeft) || 0
+        const coursesFIN = parseInt(classItem.coursesFIN) || 0
 
-const coachInfo2 = {};
+        courseInfo.push({
+          classID: classItem.classID,
+          courseLeft,
+          coursesFIN
+        })
+      })
+    }
+  })
 
-// 遍历 JSON 数据并根据 coach 对教练进行分类
-nJson.forEach(categoryItem => {
-  if (categoryItem.category === 'class' && categoryItem.classDetail) {
-    categoryItem.classDetail.forEach(classItem => {
-      const coach = classItem.coach[0]; // 假设每个班级只有一个教练
-      const coachID = coach.coachID;
-      const coachName = coach.coachName;
-      
-      if (!coachInfo2[coachID]) {
-        coachInfo2[coachID] = {
-          coachName,
-          courseLeftTotal: 0,
-          coursesFINTotal: 0,
-        };
-      }
-      
-      const courseLeft = parseInt(classItem.courseLeft) || 0;
-      const coursesFIN = parseInt(classItem.coursesFIN) || 0;
-      
-      coachInfo2[coachID].courseLeftTotal += courseLeft;
-      coachInfo2[coachID].coursesFINTotal += coursesFIN;
-    });
-  }
-});
+  const coachInfo2 = {}
 
-// 打印课程信息
-console.log("课程信息", courseInfo);
+  // 遍历 JSON 数据并根据 coach 对教练进行分类
+  nJson.forEach((categoryItem) => {
+    if (categoryItem.category === 'class' && categoryItem.classDetail) {
+      categoryItem.classDetail.forEach((classItem) => {
+        const coach = classItem.coach[0] // 假设每个班级只有一个教练
+        const coachID = coach.coachID
+        const coachName = coach.coachName
 
-// 打印教练信息
-console.log("教练信息", coachInfo2);
+        if (!coachInfo2[coachID]) {
+          coachInfo2[coachID] = {
+            coachName,
+            courseLeftTotal: 0,
+            coursesFINTotal: 0
+          }
+        }
 
+        const courseLeft = parseInt(classItem.courseLeft) || 0
+        const coursesFIN = parseInt(classItem.coursesFIN) || 0
 
-// 根据 coachName 分类合并信息with major---------------------------------------------------
-    const coachInfo = [];
+        coachInfo2[coachID].courseLeftTotal += courseLeft
+        coachInfo2[coachID].coursesFINTotal += coursesFIN
+      })
+    }
+  })
 
-// 遍历包含 coach 信息的数组
-nJson.forEach(categoryItem => {
-  if (categoryItem.category === 'coach' && categoryItem.coachDetail) {
-    categoryItem.coachDetail.forEach(coachItem => {
-      const coachData = {
-        coachID: coachItem.coachID,
-        coachName: coachItem.coachName,
-        major: coachItem.major,
-        teachClass: []
-      };
+  // 打印课程信息
+  console.log('课程信息', courseInfo)
 
-      // 遍历 teachClass 数组并提取 classID
-      if (coachItem.teachClass) {
-        coachItem.teachClass.forEach(teachClassItem => {
-          coachData.teachClass.push(teachClassItem.classID);
-        });
-      }
+  // 打印教练信息
+  console.log('教练信息', coachInfo2)
 
-      // 将提取的教练信息添加到结果数组中
-      coachInfo.push(coachData);
-    });
-  }
-});
-// 输出结果
-console.log("AAAcoachInfo",coachInfo);
+  // 根据 coachName 分类合并信息with major---------------------------------------------------
+  const coachInfo = []
 
-//課程核銷相關
-const classInfo = [];
-// 遍历包含 class 信息的数组
-nJson.forEach(categoryItem => {
-  if (categoryItem.category === 'class' && categoryItem.classDetail) {
-    categoryItem.classDetail.forEach(classItem => {
-      const classData = {
-        classID: classItem.classID,
-        coursesAll: classItem.coursesAll,
-        coursesFIN: classItem.coursesFIN,
-        courseLeft: classItem.courseLeft
-      };
+  // 遍历包含 coach 信息的数组
+  nJson.forEach((categoryItem) => {
+    if (categoryItem.category === 'coach' && categoryItem.coachDetail) {
+      categoryItem.coachDetail.forEach((coachItem) => {
+        const coachData = {
+          coachID: coachItem.coachID,
+          coachName: coachItem.coachName,
+          major: coachItem.major,
+          teachClass: []
+        }
 
-      // 将提取的班级信息添加到结果数组中
-      classInfo.push(classData);
-    });
-  }
-});
-// 输出结果
-console.log("AAAclassInfo",classInfo);
+        // 遍历 teachClass 数组并提取 classID
+        if (coachItem.teachClass) {
+          coachItem.teachClass.forEach((teachClassItem) => {
+            coachData.teachClass.push(teachClassItem.classID)
+          })
+        }
 
-// const mergeInfo = coachInfo.reduce((result,itemB) => {
-//     itemB.teachClass.forEach((classIDs) => {
-//         const matchingClass = classIDs.map((classID) => 
-//         classInfo.find((itemC) => itemC.classID === classID)
-//         );
-//         result.push({ ...itemB, ...matchingClass });
-//     });
-//     return result;
-// }, []);
-// console.log("AAAmergeInfo",mergeInfo);
-const mergeInfo = coachInfo.reduce((result, itemB) => {
+        // 将提取的教练信息添加到结果数组中
+        coachInfo.push(coachData)
+      })
+    }
+  })
+  // 输出结果
+  console.log('AAAcoachInfo', coachInfo)
+
+  //課程核銷相關
+  const classInfo = []
+  // 遍历包含 class 信息的数组
+  nJson.forEach((categoryItem) => {
+    if (categoryItem.category === 'class' && categoryItem.classDetail) {
+      categoryItem.classDetail.forEach((classItem) => {
+        const classData = {
+          classID: classItem.classID,
+          coursesAll: classItem.coursesAll,
+          coursesFIN: classItem.coursesFIN,
+          courseLeft: classItem.courseLeft
+        }
+
+        // 将提取的班级信息添加到结果数组中
+        classInfo.push(classData)
+      })
+    }
+  })
+  // 输出结果
+  console.log('AAAclassInfo', classInfo)
+
+  // const mergeInfo = coachInfo.reduce((result,itemB) => {
+  //     itemB.teachClass.forEach((classIDs) => {
+  //         const matchingClass = classIDs.map((classID) =>
+  //         classInfo.find((itemC) => itemC.classID === classID)
+  //         );
+  //         result.push({ ...itemB, ...matchingClass });
+  //     });
+  //     return result;
+  // }, []);
+  // console.log("AAAmergeInfo",mergeInfo);
+  const mergeInfo = coachInfo.reduce((result, itemB) => {
     itemB.teachClass.forEach((classIDs) => {
-      const matchingClassID = classIDs[0]; // 假设每个班级只有一项
-  
+      const matchingClassID = classIDs[0] // 假设每个班级只有一项
+
       // 查找匹配的班级信息
-      const matchingClass = classInfo.find((itemC) => itemC.classID === matchingClassID);
-  
+      const matchingClass = classInfo.find((itemC) => itemC.classID === matchingClassID)
+
       if (matchingClass) {
-        result.push({ ...itemB, ...matchingClass });
+        result.push({ ...itemB, ...matchingClass })
       }
-    });
-    return result;
-  }, []);
-  console.log("AAAmergeInfo", mergeInfo);
+    })
+    return result
+  }, [])
+  console.log('AAAmergeInfo', mergeInfo)
 
-//計算體驗課堂數exCourse---------------------------------------------------
-const coachExCourseCounts = {};
+  //計算體驗課堂數exCourse---------------------------------------------------
+  const coachExCourseCounts = {}
 
-// 遍历 JSON 数据
-nJson.forEach(categoryItem => {
-  if (categoryItem.category === 'class' && categoryItem.classDetail) {
-    categoryItem.classDetail.forEach(classItem => {
-      const coachName = classItem.coach[0].coachName;
-      const exCourse = classItem.exCourse;
+  // 遍历 JSON 数据
+  nJson.forEach((categoryItem) => {
+    if (categoryItem.category === 'class' && categoryItem.classDetail) {
+      categoryItem.classDetail.forEach((classItem) => {
+        const coachName = classItem.coach[0].coachName
+        const exCourse = classItem.exCourse
 
-      if (!coachExCourseCounts[coachName]) {
-        coachExCourseCounts[coachName] = 0;
-      }
+        if (!coachExCourseCounts[coachName]) {
+          coachExCourseCounts[coachName] = 0
+        }
 
-      if (exCourse === '是') {
-        coachExCourseCounts[coachName]++;
-      }
-    });
-  }
-});
+        if (exCourse === '是') {
+          coachExCourseCounts[coachName]++
+        }
+      })
+    }
+  })
 
-// 输出每个教练的 exCourse 总数
-console.log("coachExCourseCount",coachExCourseCounts);
+  // 输出每个教练的 exCourse 总数
+  console.log('coachExCourseCount', coachExCourseCounts)
 
-// 根据 coachName 分类合并信息
-const mergeInfoLast = mergeInfo.map(coach => {
-    const coachName = coach.coachName;
-    const exCourseCount = coachExCourseCounts[coachName] || 0;
-    
+  // 根据 coachName 分类合并信息
+  const mergeInfoLast = mergeInfo.map((coach) => {
+    const coachName = coach.coachName
+    const exCourseCount = coachExCourseCounts[coachName] || 0
+
     return {
       ...coach,
-      exCourseCount,
-    };
-  });
-  
-  console.log("完全合并的(table below)", mergeInfoLast);
+      exCourseCount
+    }
+  })
 
-//下方表格使用---------------------------------------------------END
+  console.log('完全合并的(table below)', mergeInfoLast)
 
+  //下方表格使用---------------------------------------------------END
 
-//old---------------------------------------------------
+  //old---------------------------------------------------
   //計算營業額
-//   let sum = 0
-//   let finCourse = 0
-//   let finMoney = 0
-//   let leftCourse = 0
-//   let leftMoney = 0
+  //   let sum = 0
+  //   let finCourse = 0
+  //   let finMoney = 0
+  //   let leftCourse = 0
+  //   let leftMoney = 0
 
-//   for (let i = 0; i < classes.length; i++) {
-//     if (i == 0) {
-//       sum = classes[i].salary * classes[i].coursesAll
-//       finCourse = classes[i].coursesFIN * 1
-//       finMoney = classes[i].salary * classes[i].coursesFIN
+  //   for (let i = 0; i < classes.length; i++) {
+  //     if (i == 0) {
+  //       sum = classes[i].salary * classes[i].coursesAll
+  //       finCourse = classes[i].coursesFIN * 1
+  //       finMoney = classes[i].salary * classes[i].coursesFIN
 
-//       leftCourse = classes[i].courseLeft * 1
-//       leftMoney = classes[i].courseLeft * classes[i].salary
-//     } else {
-//       sum += classes[i].salary * classes[i].coursesAll
-//       finCourse += classes[i].coursesFIN * 1
-//       finMoney += classes[i].salary * classes[i].coursesFIN
+  //       leftCourse = classes[i].courseLeft * 1
+  //       leftMoney = classes[i].courseLeft * classes[i].salary
+  //     } else {
+  //       sum += classes[i].salary * classes[i].coursesAll
+  //       finCourse += classes[i].coursesFIN * 1
+  //       finMoney += classes[i].salary * classes[i].coursesFIN
 
-//       leftCourse += classes[i].courseLeft * 1
-//       leftMoney += classes[i].courseLeft * classes[i].salary
-//       // sum +=  each
-//       // finCoures += course
-//     }
-//   }
+  //       leftCourse += classes[i].courseLeft * 1
+  //       leftMoney += classes[i].courseLeft * classes[i].salary
+  //       // sum +=  each
+  //       // finCoures += course
+  //     }
+  //   }
   const products = [
     {
       id: '0',
@@ -528,6 +549,21 @@ const mergeInfoLast = mergeInfo.map(coach => {
   ]
   //---------------------------------------------------old above
 
+  //將上月資料推入table array
+  const renameTheLastMonth = lastMonthRevenueTable.map((item) => {
+    return {
+      totalLeftSalaryLast: item.totalLeftSalary,
+      classLeftLast: item.classLeft,
+      classTypeLast: item.classType
+    }
+  })
+  //const mergeOldAndNew = [...renameTheLastMonth, ...newArray]
+  const mergeOldAndNew = newArray.map((item, index) => ({
+    ...item,
+    ...renameTheLastMonth[index]
+  }))
+  console.log('BBBmergeOldAndNew', mergeOldAndNew)
+
   return (
     <div className="container-fluid" style={{ backgroundColor: 'white' }}>
       <div className="row form_class row-no-gutters">
@@ -542,7 +578,7 @@ const mergeInfoLast = mergeInfo.map(coach => {
               <h1 className="money-title mt-2 title">$ {totalSalarySum}</h1>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
-            <RevenueSetTable classes={newArray} columns={columnsRevenue} />
+            <RevenueSetTable classes={mergeOldAndNew} columns={columnsRevenue} />
             <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">

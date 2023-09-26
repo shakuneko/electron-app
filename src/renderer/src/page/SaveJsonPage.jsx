@@ -4,14 +4,15 @@ import Navbar from '../components/Navbar'
 import jsonData from '../json/class.json'
 import newJsonData from '../json/new_class.json'
 import { useSelector, useDispatch } from 'react-redux'
-
+//for time
+import { DateTime } from 'luxon'
 
 function SaveJsonPage() {
   const [menuInfo, setMenuInfo] = useState('AzusaSavedFile')
   const [filePathInfo, setFilePathInfo] = useState('')
   const [fileContent, setFileContent] = useState('')
   const { ipcRenderer } = window.electron
-const fileContentFromRedux = useSelector((state) => state.root.save.fileName)
+  const fileContentFromRedux = useSelector((state) => state.root.save.fileName)
 
   const onSaveToFile = async () => {
     const data = JSON.stringify({ newJsonData })
@@ -40,6 +41,13 @@ const fileContentFromRedux = useSelector((state) => state.root.save.fileName)
     }
   }, [])
 
+  //get time
+  // 获取当前日期和时间
+  const currentDateTime = DateTime.now()
+  // 格式化日期为 "2022/03/03" 格式
+  const formattedDate = currentDateTime.toFormat('yyyy/MM')
+  //console.log('日期：', formattedDate)
+
   return (
     <div className="row row-no-gutter margin-left-right container-fluid">
       <div className="nav col-2">
@@ -47,6 +55,7 @@ const fileContentFromRedux = useSelector((state) => state.root.save.fileName)
       </div>
       <div className="col-10 container margin-left-right">
         <div className="mt-4 table-container">
+          <div>{formattedDate}</div>
           <h3> 點擊下方按鈕存檔</h3>
           <h3>檔名：{menuInfo}</h3>
           <div
@@ -78,14 +87,13 @@ const fileContentFromRedux = useSelector((state) => state.root.save.fileName)
           >
             read from file
           </div>
-<h2>contentOldJson:</h2>
-<div> {JSON.stringify(newJsonData)}</div>
+          <h2>contentOldJson:</h2>
+          <div> {JSON.stringify(newJsonData)}</div>
           <h2>content:</h2>
           <div>{JSON.stringify(fileContent.testModified)}</div>
 
           <h2>redux content:</h2>
           <div>{JSON.stringify(fileContentFromRedux.newJsonData)}</div>
-
         </div>
       </div>
     </div>

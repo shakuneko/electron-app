@@ -1,6 +1,7 @@
 import React from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
+import { getStatusText } from './TableSelectOptions'
 
 function ClassTableDetail({classes}) {
 
@@ -17,7 +18,7 @@ function ClassTableDetail({classes}) {
     const CheckOut = ({renderedCellValue}) => { //設定查看按鈕要進入的頁面
         return<>
            <Link to={`/classes/id/${renderedCellValue}`} className='table-link-underline-none'>
-                <button type="button" className="btn btn-golden">查看{renderedCellValue}</button> 
+                <button type="button" className="btn btn-golden">查看</button> 
             </Link>
         </>
     };
@@ -26,6 +27,11 @@ function ClassTableDetail({classes}) {
         if (renderedCellValue === '1') return <span className="alert-mode">{renderedCellValue}</span>;
         else return<>{renderedCellValue}</>
     }
+
+    
+    // const inputDateString = "2023-8-30"; // 你的输入日期
+    // const result = getStatusText(inputDateString);
+    // console.log(result);
 
     const columns = [ //表格有的資料
         {
@@ -114,6 +120,10 @@ function ClassTableDetail({classes}) {
         enableHiding={false} //column hiding does not work with memoized table body
         enableStickyHeader
         enableFacetedValues
+        muiSearchTextFieldProps={{
+            placeholder: "搜尋想查找的名稱、堂數",
+            sx: { minWidth: '300px' },
+          }}
         renderTopToolbarCustomActions={({table}) => (
             <div>
             <Link to="/classes/form" className='table-link-underline-none'>

@@ -126,7 +126,8 @@
   .coach-top-bar-item{
     margin: 0 10px;
     padding: 0px;
-    font-size: 28px;
+    /* font-size: 28px; */
+    font-size: 24px;
   }
   /*coachdetaildate*/
   .chooseDateBox{
