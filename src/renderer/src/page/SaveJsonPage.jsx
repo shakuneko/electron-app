@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar'
 import jsonData from '../json/class.json'
 import newJsonData from '../json/new_class.json'
 import { useSelector, useDispatch } from 'react-redux'
+
 //for time
 import { DateTime } from 'luxon'
 
@@ -94,6 +95,7 @@ function SaveJsonPage() {
 
           <h2>redux content:</h2>
           <div>{JSON.stringify(fileContentFromRedux.newJsonData)}</div>
+
         </div>
       </div>
     </div>

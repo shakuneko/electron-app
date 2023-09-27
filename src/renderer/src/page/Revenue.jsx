@@ -3,7 +3,7 @@ import RevenueSetTable from '../components/RevenueSetTable'
 import { columnsRevenue, columnsMoney } from '../components/TableSelectOptions'
 import newJson from '../json/new_class.json'
 import { DateTime } from 'luxon'
-
+import emptyJson from '../json/emptyJson.json'
 function Revenue({ classes }) {
   //new json new_class
   const nJson = classes
@@ -510,43 +510,43 @@ function Revenue({ classes }) {
   //       // finCoures += course
   //     }
   //   }
-  const products = [
-    {
-      id: '0',
-      courseType: 'PT',
-      courseLeft: '3',
-      preCourseLeft: '16',
-      salary: '650'
-    },
-    {
-      id: '1',
-      courseType: '皮拉提斯',
-      courseLeft: '6',
-      preCourseLeft: '6',
-      salary: '650'
-    },
-    {
-      id: '2',
-      courseType: '團課',
-      courseLeft: '7',
-      preCourseLeft: '7',
-      salary: '650'
-    },
-    {
-      id: '3',
-      courseType: '場地租借',
-      courseLeft: '3',
-      preCourseLeft: '6',
-      salary: '650'
-    },
-    {
-      id: '4',
-      courseType: '運動舒緩',
-      courseLeft: '0',
-      preCourseLeft: '0',
-      salary: '650'
-    }
-  ]
+  // const products = [
+  //   {
+  //     id: '0',
+  //     courseType: 'PT',
+  //     courseLeft: '3',
+  //     preCourseLeft: '16',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '1',
+  //     courseType: '皮拉提斯',
+  //     courseLeft: '6',
+  //     preCourseLeft: '6',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '2',
+  //     courseType: '團課',
+  //     courseLeft: '7',
+  //     preCourseLeft: '7',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '3',
+  //     courseType: '場地租借',
+  //     courseLeft: '3',
+  //     preCourseLeft: '6',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '4',
+  //     courseType: '運動舒緩',
+  //     courseLeft: '0',
+  //     preCourseLeft: '0',
+  //     salary: '650'
+  //   }
+  // ]
   //---------------------------------------------------old above
 
   //將上月資料推入table array

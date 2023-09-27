@@ -129,7 +129,7 @@ if (currentDateTime > targetDate) {
 
   console.log("fileContent:", fileContent)
   return (
-    isLoading||!fileContent.newJsonData ? (<div>loading...</div> ):(
+    isLoading||!fileContent.newJsonData ? (<div>載入檔案中...</div> ):(
     <HashRouter>
       <Routes>
         <Route path="/" element={<ClassTable classes={fileContent.newJsonData}/>} />

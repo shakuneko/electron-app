@@ -2,9 +2,10 @@ import { createSlice, current } from '@reduxjs/toolkit'
 import hash from 'object-hash'
 // Part1: Define Slice (including reducers and actions)
 import originalJson from '../../json/class.json'
+import emptyJson from '../../json/emptyJson.json'
 
 const initialState = {
-  fileName: {},
+  fileName: emptyJson,
   hasInit: false,
   currentPageHash: '',//傳進來的value
   oldHash: hash(originalJson),
