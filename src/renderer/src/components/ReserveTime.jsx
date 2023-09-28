@@ -19,7 +19,7 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     const [reserveForm, setReserveForm] = useState(initialFormData); // 存儲選擇的日期
     // const [selectedStudents, setSelectedStudents] = useState([]);
     const [matchingStudents, setMatchingStudents] =  useState(new Set());
-    const [selectedStudentType, setSelectedStudentType] = useState(new Set()); // 存储选定的学员类型
+    // const [selectedStudentType, setSelectedStudentType] = useState(new Set()); // 存储选定的学员类型
     const studentFormData = useSelector((state) => state.root.save.fileName.newJsonData[1].stuDetail);
     console.log("studentFormData", studentFormData)
   const handleInputChange = (event) => {
@@ -111,50 +111,38 @@ const handleSubmit = () => {
 
   // 更新 reserveDetail > student 
   selectedStudentNames.forEach((selectedStudentName) => {
-    let selectedStudentInfo;
-  
-    // 根据课程类型来选择要添加到学员信息的来源
-    if (props.classes.courseType === '團課') {
-      selectedStudentInfo = selectedStudentType.find(
-        (student) => student.stuName === selectedStudentName
-      );
-    } else {
-      selectedStudentInfo = matchingStudents.find(
-        (student) => student.stuName === selectedStudentName
-      );
-    }
-  
+    let selectedStudentInfo = matchingStudents.find(
+      (student) => student.stuName === selectedStudentName
+    );
+
     if (selectedStudentInfo) {
       newReserveData.student.push({
         stuID: selectedStudentInfo.stuID,
-        courseType: selectedStudentInfo.courseType,
         stuName: selectedStudentInfo.stuName,
       });
     }
   });
  
-  const updatedJsonData = [...jsonData];
+  // const updatedJsonData = [...jsonData];
 
-  updatedJsonData.find((item) => item.category === 'class').classDetail.forEach((classItem) => {
-    if (classItem.classID === props.classes.classID) { // 替换为你的实际目标 classID
-      if (!classItem.reserveDetail) {
-        classItem.reserveDetail = []; // 如果没有 reserveDetail 数组，先创建一个
-      }
+  // updatedJsonData.find((item) => item.category === 'class').classDetail.forEach((classItem) => {
+  //   if (classItem.classID === props.classes.classID) { // 替换为你的实际目标 classID
+  //     if (!classItem.reserveDetail) {
+  //       classItem.reserveDetail = []; // 如果没有 reserveDetail 数组，先创建一个
+  //     }
 
       // classItem.reserveDetail.push(newReserveData);
       // setTableData(classItem.reserveDetail);
       dispatch(updateTableData([...tableData, newReserveData]))
       dispatch(addReserveTableData({data: [...tableData, newReserveData], classID: id}));
+      setReserveForm(initialFormData);
     } 
-  });
+  };
 
   // 清除表单数据（可选）
-  setReserveForm(initialFormData);
-
-  console.log(updatedJsonData);
   
-  }
-};
+
+  
     return (
       <div className="reservetab">
         <p className="reserveboxtitle">學員預約</p>
@@ -195,7 +183,7 @@ const handleSubmit = () => {
                value={reserveForm.reserveStu} // 存储选中的学员名称的数组 
               onChange={handleInputChange}
             >
-               {Array.from(selectedStudentType).map((student) => (
+               {Array.from(matchingStudents).map((student) => (
                 <option key={student.stuID} value={student.stuName}>
                   {student.stuName}
                 </option>
