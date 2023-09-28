@@ -83,7 +83,7 @@ function App() {
     }
   }
 
-  console.log('is init??:', hasInit)
+  console.log('is init in appjsx??:', hasInit)
 
   useEffect(() => {
     if (!hasInit) {
@@ -112,43 +112,6 @@ function App() {
   }, [])
 
   console.log('fileContent:', fileContent)
-
-
-  //check time and save to revenue
-  const data = fileContent?.newJsonData
-  // 检查数据是否存在
-if (data && Array.isArray(data)) {
-  // 提取所有的 revenueDateMonth，并将它们转换为 DateTime 对象，仅考虑年份和月份
-  const revenueMonths = data
-    .flatMap(item => item.revenueDetail || []) // 使用空数组作为默认值，以避免未定义的属性
-    .map(revenue => {
-      const parts = revenue.revenueDateMonth.split('/');
-      return DateTime.fromObject({ year: parseInt(parts[0]), month: parseInt(parts[1]) });
-    });
-
-  // 检查是否有有效的 revenueMonths 数组
-  if (revenueMonths.length > 0) {
-    // 找到最大的 revenueDateMonth
-    const maxRevenueMonth = revenueMonths.reduce((maxMonth, currentMonth) => {
-      return currentMonth > maxMonth ? currentMonth : maxMonth;
-    }, revenueMonths[0]);
-
-    // 获取当前日期和时间
-    const currentMonth = DateTime.now().startOf('month');
-
-    // 比较最大月份和当前月份
-    if (maxRevenueMonth > currentMonth) {
-      console.log('最大的 revenueDateMonth 大于当前月份。');
-    } else {
-      console.log('最大的 revenueDateMonth 小于或等于当前月份。');
-    }
-  } else {
-    console.log('没有有效的 revenueMonths 数组。');
-  }
-} else {
-  console.log('数据变量未定义或不是数组。');
-}
-  
 
   return isLoading || !fileContent.newJsonData ? (
     <div>載入檔案中...</div>
