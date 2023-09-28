@@ -37,7 +37,7 @@ const saveSlice = createSlice({
       } 
       state.oldHash = state.currentPageHash
     },
-    setClassFormSave: (state, action) => {
+    setClassFormSave: (state, action) => { //傳課程表單資料
       console.log('setclassForm Action:', action.payload)
       console.log("addReserveTableData state", current(state.fileName.newJsonData[0]));
       let current_state = current(state)
@@ -49,7 +49,7 @@ const saveSlice = createSlice({
       state.fileName.newJsonData[0] = newData
       console.log("setCoachFormSave state", current(state));
     },
-    setStudentFormSave: (state, action) => {
+    setStudentFormSave: (state, action) => { //傳學員表單資料
       console.log('setStudentForm Action:', action.payload)
       console.log("addReserveTableData state", current(state.fileName.newJsonData[1]));
       let current_state = current(state)
@@ -62,7 +62,7 @@ const saveSlice = createSlice({
       state.fileName.newJsonData[1] = newData
       console.log("setCoachForm state", current(state));
     },
-    setCoachFormSave: (state, action) => {
+    setCoachFormSave: (state, action) => { //傳教練表單資料
       console.log('setCoachForm Action:', action.payload)
       console.log("addReserveTableData state", current(state.fileName.newJsonData[2]));
       let current_state = current(state)
@@ -74,7 +74,7 @@ const saveSlice = createSlice({
       state.fileName.newJsonData[2] = newData
       console.log("setCoachFormSave state", current(state));
     },
-    addNewBuyDetail: (state, action) => {
+    addNewBuyDetail: (state, action) => { //student>buydetail
       const { selectedStudentName, newBuyDetail } = action.payload;
       const selectedStudent = state.fileName.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
 
@@ -83,13 +83,31 @@ const saveSlice = createSlice({
         selectedStudent.buyDetail = [...selectedStudent.buyDetail, newBuyDetail];
       }
     },
-    addTeachClass: (state, action) => {
+    addTeachClass: (state, action) => {  //coach>coachDetail>TeachClass
       const { selectedCoachName, newTeachClass } = action.payload;
       const selectedCoach = state.fileName.newJsonData[2].coachDetail.find((coach) => coach.coachName === selectedCoachName);
       if (selectedCoach) {
         selectedCoach.teachClass = [...selectedCoach.teachClass, newTeachClass];
         // selectedCoach.teachClass.push(newTeachClass);
       }
+    },
+    addStuToClass: (state, action) => { //class>classDetail>student
+      const { classDetailToUpdate, newClassStudent} = action.payload;
+      const classToUpdate = state.fileName.newJsonData[0].classDetail.find((classItem) => classItem.classID === classDetailToUpdate);
+      
+      if (classDetailToUpdate) {
+        classToUpdate.student=[...classToUpdate.student,newClassStudent]
+      }
+    
+    },
+    addCoachToClass: (state, action) => { //class>classDetail>coach
+      const { classDetailToUpdate, newClassCoach} = action.payload;
+      const classToUpdate = state.fileName.newJsonData[0].classDetail.find((classItem) => classItem.classID === classDetailToUpdate);
+      
+      if (classToUpdate) {
+        classToUpdate.coach=[...classToUpdate.coach,newClassCoach]
+      }
+
     },
 
     addReserveTableData: (state, action) => {
@@ -160,7 +178,7 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass,addCoachToClass,addStuToClass } = saveSlice.actions
 
 
 // export reducer to global

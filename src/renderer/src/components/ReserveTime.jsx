@@ -54,8 +54,8 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
    useEffect(() => {
     const newClassID = props.classes.classID;
     const newMatchingStudents = new Set(); // 使用 Set 来确保唯一性
-    const newClassType = props.classes.courseType;
-    const newMatchingType = new Set(); 
+    // const newClassType = props.classes.courseType;
+    // const newMatchingType = new Set(); 
 
     // 假设您可以从 props 中获取学生数据
     const studentData = studentFormData;
@@ -69,19 +69,19 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
             courseType: buyInfo.courseType,
           });
         }
-        if( buyInfo.courseType === newClassType){ //courseType是團課的放進來
-          newMatchingType.add({
-            stuName: student.stuName,
-            stuID: student.stuID,
-            courseType: buyInfo.courseType,
-          });
-        }
+        // if( buyInfo.courseType === newClassType){ //courseType是團課的放進來
+        //   newMatchingType.add({
+        //     stuName: student.stuName,
+        //     stuID: student.stuID,
+        //     courseType: buyInfo.courseType,
+        //   });
+        // }
       });
     });
   
     setMatchingStudents(Array.from(newMatchingStudents));
-    setSelectedStudentType(Array.from(newMatchingType));
-  }, [props.classes.classID,props.classes.courseType]);
+    // setSelectedStudentType(Array.from(newMatchingType));
+  }, [props.classes.classID]);
 
   // console.log('newMatchingStudents:', matchingStudents);
   // console.log('newMatchingType:', selectedStudentType);
@@ -195,21 +195,15 @@ const handleSubmit = () => {
                value={reserveForm.reserveStu} // 存储选中的学员名称的数组 
               onChange={handleInputChange}
             >
-              {props.classes.courseType === '團課'
-                ? Array.from(selectedStudentType).map((student) => (
-                    <option key={student.stuID} value={student.stuName}>
-                      {student.stuName}
-                    </option>
-                  ))
-                : Array.from(matchingStudents).map((student) => (
-                    <option key={student.stuID} value={student.stuName}>
-                      {student.stuName}
-                    </option>
-                  ))}
+               {Array.from(selectedStudentType).map((student) => (
+                <option key={student.stuID} value={student.stuName}>
+                  {student.stuName}
+                </option>
+              ))}
             </select>
             </div>
           </div>
-       <div className="mb-4">
+        <div className="mb-4">
             <button 
               type="button" 
               className="btn btn-golden"

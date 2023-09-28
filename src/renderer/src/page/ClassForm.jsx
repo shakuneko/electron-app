@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import jsonData from '../json/new_class.json'
 
-import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass } from '../redux/reducers/saveSlice'
+import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass,addCoachToClass,addStuToClass } from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
@@ -137,6 +137,7 @@ let newClassData = props.classes[0].classDetail.map((item, index) => {
   return item
 });
 console.log("newClassData",newClassData)
+
  // 处理分頁点击按钮事件
  const handleButtonClick = (page, courseName) => {
   setCurrentPage(page);
@@ -147,7 +148,6 @@ console.log("newClassData",newClassData)
 const handleInputChange = (event,page) => {
   // 從事件對象中獲取輸入的名稱和值
   const{name,value}=event.target;
-
   setClassForm((prevFormData) => ({
     ...prevFormData,
     [page]: {
@@ -247,6 +247,7 @@ const newClassItem = {
   classID: newClassID, 
   courseType: selectedCourse, 
   exCourse: classForm[currentPage].exCourse, 
+  exCoursePrice:classForm[currentPage].exCoursePrice, 
   coursesAll: classForm[currentPage].coursesAll, 
   payMethod: classForm[currentPage].payMethod, 
   reserveDetail:[],
@@ -255,10 +256,8 @@ const newClassItem = {
 };
 
 //傳到classDetail下的student
-const classIDToUpdate = newClassID; // 你已经找到的课程ID
-// 找到要更新的课程对象
-const classDetailToUpdate = fileNameData
-  .newJsonData[0].classDetail.find((classItem) => classItem.classID === classIDToUpdate);
+// const classIDToUpdate = newClassID; // 你已经找到的课程ID
+
 // 获取已有的预约ID列表
 // const existingReserveIDs = jsonData
 //   .find((item) => item.category === 'class')
@@ -266,7 +265,9 @@ const classDetailToUpdate = fileNameData
 //     classItem.reserveDetail.map((reserveItem) => reserveItem.reserveID)
 //   );
 
-
+// 找到要更新的课程对象
+const classIDToUpdate = newClassID; // 你已经找到的课程ID
+const classDetailToUpdate = fileNameData.newJsonData[0].classDetail.find((classItem) => classItem.classID === classIDToUpdate);
 //classDetail>student&coach
 if (classDetailToUpdate) {
   const newClassStudent = [
@@ -290,15 +291,20 @@ if (classDetailToUpdate) {
     coachID: findCoachIDByName(classForm[currentPage].coachName),
     coachName: classForm[currentPage].coachName,
   }
-  // 添加学生信息到课程对象的 "student、coach" 数组中
-  // if (currentPage == 'page1') {
+  //添加学生信息到课程对象的 "student、coach" 数组中
+  if (currentPage == 'page1') {
   // classDetailToUpdate.student.push(...newClassStudent);
   // classDetailToUpdate.coach.push(newClassCoach);
-  // }
-  // else{
+  dispatch(addStuToClass({ classIDToUpdate, newClassStudent }));
+  dispatch(addCoachToClass({ classIDToUpdate, newClassCoach }));
+  console.log("分发了 addStuToClass 动作：", classDetailToUpdate );
+  }
+  else{
   // classDetailToUpdate.student.push(newClassStudent2);
   // classDetailToUpdate.coach.push(newClassCoach);
-  // }
+  dispatch(addCoachToClass({ classDetailToUpdate, newClassCoach }));
+  }
+ 
 }
 
 //coach>coachDetail>TeachClass
@@ -310,20 +316,12 @@ const newTeachClass ={
   if (selectedCoach) {
     dispatch(addTeachClass({ selectedCoachName, newTeachClass }));
   }
-  console.log('newTeachClass', newTeachClass);
- // 要加到BuyDetail的資料
- 
-  // 在这里处理表单提交的逻辑
-  console.log('表单数据：', classForm);
+  
 
   // 找出ID對應的學員，把BuyDetail資料放進去
-  const selectedStudentName = classForm[currentPage].stuName;
-
   const newBuyDetail = {
     classID: newClassID,
     coachName: classForm[currentPage].coachName,
-    // stuName: classForm[currentPage].stuName,
-    // stuName2: classForm[currentPage].stuName2,
     coursesAll: classForm[currentPage].coursesAll,
     coursePrice: classForm[currentPage].coursePrice,
     courseType: selectedCourse,
@@ -335,17 +333,17 @@ const newTeachClass ={
     invoiceNum:'',
     patMethod:'',
     preCourseLeft:'',
-    buyDate:'',
   };
- 
+   // 傳遞學員1的資料到BuyDetail頁面
+  const selectedStudentName = classForm[currentPage].stuName;
   const selectedStudent = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
   if (selectedStudent) {
     dispatch(addNewBuyDetail({ selectedStudentName, newBuyDetail }));
-    // 输出更新后的 fileNameData
+ 
   }
   // 傳遞學員2的資料到BuyDetail頁面
   const selectedStudentName2 = classForm[currentPage].stuName2;
-  const selectedStudent2 = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName2);
+  const selectedStudent2 = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName2 === selectedStudentName2);
   if (selectedStudent2) {
     dispatch(addNewBuyDetail({ selectedStudentName2, newBuyDetail }));
   }
@@ -377,22 +375,13 @@ const newTeachClass ={
     
    }));
 
-
-
    // 清除表单数据为初始状态
    setClassForm(initialFormData);
 
-   // 恢复 radio 按钮的原状，将 exCourse 重置为空字符串
-   setClassForm((prevFormData) => ({
-     ...prevFormData,
-     [currentPage]: {
-       ...prevFormData[currentPage],
-       exCourse: '',
-     },
-   }));
   //  console.log(jsonData);
    console.log(updatedClassData);
    console.log('FileName Data:', fileNameData);
+  
 };
 
 //繳費按鈕
@@ -641,6 +630,7 @@ useEffect(() => {
                               type="text" 
                               class="form-select"
                               name="exCoursePrice"
+                              placeholder="體驗課金額(不是體驗課請填0)"
                               value={classForm.page1.exCoursePrice}
                               onChange={(e) => handleInputChange(e, 'page1')}
                             ></input>
@@ -810,8 +800,10 @@ useEffect(() => {
                               type="text" 
                               class="form-select"
                               name="exCoursePrice"
+                              placeholder="體驗課金額(不是體驗課請填0)"
                               value={classForm.page2.exCoursePrice}
-                              onChange={(e) => handleInputChange(e, 'page2')}
+                              onChange={(e) =>
+                                handleInputChange(e, 'page2')}
                             ></input>
                           </div>
                       </div>
@@ -979,6 +971,7 @@ useEffect(() => {
                               type="text" 
                               class="form-select"
                               name="exCoursePrice"
+                              placeholder="體驗課金額(不是體驗課請填0)"
                               value={classForm.page3.exCoursePrice}
                               onChange={(e) => handleInputChange(e, 'page3')}
                             ></input>
