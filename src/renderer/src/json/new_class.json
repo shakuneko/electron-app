@@ -5,6 +5,7 @@
       {
         "classID": "1",
         "courseType": "皮拉提斯",
+        "buyDate": "2022-06-23",
         "exCourse": "否",
         "coursesAll": "10",
         "coursesFIN": "4",
@@ -100,6 +101,7 @@
       {
         "classID": "2",
         "courseType": "PT",
+        "buyDate": "2023-04-30",
         "exCourse": "是",
         "coursesAll": "1",
         "coursesFIN": "1",
@@ -142,6 +144,7 @@
       {
         "classID": "3",
         "courseType": "PT",
+        "buyDate": "2023-09-10",
         "exCourse": "否",
         "coursesAll": "10",
         "coursesFIN": "2",
@@ -200,6 +203,7 @@
       {
         "classID": "4",
         "courseType": "運動按摩",
+        "buyDate": "2020-01-23",
         "exCourse": "否",
         "coursesAll": "10",
         "coursesFIN": "8",
@@ -327,7 +331,7 @@
             "preCourseLeft": "1",
             "payMethod": "現金",
             "invoiceNum": "12345678",
-            "buyDate": "2022/06/23",
+            "buyDate": "2023/06/23",
             "exCourse": "是",
             "coursePrice": "6400",
             "buyNote": "!!"
@@ -357,7 +361,7 @@
             "preCourseLeft": "9",
             "payMethod": "信用卡",
             "invoiceNum": "12345678",
-            "buyDate": "2022/06/23",
+            "buyDate": "2023/09/10",
             "exCourse": "否",
             "coursePrice": "6400",
             "buyNote": "!!"

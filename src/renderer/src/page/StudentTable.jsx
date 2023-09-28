@@ -4,7 +4,7 @@ import testClasses from '../json/test_class.json'
 // import newJason from '../json/new_class.json'
 
 function StudentTable({classes}) {
-    const stuDetail = classes[1].stuDetail
+    const stuDetail =  !!classes && classes[1].stuDetail
     
     return (
         <div className="container-fluid">
