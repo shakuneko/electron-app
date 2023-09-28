@@ -25,16 +25,12 @@ function ClassDetailTable({
   setStuCourse,
 }) {
     const dispatch = useDispatch();
-
-    // const flagCourse = []
     const id = classCourse.classID    
     const selectOptins = [
       { value: '-', text: '-' },
       { value: '是', text: '是' },
       { value: '否', text: '否' },
     ];
-    // console.log("recordCourseCount",recordCourseCount)
-    // console.log("flagCourse",flagCourse)
     const stuItem = [] //找到這一row的stuID
     if (classCourse.student !== undefined)
     for (let i = 0; i < classCourse.student.length; i++) {
@@ -65,12 +61,7 @@ function ClassDetailTable({
 
     if ( newTableData[row.index].cancel == "否" && newTableData[row.index].attandence == "是"){
           //預約且來了，扣課堂數
-          // console.log("紀錄index 外面", recordCourseCount)
           if (!classCourse.courseFlag.includes(row.index)){
-              // setRecordCourseCount([...recordCourseCount, row.index]); //set flag
-              // console.log("紀錄index 裡面", recordCourseCount)
-              // flagCourse.push(row.index)
-              // console.log("flagCourse push index", flagCourse)
               const newClassCourse = { //update class course num
                 ...classCourse,
                 coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),
@@ -119,11 +110,8 @@ function ClassDetailTable({
       }
       else if ( newTableData[row.index].cancel == "是" && newTableData[row.index].attandence == "否"){
           //取消預約，課堂數回來
-          // console.log("紀錄index 外面", recordCourseCount)
           if (classCourse.courseFlag.includes(row.index)){
               const newCourseFlag = classCourse.courseFlag.filter((index) => index !== row.index);
-              // setRecordCourseCount(updatedRecordCourseCount);
-              // console.log("紀錄index 裡面", recordCourseCount)
               const newClassCourse = {
                 ...classCourse,
                 coursesFIN: (parseInt(classCourse.coursesFIN, 10) - 1).toString(),
@@ -173,8 +161,7 @@ function ClassDetailTable({
       else if ( newTableData[row.index].cancel == "否" && newTableData[row.index].attandence == "否"){
           // console.log("紀錄index 外面", recordCourseCount)
           if (!classCourse.courseFlag.includes(row.index)){
-              // setRecordCourseCount([...recordCourseCount, row.index]);
-              // console.log("紀錄index 裡面", recordCourseCount)
+
               const newClassCourse = {
                 ...classCourse,
                 coursesFIN: (parseInt(classCourse.coursesFIN, 10) + 1).toString(),

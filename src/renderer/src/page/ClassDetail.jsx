@@ -35,28 +35,28 @@ function ClassDetail({classes}) {
 
     console.log("stuItem",stuItem)
 
-    const results = [];
-    stuItem.forEach((stuID) => {
-        // 使用 stuID 在 stuDetailData 中查找相应的学生数据
-        const studentData = stuDetailData.find((student) => student.stuID === stuID);
+    // const results = [];
+    // stuItem.forEach((stuID) => {
+    //     // 使用 stuID 在 stuDetailData 中查找相应的学生数据
+    //     const studentData = stuDetailData.find((student) => student.stuID === stuID);
       
-        if (studentData) {
-          // 使用 classID 在学生数据中的 buyDetail 数组中查找相符的购买数据
-          const buyDetail = studentData.buyDetail.find((detail) => detail.classID === id);
+    //     if (studentData) {
+    //       // 使用 classID 在学生数据中的 buyDetail 数组中查找相符的购买数据
+    //       const buyDetail = studentData.buyDetail.find((detail) => detail.classID === id);
       
-          if (buyDetail) {
-            // 记录学生的 stuName、courseLeft 和 courseFIN
-            const stuName = studentData.stuName;
-            const courseLeft = buyDetail.courseLeft;
-            const coursesAll = buyDetail.coursesAll;
+    //       if (buyDetail) {
+    //         // 记录学生的 stuName、courseLeft 和 courseFIN
+    //         const stuName = studentData.stuName;
+    //         const courseLeft = buyDetail.courseLeft;
+    //         const coursesAll = buyDetail.coursesAll;
       
-            // 将结果存储在数组中
-            results.push({ name:stuName, left:courseLeft, all:coursesAll });
-          }
-        }
-    });
+    //         // 将结果存储在数组中
+    //         results.push({ name:stuName, left:courseLeft, all:coursesAll });
+    //       }
+    //     }
+    // });
 
-    console.log("results",results)
+    // console.log("results",results)
 
 
     const [_tableData, setTableData] = useState(() => detailData);
@@ -122,7 +122,9 @@ function ClassDetail({classes}) {
                     <h1 className="title">課程</h1>
                     <div className="classStuBox" style={{marginBottom:"10px"}}>
                         <p className="classCoachBox-item">教練：{splitData(coachNames)}</p>
-                        {results.map((result, index) => (
+                        <p className="classCoachBox-item">學員：{splitData(stuNames)}</p>
+                        <p className="classCoachBox-item">剩餘堂數：{Class.courseLeft} / {Class.coursesAll}</p>
+                        {/* {results.map((result, index) => (
                             <div key={index} className="classStuBox" >
                                 {Class.courseType !== "團課" && (
                                 <>
@@ -131,7 +133,7 @@ function ClassDetail({classes}) {
                                 </>
                                 )}
                             </div>
-                        ))}
+                        ))} */}
                         {/* <button onClick={()=> console.log(classes)}>pp</button> */}
                     </div>
 
