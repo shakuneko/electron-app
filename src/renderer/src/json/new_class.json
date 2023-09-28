@@ -9,6 +9,7 @@
         "coursesAll": "10",
         "coursesFIN": "4",
         "courseLeft": "6",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
@@ -26,7 +27,7 @@
                 "stuName": "甜甜"
               }
             ],
-            "cancel": "否",
+            "cancel": "-",
             "attandence": "-",
             "note": "你好",
             "student": [
@@ -58,7 +59,7 @@
                 "stuName": "甜甜"
               }
             ],
-            "cancel": "否",
+            "cancel": "-",
             "attandence": "-",
             "note": "～～～～",
             "student": [
@@ -103,14 +104,15 @@
         "coursesAll": "1",
         "coursesFIN": "1",
         "courseLeft": "0",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
             "reserveDate": "2023/9/14",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "尚無",
             "student": [
               {
@@ -139,30 +141,26 @@
       },
       {
         "classID": "3",
-        "courseType": "團課",
+        "courseType": "PT",
         "exCourse": "否",
-        "coursesAll": "0",
-        "coursesFIN": "0",
-        "courseLeft": "0",
+        "coursesAll": "10",
+        "coursesFIN": "2",
+        "courseLeft": "8",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
             "reserveDate": "2023/9/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "之後要添加十個學生",
             "student": [
               {
                 "stuID": "3",
-                "courseType": "團課",
+                "courseType": "PT",
                 "stuName": "大衛"
-              },
-              {
-                "stuID": "1",
-                "courseType": "團課",
-                "stuName": "Lulu"
               }
             ]
           },
@@ -171,13 +169,13 @@
             "reserveDate": "2023/9/25",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "之後要添加十個學生",
             "student": [
               {
                 "stuID": "3",
-                "courseType": "團課",
+                "courseType": "PT",
                 "stuName": "大衛"
               }
             ]
@@ -187,9 +185,9 @@
         "classNote": "好多人",
         "student": [
           {
-            "stuID": "-",
-            "courseType": "團課",
-            "stuName": "-"
+            "stuID": "3",
+            "courseType": "PT",
+            "stuName": "大衛"
           }
         ],
         "coach": [
@@ -206,14 +204,15 @@
         "coursesAll": "10",
         "coursesFIN": "8",
         "courseLeft": "2",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
             "reserveDate": "2023/9/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "----",
             "student": [
               {
@@ -271,21 +270,6 @@
             "buyDate": "2022/06/23",
             "exCourse": "否",
             "coursePrice": "6500",
-            "buyNote": "!!"
-          },
-          {
-            "classID": "3",
-            "courseType": "團課",
-            "coachName": "D",
-            "coursesAll": "10",
-            "coursesFIN": "4",
-            "courseLeft": "6",
-            "preCourseLeft": "9",
-            "payMethod": "信用卡",
-            "invoiceNum": "12345678",
-            "buyDate": "2022/06/23",
-            "exCourse": "否",
-            "coursePrice": "6400",
             "buyNote": "!!"
           },
           {
@@ -365,11 +349,11 @@
         "buyDetail": [
           {
             "classID": "3",
-            "courseType": "團課",
+            "courseType": "PT",
             "coachName": "D",
             "coursesAll": "10",
-            "coursesFIN": "4",
-            "courseLeft": "6",
+            "coursesFIN": "2",
+            "courseLeft": "8",
             "preCourseLeft": "9",
             "payMethod": "信用卡",
             "invoiceNum": "12345678",

@@ -70,7 +70,6 @@ function ClassDetail({classes}) {
     
     const [courseLeft, setCourseLeft] = useState(Class.courseLeft);
 
-
     useEffect ( () => {
         console.log("table update data", tableData)
     }, [tableData])
