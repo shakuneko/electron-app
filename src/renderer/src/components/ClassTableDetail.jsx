@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
 import { getStatusText } from './TableSelectOptions'
+import { useDispatch } from 'react-redux';
+import { updateClassStatus } from '../redux/reducers/saveSlice'
 
 function ClassTableDetail({classes}) {
+    const dispatch = useDispatch();
+    const [newClassStatus, setNewClassStatus] = useState([]);
+
+    useEffect(() => {
+      const updatedClassStatus = classes.map((item, index) => {
+        const nowStatus = getStatusText(item.buyDate);
+        if (item.status !== nowStatus) {
+          return {
+            ...item,
+            status: nowStatus,
+          };
+        }
+        return item;
+      });
+      console.log("newClassStatus", updatedClassStatus);
+      dispatch(updateClassStatus(updatedClassStatus));
+      setNewClassStatus(updatedClassStatus);
+    }, []);
+    console.log("newClassStatus", newClassStatus);
 
     const AddBGC = ({cell}) => { // 設定邊框
         let e;
@@ -36,6 +57,7 @@ function ClassTableDetail({classes}) {
     const columns = [ //表格有的資料
         {
             accessorFn: (row) => {
+                // !!row.coach && 
                 const newData = row.coach.map((item) => {
                     const coachs = []
                     coachs.push(item.coachName)
@@ -112,7 +134,7 @@ function ClassTableDetail({classes}) {
     
     <MaterialReactTable 
         columns={columns}
-        data={classes} 
+        data={newClassStatus} 
         initialState={{ showGlobalFilter: true }} //show filters by default
         enableColumnActions={false} //no need for column actions if none of them are enable
         enableDensityToggle={false} //density does not work with memoized table body

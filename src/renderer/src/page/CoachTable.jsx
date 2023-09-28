@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar'
 import CoachTableDetail from '../components/CoachTableDetail';
 
 function CoachTable({ classes }) {
-    const coachDetail = classes[2].coachDetail
+    const coachDetail =  !!classes && classes[2].coachDetail
     return (
         <div className="container-fluid">
         <div className="row form_class row-no-gutters">

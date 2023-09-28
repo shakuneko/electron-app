@@ -26,17 +26,24 @@ export const getStatusText = (dateString) => {
     const sixMonthsLater = new Date(inputDate);
     sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6); // 当前日期减去6个月
   
-    console.log("oneMonthAgo", fivMonthLater);
-    console.log("sixMonthsAgo", sixMonthsLater);
-    console.log("inputDate", inputDate);
+    // console.log("fivMonthLater", fivMonthLater);
+    // console.log("sixMonthsAgo", sixMonthsLater);
+    // console.log("inputDate", inputDate);
   
+    // if (currentDate > fivMonthLater && currentDate < sixMonthsLater) {
+    //   return <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>快要截止</span>;
+    // } else if (currentDate > sixMonthsLater) {
+    //   return <span style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>已截止</span>;
+    // } else {
+    //   return <span>-</span>;
+    // }
     if (currentDate > fivMonthLater && currentDate < sixMonthsLater) {
-      return <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>快要截止</span>;
-    } else if (currentDate > sixMonthsLater) {
-      return <span style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>已截止</span>;
-    } else {
-      return <span>-</span>;
-    }
+        return "快要截止";
+      } else if (currentDate > sixMonthsLater) {
+        return "已截止";
+      } else {
+        return "-";
+      }
 }
 
 export const selectOptions = [ //下拉選單篩選

@@ -5,7 +5,7 @@ import testClasses from '../json/test_class.json'
 // import newJason from '../json/new_class.json'
 
 function StudentDetail({classes}) {
-    const stuDetail = classes[1].stuDetail
+    const stuDetail =  !!classes && classes[1].stuDetail
     const { stuID } = useParams();
     const stuData = stuDetail.find(
         (x) => x.stuID === stuID
