@@ -490,7 +490,8 @@
         "selectedItem": null
       }
     ]
-  },{
+  },
+  {
     "category": "revenue",
     "revenueDetail": [
       {
@@ -517,7 +518,8 @@
             "classType": "運動按摩"
           }
         ]
-      },{
+      },
+      {
         "revenueDateMonth": "2023/08",
         "revenueList":[
           {

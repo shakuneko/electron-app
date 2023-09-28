@@ -4,9 +4,14 @@ import { columnsRevenue, columnsMoney } from '../components/TableSelectOptions'
 import newJson from '../json/new_class.json'
 import { DateTime } from 'luxon'
 import emptyJson from '../json/emptyJson.json'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateLastMonthRevenue } from '../redux/reducers/saveSlice'
+import { useEffect } from 'react'
+
 function Revenue({ classes }) {
+  const dispatch = useDispatch()
   //new json new_class
-  const nJson = classes
+  let nJson = classes
 
   //time date使用及判斷
   // 获取当前日期和时间
@@ -562,7 +567,104 @@ function Revenue({ classes }) {
     ...item,
     ...renameTheLastMonth[index]
   }))
+  //最後的資料輸出到table
   console.log('BBBmergeOldAndNew', mergeOldAndNew)
+
+  //將上月資料推入array、透過時間判斷---------------------------------------------------
+  const septemberData = {
+    revenueDateMonth: currentDateTime.toFormat('yyyy/MM'), // 自动生成当前年份和月份
+    revenueList: [
+      {
+        totalLeftSalary: 25500,
+        classLeft: 7,
+        classType: '皮拉提斯'
+      },
+      {
+        totalLeftSalary: 13500,
+        classLeft: 1,
+        classType: 'PT'
+      },
+      {
+        totalLeftSalary: 11500,
+        classLeft: 2,
+        classType: '團課'
+      },
+      {
+        totalLeftSalary: 15000,
+        classLeft: 0,
+        classType: '運動按摩'
+      }
+    ]
+  }
+
+  let revenueCategory = nJson.find((item) => item.category === 'revenue')
+  if (revenueCategory) {
+    // 更新 revenueCategory 对象的 revenueDetail 属性
+    const updatedRevenueDetail = [...(revenueCategory?.revenueDetail || []), septemberData]
+    revenueCategory = {
+      ...revenueCategory,
+      revenueDetail: updatedRevenueDetail
+    }
+    console.log('updatedRevenueDetail', revenueCategory)
+  } else {
+    const newRevenueCategory = {
+      category: 'revenue',
+      revenueDetail: [septemberData]
+    }
+
+    // 在这里，我们查找是否已经有一个 "revenue" 类别的对象
+    // 如果没有，则将新对象添加到 nJson 数组中
+    const index = nJson.findIndex((item) => item.category === 'revenue')
+    if (index !== -1) {
+      // 如果已经存在 "revenue" 类别的对象，则更新其 revenueDetail 属性
+      nJson[index] = {
+        ...nJson[index],
+        revenueDetail: [...(nJson[index].revenueDetail || []), septemberData]
+      }
+    } else {
+      // 否则，在 nJson 数组中添加新的 "revenue" 类别对象
+      nJson.push(newRevenueCategory)
+    }
+   
+  }
+  
+  let revenueCategoryIndex = nJson.findIndex((item) => item.category === 'revenue');
+
+  if (revenueCategoryIndex !== -1) {
+    // 更新 revenueCategory 对象的 revenueDetail 属性
+    const updatedRevenueDetail = [...(nJson[revenueCategoryIndex]?.revenueDetail || []), septemberData];
+  
+    // 创建一个新的 nJson 数组
+    const updatedNJson = nJson.map((item, index) => {
+      if (index === revenueCategoryIndex) {
+        // 更新 category: revenue 对象
+        return {
+          ...item,
+          revenueDetail: updatedRevenueDetail,
+        };
+      } else {
+        return item;
+      }
+    });
+    nJson = updatedNJson; // 更新 nJson 数组
+    //console.log('updatedRevenueDetail', nJson[revenueCategoryIndex]);
+    //console.log('updatedRevenueDetail', nJson);
+  } else {
+    const newRevenueCategory = {
+      category: 'revenue',
+      revenueDetail: [septemberData],
+    };
+
+    // 将新的 "revenue" 类别对象添加到 nJson 数组中
+    nJson.push(newRevenueCategory);
+    console.log('newRevenueCategory', nJson);
+  }
+  //將紀錄再 nJson 的redux的值修改
+  useEffect(() => {
+if(nJson.length !== 0){
+  dispatch(updateLastMonthRevenue(nJson))
+}
+  }, [])
 
   return (
     <div className="container-fluid" style={{ backgroundColor: 'white' }}>

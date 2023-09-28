@@ -116,6 +116,10 @@ const saveSlice = createSlice({
       state.fileName.newJsonData = newData;
       console.log("upDateStuCourse state", current(state));
     },
+    updateLastMonthRevenue:(state, action) => {
+      state.fileName.newJsonData = action.payload;
+      console.log("setNewRevenue", state.fileName.newJsonData)
+    },
     // //other reducers
    
   }
@@ -130,7 +134,7 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse, upDateStuCourse, setStudentFormSave,setCoachFormSave } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse, upDateStuCourse, setStudentFormSave,setCoachFormSave,updateLastMonthRevenue } = saveSlice.actions
 
 // export reducer to global
 export default saveSlice.reducer

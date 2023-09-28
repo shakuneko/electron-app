@@ -28,10 +28,10 @@ import { setHasinit } from './redux/reducers/saveSlice'
 import { selectFileName } from './redux/reducers/saveSlice'
 import { selectHasInit } from './redux/reducers/saveSlice'
 //time check
-import { DateTime } from 'luxon';
+import { DateTime } from 'luxon'
 
 function App() {
-  const [isLoading,setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   //save file function & read function
   const [menuInfo, setMenuInfo] = useState('AzusaSavedFile')
   const [filePathInfo, setFilePathInfo] = useState('')
@@ -44,7 +44,7 @@ function App() {
   const fileContent = useSelector((state) => state.root.save.fileName)
   const hasInit = useSelector((state) => state.root.save.hasInit)
   const { ipcRenderer } = window.electron
-  
+
   const onSaveToFile = async () => {
     const data = JSON.stringify({ jsonData })
     await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
@@ -59,35 +59,31 @@ function App() {
   }
 
   //ready to close window and save file
-  
-  const onReadyToCloseWindows= async () => {
-    console.log("fileContent:", fileContent)
-    console.log("fileContentjson:", fileContent.newJsonData, !!fileContent.newJsonData)
-    if(!!fileContent?.newJsonData){
-    console.log("fileContentjson:", fileContent)
-    const data = JSON.stringify( fileContent )
-    await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
-    }
-    await window.api.closeWindow();
-    
-  }
 
+  const onReadyToCloseWindows = async () => {
+    console.log('fileContent:', fileContent)
+    console.log('fileContentjson:', fileContent.newJsonData, !!fileContent.newJsonData)
+    if (!!fileContent?.newJsonData) {
+      console.log('fileContentjson:', fileContent)
+      const data = JSON.stringify(fileContent)
+      await window._fs.writeFile({ fileName: `${menuInfo}.txt`, data })
+    }
+    await window.api.closeWindow()
+  }
 
   const onInitState = async () => {
-    try{
-    const data = (await window._fs.readFile({ fileName: `${menuInfo}.txt` })) || {
-      menuInfo: 'no data'
-    }
-    const content = JSON.parse(data)
-    dispatch(setFileName(content))
-    }catch(err){
-      console.log("沒有檔案可以讀取")
+    try {
+      const data = (await window._fs.readFile({ fileName: `${menuInfo}.txt` })) || {
+        menuInfo: 'no data'
+      }
+      const content = JSON.parse(data)
+      dispatch(setFileName(content))
+    } catch (err) {
+      console.log('沒有檔案可以讀取')
     }
   }
 
-
-  
-  console.log("is init??:", hasInit)
+  console.log('is init??:', hasInit)
 
   useEffect(() => {
     if (!hasInit) {
@@ -105,8 +101,8 @@ function App() {
       setFilePathInfo(filePath)
     })
     ipcRenderer.on('readyToClose', (_) => {
-      console.log("ready to close",fileContent)
-      onReadyToCloseWindows();
+      console.log('ready to close', fileContent)
+      onReadyToCloseWindows()
     })
     //now use hasInit flag to stop listening
     // return () => {
@@ -115,51 +111,75 @@ function App() {
     // }
   }, [])
 
-  //check date and save value to last month
-  const currentDateTime = DateTime.now();
-  const formattedDate = currentDateTime.toFormat('yyyy/MM');
-// 将目标日期字符串转换为 Luxon DateTime 对象
-const targetDate = DateTime.fromFormat('2023/08', 'yyyy/MM');
-// 判断当前日期是否大于目标日期
-if (currentDateTime > targetDate) {
-  console.log('当前月份大于 2023/08');
-} else {
-  console.log('当前月份不大于 2023/08');
-}
+  console.log('fileContent:', fileContent)
 
-  console.log("fileContent:", fileContent)
-  return (
-    isLoading||!fileContent.newJsonData ? (<div>載入檔案中...</div> ):(
+
+  //check time and save to revenue
+  const data = fileContent?.newJsonData
+  // 检查数据是否存在
+if (data && Array.isArray(data)) {
+  // 提取所有的 revenueDateMonth，并将它们转换为 DateTime 对象，仅考虑年份和月份
+  const revenueMonths = data
+    .flatMap(item => item.revenueDetail || []) // 使用空数组作为默认值，以避免未定义的属性
+    .map(revenue => {
+      const parts = revenue.revenueDateMonth.split('/');
+      return DateTime.fromObject({ year: parseInt(parts[0]), month: parseInt(parts[1]) });
+    });
+
+  // 检查是否有有效的 revenueMonths 数组
+  if (revenueMonths.length > 0) {
+    // 找到最大的 revenueDateMonth
+    const maxRevenueMonth = revenueMonths.reduce((maxMonth, currentMonth) => {
+      return currentMonth > maxMonth ? currentMonth : maxMonth;
+    }, revenueMonths[0]);
+
+    // 获取当前日期和时间
+    const currentMonth = DateTime.now().startOf('month');
+
+    // 比较最大月份和当前月份
+    if (maxRevenueMonth > currentMonth) {
+      console.log('最大的 revenueDateMonth 大于当前月份。');
+    } else {
+      console.log('最大的 revenueDateMonth 小于或等于当前月份。');
+    }
+  } else {
+    console.log('没有有效的 revenueMonths 数组。');
+  }
+} else {
+  console.log('数据变量未定义或不是数组。');
+}
+  
+
+  return isLoading || !fileContent.newJsonData ? (
+    <div>載入檔案中...</div>
+  ) : (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<ClassTable classes={fileContent.newJsonData}/>} />
-        <Route path="/student" element={<StudentTable classes={fileContent.newJsonData}/>}></Route>
+        <Route path="/" element={<ClassTable classes={fileContent.newJsonData} />} />
+        <Route path="/student" element={<StudentTable classes={fileContent.newJsonData} />}></Route>
         {/* <Route path="/coach" element={<CoachTable classes={newJson} />} /> */}
         <Route path="/coach" element={<CoachTable classes={fileContent.newJsonData} />} />
         <Route path="/revenue" element={<Revenue classes={fileContent.newJsonData} />} />
 
         <Route path="classes">
           <Route path="form" element={<ClassForm />} />
-          <Route path="id/:id" element={<ClassDetail classes={fileContent.newJsonData}/>} />
+          <Route path="id/:id" element={<ClassDetail classes={fileContent.newJsonData} />} />
         </Route>
 
         <Route path="/student">
-          <Route path="form" element={<StudentForm classes={fileContent.newJsonData}/>} />
-          <Route path="name/:stuID" element={<StudentDetail classes={fileContent.newJsonData}/>} />
+          <Route path="form" element={<StudentForm classes={fileContent.newJsonData} />} />
+          <Route path="name/:stuID" element={<StudentDetail classes={fileContent.newJsonData} />} />
         </Route>
 
         <Route path="/coach">
-
           <Route path="form" element={<CoachFrom classes={fileContent.newJsonData} />} />
           {/* <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} /> */}
           <Route path="name/:coachID" element={<CoachDetail classes={fileContent.newJsonData} />} />
-
         </Route>
 
         <Route path="/savejson" element={<SaveJsonPage />} />
       </Routes>
     </HashRouter>
-    )
   )
 }
 
