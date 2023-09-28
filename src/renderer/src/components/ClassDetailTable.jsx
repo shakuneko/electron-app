@@ -225,6 +225,52 @@ function ClassDetailTable({
           //send api delete request here, then refetch or update local table data for re-render
           // tableData.splice(row.index, 1);
           setTableData([...tableData]);
+          if (classCourse.courseFlag.includes(row.index)){
+            const newCourseFlag = classCourse.courseFlag.filter((index) => index !== row.index);
+            const newClassCourse = {
+              ...classCourse,
+              coursesFIN: (parseInt(classCourse.coursesFIN, 10) - 1).toString(),
+              courseLeft: (parseInt(classCourse.courseLeft, 10) + 1).toString(),
+              courseFlag: newCourseFlag
+            };
+            
+            console.log("newClassCourse", newClassCourse);
+            console.log("newClassCourse_data", newClassCourse.coursesFIN, newClassCourse.courseLeft);
+            dispatch(updateClassCourseData(newClassCourse));
+            dispatch(upDateClassCourse({data: newClassCourse, classID: id}));
+            console.log("取消預約，課堂數回來")
+
+            const updatedStuCourse = stuCourse.map((student) => {// update stu course num
+              if (stuItem.includes(student.stuID)) {
+                const updatedBuyDetail = student.buyDetail.map((buyItem) => {
+                  if (buyItem.classID === id) {
+                    // 修改 courseLeft 和 coursesFIN
+                    const newCoursesFIN = parseInt(buyItem.coursesFIN, 10) - 1;
+                    const newCourseLeft = parseInt(buyItem.courseLeft, 10) + 1;
+                    
+                    return {
+                      ...buyItem,
+                      courseLeft: newCourseLeft.toString(),
+                      coursesFIN: newCoursesFIN.toString(),
+                    };
+                  }
+                  return buyItem;
+                });
+            
+                return {
+                  ...student,
+                  buyDetail: updatedBuyDetail,
+                };
+              }
+              return student;
+            });
+            console.log("stu course count check", updatedStuCourse)
+            
+            // 更新 stuCourse 状态
+            // setStuCourse(updatedStuCourse);
+            dispatch(updateStuCourseData(updatedStuCourse));
+            dispatch(upDateStuCourse(updatedStuCourse));
+        }
           const newTableData = tableData.filter((item, index) => index !== row.index);
           dispatch(updateTableData(newTableData));
           dispatch(addReserveTableData({data: newTableData, classID: id}));
