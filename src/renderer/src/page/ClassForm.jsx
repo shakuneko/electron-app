@@ -235,6 +235,9 @@ const handleSubmit = (event) => {
   // 获取已有的 classID 列表
   const existingClassIDs = fileNameData.newJsonData[0].classDetail.map((class_category) => parseInt(class_category.classID));
   const newClassID = generateUniqueID(existingClassIDs);
+  const addCoachName = classForm[currentPage].coachName;
+  const addStudentName1 = classForm[currentPage].stuName;
+  let addStudentName2 = '';
 // 获取已有的 stuID 列表
 //   const existingStudentIDs = jsonData
 //  .find((item) => item.category === 'student')
@@ -243,6 +246,10 @@ const handleSubmit = (event) => {
 // 获取已有的 class 数据
 // const classData = jsonData.find((item) => item.category === 'class');
 
+ // 检查是否在 page1 表单中填写了第二名学生的姓名
+ if (currentPage === 'page1') {
+  addStudentName2 = classForm[currentPage].stuName2;
+}
 const newClassItem = {
   classID: newClassID, 
   courseType: selectedCourse, 
@@ -251,9 +258,29 @@ const newClassItem = {
   coursesAll: classForm[currentPage].coursesAll, 
   payMethod: classForm[currentPage].payMethod, 
   reserveDetail:[],
-  coach:[],
-  student:[],
+  coach: [
+    {
+      coachID: findCoachIDByName(addCoachName),
+      coachName: addCoachName,
+    }
+  ],
+  student: [
+    {
+      stuID: findStudentIDByName(addStudentName1),
+      courseType: selectedCourse,
+      stuName: addStudentName1,
+    }
+  ],
 };
+
+// 如果在 page1 表单中填写了第二名学生的姓名，添加到 student 数组中
+if (addStudentName2) {
+  newClassItem.student.push({
+    stuID: findStudentIDByName(addStudentName2),
+    courseType: selectedCourse,
+    stuName: addStudentName2,
+  });
+}
 
 //傳到classDetail下的student
 // const classIDToUpdate = newClassID; // 你已经找到的课程ID
@@ -266,46 +293,51 @@ const newClassItem = {
 //   );
 
 // 找到要更新的课程对象
-const classIDToUpdate = newClassID; // 你已经找到的课程ID
-const classDetailToUpdate = fileNameData.newJsonData[0].classDetail.find((classItem) => classItem.classID === classIDToUpdate);
-//classDetail>student&coach
-if (classDetailToUpdate) {
-  const newClassStudent = [
-    {
-      stuID: findStudentIDByName(classForm[currentPage].stuName),
-      courseType: selectedCourse, 
-      stuName: classForm[currentPage].stuName,
-    },
-    {
-      stuID: findStudentIDByName(classForm[currentPage].stuName2),
-      courseType: selectedCourse,
-      stuName: classForm[currentPage].stuName2,
-    },
-  ];
-  const newClassStudent2 = {
-    stuID: findStudentIDByName(classForm[currentPage].stuName),
-      courseType: selectedCourse, 
-      stuName: classForm[currentPage].stuName,
-  }
-  const newClassCoach = {
-    coachID: findCoachIDByName(classForm[currentPage].coachName),
-    coachName: classForm[currentPage].coachName,
-  }
-  //添加学生信息到课程对象的 "student、coach" 数组中
-  if (currentPage == 'page1') {
-  // classDetailToUpdate.student.push(...newClassStudent);
-  // classDetailToUpdate.coach.push(newClassCoach);
-  dispatch(addStuToClass({ classIDToUpdate, newClassStudent }));
-  dispatch(addCoachToClass({ classIDToUpdate, newClassCoach }));
-  console.log("分发了 addStuToClass 动作：", classDetailToUpdate );
-  }
-  else{
-  // classDetailToUpdate.student.push(newClassStudent2);
-  // classDetailToUpdate.coach.push(newClassCoach);
-  dispatch(addCoachToClass({ classDetailToUpdate, newClassCoach }));
-  }
+// const classIDToUpdate = newClassID; // 你已经找到的课程ID
+// console.log('classIDToUpdate',classIDToUpdate);
+// const classDetailToUpdate = props.classes[0].classDetail.find((classItem) => {
+//   console.log('当前检查的 classItem.classID:', classItem.classID);
+//   return classItem.classID === classIDToUpdate;
+// });
+// //classDetail>student&coach
+// if (classDetailToUpdate) {
+//   console.log('找到要更新的ID',classDetailToUpdate);
+//   const newClassStudent = [
+//     {
+//       stuID: findStudentIDByName(classForm[currentPage].stuName),
+//       courseType: selectedCourse, 
+//       stuName: classForm[currentPage].stuName,
+//     },
+//     {
+//       stuID: findStudentIDByName(classForm[currentPage].stuName2),
+//       courseType: selectedCourse,
+//       stuName: classForm[currentPage].stuName2,
+//     },
+//   ];
+//   const newClassStudent2 = {
+//       stuID: findStudentIDByName(classForm[currentPage].stuName),
+//       courseType: selectedCourse, 
+//       stuName: classForm[currentPage].stuName,
+//   }
+//   const newClassCoach = {
+//     coachID: findCoachIDByName(classForm[currentPage].coachName),
+//     coachName: classForm[currentPage].coachName,
+//   }
+//   //添加学生信息到课程对象的 "student、coach" 数组中
+//   if (currentPage == 'page1') {
+//   classDetailToUpdate.student.push(...newClassStudent);
+//   classDetailToUpdate.coach.push(newClassCoach);
+//   // dispatch(addStuToClass({ classIDToUpdate, newClassStudent }));
+//   // dispatch(addCoachToClass({ classIDToUpdate, newClassCoach }));
+//   console.log("分发了 addStuToClass 动作：", classDetailToUpdate );
+//   }
+//   else{
+//   classDetailToUpdate.student.push(newClassStudent2);
+//   classDetailToUpdate.coach.push(newClassCoach);
+//   // dispatch(addCoachToClass({ classDetailToUpdate, newClassCoach }));
+//   }
  
-}
+// }
 
 //coach>coachDetail>TeachClass
 const selectedCoachName = classForm[currentPage].coachName;  
