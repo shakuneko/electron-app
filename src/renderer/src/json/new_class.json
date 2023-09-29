@@ -110,7 +110,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/9/14",
+            "reserveDate": "2023/09/14",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -153,7 +153,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/9/20",
+            "reserveDate": "2023/09/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -169,7 +169,7 @@
           },
           {
             "reserveID": "2",
-            "reserveDate": "2023/9/25",
+            "reserveDate": "2023/09/25",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -212,7 +212,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/9/20",
+            "reserveDate": "2023/09/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -484,7 +484,7 @@
     "revenueDetail": [
       {
         "revenueDateMonth": "2023/07",
-        "revenueList":[
+        "revenueList": [
           {
             "totalLeftSalary": 21000,
             "classLeft": 6,
@@ -509,7 +509,7 @@
       },
       {
         "revenueDateMonth": "2023/08",
-        "revenueList":[
+        "revenueList": [
           {
             "totalLeftSalary": 25500,
             "classLeft": 7,
@@ -532,7 +532,6 @@
           }
         ]
       }
-
     ]
   }
 ]

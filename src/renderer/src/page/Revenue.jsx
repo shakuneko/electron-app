@@ -126,7 +126,7 @@ function Revenue({ classes }) {
     console.log(`Coach ID: ${coachID}, Total Salary: ${totalSalary}`)
   })
 
-  //total salary所有教練加總 總薪水 總月收入
+  //total salary所有教練加總 總薪水 總月收入---------------------------------------------------
   //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
   let totalSalarySum = 0
   // 创建一个对象用于按月份存储课程价格
@@ -171,7 +171,7 @@ nJson.forEach(item => {
     });
   }
 });
-console.log("coursepriccc",coursePriceByMonth["2023/09"])
+//console.log("coursepriccc",coursePriceByMonth["2023/09"])
 // 打印每月的课程价格
 for (const month in coursePriceByMonth) {
   // 获取该月份的课程价格对象
@@ -190,6 +190,58 @@ for (const month in coursePriceByMonth) {
 }
   //console.log(`所有薪水总和: ${totalSalarySum}`)
 
+//----------------------計算本月上課堂數並以課程分類、以attandece為是----
+// 创建一个对象，用于按月份存储上课次数
+const classCountByMonth = {};
+// 遍历 "category=class" 下的数据
+nJson.forEach(item => {
+  if (item.category === "class" && item.classDetail) {
+    item.classDetail.forEach(classItem => {
+      if (classItem.reserveDetail) {
+        classItem.reserveDetail.forEach(reserveItem => {
+          // 解析日期为月份 "yyyy/MM"
+          const dateParts = reserveItem.reserveDate.split("/");
+          if (dateParts.length === 3) {
+            const month = dateParts.slice(0, 2).join("/");           
+            // 如果月份不存在，创建一个月份的记录并初始化计数为0
+            if (!classCountByMonth[month]) {
+              classCountByMonth[month] = 0;
+            }
+            
+            // 如果 "attendance" 是 "是"，增加计数
+            if (reserveItem.attandence === "是") {
+              //console.log("classBBBC",classCountByMonth[month])
+              classCountByMonth[month]++;
+            }
+          }
+        });
+      }
+    });
+  }
+});
+
+// 打印每个月份的上课次数
+//可以用於每月上課次數（核銷未核銷堂數）
+console.log("BBBC上课次数按月份统计：", classCountByMonth);
+
+//----------------------計算所有的課程總堂數courseAll---------------------
+const courseAllByMonth = {}
+nJson.forEach(item => {
+  if (item.category === "class" && item.classDetail) {
+    item.classDetail.forEach(classItem => {
+      const buyDate = classItem.buyDate.split("-");
+      if (buyDate.length === 3) {
+        const month = buyDate.slice(0, 2).join("/");
+        // 如果月份不存在，创建一个月份的记录并初始化计数为0
+        if (!courseAllByMonth[month]) {
+          courseAllByMonth[month] = 0;
+        }
+        courseAllByMonth[month] += parseInt(classItem.coursesAll) || 0;
+      }
+    });
+  }
+});
+console.log("BBBC課程總堂數按月份统计：", courseAllByMonth);
 
 
   //-------------------------------------------------------------------
