@@ -75,12 +75,16 @@ const saveSlice = createSlice({
       console.log("setCoachFormSave state", current(state));
     },
     addNewBuyDetail: (state, action) => { //student>buydetail
-      const { selectedStudentName, newBuyDetail } = action.payload;
+      const { selectedStudentName,selectedStudentName2 ,newBuyDetail } = action.payload;
       const selectedStudent = state.fileName.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
-
+      const selectedStudent2 = state.fileName.newJsonData[1].stuDetail.find((student)=> student.stuName === selectedStudentName2);
       if (selectedStudent) {
         // selectedStudent.buyDetail.push(newBuyDetail);
         selectedStudent.buyDetail = [...selectedStudent.buyDetail, newBuyDetail];
+      }
+      if (selectedStudent2) {
+        // selectedStudent.buyDetail.push(newBuyDetail);
+        selectedStudent2.buyDetail = [...selectedStudent2.buyDetail, newBuyDetail];
       }
     },
     addTeachClass: (state, action) => {  //coach>coachDetail>TeachClass

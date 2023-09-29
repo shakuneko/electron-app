@@ -369,13 +369,17 @@ const newTeachClass ={
    // 傳遞學員1的資料到BuyDetail頁面
   const selectedStudentName = classForm[currentPage].stuName;
   const selectedStudent = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
+  console.log('學員1名字',selectedStudent)
   if (selectedStudent) {
     dispatch(addNewBuyDetail({ selectedStudentName, newBuyDetail }));
  
   }
+
   // 傳遞學員2的資料到BuyDetail頁面
   const selectedStudentName2 = classForm[currentPage].stuName2;
-  const selectedStudent2 = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName2 === selectedStudentName2);
+  console.log('學員2名字',selectedStudentName2)
+  const selectedStudent2 = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName2);
+  console.log('學員2名字',selectedStudent2)
   if (selectedStudent2) {
     dispatch(addNewBuyDetail({ selectedStudentName2, newBuyDetail }));
   }
