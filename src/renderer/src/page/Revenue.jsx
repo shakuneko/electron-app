@@ -16,6 +16,7 @@ function Revenue({ classes }) {
   //time date使用及判斷
   // 获取当前日期和时间
   const currentDateTime = DateTime.now()
+  const formattedCurrentDateTime = currentDateTime.toFormat('yyyy/MM')
   // 减一個月
   const previousMonthDateTime = currentDateTime.minus({ months: 1 })
   // 格式化日期为 "yyyy/MM"
@@ -34,7 +35,7 @@ function Revenue({ classes }) {
       })
     }
   })
-  console.log('lastMonth', lastMonth)
+  //console.log('lastMonth', lastMonth)
   console.log('BBB獲取資料中上個月的table值lastMonthRevenueTable', lastMonthRevenueTable)
 
   // 创建一个新的 Map 对象，用于存储教练与其课程类型的关系
@@ -125,14 +126,71 @@ function Revenue({ classes }) {
     console.log(`Coach ID: ${coachID}, Total Salary: ${totalSalary}`)
   })
 
-  //total salary所有教練加總 總薪水
+  //total salary所有教練加總 總薪水 總月收入
+  //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
   let totalSalarySum = 0
+  // 创建一个对象用于按月份存储课程价格
+  const coursePriceByMonth = {};
 
-  coachSalaryMap.forEach((salaries) => {
-    const { ptSalary, groupSalary, massageSalary, pilatesSalary } = salaries
-    totalSalarySum += ptSalary + groupSalary + massageSalary + pilatesSalary
-  })
-  console.log(`所有教练的薪水总和: ${totalSalarySum}`)
+// 遍历 "class" 类别中的数据
+nJson.forEach(item => {
+  if (item.category === "student" && item.stuDetail) {
+    item.stuDetail.forEach(studentItem => {
+      studentItem?.buyDetail.forEach(buyItem => {
+      const buyDate = buyItem.buyDate;
+      const courseType = buyItem.courseType||"未知";
+      const coursePrice = parseInt(buyItem.coursePrice) || 0; // 解析课程价格字段
+
+      // 添加错误检查：如果没有 buyDate 字段或其值为空，则跳过此项
+      if (!buyDate) {
+        return;
+      }
+
+      // 解析日期為月份 "yyyy/MM"
+      const dateParts = buyDate.split("/");
+      if (dateParts.length !== 3) {
+        // 如果日期格式不正确，则跳过此项
+        return;
+      }
+      const month = dateParts.slice(0, 2).join("/");
+
+      // 如果月份不存在，创建一个月份的记录
+      if (!coursePriceByMonth[month]) {
+        coursePriceByMonth[month] = {};
+      }
+
+      // 如果课程类型不存在，创建一个课程类型的记录
+      if (!coursePriceByMonth[month][courseType]) {
+        coursePriceByMonth[month][courseType] = 0;
+      }
+
+      // 累加课程价格
+      coursePriceByMonth[month][courseType] += coursePrice;
+
+    });
+    });
+  }
+});
+console.log("coursepriccc",coursePriceByMonth["2023/09"])
+// 打印每月的课程价格
+for (const month in coursePriceByMonth) {
+  // 获取该月份的课程价格对象
+  const monthData = coursePriceByMonth[month];
+  // 创建一个 DateTime 对象以便与当前日期比较
+  const itemDate = DateTime.fromFormat(month, "yyyy/MM");
+ console.log("itemDate",monthData)
+// console.log("itemDate2",formattedCurrentDateTime)
+  // 在这里，你可以进行与当前日期的比较以及累加 totalSalarySum 的逻辑
+  if(month === formattedCurrentDateTime){
+    for (const courseType in monthData) {
+      totalSalarySum += monthData[courseType];
+    }
+
+  }
+}
+  //console.log(`所有薪水总和: ${totalSalarySum}`)
+
+
 
   //-------------------------------------------------------------------
   // 按 courseType 分类的数据 計算為未核銷金額
@@ -152,7 +210,7 @@ function Revenue({ classes }) {
         const courseLeft = parseInt(classItem.courseLeft) || 0
         let totalLeftSalary = 0
 
-        console.log('課程對應未核銷堂數', courseType, courseLeft)
+        //console.log('課程對應未核銷堂數', courseType, courseLeft)
 
         // 查找该班级的 coach 数据
         if (classItem.coach && classItem.coach.length > 0) {
@@ -316,10 +374,10 @@ function Revenue({ classes }) {
     (sum, typeData) => sum + typeData.totalFINSalary,
     0
   )
-  console.log('AAAtotalSumFIN', totalSumFIN)
-  console.log('AAAtotalFINCourseCount', totalFINCourseCount)
+  //console.log('AAAtotalSumFIN', totalSumFIN)
+  //console.log('AAAtotalFINCourseCount', totalFINCourseCount)
   // 输出整理后的数据
-  console.log('AAAfincoursetotal', courseTypeFINData)
+  //console.log('AAAfincoursetotal', courseTypeFINData)
 
   //下方表格使用---------------------------------------------------
   //計算coachFin,coachLeft以教練分類---------------------------------------------------
@@ -368,10 +426,10 @@ function Revenue({ classes }) {
   })
 
   // 打印课程信息
-  console.log('课程信息', courseInfo)
+  //console.log('课程信息', courseInfo)
 
   // 打印教练信息
-  console.log('教练信息', coachInfo2)
+  //console.log('教练信息', coachInfo2)
 
   // 根据 coachName 分类合并信息with major---------------------------------------------------
   const coachInfo = []
@@ -400,7 +458,7 @@ function Revenue({ classes }) {
     }
   })
   // 输出结果
-  console.log('AAAcoachInfo', coachInfo)
+  //console.log('AAAcoachInfo', coachInfo)
 
   //課程核銷相關
   const classInfo = []
@@ -446,7 +504,7 @@ function Revenue({ classes }) {
     })
     return result
   }, [])
-  console.log('AAAmergeInfo', mergeInfo)
+  //console.log('AAAmergeInfo', mergeInfo)
 
   //計算體驗課堂數exCourse---------------------------------------------------
   const coachExCourseCounts = {}
@@ -470,7 +528,7 @@ function Revenue({ classes }) {
   })
 
   // 输出每个教练的 exCourse 总数
-  console.log('coachExCourseCount', coachExCourseCounts)
+  //console.log('coachExCourseCount', coachExCourseCounts)
 
   // 根据 coachName 分类合并信息
   const mergeInfoLast = mergeInfo.map((coach) => {
@@ -678,7 +736,6 @@ function Revenue({ classes }) {
   } else {
     console.log('数据变量未定义或不是数组。')
   }
-  
 
   return (
     <div className="container-fluid" style={{ backgroundColor: 'white' }}>
