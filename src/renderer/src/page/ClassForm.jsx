@@ -193,7 +193,19 @@ const handleItemClick = (item, page) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-
+  const currentPageData = classForm[currentPage];
+  if (
+    currentPageData.stuName === "" ||
+    currentPageData.coursesAll === "" ||
+    currentPageData.buyDate === "" ||
+    currentPageData.coursePrice === "" ||
+    currentPageData.payMethod === "" ||
+    (currentPageData.exCourse === "" && !isRadioSelected) // 只有在未选择体验课时才需要 exCourse 字段
+    // 添加其他字段的验证条件
+  ) {
+    alert("请填写所有必填字段");
+    return;
+  }
   // 获取已有的 classID 列表
   const existingClassIDs = fileNameData.newJsonData[0].classDetail.map((class_category) => parseInt(class_category.classID));
   console.log("existingClassIDs",existingClassIDs)
@@ -212,7 +224,7 @@ const newClassItem = {
   exCoursePrice:classForm[currentPage].exCoursePrice, 
   coursesAll: classForm[currentPage].coursesAll,
   courseLeft:classForm[currentPage].coursesAll,
-  coursesFIN:'',
+  coursesFIN:0,
   courseFlag:[],
   payMethod: classForm[currentPage].payMethod, 
   floor:classForm[currentPage].floor,
@@ -263,9 +275,9 @@ const newTeachClass ={
     buyNote: classForm[currentPage].buyNote,
     buyDate:classForm[currentPage].buyDate,
     courseLeft:classForm[currentPage].coursesAll,
-    coursesFIN:'',
+    coursesFIN:0,
     payMethod:classForm[currentPage].payMethod,
-    preCourseLeft:'',
+    preCourseLeft:0,
   };
    // 傳遞學員1的資料到BuyDetail頁面
   const selectedStudentName = classForm[currentPage].stuName;
