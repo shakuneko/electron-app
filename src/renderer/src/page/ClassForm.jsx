@@ -224,7 +224,7 @@ const newClassItem = {
   exCoursePrice:classForm[currentPage].exCoursePrice, 
   coursesAll: classForm[currentPage].coursesAll,
   courseLeft:classForm[currentPage].coursesAll,
-  coursesFIN:'',
+  coursesFIN:0,
   courseFlag:[],
   payMethod: classForm[currentPage].payMethod, 
   floor:classForm[currentPage].floor,
@@ -275,9 +275,9 @@ const newTeachClass ={
     buyNote: classForm[currentPage].buyNote,
     buyDate:classForm[currentPage].buyDate,
     courseLeft:classForm[currentPage].coursesAll,
-    coursesFIN:'',
+    coursesFIN:0,
     payMethod:classForm[currentPage].payMethod,
-    preCourseLeft:'',
+    preCourseLeft:0,
   };
    // 傳遞學員1的資料到BuyDetail頁面
   const selectedStudentName = classForm[currentPage].stuName;
@@ -1075,9 +1075,6 @@ useEffect(() => {
                     </div>
                      )}
                 </form>
-              </div>
-              <div>
-             
               </div>
         </div>
       </div>
