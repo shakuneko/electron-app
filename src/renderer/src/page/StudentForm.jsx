@@ -58,6 +58,20 @@ function StudentForm(props){
   // 提交表單的函數
   const handleSubmit = (event) => {
     event.preventDefault();  
+    if (
+      stuForm.stuName === "" ||
+      stuForm.stuGender === "" ||
+      stuForm.stuPhone === "" ||
+      stuForm.stuEmail === "" ||
+      stuForm.stuAddress === "" ||
+      stuForm.stuContact === "" ||
+      stuForm.stuRelation === "" ||
+      stuForm.stuContact_tel === "" ||
+      stuForm.stuNote === ""
+    ) {
+      alert("请填写所有字段");
+      return;
+    }
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
 

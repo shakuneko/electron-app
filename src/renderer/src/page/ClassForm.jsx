@@ -71,7 +71,6 @@ function findCoachIDByName(CoachName) {
       buyDate:'',
       coursePrice:'',
       payMethod:'',
-      coursePrice:'',
       invoiceNum:'',
       exCourse:'',
       exCoursePrice:'',
@@ -194,7 +193,19 @@ const handleItemClick = (item, page) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-
+  const currentPageData = classForm[currentPage];
+  if (
+    currentPageData.stuName === "" ||
+    currentPageData.coursesAll === "" ||
+    currentPageData.buyDate === "" ||
+    currentPageData.coursePrice === "" ||
+    currentPageData.payMethod === "" ||
+    (currentPageData.exCourse === "" && !isRadioSelected) // 只有在未选择体验课时才需要 exCourse 字段
+    // 添加其他字段的验证条件
+  ) {
+    alert("请填写所有必填字段");
+    return;
+  }
   // 获取已有的 classID 列表
   const existingClassIDs = fileNameData.newJsonData[0].classDetail.map((class_category) => parseInt(class_category.classID));
   console.log("existingClassIDs",existingClassIDs)
