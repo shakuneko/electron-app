@@ -20,7 +20,6 @@ function generateUniqueID(existingCoachIDs) {
 
 function CoachForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
-  const fileNameData = useSelector(selectFileName);
   const [newCoaData, setNewCoaData] = useState({});
   const initialFormData = {
     coachName:'',
@@ -38,7 +37,6 @@ function CoachForm(props) {
     joinDate:'',
     PtSalary:'',
     PilatesSalary:'',
-    GroupSalary:'',
     MassageSalary:'', 
   };
 // 使用状态管理保存表单数据
@@ -110,7 +108,6 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   joinDate:coachForm.joinDate,
   PtSalary:coachForm.PtSalary,
   PilatesSalary:coachForm.PilatesSalary,
-  GroupSalary:coachForm.GroupSalary,
   MassageSalary:coachForm.MassageSalary, 
   teachClass:[],
 };
@@ -145,6 +142,18 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
             <p>新增教練</p>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
+            <div class="form-group">
+                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <div className="select">
+                    <input 
+                      type="date" 
+                      name="joinDate"
+                      class="form-select" 
+                      value={coachForm.joinDate}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">姓名:</label>
                     <div className="select">
@@ -200,6 +209,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="text" 
                       name="coachEmail"
                       class="form-select" 
+                      placeholder="例如：123@gmail.com"
                       value={coachForm.coachEmail}
                       onChange={handleInputChange}
                     ></input>
@@ -232,10 +242,6 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="button" 
                       onClick={() => handleItemClick('運動按摩')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('運動按摩') ? 'active' : ''}`}>運動按摩</button>
-                    <button
-                      type="button" 
-                      onClick={() => handleItemClick('團課')}
-                      className={`btn btn-outline-golden ${selectedOptions.includes('團課') ? 'active' : ''}`}>團課</button>
                   </div>
                 </div>    
                 <div class="form-group">
@@ -245,6 +251,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="text" 
                       class="form-select" 
                       name="PtSalary"
+                      placeholder="請填寫整數數字，例如：1200"
                       value={coachForm.PtSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -257,6 +264,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="text" 
                       class="form-select" 
                       name="PilatesSalary"
+                      placeholder="請填寫整數數字，例如：1200"
                       value={coachForm.PilatesSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -269,23 +277,12 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="text" 
                       class="form-select" 
                       name="MassageSalary"
+                      placeholder="請填寫整數數字，例如：1200"
                       value={coachForm.MassageSalary}
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">團課堂薪:</label>
-                    <div className="select">
-                    <input 
-                      type="text" 
-                      class="form-select" 
-                      name="GroupSalary"
-                      value={coachForm.GroupSalary}
-                      onChange={handleInputChange}
-                    ></input>
-                    </div>
-                </div>
+                </div>   
                 <div class="form-group">
                     <label for="exampleInputEmail1">帳戶:</label>
                     <div className="select">
@@ -330,18 +327,6 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       name="coachContact_tel"
                       class="form-select" 
                       value={coachForm.coachContact_tel}
-                      onChange={handleInputChange}
-                    ></input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">建檔日期:</label>
-                    <div className="select">
-                    <input 
-                      type="text" 
-                      name="joinDate"
-                      class="form-select" 
-                      value={coachForm.joinDate}
                       onChange={handleInputChange}
                     ></input>
                     </div>
