@@ -254,7 +254,7 @@ const newTeachClass ={
     courseLeft:'',
     coursesFIN:'',
     invoiceNum:'',
-    patMethod:'',
+    patMethod:classForm[currentPage].payMethod,
     preCourseLeft:'',
   };
    // 傳遞學員1的資料到BuyDetail頁面
