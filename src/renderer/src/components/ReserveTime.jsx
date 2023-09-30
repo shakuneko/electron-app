@@ -22,7 +22,10 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     // const [selectedStudentType, setSelectedStudentType] = useState(new Set()); // 存储选定的学员类型
     const studentFormData = useSelector((state) => state.root.save.fileName.newJsonData[1].stuDetail);
     console.log("studentFormData", studentFormData)
-  const handleInputChange = (event) => {
+
+
+    
+    const handleInputChange = (event) => {
     const { name, options, value } = event.target;
   
     if (name === "reserveStu") {

@@ -17,7 +17,6 @@ function generateUniqueID(existingStuIDs) {
 function StudentForm(props){
   const dispatch = useDispatch(); // 获取dispatch函数的引用
   const [newStudentData, setNewStudentData] = useState({});
-
   const initialFormData = {
     stuID:'',
     stuName:'',
@@ -41,6 +40,7 @@ function StudentForm(props){
 
     console.log("newStuData",newStuData)
    // 定義一個處理表單輸入變化的函數
+ 
    const handleInputChange = (event) => {
       // 從事件對象中獲取輸入的名稱和值
       const{name,value}=event.target;

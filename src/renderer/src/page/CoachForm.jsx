@@ -1,6 +1,6 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { updateCoachName } from '../redux/Actions/formActions'
 import jsonData from '../json/new_class.json'
 import { setCoachFormSave } from "../redux/reducers/saveSlice";
@@ -45,6 +45,8 @@ console.log("newCoachData",newCoachData)
 //複選按鈕
 const [selectedOptions, setSelectedOptions] = useState([]); // 用于存储选中的选项
 // 定義一個處理表單輸入變化的函數
+
+
 const handleInputChange = (event) => {
   // 從事件對象中獲取輸入的名稱和值
   const{name,value}=event.target;

@@ -95,24 +95,6 @@ const saveSlice = createSlice({
         // selectedCoach.teachClass.push(newTeachClass);
       }
     },
-    addStuToClass: (state, action) => { //class>classDetail>student
-      const { classDetailToUpdate, newClassStudent} = action.payload;
-      const classToUpdate = state.fileName.newJsonData[0].classDetail.find((classItem) => classItem.classID === classDetailToUpdate);
-      
-      if (classDetailToUpdate) {
-        classToUpdate.student=[...classToUpdate.student,newClassStudent]
-      }
-    
-    },
-    addCoachToClass: (state, action) => { //class>classDetail>coach
-      const { classDetailToUpdate, newClassCoach} = action.payload;
-      const classToUpdate = state.fileName.newJsonData[0].classDetail.find((classItem) => classItem.classID === classDetailToUpdate);
-      
-      if (classToUpdate) {
-        classToUpdate.coach=[...classToUpdate.coach,newClassCoach]
-      }
-
-    },
 
     addReserveTableData: (state, action) => {
       // console.log("addReserveTableData payload", action.payload);
@@ -182,7 +164,7 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass,addCoachToClass,addStuToClass } = saveSlice.actions
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass} = saveSlice.actions
 
 
 // export reducer to global

@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import jsonData from '../json/new_class.json'
 
-import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass,addCoachToClass,addStuToClass } from '../redux/reducers/saveSlice'
+import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass} from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
@@ -50,7 +50,7 @@ function generateUniqueID(existingIDs) {
 
 function ClassForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
-  // const stuForm = useSelector((state) => state.root.stu.stuForm);
+
   //設定每個分頁的初始狀態
   const fileNameData = useSelector(selectFileName);
   const stuID = fileNameData.newJsonData[1].stuDetail[0].stuID;
@@ -143,6 +143,7 @@ console.log("newClassData",newClassData)
   setCurrentPage(page);
   setSelectedCourse(courseName); // 更新所选的课程名称
 };
+
 
 // 定義一個處理表單輸入變化的函數
 const handleInputChange = (event,page) => {
