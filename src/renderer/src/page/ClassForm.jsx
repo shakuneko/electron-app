@@ -209,6 +209,7 @@ const newClassItem = {
   coursesAll: classForm[currentPage].coursesAll,
   courseLeft:classForm[currentPage].coursesAll,
   coursesFIN:'',
+  courseFlag:[],
   payMethod: classForm[currentPage].payMethod, 
   reserveDetail:[],
   coach: [
