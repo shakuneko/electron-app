@@ -1,8 +1,6 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch} from 'react-redux';
-import { updateCoachName } from '../redux/Actions/formActions'
-import jsonData from '../json/new_class.json'
 import { setCoachFormSave } from "../redux/reducers/saveSlice";
 function generateUniqueID(existingIDs) {
   // 找到现有 ID 中的最大值
@@ -84,14 +82,10 @@ const handleItemClick = (item) => {
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
-// dispatch(updateCoachName(coachForm));
-// props.updateCoachName(coachForm)
+
 // 在這裡處理表單提交的邏輯，可以使用formData中的值
 console.log('表单数据：', coachForm);
-// const existingClassIDs = jsonData.find((item) => item.category === 'class').classDetail.map((class_category) => parseInt(class_category.classID));
-// const newClassID = generateUniqueID(existingClassIDs);
 
-// const existingCoachIDs = jsonData.find((item) => item.category === 'coach').coachDetail.map((coach) => parseInt(coach.coachID));
 const existingCoachIDs = newCoachData.map((coach) => coach.coachID);
 let newCoachID = generateUniqueID(existingCoachIDs);
  let _newCoachData = {
@@ -122,15 +116,11 @@ dispatch(setCoachFormSave({
   category: "coach",
  
 }));
-  const updatedJsonData = [...jsonData];
-    // 将新的学生数据添加到JSON中
-  updatedJsonData.find((item) => item.category === 'coach').coachDetail.push(newCoachData);
 
   // 清除表单数据为初始状态
   setCoachForm(initialFormData);
   setSelectedOptions([]);
 
-  console.log(jsonData);
   console.log(updatedCoachData);
   console.log(newCoachID);
 };
@@ -378,26 +368,3 @@ dispatch(setCoachFormSave({
 export default CoachForm;
 
 
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// function CoachForm() {
-//   const coachForm = useSelector((state) => state.root.coach.coachForm);
-//   const stuForm = useSelector((state) => state.root.stu.stuForm);
-//   const classForm = useSelector((state) => state.root.class.classForm);
-//   // const { coachForm } = props;
-//   // console.log(props);
-//   console.log(coachForm);
-//   console.log(stuForm);
-//   console.log(classForm);
-//   return (
-//     <div>
-//       {/* 使用从 Redux Store 中提取的 JSON 数据来渲染 */}
-//       <pre>{JSON.stringify(coachForm, null, 2)}</pre>
-//       <pre>{JSON.stringify(stuForm, null, 2)}</pre>
-//       <pre>{JSON.stringify(classForm, null, 2)}</pre>
-//      </div>
-//   );
-// }
-
-
-// export default CoachForm;

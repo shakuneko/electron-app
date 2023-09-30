@@ -1,8 +1,7 @@
-import React, {useState ,useEffect} from "react";
+import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
-import jsonData from '../json/new_class.json'
 import { setStudentFormSave } from "../redux/reducers/saveSlice";
 function generateUniqueID(existingStuIDs) {
   // 找到现有 ID 中的最大值
@@ -54,10 +53,7 @@ function StudentForm(props){
  
   // 提交表單的函數
   const handleSubmit = (event) => {
-    event.preventDefault();
-    // props.updateStuForm(stuForm)
-    // dispatch(updateStuForm(stuForm));
-    
+    event.preventDefault();  
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
 
@@ -66,10 +62,6 @@ function StudentForm(props){
     const existingStuIDs = newStuData.map((student) => student.stuID);
     // 生成唯一的学生ID
     let newStudentID = generateUniqueID(existingStuIDs);
-  
-    // 设置stuID为新生成的ID
-  
-    // 根据你的需求更新JSON数据
     // 假设你要将新的学生数据添加到"student"类别下
     let _newStudentData = {
       stuID: newStudentID,
@@ -93,23 +85,13 @@ function StudentForm(props){
      
     }));
 
-    // //导入JSON数据
-    // const updatedJsonData = [...jsonData];
-    // // 将新的学生数据添加到JSON中
-    // updatedJsonData.find((item) => item.category === 'student').stuDetail.push(_newStudentData);
-
     // 清除表单数据为初始状态
     setStuForm(initialFormData);
 
     // jsonData.push(stuForm);
 
     console.log(updatedStuData);
-    console.log('stuform',_newStudentData)
-    console.log('stuID',newStudentID)
-    console.log('stuID',existingStuIDs)
     
-
-
   };
 
   return (

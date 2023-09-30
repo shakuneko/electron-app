@@ -1,7 +1,7 @@
 import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
-import jsonData from '../json/new_class.json'
+
 
 import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass} from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
@@ -14,39 +14,6 @@ function generateUniqueID(existingIDs) {
 
   return newID.toString(); // 将新的 ID 转换为字符串
 }
-//找學生ID
-// function findStudentIDByName(studentName) {
-//   const stuForm = useSelector((state) => state.root.stu.stuForm);
-  
-//   // 在 fileName 中查找匹配的学生
-//   const matchingStudent = stuForm?.stuDetail.find(student => student.stuName === studentName);
-  
-//   // 如果找到匹配的学生，返回其 stuID，否则返回空字符串
-//   const stuID = matchingStudent ? matchingStudent.stuID : '';
-  
-//   return stuID;
-// }
-//找學生ID
-
-// function findStudentIDByName(studentName) {
-//   const studentData = jsonData.find((item) => item.category === 'student');
-//   const student = studentData.stuDetail.find((student) => student.stuName === studentName);
-//   return student ? student.stuID : ''; // 如果找到学生，返回学生ID，否则返回空字符串
-// }
-//找教練ID
-// function findCoachIDByName(CoachName) {
-//   const coachData = jsonData.find((item) => item.category === 'coach');
-//   const coach = coachData.coachDetail.find((coach) => coach.coachName === CoachName);
-//   return coach ? coach.coachID : ''; 
-// }
-//找預約ID (((待修理
-// function generateUniqueReserveID(reserveDetailArray) {
-//   let newReserveID = 1; // 默认从1开始
-//   while (reserveDetailArray.some((item) => item.reserveID === newReserveID.toString())) {
-//     newReserveID++; // 如果存在就递增
-//   }
-//   return newReserveID.toString();
-// }
 
 function ClassForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
@@ -110,21 +77,6 @@ function findCoachIDByName(CoachName) {
       coursePrice:'',
       buyNote: '',
     },
-    // page4: {
-    //   coachName:'',
-    //   buyNote: '',
-    // },
-    // page5: {
-    //   stuName: '',
-    //   coursesAll: '',
-    //   buyDate:'',
-    //   coursePrice:'',
-    //   payMethod:'',
-    //   exCourse:'',
-    //   exCoursePrice:'',
-    //   buyNote: '',
-    // },
-   
   };
 // 使用状态管理保存表单数据
 const [classForm, setClassForm] = useState(initialFormData);
@@ -132,6 +84,7 @@ const [currentPage, setCurrentPage] = useState('page1');   // 使用状态管理
 const [studentNames, setStudentNames] = useState([]);
 const [coachNames, setCoachNames] = useState([]);
 const [selectedCourse, setSelectedCourse] = useState(''); // 用于存储当前所选的课程名称
+const [isRadioSelected, setIsRadioSelected] = useState(false); //體驗課按鈕
 
 let newClassData = props.classes[0].classDetail.map((item, index) => {
   return item
@@ -204,7 +157,8 @@ const handleRadioChange = (event, page) => {
       exCourse: value,
     },
   }));
-  
+  // 将isRadioSelected标记为已选中
+  setIsRadioSelected(true);
 };
 //付款方式按鈕
 const [selectedOption, setSelectedOption] = useState(); // 用于存储选中的选项
@@ -231,23 +185,13 @@ const handleItemClick = (item, page) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
-  // props.updateClassForm(currentPage,classForm[currentPage])
-  // dispatch(updateClassForm(currentPage,classForm[currentPage]));
   // 获取已有的 classID 列表
   const existingClassIDs = fileNameData.newJsonData[0].classDetail.map((class_category) => parseInt(class_category.classID));
   const newClassID = generateUniqueID(existingClassIDs);
   const addCoachName = classForm[currentPage].coachName;
   const addStudentName1 = classForm[currentPage].stuName;
   let addStudentName2 = '';
-// 获取已有的 stuID 列表
-//   const existingStudentIDs = jsonData
-//  .find((item) => item.category === 'student')
-//  .stuDetail.map((student) => parseInt(student.stuID));
-// //  const newStuID = generateUniqueID(existingStudentIDs)
-// 获取已有的 class 数据
-// const classData = jsonData.find((item) => item.category === 'class');
 
- // 检查是否在 page1 表单中填写了第二名学生的姓名
  if (currentPage === 'page1') {
   addStudentName2 = classForm[currentPage].stuName2;
 }
@@ -283,63 +227,6 @@ if (addStudentName2) {
   });
 }
 
-//傳到classDetail下的student
-// const classIDToUpdate = newClassID; // 你已经找到的课程ID
-
-// 获取已有的预约ID列表
-// const existingReserveIDs = jsonData
-//   .find((item) => item.category === 'class')
-//   .classDetail.flatMap((classItem) => 
-//     classItem.reserveDetail.map((reserveItem) => reserveItem.reserveID)
-//   );
-
-// 找到要更新的课程对象
-// const classIDToUpdate = newClassID; // 你已经找到的课程ID
-// console.log('classIDToUpdate',classIDToUpdate);
-// const classDetailToUpdate = props.classes[0].classDetail.find((classItem) => {
-//   console.log('当前检查的 classItem.classID:', classItem.classID);
-//   return classItem.classID === classIDToUpdate;
-// });
-// //classDetail>student&coach
-// if (classDetailToUpdate) {
-//   console.log('找到要更新的ID',classDetailToUpdate);
-//   const newClassStudent = [
-//     {
-//       stuID: findStudentIDByName(classForm[currentPage].stuName),
-//       courseType: selectedCourse, 
-//       stuName: classForm[currentPage].stuName,
-//     },
-//     {
-//       stuID: findStudentIDByName(classForm[currentPage].stuName2),
-//       courseType: selectedCourse,
-//       stuName: classForm[currentPage].stuName2,
-//     },
-//   ];
-//   const newClassStudent2 = {
-//       stuID: findStudentIDByName(classForm[currentPage].stuName),
-//       courseType: selectedCourse, 
-//       stuName: classForm[currentPage].stuName,
-//   }
-//   const newClassCoach = {
-//     coachID: findCoachIDByName(classForm[currentPage].coachName),
-//     coachName: classForm[currentPage].coachName,
-//   }
-//   //添加学生信息到课程对象的 "student、coach" 数组中
-//   if (currentPage == 'page1') {
-//   classDetailToUpdate.student.push(...newClassStudent);
-//   classDetailToUpdate.coach.push(newClassCoach);
-//   // dispatch(addStuToClass({ classIDToUpdate, newClassStudent }));
-//   // dispatch(addCoachToClass({ classIDToUpdate, newClassCoach }));
-//   console.log("分发了 addStuToClass 动作：", classDetailToUpdate );
-//   }
-//   else{
-//   classDetailToUpdate.student.push(newClassStudent2);
-//   classDetailToUpdate.coach.push(newClassCoach);
-//   // dispatch(addCoachToClass({ classDetailToUpdate, newClassCoach }));
-//   }
- 
-// }
-
 //coach>coachDetail>TeachClass
 const selectedCoachName = classForm[currentPage].coachName;  
 const newTeachClass ={
@@ -370,7 +257,6 @@ const newTeachClass ={
    // 傳遞學員1的資料到BuyDetail頁面
   const selectedStudentName = classForm[currentPage].stuName;
   const selectedStudent = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
-  console.log('學員1名字',selectedStudent)
   if (selectedStudent) {
     dispatch(addNewBuyDetail({ selectedStudentName, newBuyDetail }));
  
@@ -378,31 +264,10 @@ const newTeachClass ={
 
   // 傳遞學員2的資料到BuyDetail頁面
   const selectedStudentName2 = classForm[currentPage].stuName2;
-  console.log('學員2名字',selectedStudentName2)
   const selectedStudent2 = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName2);
-  console.log('學員2名字',selectedStudent2)
   if (selectedStudent2) {
     dispatch(addNewBuyDetail({ selectedStudentName2, newBuyDetail }));
   }
-
-  // const selectedStudentName = classForm[currentPage].stuName;
-  // const selectedStudent = jsonData
-  //   .find((item) => item.category === 'student')
-  //   .stuDetail.find((student) => student.stuName === selectedStudentName);
-
-  // if (selectedStudent) {
-  //   // const selectedStudentID = selectedStudent.stuID;
-  //   selectedStudent.buyDetail.push(newBuyDetail);
-  //   // 输出更新后的 jsonData
-  // } 
-  //  //傳遞學員2的資料到BuyDetail頁面
-  //  const selectedStudentName2 = classForm[currentPage].stuName2;
-  //  const selectedStudent2 = jsonData
-  //  .find((item) => item.category === 'student')
-  //  .stuDetail.find((student) => student.stuName === selectedStudentName2);
-  //  if(selectedStudent2){
-  //    selectedStudent2.buyDetail.push(newBuyDetail);
-  //  }
 
    const updatedClassData = [...newClassData, newClassItem];
   //  dispatch(updateStuForm(updatedStuData))
@@ -421,28 +286,6 @@ const newTeachClass ={
   
 };
 
-//繳費按鈕
-// const initialButtonData = [
-//   { text: '已付款', clicked: false, visible: true },
-//   { text: '未付款', clicked: false, visible: true },
-
-// ];
-// const [buttons, setButtons] = useState(initialButtonData);
-// const handleClick = (index, buttonValue) => {
-//   // 处理按钮的点击事件，根据索引来确定点击的按钮
-//   const updatedButtons = [...buttons];
-//   updatedButtons[index].clicked = true;
-//   setButtons(updatedButtons);
-
-//   // 切换按钮的文本内容
-//   const updatedText = buttons[index].text === '未付款' ? '已付款' : '未付款';
-//   const updatedButtonsText = [...buttons];
-//   updatedButtonsText[index].text = updatedText;
-//   setButtons(updatedButtonsText);
-
-//   console.log('点击的按钮值：', buttonValue);
-
-// };
 
 //下拉選單
 useEffect(() => {
@@ -531,17 +374,7 @@ useEffect(() => {
                             </option>
                             ))}
                         </select>
-                        </div>
-                        {/* {buttons[0].visible && (
-                          <button
-                            type="button"
-                            className={`btn btn-originalgray ${buttons[0].clicked ? 'active' : ''}`}
-                            onClick={() => handleClick(0, buttons[0].text)}
-                          >
-                            {buttons[0].text}
-                          </button>
-                        )} */}
-                        {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
+                        </div>     
                     </div>
                     <div className="form-group"> 
                           <label for="exampleInputEmail1">學員2:</label>
@@ -559,19 +392,7 @@ useEffect(() => {
                               </option>
                             ))}
                             </select>
-                      </div>
-                      {/* {buttons[1].visible && (
-                          <div>
-                            <button
-                              type="button"
-                              className={`btn btn-originalgray ${buttons[1].clicked ? 'active' : ''}`}
-                              onClick={() => handleClick(1, buttons[1].text)}
-                            >
-                              {buttons[1].text}
-                            </button>
-                          </div>
-                        )} */}
-                      {/* <button className="btn btn-originalgray" type="button">未付費</button> */}
+                      </div>                
                     </div>
                     <div className="form-group">
                         <label for="exampleInputEmail1">堂數:</label>
@@ -645,7 +466,7 @@ useEffect(() => {
                               // checked={classForm.page1.selectedOption === 'option1'}
                               onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
                              ></input>
-                            <label class="form-check-label" for="flexRadioDefault1">
+                            <label class="form-check-label" htmlFor="flexRadioDefault1">
                               是
                             </label>
                           </div>
@@ -658,7 +479,7 @@ useEffect(() => {
                               // checked={classForm.page1.selectedOption === 'option2'}
                               onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
                              ></input>
-                            <label class="form-check-label" for="flexRadioDefault2">
+                            <label class="form-check-label" htmlFor="flexRadioDefault1">
                               否
                             </label>
                           </div>
@@ -1102,30 +923,6 @@ useEffect(() => {
                               </select>
                             </div>
                         </div>
-                        {/* <div class="form-group">
-                            <label for="exampleInputEmail1">日期:</label>
-                            <div className="select">
-                              <input 
-                                type="text" 
-                                class="form-select" 
-                                name="date"
-                                value={classForm.page4.date}
-                                onChange={(e) => handleInputChange(e, 'page6')}
-                              ></input>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">時間:</label>
-                            <div className="select">
-                              <input 
-                                type="text" 
-                                class="form-select" 
-                                name="time"
-                                value={classForm.page4.time}
-                                onChange={(e) => handleInputChange(e, 'page6')}
-                              ></input>
-                            </div>
-                        </div> */}
                         <div className="form-group">
                           <label for="exampleInputEmail1">堂數:</label>
                           <div className="select">
@@ -1217,204 +1014,3 @@ useEffect(() => {
   
   export default ClassForm;
 
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// function ClassForm() {
-//   const coachForm = useSelector((state) => state.root.coach.coachForm);
-//   const stuForm = useSelector((state) => state.root.stu.stuForm);
-// const classForm = useSelector((state) => state.root.class.classForm);
-//   // const { coachForm } = props;
-//   // console.log(props);
-//   console.log(coachForm);
-//   console.log(stuForm);
-//   return (
-//     <div>
-//       {/* 使用从 Redux Store 中提取的 JSON 数据来渲染 */}
-//       <pre>{JSON.stringify(coachForm, null, 2)}</pre>
-//       <pre>{JSON.stringify(stuForm, null, 2)}</pre>
-// <pre>{JSON.stringify(classForm, null, 2)}</pre>
-//      </div>
-//   );
-// }
-
-
-// export default ClassForm;
-
-//  {/* 團課教練 */}
-//  {currentPage === 'page4' && (
-//   <div className="class_category">
-//         <div className="form-group">
-//             <label  for="exampleInputEmail1">教練:</label>
-//             <div className="select">
-//               <select 
-//                 className="form-select " 
-//                 name="coachName"
-//                 value={classForm.page4.coachName}
-//                 onChange={(e) => handleInputChange(e, 'page4')} 
-//               >
-//                 <option selected>-</option>
-//                   {coachNames.map((name) => (
-//                   <option key={name} value={name}>
-//                   {name}
-//                 </option>
-//                 ))}
-//               </select>
-//             </div>
-//         </div>
-//         <div class="form-group2">
-//             <label for="exampleInputPassword1">備註:</label>
-//             <div className="select">
-//               <textarea 
-//               class="form-select" 
-//               id="exampleFormControlTextarea1" 
-//               rows="3" 
-//               name="buyNote"
-//               value={classForm.page4.buyNote}
-//               onChange={(e) => handleInputChange(e, 'page4')}
-//               ></textarea>
-//             </div>  
-//         </div>
-//         <div class="form-group3">
-//           <button type="submit" class="btn btn-golden" >新增</button>
-//         </div>
-//     </div>
-// )}
-//  {/* 團課學員 */}
-//  {currentPage === 'page5' && (
-//   <div className="class_category">
-//         <div className="form-group">
-//             <label for="exampleInputEmail1">學員:</label>
-//             <div className="select">
-//             <select 
-//               class="form-select"
-//               name="stuName"
-//               value={classForm.page5.stuName}
-//               onChange={(e) => handleInputChange(e, 'page5')} 
-//             >
-//               <option selected>-</option>
-//                 {studentNames.map((name) => (
-//                 <option key={name} value={name}>
-//                 {name}
-//               </option>
-//               ))}
-//             </select>
-//           </div>
-//           {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
-//         </div>
-//         <div className="form-group">
-//             <label for="exampleInputEmail1">堂數:</label>
-//             <div className="select">
-//               <select 
-//                 class="form-select" 
-//                 name="coursesAll"
-//                 value={classForm.page5.coursesAll}
-//                 onChange={(e) => handleInputChange(e, 'page5')}
-//               >
-//                   <option selected>-</option>
-//                   <option value="1">1</option>
-//                   <option value="10">10</option>
-//               </select>
-//             </div>
-//         </div>
-//         <div class="form-group">
-//             <label for="exampleInputEmail1">購買金額:</label>
-//             <div className="select">
-//               <input 
-//               type="text" 
-//               class="form-select"
-//               name="coursePrice"
-//               value={classForm.page5.coursePrice}
-//               onChange={(e) => handleInputChange(e, 'page5')}
-//               ></input>
-//             </div>
-//         </div>
-//         <div class="form-group">
-//       <label for="exampleInputEmail1">購買方式:</label>
-//       <div className="form_btn2">
-//         <button 
-//           type="button" 
-//           onClick={() => {
-//             const { page, item } = handleItemClick('現金', currentPage);
-//             console.log(`用户在分页 ${page} 选择了付款方式：${item}`);
-//           }}
-//           className={`btn btn-outline-golden ${selectedOption === '現金' ? 'active' : ''}`}> 
-//           現金
-//         </button>
-//         <button 
-//           type="button" 
-//           onClick={() => {
-//             const { page, item } = handleItemClick('匯款', currentPage);
-//             console.log(`用户在分页 ${page} 选择了付款方式：${item}`);
-//           }}
-//           className={`btn btn-outline-golden ${selectedOption === '匯款' ? 'active' : ''}`}>
-//             匯款
-//         </button>
-//         <button
-//           type="button" 
-//           onClick={() => {
-//             const { page, item } = handleItemClick('刷卡', currentPage);
-//             console.log(`用户在分页 ${page} 选择了付款方式：${item}`);
-//           }}
-//           className={`btn btn-outline-golden ${selectedOption === '刷卡' ? 'active' : ''}`}>
-//           刷卡
-//         </button>
-//       </div>
-//     </div>    
-//         <div class="form-group">
-//             <label  className="" for="exampleInputEmail1">體驗課:</label>
-//             <div className=" check">
-//               <div class="form-check">
-//                 <input 
-//                  type="radio"
-//                  name="exCourse" // 同一组 radio 按钮要使用相同的 name
-//                  value="是"
-//                  className={`form-check-input ${classForm.page5.exCourse === 'option1' ? 'checked' : ''}`}
-//                  // checked={classForm.page1.selectedOption === 'option2'}
-//                  onChange={(e) => handleRadioChange(e, 'page5')} // 传递页面名称
-//                 ></input>
-//                 <label class="form-check-label" for="flexRadioDefault1">
-//                   是
-//                 </label>
-//               </div>
-//               <div class="form-check">
-//                 <input 
-//                  type="radio"
-//                  name="exCourse" // 同一组 radio 按钮要使用相同的 name
-//                  value="否"
-//                  className={`form-check-input ${classForm.page5.exCourse === 'option2' ? 'checked' : ''}`}
-//                  // checked={classForm.page1.selectedOption === 'option2'}
-//                  onChange={(e) => handleRadioChange(e, 'page5')} // 传递页面名称
-//                 ></input>
-//                 <label class="form-check-label" for="flexRadioDefault2">
-//                   否
-//                 </label>
-//             </div>
-//             <div className="select">
-//               <input 
-//                 type="text" 
-//                 class="form-select"
-//                 name="exCoursePrice"
-//                 value={classForm.page5.exCoursePrice}
-//                 onChange={(e) => handleInputChange(e, 'page5')}
-//               ></input>
-//             </div>
-//         </div>
-//         </div>
-//         <div class="form-group2">
-//             <label for="exampleInputPassword1">備註:</label>
-//             <div className="select">
-//               <textarea 
-//               class="form-select" 
-//               id="exampleFormControlTextarea1" 
-//               rows="3" 
-//               name="buyNote"
-//               value={classForm.page5.buyNote}
-//               onChange={(e) => handleInputChange(e, 'page5')}
-//               ></textarea>
-//             </div>  
-//         </div>
-//         <div class="form-group3">
-//           <button type="submit" class="btn btn-golden" >新增</button>
-//         </div>
-//     </div>
-// )}
