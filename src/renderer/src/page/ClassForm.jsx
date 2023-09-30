@@ -202,7 +202,7 @@ const newClassItem = {
   exCourse: classForm[currentPage].exCourse, 
   exCoursePrice:classForm[currentPage].exCoursePrice, 
   coursesAll: classForm[currentPage].coursesAll,
-  coursesLeft:'',
+  courseLeft:classForm[currentPage].coursesAll,
   coursesFIN:'',
   payMethod: classForm[currentPage].payMethod, 
   reserveDetail:[],
@@ -251,10 +251,10 @@ const newTeachClass ={
     exCourse: classForm[currentPage].exCourse,
     buyNote: classForm[currentPage].buyNote,
     buyDate:classForm[currentPage].buyDate,
-    courseLeft:'',
+    courseLeft:classForm[currentPage].coursesAll,
     coursesFIN:'',
     invoiceNum:'',
-    patMethod:classForm[currentPage].payMethod,
+    payMethod:classForm[currentPage].payMethod,
     preCourseLeft:'',
   };
    // 傳遞學員1的資料到BuyDetail頁面
