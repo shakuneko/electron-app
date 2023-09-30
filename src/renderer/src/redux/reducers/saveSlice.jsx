@@ -2,9 +2,10 @@ import { createSlice, current } from '@reduxjs/toolkit'
 import hash from 'object-hash'
 // Part1: Define Slice (including reducers and actions)
 import originalJson from '../../json/class.json'
+import emptyJson from '../../json/emptyJson.json'
 
 const initialState = {
-  fileName: {},
+  fileName: emptyJson,
   hasInit: false,
   currentPageHash: '',//傳進來的value
   oldHash: hash(originalJson),
@@ -150,6 +151,27 @@ const saveSlice = createSlice({
       console.log("upDateStuCourse state", current(state));
     },
 
+    updateLastMonthRevenue:(state, action) => {
+      state.fileName.newJsonData = action.payload;
+      console.log("setNewRevenue", state.fileName.newJsonData)
+    },
+    updateClassStatus: (state, action) => {
+      let current_state = current(state)
+      let classStatus = current_state.fileName.newJsonData
+      const newData = classStatus.map(item => {
+        if (item.category === "class") {
+          return {
+            ...item,
+            classDetail: action.payload
+          };
+        }
+        return item;
+      });
+      state.fileName.newJsonData = newData;
+      console.log("updateClassStatus state", current(state));
+
+    },
+
     // //other reducers
    
   }
@@ -164,7 +186,9 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass} = saveSlice.actions
+
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass,updateLastMonthRevenue,updateClassStatus} = saveSlice.actions
+
 
 
 // export reducer to global

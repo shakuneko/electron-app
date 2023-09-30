@@ -23,12 +23,12 @@ function DoneClasses({ stuData}) {
           courseType: buyDetail.courseType,
           coachName: buyDetail.coachName, // 默认为空
         };
-        if (buyDetail.exCourse == '是') {
-          finCourse.courseType = finCourse.courseType + " " + "體驗課"
-        }
-        if (buyDetail.courseType == "團課" || buyDetail.courseType == "課程租借"){
-          finCourse.coachName = "不指定/無"
-        }
+        // if (buyDetail.exCourse == '是') {
+        //   finCourse.courseType = finCourse.courseType + " " + "體驗課"
+        // }
+        // if (buyDetail.courseType == "團課" || buyDetail.courseType == "課程租借"){
+        //   finCourse.coachName = "不指定/無"
+        // }
         finCourses.push(finCourse);
         console.log("finCourse", finCourse)
       }

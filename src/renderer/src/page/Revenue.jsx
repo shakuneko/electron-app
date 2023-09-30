@@ -3,10 +3,15 @@ import RevenueSetTable from '../components/RevenueSetTable'
 import { columnsRevenue, columnsMoney } from '../components/TableSelectOptions'
 import newJson from '../json/new_class.json'
 import { DateTime } from 'luxon'
+import emptyJson from '../json/emptyJson.json'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateLastMonthRevenue } from '../redux/reducers/saveSlice'
+import { useEffect } from 'react'
 
 function Revenue({ classes }) {
+  const dispatch = useDispatch()
   //new json new_class
-  const nJson = classes
+  let nJson = classes
 
   //time date使用及判斷
   // 获取当前日期和时间
@@ -30,7 +35,7 @@ function Revenue({ classes }) {
     }
   })
   console.log('lastMonth', lastMonth)
-  console.log('BBBlastMonthRevenueTable', lastMonthRevenueTable)
+  console.log('BBB獲取資料中上個月的table值lastMonthRevenueTable', lastMonthRevenueTable)
 
   // 创建一个新的 Map 对象，用于存储教练与其课程类型的关系
   const coachCoursesMap = new Map()
@@ -233,21 +238,20 @@ function Revenue({ classes }) {
   //***************  use for up table  *********************
   //console.log("BBBcourseTypeLeftData", courseTypeLeftData);
 
-  // 新的陣列
-  const newArray = []
-
+  // 新的陣列----用於顯示本月為核銷金額之table
+  const newThisMonthNotCountArray = []
   // 遍歷原始物件並轉換成新的陣列
   for (const classType in courseTypeLeftData) {
     if (courseTypeLeftData.hasOwnProperty(classType)) {
       const classData = courseTypeLeftData[classType]
-      newArray.push({
+      newThisMonthNotCountArray.push({
         totalLeftSalary: classData.totalLeftSalary,
         classLeft: classData.classLeft,
         classType: classType
       })
     }
   }
-  console.log('BBBcourseTypeLeftData', newArray)
+  console.log('BBBcourseTypeLeftData', newThisMonthNotCountArray)
 
   //計算為已核銷金額---------------------------------------------------
   // 创建一个对象来存储按 courseType 分类的数据 計算為未核銷金額
@@ -510,43 +514,43 @@ function Revenue({ classes }) {
   //       // finCoures += course
   //     }
   //   }
-  const products = [
-    {
-      id: '0',
-      courseType: 'PT',
-      courseLeft: '3',
-      preCourseLeft: '16',
-      salary: '650'
-    },
-    {
-      id: '1',
-      courseType: '皮拉提斯',
-      courseLeft: '6',
-      preCourseLeft: '6',
-      salary: '650'
-    },
-    {
-      id: '2',
-      courseType: '團課',
-      courseLeft: '7',
-      preCourseLeft: '7',
-      salary: '650'
-    },
-    {
-      id: '3',
-      courseType: '場地租借',
-      courseLeft: '3',
-      preCourseLeft: '6',
-      salary: '650'
-    },
-    {
-      id: '4',
-      courseType: '運動舒緩',
-      courseLeft: '0',
-      preCourseLeft: '0',
-      salary: '650'
-    }
-  ]
+  // const products = [
+  //   {
+  //     id: '0',
+  //     courseType: 'PT',
+  //     courseLeft: '3',
+  //     preCourseLeft: '16',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '1',
+  //     courseType: '皮拉提斯',
+  //     courseLeft: '6',
+  //     preCourseLeft: '6',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '2',
+  //     courseType: '團課',
+  //     courseLeft: '7',
+  //     preCourseLeft: '7',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '3',
+  //     courseType: '場地租借',
+  //     courseLeft: '3',
+  //     preCourseLeft: '6',
+  //     salary: '650'
+  //   },
+  //   {
+  //     id: '4',
+  //     courseType: '運動舒緩',
+  //     courseLeft: '0',
+  //     preCourseLeft: '0',
+  //     salary: '650'
+  //   }
+  // ]
   //---------------------------------------------------old above
 
   //將上月資料推入table array
@@ -557,12 +561,124 @@ function Revenue({ classes }) {
       classTypeLast: item.classType
     }
   })
-  //const mergeOldAndNew = [...renameTheLastMonth, ...newArray]
-  const mergeOldAndNew = newArray.map((item, index) => ({
+  //const mergeOldAndNew = [...renameTheLastMonth, ...newThisMonthNotCountArray]
+  const mergeOldAndNew = newThisMonthNotCountArray.map((item, index) => ({
     ...item,
     ...renameTheLastMonth[index]
   }))
-  console.log('BBBmergeOldAndNew', mergeOldAndNew)
+  //最後的資料輸出到table
+  console.log('BBB總呈現TotalmergeOldAndNew', mergeOldAndNew)
+
+  //將上月資料推入array、透過時間判斷---------------------------------------------------
+  //save this month data here
+  const currentMonthData = {
+    revenueDateMonth: currentDateTime.toFormat('yyyy/MM'), // 自动生成当前年份和月份
+    revenueList: newThisMonthNotCountArray
+    // [
+    //   {
+    //     totalLeftSalary: 25500,
+    //     classLeft: 7,
+    //     classType: '皮拉提斯'
+    //   },
+    //   {
+    //     totalLeftSalary: 13500,
+    //     classLeft: 1,
+    //     classType: 'PT'
+    //   },
+    //   {
+    //     totalLeftSalary: 11500,
+    //     classLeft: 2,
+    //     classType: '團課'
+    //   },
+    //   {
+    //     totalLeftSalary: 15000,
+    //     classLeft: 0,
+    //     classType: '運動按摩'
+    //   }
+    // ]
+  }
+
+  //------------辨識月份並將資料推入nJson、判斷是否有該月份資料、有則更新、無則新增
+  let revenueCategoryIndex = nJson.findIndex((item) => item.category === 'revenue')
+
+  if (revenueCategoryIndex !== -1) {
+    // 更新 revenueCategory 对象的 revenueDetail 属性
+    const updatedRevenueDetail = [
+      ...(nJson[revenueCategoryIndex]?.revenueDetail || []),
+      currentMonthData
+    ]
+
+    // 创建一个新的 nJson 数组
+    const updatedNJson = nJson.map((item, index) => {
+      if (index === revenueCategoryIndex) {
+        // 更新 category: revenue 对象
+        return {
+          ...item,
+          revenueDetail: updatedRevenueDetail
+        }
+      } else {
+        return item
+      }
+    })
+    nJson = updatedNJson // 更新 nJson 数组
+    console.log('updatedRevenueDetail', nJson[revenueCategoryIndex])
+  } else {
+    const newRevenueCategory = {
+      category: 'revenue',
+      revenueDetail: [currentMonthData]
+    }
+
+    // 将新的 "revenue" 类别对象添加到 nJson 数组中
+    nJson.push(newRevenueCategory)
+    console.log('newRevenueCategory', nJson)
+  }
+
+  //check time and save to revenue
+  const fileContent = useSelector((state) => state.root.save.fileName)
+
+  const data = fileContent?.newJsonData
+  // 检查数据是否存在
+  if (data && Array.isArray(data)) {
+    // 提取所有的 revenueDateMonth，并将它们转换为 DateTime 对象，仅考虑年份和月份
+    const revenueMonths = data
+      .flatMap((item) => item.revenueDetail || []) // 使用空数组作为默认值，以避免未定义的属性
+      .map((revenue) => {
+        const parts = revenue.revenueDateMonth.split('/')
+        return DateTime.fromObject({ year: parseInt(parts[0]), month: parseInt(parts[1]) })
+      })
+
+    // 检查是否有有效的 revenueMonths 数组
+    if (revenueMonths.length > 0) {
+      // 找到最大的 revenueDateMonth
+      const maxRevenueMonth = revenueMonths.reduce((maxMonth, currentMonth) => {
+        return currentMonth > maxMonth ? currentMonth : maxMonth
+      }, revenueMonths[0])
+
+      // 获取当前日期和时间
+      const currentMonth = DateTime.now().startOf('month')
+
+      // 比较最大月份和当前月份
+      console.log('maxRevenueMonth', maxRevenueMonth)
+      console.log('currentMonth', currentMonth)
+      useEffect(() => {
+        if (maxRevenueMonth < currentMonth) {
+          console.log('最大的 revenueDateMonth 小于当前月份。')
+          //將紀錄再 nJson 的redux的值修改
+
+          if (nJson.length !== 0) {
+            dispatch(updateLastMonthRevenue(nJson))
+          }
+        } else {
+          console.log('最大的 revenueDateMonth 大于或等于当前月份。')
+        }
+      }, [])
+    } else {
+      console.log('没有有效的 revenueMonths 数组。')
+    }
+  } else {
+    console.log('数据变量未定义或不是数组。')
+  }
+  
 
   return (
     <div className="container-fluid" style={{ backgroundColor: 'white' }}>

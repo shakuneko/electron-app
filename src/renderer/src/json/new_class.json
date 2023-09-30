@@ -5,10 +5,12 @@
       {
         "classID": "1",
         "courseType": "皮拉提斯",
+        "buyDate": "2022-06-23",
         "exCourse": "否",
         "coursesAll": "10",
         "coursesFIN": "4",
         "courseLeft": "6",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
@@ -26,7 +28,7 @@
                 "stuName": "甜甜"
               }
             ],
-            "cancel": "否",
+            "cancel": "-",
             "attandence": "-",
             "note": "你好",
             "student": [
@@ -58,7 +60,7 @@
                 "stuName": "甜甜"
               }
             ],
-            "cancel": "否",
+            "cancel": "-",
             "attandence": "-",
             "note": "～～～～",
             "student": [
@@ -99,18 +101,20 @@
       {
         "classID": "2",
         "courseType": "PT",
+        "buyDate": "2023-04-30",
         "exCourse": "是",
         "coursesAll": "1",
         "coursesFIN": "1",
         "courseLeft": "0",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
             "reserveDate": "2023/9/14",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "尚無",
             "student": [
               {
@@ -139,30 +143,27 @@
       },
       {
         "classID": "3",
-        "courseType": "團課",
+        "courseType": "PT",
+        "buyDate": "2023-09-10",
         "exCourse": "否",
-        "coursesAll": "0",
-        "coursesFIN": "0",
-        "courseLeft": "0",
+        "coursesAll": "10",
+        "coursesFIN": "2",
+        "courseLeft": "8",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
             "reserveDate": "2023/9/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "之後要添加十個學生",
             "student": [
               {
                 "stuID": "3",
-                "courseType": "團課",
+                "courseType": "PT",
                 "stuName": "大衛"
-              },
-              {
-                "stuID": "1",
-                "courseType": "團課",
-                "stuName": "Lulu"
               }
             ]
           },
@@ -171,13 +172,13 @@
             "reserveDate": "2023/9/25",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "之後要添加十個學生",
             "student": [
               {
                 "stuID": "3",
-                "courseType": "團課",
+                "courseType": "PT",
                 "stuName": "大衛"
               }
             ]
@@ -187,9 +188,9 @@
         "classNote": "好多人",
         "student": [
           {
-            "stuID": "-",
-            "courseType": "團課",
-            "stuName": "-"
+            "stuID": "3",
+            "courseType": "PT",
+            "stuName": "大衛"
           }
         ],
         "coach": [
@@ -202,18 +203,20 @@
       {
         "classID": "4",
         "courseType": "運動按摩",
+        "buyDate": "2020-01-23",
         "exCourse": "否",
         "coursesAll": "10",
         "coursesFIN": "8",
         "courseLeft": "2",
+        "courseFlag": [],
         "reserveDetail": [
           {
             "reserveID": "1",
             "reserveDate": "2023/9/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
-            "cancel": "否",
-            "attandence": "是",
+            "cancel": "-",
+            "attandence": "-",
             "note": "----",
             "student": [
               {
@@ -274,21 +277,6 @@
             "buyNote": "!!"
           },
           {
-            "classID": "3",
-            "courseType": "團課",
-            "coachName": "D",
-            "coursesAll": "10",
-            "coursesFIN": "4",
-            "courseLeft": "6",
-            "preCourseLeft": "9",
-            "payMethod": "信用卡",
-            "invoiceNum": "12345678",
-            "buyDate": "2022/06/23",
-            "exCourse": "否",
-            "coursePrice": "6400",
-            "buyNote": "!!"
-          },
-          {
             "classID": "4",
             "courseType": "運動按摩",
             "coachName": "B",
@@ -343,7 +331,7 @@
             "preCourseLeft": "1",
             "payMethod": "現金",
             "invoiceNum": "12345678",
-            "buyDate": "2022/06/23",
+            "buyDate": "2023/06/23",
             "exCourse": "是",
             "coursePrice": "6400",
             "buyNote": "!!"
@@ -365,15 +353,15 @@
         "buyDetail": [
           {
             "classID": "3",
-            "courseType": "團課",
+            "courseType": "PT",
             "coachName": "D",
             "coursesAll": "10",
-            "coursesFIN": "4",
-            "courseLeft": "6",
+            "coursesFIN": "2",
+            "courseLeft": "8",
             "preCourseLeft": "9",
             "payMethod": "信用卡",
             "invoiceNum": "12345678",
-            "buyDate": "2022/06/23",
+            "buyDate": "2023/09/10",
             "exCourse": "否",
             "coursePrice": "6400",
             "buyNote": "!!"
@@ -490,34 +478,36 @@
         "selectedItem": null
       }
     ]
-  },{
+  },
+  {
     "category": "revenue",
     "revenueDetail": [
       {
         "revenueDateMonth": "2023/07",
         "revenueList":[
           {
-            "totalLeftSalary": 25000,
+            "totalLeftSalary": 21000,
             "classLeft": 6,
             "classType": "皮拉提斯"
           },
           {
-            "totalLeftSalary": 13500,
+            "totalLeftSalary": 11500,
             "classLeft": 2,
             "classType": "PT"
           },
           {
-            "totalLeftSalary": 12000,
+            "totalLeftSalary": 11000,
             "classLeft": 3,
             "classType": "團課"
           },
           {
-            "totalLeftSalary": 16000,
+            "totalLeftSalary": 12000,
             "classLeft": 0,
             "classType": "運動按摩"
           }
         ]
-      },{
+      },
+      {
         "revenueDateMonth": "2023/08",
         "revenueList":[
           {

@@ -1,12 +1,9 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import ClassTableDetail from "../components/ClassTableDetail";
-// import testClasses from '../json/test_class.json'
-// import newJason from '../json/new_class.json'
 
 function ClassTable({classes}) {
-
-    const classDetail = classes[0].classDetail
+    const classDetail =  !!classes && classes[0].classDetail
 
     return (
         <div className="container-fluid">
