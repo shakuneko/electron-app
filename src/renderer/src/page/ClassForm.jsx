@@ -5,15 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass} from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
-function generateUniqueID(existingIDs) {
-  // 找到现有 ID 中的最大值
-  const maxID = Math.max(...existingIDs);
+function generateUniqueID(existingClassIDs) {
+  if (existingClassIDs.length === 0) {
+    return "1";
+  } else {
+    const maxID = Math.max(...existingClassIDs);
 
-  // 将新的 ID 设置为最大值加一
-  const newID = maxID + 1;
-
-  return newID.toString(); // 将新的 ID 转换为字符串
+    // 将新的 ID 设置为最大值加一
+    const newID = maxID + 1;
+  
+    return newID.toString(); // 将新的 ID 转换为字符串
+  }
 }
+
 
 function ClassForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
@@ -188,6 +192,7 @@ const handleSubmit = (event) => {
 
   // 获取已有的 classID 列表
   const existingClassIDs = fileNameData.newJsonData[0].classDetail.map((class_category) => parseInt(class_category.classID));
+  console.log("existingClassIDs",existingClassIDs)
   const newClassID = generateUniqueID(existingClassIDs);
   const addCoachName = classForm[currentPage].coachName;
   const addStudentName1 = classForm[currentPage].stuName;

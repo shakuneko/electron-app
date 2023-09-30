@@ -1,20 +1,24 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
-import { setStudentFormSave } from "../redux/reducers/saveSlice";
+import {  selectFileName,setStudentFormSave } from "../redux/reducers/saveSlice";
+
 function generateUniqueID(existingStuIDs) {
-  // 找到现有 ID 中的最大值
-  const maxID = Math.max(...existingStuIDs);
+  if (existingStuIDs.length === 0) {
+    return "1";
+  } else {
+    const maxID = Math.max(...existingStuIDs);
 
-  // 将新的 ID 设置为最大值加一
-  const newID = maxID + 1;
-
-  return newID.toString(); // 将新的 ID 转换为字符串
+    // 将新的 ID 设置为最大值加一
+    const newID = maxID + 1;
+  
+    return newID.toString(); // 将新的 ID 转换为字符串
+  }
 }
-
 function StudentForm(props){
   const dispatch = useDispatch(); // 获取dispatch函数的引用
+  const fileNameData = useSelector(selectFileName);
   const [newStudentData, setNewStudentData] = useState({});
   const initialFormData = {
     stuID:'',
@@ -60,6 +64,7 @@ function StudentForm(props){
      // 获取已有的学生 ID 列表
     // const existingStudentIDs = jsonData.find((item) => item.category === 'student').stuDetail.map((student) => parseInt(student.stuID));
     const existingStuIDs = newStuData.map((student) => student.stuID);
+    
     // 生成唯一的学生ID
     let newStudentID = generateUniqueID(existingStuIDs);
     // 假设你要将新的学生数据添加到"student"类别下
