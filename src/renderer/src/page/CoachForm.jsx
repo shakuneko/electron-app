@@ -85,6 +85,24 @@ const handleItemClick = (item) => {
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
+if (
+  coachForm.coachName &&
+  coachForm.coachGender &&
+  coachForm.coachIDcode &&
+  coachForm.coachPhone &&
+  coachForm.coachEmail &&
+  coachForm.coachAddress &&
+  coachForm.major.length > 0 &&
+  coachForm.joinDate &&
+  coachForm.PtSalary &&
+  coachForm.PilatesSalary &&
+  coachForm.MassageSalary &&
+  coachForm.coachBank &&
+  coachForm.coachContact &&
+  coachForm.coachRelation &&
+  coachForm.coachContact_tel &&
+  coachForm.coachNote
+) {
 console.log('表单数据：', coachForm);
 // const existingCoachIDs = fileNameData.newJsonData[2].coachDetail.map((coach) => parseInt(coach.coachID));
 const existingCoachIDs = newCoachData.map((coach) => coach.coachID);
@@ -127,7 +145,10 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
   // 清除表单数据为初始状态
   setCoachForm(initialFormData);
   setSelectedOptions([]);
-
+  } else {
+    // 如果有未填写的字段，可以在这里处理错误或显示错误消息
+    alert('請確認資料都已填寫完成');
+  }
   
 };
 
@@ -356,26 +377,3 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
 export default CoachForm;
 
 
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// function CoachForm() {
-//   const coachForm = useSelector((state) => state.root.coach.coachForm);
-//   const stuForm = useSelector((state) => state.root.stu.stuForm);
-//   const classForm = useSelector((state) => state.root.class.classForm);
-//   // const { coachForm } = props;
-//   // console.log(props);
-//   console.log(coachForm);
-//   console.log(stuForm);
-//   console.log(classForm);
-//   return (
-//     <div>
-//       {/* 使用从 Redux Store 中提取的 JSON 数据来渲染 */}
-//       <pre>{JSON.stringify(coachForm, null, 2)}</pre>
-//       <pre>{JSON.stringify(stuForm, null, 2)}</pre>
-//       <pre>{JSON.stringify(classForm, null, 2)}</pre>
-//      </div>
-//   );
-// }
-
-
-// export default CoachForm;
