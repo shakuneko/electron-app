@@ -108,17 +108,18 @@ const handleSubmit = () => {
     note: "",
     student: [], // 将在下面更新
   };
-
+  const courseType = props.classes.courseType;
   // 更新 reserveDetail > student 
   selectedStudentNames.forEach((selectedStudentName) => {
     let selectedStudentInfo = matchingStudents.find(
       (student) => student.stuName === selectedStudentName
     );
-
+    
     if (selectedStudentInfo) {
       newReserveData.student.push({
         stuID: selectedStudentInfo.stuID,
         stuName: selectedStudentInfo.stuName,
+        courseType: courseType, // 将 courseType 添加到学员信息中
       });
     }
   });
