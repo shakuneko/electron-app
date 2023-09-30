@@ -124,6 +124,9 @@ function ClassDetail({classes}) {
                         <p className="classCoachBox-item">教練：{splitData(coachNames)}</p>
                         <p className="classCoachBox-item">學員：{splitData(stuNames)}</p>
                         <p className="classCoachBox-item">剩餘堂數：{Class.courseLeft} / {Class.coursesAll}</p>
+                        {Class.courseType === "場地租借" ? (
+                            <p className="classCoachBox-item">教室樓層：{Class.floor}</p>
+                        ) : null}
                         {/* {results.map((result, index) => (
                             <div key={index} className="classStuBox" >
                                 {Class.courseType !== "團課" && (

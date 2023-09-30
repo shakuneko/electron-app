@@ -71,7 +71,6 @@ function findCoachIDByName(CoachName) {
       buyDate:'',
       coursePrice:'',
       payMethod:'',
-      coursePrice:'',
       invoiceNum:'',
       exCourse:'',
       exCoursePrice:'',
