@@ -1,7 +1,7 @@
 import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
-
+import Radio from '@mui/joy/Radio';
 
 import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass} from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
@@ -216,6 +216,7 @@ const newClassItem = {
   coursesFIN:'',
   courseFlag:[],
   payMethod: classForm[currentPage].payMethod, 
+  floor:classForm[currentPage].floor,
   reserveDetail:[],
   coach: [
     {
@@ -501,31 +502,23 @@ useEffect(() => {
                         <label  className="" for="exampleInputEmail1">體驗課:</label>
                         <div className=" check">
                           <div class="form-check">
-                            <input 
-                              //class="form-check-input" 
-                              type="radio"
-                              name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                              value="是"
-                              className={`form-check-input ${classForm.page1.exCourse === 'option1' ? 'checked' : ''}`}
-                              // checked={classForm.page1.selectedOption === 'option1'}
-                              onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
-                             ></input>
-                            <label class="form-check-label" htmlFor="flexRadioDefault1">
-                              是
-                            </label>
+                          <Radio
+                            name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                            value="是"
+                            label="是"
+                            checked={classForm.page1.exCourse === '是'}
+                            onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称 
+                          >
+                          </Radio>
                           </div>
                           <div class="form-check">
-                            <input 
-                              type="radio"
-                              name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                              value="否"
-                              className={`form-check-input ${classForm.page1.exCourse === 'option2' ? 'checked' : ''}`}
-                              // checked={classForm.page1.selectedOption === 'option2'}
-                              onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称
-                             ></input>
-                            <label class="form-check-label" htmlFor="flexRadioDefault1">
-                              否
-                            </label>
+                          <Radio
+                            name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                            value="否"
+                            label="否"
+                            checked={classForm.page1.exCourse === '否'}
+                            onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称    
+                          ></Radio>
                           </div>
                           <div className="select">
                             <input 
@@ -684,31 +677,24 @@ useEffect(() => {
                       <div class="form-group">
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
-                            <div class="form-check">
-                              <input 
-                               type="radio"
-                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="是"
-                               className={`form-check-input ${classForm.page2.exCourse === 'option1' ? 'checked' : ''}`}
-                               // checked={classForm.page1.selectedOption === 'option2'}
-                               onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称
-                              ></input>
-                              <label class="form-check-label" for="flexRadioDefault1">
-                                是
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input 
-                               type="radio"
-                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="否"
-                               className={`form-check-input ${classForm.page2.exCourse === 'option2' ? 'checked' : ''}`}
-                               // checked={classForm.page1.selectedOption === 'option2'}
-                               onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称
-                              ></input>
-                              <label class="form-check-label" for="flexRadioDefault2">
-                                否
-                              </label>
+                          <div class="form-check">
+                          <Radio
+                            name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                            value="是"
+                            label="是"
+                            checked={classForm.page2.exCourse === '是'}
+                            onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称 
+                          >
+                          </Radio>
+                          </div>
+                          <div class="form-check">
+                          <Radio
+                            name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                            value="否"
+                            label="否"
+                            checked={classForm.page2.exCourse === '否'}
+                            onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称    
+                          ></Radio>
                           </div>
                           <div className="select">
                             <input 
@@ -868,31 +854,24 @@ useEffect(() => {
                       <div class="form-group">
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
-                            <div class="form-check">
-                              <input 
-                               type="radio"
-                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="是"
-                               className={`form-check-input ${classForm.page3.exCourse === 'option1' ? 'checked' : ''}`}
-                               // checked={classForm.page1.selectedOption === 'option2'}
-                               onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称
-                              ></input>
-                              <label class="form-check-label" for="flexRadioDefault1">
-                                是
-                              </label>
-                            </div>
-                            <div class="form-check">
-                              <input 
-                               type="radio"
-                               name="exCourse" // 同一组 radio 按钮要使用相同的 name
-                               value="否"
-                               className={`form-check-input ${classForm.page3.exCourse === 'option2' ? 'checked' : ''}`}
-                               // checked={classForm.page1.selectedOption === 'option2'}
-                               onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称
-                              ></input>
-                              <label class="form-check-label" for="flexRadioDefault2">
-                                否
-                              </label>
+                          <div class="form-check">
+                          <Radio
+                            name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                            value="是"
+                            label="是"
+                            checked={classForm.page3.exCourse === '是'}
+                            onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称 
+                          >
+                          </Radio>
+                          </div>
+                          <div class="form-check">
+                          <Radio
+                            name="exCourse" // 同一组 radio 按钮要使用相同的 name
+                            value="否"
+                            label="否"
+                            checked={classForm.page3.exCourse === '否'}
+                            onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称    
+                          ></Radio>
                           </div>
                           <div className="select">
                             <input 
