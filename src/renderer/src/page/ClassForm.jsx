@@ -185,6 +185,7 @@ const handleItemClick = (item, page) => {
 
 const handleSubmit = (event) => {
   event.preventDefault();
+
   // 获取已有的 classID 列表
   const existingClassIDs = fileNameData.newJsonData[0].classDetail.map((class_category) => parseInt(class_category.classID));
   const newClassID = generateUniqueID(existingClassIDs);

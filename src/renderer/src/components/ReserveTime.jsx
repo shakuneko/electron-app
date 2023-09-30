@@ -8,7 +8,7 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     const {tableData,setTableData} = props;
     const classes = props.classes;
     const id = props.classes.classID
-
+    const courseLeft = props.classes.courseLeft
     const initialFormData = {
       reserveDate:'',
       reserveTime:'',
@@ -71,6 +71,7 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
 
 
 const handleSubmit = () => {
+  if (courseLeft > 0) {
   // 获取当前用户选择的学员名称
   const selectedStudentNames = reserveForm.reserveStu;
   //找當前classID裡面的reserveID
@@ -111,9 +112,11 @@ const handleSubmit = () => {
       dispatch(addReserveTableData({data: [...tableData, newReserveData], classID: id}));
       setReserveForm(initialFormData);
     } 
+  }else{
+    alert('剩餘堂數已經為0，無法預約。');
+  }
   };
 
-  // 清除表单数据（可选）
   
 
   
