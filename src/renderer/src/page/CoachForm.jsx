@@ -30,7 +30,6 @@ function CoachForm(props) {
     joinDate:'',
     PtSalary:'',
     PilatesSalary:'',
-    GroupSalary:'',
     MassageSalary:'', 
   };
 // 使用状态管理保存表单数据
@@ -105,7 +104,6 @@ let newCoachID = generateUniqueID(existingCoachIDs);
   joinDate:coachForm.joinDate,
   PtSalary:coachForm.PtSalary,
   PilatesSalary:coachForm.PilatesSalary,
-  GroupSalary:coachForm.GroupSalary,
   MassageSalary:coachForm.MassageSalary, 
   teachClass:[],
 };
@@ -237,10 +235,6 @@ dispatch(setCoachFormSave({
                       type="button" 
                       onClick={() => handleItemClick('運動按摩')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('運動按摩') ? 'active' : ''}`}>運動按摩</button>
-                    <button
-                      type="button" 
-                      onClick={() => handleItemClick('團課')}
-                      className={`btn btn-outline-golden ${selectedOptions.includes('團課') ? 'active' : ''}`}>團課</button>
                   </div>
                 </div>    
                 <div class="form-group">
@@ -278,19 +272,6 @@ dispatch(setCoachFormSave({
                       name="MassageSalary"
                       placeholder="例如：1200"
                       value={coachForm.MassageSalary}
-                      onChange={handleInputChange}
-                    ></input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">團課堂薪:</label>
-                    <div className="select">
-                    <input 
-                      type="text" 
-                      class="form-select" 
-                      name="GroupSalary"
-                      placeholder="例如：1200"
-                      value={coachForm.GroupSalary}
                       onChange={handleInputChange}
                     ></input>
                     </div>
