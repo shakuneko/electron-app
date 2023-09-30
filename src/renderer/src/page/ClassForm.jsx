@@ -201,7 +201,9 @@ const newClassItem = {
   courseType: selectedCourse, 
   exCourse: classForm[currentPage].exCourse, 
   exCoursePrice:classForm[currentPage].exCoursePrice, 
-  coursesAll: classForm[currentPage].coursesAll, 
+  coursesAll: classForm[currentPage].coursesAll,
+  coursesLeft:'',
+  coursesFIN:'',
   payMethod: classForm[currentPage].payMethod, 
   reserveDetail:[],
   coach: [
