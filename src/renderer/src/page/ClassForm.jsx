@@ -47,6 +47,8 @@ function findCoachIDByName(CoachName) {
       buyDate:'',
       coursePrice:'',
       payMethod:'',
+      invoiceNum:'',
+      invoiceNum2:'',
       exCourse:'',
       exCoursePrice:'',
       buyNote: '',
@@ -58,6 +60,7 @@ function findCoachIDByName(CoachName) {
       buyDate:'',
       coursePrice:'',
       payMethod:'',
+      invoiceNum:'',
       exCourse:'',
       exCoursePrice:'',
       buyNote: '',
@@ -69,6 +72,7 @@ function findCoachIDByName(CoachName) {
       coursePrice:'',
       payMethod:'',
       coursePrice:'',
+      invoiceNum:'',
       exCourse:'',
       exCoursePrice:'',
       buyNote: '',
@@ -79,6 +83,7 @@ function findCoachIDByName(CoachName) {
       floor: '',
       coursesAll:'',
       coursePrice:'',
+      invoiceNum:'',
       buyNote: '',
     },
   };
@@ -259,7 +264,6 @@ const newTeachClass ={
     buyDate:classForm[currentPage].buyDate,
     courseLeft:classForm[currentPage].coursesAll,
     coursesFIN:'',
-    invoiceNum:'',
     payMethod:classForm[currentPage].payMethod,
     preCourseLeft:'',
   };
@@ -267,7 +271,11 @@ const newTeachClass ={
   const selectedStudentName = classForm[currentPage].stuName;
   const selectedStudent = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
   if (selectedStudent) {
-    dispatch(addNewBuyDetail({ selectedStudentName, newBuyDetail }));
+    const newBuyDetailWithInvoiceNum = {
+      ...newBuyDetail, // 复制newBuyDetail中的所有属性
+      invoiceNum: classForm[currentPage].invoiceNum // 设置invoiceNum属性
+    };
+    dispatch(addNewBuyDetail({ selectedStudentName, newBuyDetail: newBuyDetailWithInvoiceNum }));
  
   }
 
@@ -275,7 +283,12 @@ const newTeachClass ={
   const selectedStudentName2 = classForm[currentPage].stuName2;
   const selectedStudent2 = fileNameData.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName2);
   if (selectedStudent2) {
-    dispatch(addNewBuyDetail({ selectedStudentName2, newBuyDetail }));
+    const newBuyDetailWithInvoiceNum2 = {
+      ...newBuyDetail, // 复制newBuyDetail中的所有属性
+      invoiceNum: classForm[currentPage].invoiceNum2 // 设置invoiceNum属性
+    };
+    dispatch(addNewBuyDetail({ selectedStudentName2, newBuyDetail: newBuyDetailWithInvoiceNum2 }));
+  
   }
 
    const updatedClassData = [...newClassData, newClassItem];
@@ -419,9 +432,10 @@ useEffect(() => {
                         <label for="exampleInputEmail1">購買金額:</label>
                         <div className="select">
                           <input 
-                            type="text" 
+                            type="number" 
                             class="form-select"
                             name="coursePrice"
+                            placeholder="請填寫整數數字，例如：1200"
                             value={classForm.page1.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page1')}
                           ></input>
@@ -457,9 +471,33 @@ useEffect(() => {
                         className={`btn btn-outline-golden ${selectedOption === '刷卡' ? 'active' : ''}`}>
                         刷卡
                       </button>
+                      </div>
                     </div>
-                  </div>    
                     <div class="form-group">
+                          <label for="exampleInputEmail1">發票號碼1:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="invoiceNum"
+                            value={classForm.page1.invoiceNum}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                            ></input>
+                          </div>
+                      </div>   
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">發票號碼2:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="invoiceNum2"
+                            value={classForm.page1.invoiceNum2}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                            ></input>
+                          </div>
+                      </div>          
+                      <div class="form-group">
                         <label  className="" for="exampleInputEmail1">體驗課:</label>
                         <div className=" check">
                           <div class="form-check">
@@ -491,7 +529,7 @@ useEffect(() => {
                           </div>
                           <div className="select">
                             <input 
-                              type="text" 
+                              type="number" 
                               class="form-select"
                               name="exCoursePrice"
                               placeholder="體驗課金額(不是體驗課請填0)"
@@ -590,17 +628,18 @@ useEffect(() => {
                           <label for="exampleInputEmail1">購買金額:</label>
                           <div className="select">
                             <input 
-                            type="text" 
+                            type="number" 
                             class="form-select"
                             name="coursePrice"
+                            placeholder="請填寫整數數字，例如：1200"
                             value={classForm.page2.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page2')}
                             ></input>
                           </div>
                       </div>
                       <div class="form-group">
-                    <label for="exampleInputEmail1">購買方式:</label>
-                    <div className="form_btn2">
+                      <label for="exampleInputEmail1">購買方式:</label>
+                      <div className="form_btn2">
                       <button 
                         type="button" 
                         onClick={() => {
@@ -628,8 +667,20 @@ useEffect(() => {
                         className={`btn btn-outline-golden ${selectedOption === '刷卡' ? 'active' : ''}`}>
                         刷卡
                       </button>
-                    </div>
-                  </div>    
+                      </div>
+                      </div> 
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">發票號碼:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="invoiceNum"
+                            value={classForm.page1.invoiceNum}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                            ></input>
+                          </div>
+                      </div>   
                       <div class="form-group">
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
@@ -661,7 +712,7 @@ useEffect(() => {
                           </div>
                           <div className="select">
                             <input 
-                              type="text" 
+                              type="number" 
                               class="form-select"
                               name="exCoursePrice"
                               placeholder="體驗課金額(不是體驗課請填0)"
@@ -761,9 +812,10 @@ useEffect(() => {
                           <label for="exampleInputEmail1">購買金額:</label>
                           <div className="select">
                             <input 
-                            type="text" 
+                            type="number" 
                             class="form-select"
                             name="coursePrice"
+                            placeholder="請填寫整數數字，例如：1200"
                             value={classForm.page3.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page3')}
                             ></input>
@@ -800,7 +852,19 @@ useEffect(() => {
                         刷卡
                       </button>
                     </div>
-                  </div>    
+                    </div> 
+                    <div class="form-group">
+                          <label for="exampleInputEmail1">發票號碼:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="invoiceNum"
+                            value={classForm.page3.invoiceNum}
+                            onChange={(e) => handleInputChange(e, 'page3')}
+                            ></input>
+                          </div>
+                      </div>      
                       <div class="form-group">
                           <label  className="" for="exampleInputEmail1">體驗課:</label>
                           <div className=" check">
@@ -832,7 +896,7 @@ useEffect(() => {
                           </div>
                           <div className="select">
                             <input 
-                              type="text" 
+                              type="number" 
                               class="form-select"
                               name="exCoursePrice"
                               placeholder="體驗課金額(不是體驗課請填0)"
@@ -949,9 +1013,10 @@ useEffect(() => {
                           <label for="exampleInputEmail1">購買金額:</label>
                           <div className="select">
                             <input 
-                            type="text" 
+                            type="number" 
                             class="form-select"
                             name="coursePrice"
+                            placeholder="請填寫整數數字，例如：1200"
                             value={classForm.page4.coursePrice}
                             onChange={(e) => handleInputChange(e, 'page5')}
                             ></input>
@@ -986,9 +1051,21 @@ useEffect(() => {
                         }}
                         className={`btn btn-outline-golden ${selectedOption === '刷卡' ? 'active' : ''}`}>
                         刷卡
-                      </button>
-                    </div>
-                  </div>  
+                        </button>
+                      </div>
+                      </div>  
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">發票號碼:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="invoiceNum"
+                            value={classForm.page4.invoiceNum}
+                            onChange={(e) => handleInputChange(e, 'page4')}
+                            ></input>
+                          </div>
+                      </div>      
                         <div class="form-group2">
                             <label for="exampleInputPassword1">備註:</label>
                             <div className="select">

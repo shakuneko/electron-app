@@ -248,7 +248,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     <label for="exampleInputEmail1">PT堂薪:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="number" 
                       class="form-select" 
                       name="PtSalary"
                       placeholder="請填寫整數數字，例如：1200"
@@ -261,7 +261,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     <label for="exampleInputEmail1">皮拉提斯堂薪:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="number" 
                       class="form-select" 
                       name="PilatesSalary"
                       placeholder="請填寫整數數字，例如：1200"
@@ -274,7 +274,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     <label for="exampleInputEmail1">運動按摩堂薪:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="number" 
                       class="form-select" 
                       name="MassageSalary"
                       placeholder="請填寫整數數字，例如：1200"
