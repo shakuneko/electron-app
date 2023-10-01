@@ -99,10 +99,6 @@ let newClassData = props.classes[0].classDetail.map((item, index) => {
   return item
 });
 console.log("newClassData",newClassData)
-
-// useEffect(() => {
-//   handleButtonClick("page1", "PT"); // 设置初始页面和选项
-// }, []); // 空数组表示只在页面加载时执行一次
  // 处理分頁点击按钮事件
  const handleButtonClick = (page, courseName) => {
   setCurrentPage(page);
@@ -373,7 +369,7 @@ useEffect(() => {
                           value={classForm.page1.coachName}
                           onChange={(e) => handleInputChange(e, 'page1')}
                           >
-                            <option selected>-</option>
+                             <option value="" disabled hidden>-</option> {/* 默认占位符 */}
                               {coachNames.map((name) => (
                               <option key={name} value={name}>
                               {name}
@@ -392,7 +388,7 @@ useEffect(() => {
                           value={classForm.page1.stuName}
                           onChange={(e) => handleInputChange(e, 'page1')}
                         >
-                            <option selected>-</option>
+                            <option value="" disabled hidden>-</option>
                               {studentNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -411,7 +407,7 @@ useEffect(() => {
                             value={classForm.page1.stuName2}
                             onChange={(e) => handleInputChange(e, 'page1')}
                             >
-                              <option selected>-</option>
+                              <option value="" disabled hidden>-</option>
                                 {studentNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -430,7 +426,7 @@ useEffect(() => {
                             value={classForm.page1.coursesAll}
                             onChange={(e) => handleInputChange(e, 'page1')}
                           >
-                              <option selected>-</option>
+                              <option value="" disabled hidden>-</option>
                               <option value="1">1</option>
                               <option value="10">10</option>
                           </select>
@@ -587,7 +583,7 @@ useEffect(() => {
                               value={classForm.page2.coachName}
                               onChange={(e) => handleInputChange(e, 'page2')} 
                             >
-                              <option selected>-</option>
+                                <option value="" disabled hidden>-</option>
                                 {coachNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -606,7 +602,7 @@ useEffect(() => {
                             value={classForm.page2.stuName}
                             onChange={(e) => handleInputChange(e, 'page2')} 
                           >
-                            <option selected>-</option>
+                              <option value="" disabled hidden>-</option>
                               {studentNames.map((name) => (
                               <option key={name} value={name}>
                               {name}
@@ -626,7 +622,7 @@ useEffect(() => {
                               value={classForm.page2.coursesAll}
                               onChange={(e) => handleInputChange(e, 'page2')}
                             >
-                                <option selected>-</option>
+                                <option value="" disabled hidden>-</option>
                                 <option value="1">1</option>
                                 <option value="10">10</option>
                             </select>
@@ -770,7 +766,7 @@ useEffect(() => {
                               value={classForm.page3.coachName}
                               onChange={(e) => handleInputChange(e, 'page3')} 
                             >
-                              <option selected>-</option>
+                              <option value="" disabled hidden>-</option>
                                 {coachNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -789,7 +785,7 @@ useEffect(() => {
                             value={classForm.page3.stuName}
                             onChange={(e) => handleInputChange(e, 'page3')} 
                           >
-                              <option selected>-</option>
+                              <option value="" disabled hidden>-</option>
                                 {studentNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -809,7 +805,7 @@ useEffect(() => {
                               value={classForm.page3.coursesAll}
                               onChange={(e) => handleInputChange(e, 'page3')}
                             >
-                                <option selected>-</option>
+                                <option value="" disabled hidden>-</option>
                                 <option value="1">1</option>
                                 <option value="10">10</option>
                             </select>
@@ -952,7 +948,7 @@ useEffect(() => {
                                 value={classForm.page4.coachName}
                                 onChange={(e) => handleInputChange(e, 'page4')}
                               >
-                                <option selected>-</option>
+                                <option value="" disabled hidden>-</option>
                                   {coachNames.map((name) => (
                                   <option key={name} value={name}>
                                   {name}
@@ -971,7 +967,7 @@ useEffect(() => {
                             value={classForm.page4.stuName}
                             onChange={(e) => handleInputChange(e, 'page4')} 
                           >
-                              <option selected>-</option>
+                              <option value="" disabled hidden>-</option>
                                 {studentNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -991,7 +987,7 @@ useEffect(() => {
                                 value={classForm.page4.floor}
                                 onChange={(e) => handleInputChange(e, 'page4')}
                               >
-                                  <option selected>-</option>
+                                  <option value="" disabled hidden>-</option>
                                   <option value="1">1樓</option>
                                   <option value="2">2樓</option>
                                   <option value="3">3樓</option>
@@ -1009,7 +1005,7 @@ useEffect(() => {
                               value={classForm.page4.coursesAll}
                               onChange={(e) => handleInputChange(e, 'page4')}
                             >
-                                <option selected>-</option>
+                                <option value="" disabled hidden>-</option>
                                 <option value="1">1</option>
                                 <option value="5">5</option>
                                 <option value="10">10</option>
