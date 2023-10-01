@@ -26,24 +26,24 @@ function Revenue({ classes }) {
   let lastMonthRevenue = '沒有資料'
   let lastMonthRevenueTable = [
     {
-      "totalLeftSalary": 0,
-      "classLeft": 0,
-      "classType": "皮拉提斯"
+      totalLeftSalary: 0,
+      classLeft: 0,
+      classType: '皮拉提斯'
     },
     {
-      "totalLeftSalary": 0,
-      "classLeft": 0,
-      "classType": "PT"
+      totalLeftSalary: 0,
+      classLeft: 0,
+      classType: 'PT'
     },
     {
-      "totalLeftSalary": 0,
-      "classLeft": 0,
-      "classType": "場地租借"
+      totalLeftSalary: 0,
+      classLeft: 0,
+      classType: '場地租借'
     },
     {
-      "totalLeftSalary": 0,
-      "classLeft": 0,
-      "classType": "運動按摩"
+      totalLeftSalary: 0,
+      classLeft: 0,
+      classType: '運動按摩'
     }
   ]
   nJson.forEach((category) => {
@@ -151,125 +151,125 @@ function Revenue({ classes }) {
   //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
   let totalSalarySum = 0
   // 创建一个对象用于按月份存储课程价格
-  const coursePriceByMonth = {};
+  const coursePriceByMonth = {}
 
-// 遍历 "class" 类别中的数据
-nJson.forEach(item => {
-  if (item.category === "student" && item.stuDetail) {
-    item.stuDetail.forEach(studentItem => {
-      studentItem?.buyDetail.forEach(buyItem => {
-      const buyDate = buyItem.buyDate;
-      const courseType = buyItem.courseType||"未知";
-      const coursePrice = parseInt(buyItem.coursePrice) || 0; // 解析课程价格字段
+  // 遍历 "class" 类别中的数据
+  nJson.forEach((item) => {
+    if (item.category === 'student' && item.stuDetail) {
+      item.stuDetail.forEach((studentItem) => {
+        studentItem?.buyDetail.forEach((buyItem) => {
+          const buyDate = buyItem.buyDate
+          const courseType = buyItem.courseType || '未知'
+          const coursePrice = parseInt(buyItem.coursePrice) || 0 // 解析课程价格字段
 
-      // 添加错误检查：如果没有 buyDate 字段或其值为空，则跳过此项
-      if (!buyDate) {
-        return;
-      }
+          // 添加错误检查：如果没有 buyDate 字段或其值为空，则跳过此项
+          if (!buyDate) {
+            return
+          }
 
-      // 解析日期為月份 "yyyy/MM"
-      const dateParts = buyDate.split("/");
-      if (dateParts.length !== 3) {
-        // 如果日期格式不正确，则跳过此项
-        return;
-      }
-      const month = dateParts.slice(0, 2).join("/");
+          // 解析日期為月份 "yyyy/MM"
+          const dateParts = buyDate.split('/')
+          if (dateParts.length !== 3) {
+            // 如果日期格式不正确，则跳过此项
+            return
+          }
+          const month = dateParts.slice(0, 2).join('/')
 
-      // 如果月份不存在，创建一个月份的记录
-      if (!coursePriceByMonth[month]) {
-        coursePriceByMonth[month] = {};
-      }
+          // 如果月份不存在，创建一个月份的记录
+          if (!coursePriceByMonth[month]) {
+            coursePriceByMonth[month] = {}
+          }
 
-      // 如果课程类型不存在，创建一个课程类型的记录
-      if (!coursePriceByMonth[month][courseType]) {
-        coursePriceByMonth[month][courseType] = 0;
-      }
+          // 如果课程类型不存在，创建一个课程类型的记录
+          if (!coursePriceByMonth[month][courseType]) {
+            coursePriceByMonth[month][courseType] = 0
+          }
 
-      // 累加课程价格
-      coursePriceByMonth[month][courseType] += coursePrice;
-
-    });
-    });
-  }
-});
-//console.log("coursepriccc",coursePriceByMonth["2023/09"])
-// 打印每月的课程价格
-for (const month in coursePriceByMonth) {
-  // 获取该月份的课程价格对象
-  const monthData = coursePriceByMonth[month];
-  // 创建一个 DateTime 对象以便与当前日期比较
-  const itemDate = DateTime.fromFormat(month, "yyyy/MM");
- console.log("itemDate",monthData)
-// console.log("itemDate2",formattedCurrentDateTime)
-  // 在这里，你可以进行与当前日期的比较以及累加 totalSalarySum 的逻辑
-  if(month === formattedCurrentDateTime){
-    for (const courseType in monthData) {
-      totalSalarySum += monthData[courseType];
+          // 累加课程价格
+          coursePriceByMonth[month][courseType] += coursePrice
+        })
+      })
     }
-
+  })
+  //console.log("coursepriccc",coursePriceByMonth["2023/09"])
+  // 打印每月的课程价格
+  for (const month in coursePriceByMonth) {
+    // 获取该月份的课程价格对象
+    const monthData = coursePriceByMonth[month]
+    // 创建一个 DateTime 对象以便与当前日期比较
+    const itemDate = DateTime.fromFormat(month, 'yyyy/MM')
+    console.log('itemDate', monthData)
+    // console.log("itemDate2",formattedCurrentDateTime)
+    // 在这里，你可以进行与当前日期的比较以及累加 totalSalarySum 的逻辑
+    if (month === formattedCurrentDateTime) {
+      for (const courseType in monthData) {
+        totalSalarySum += monthData[courseType]
+      }
+    }
   }
-}
   //console.log(`所有薪水总和: ${totalSalarySum}`)
 
-//----------------------計算本月上課堂數並以課程分類、以attandece為是----
-// 创建一个对象，用于按月份存储上课次数
-const classCountByMonth = {};
-// 遍历 "category=class" 下的数据
-nJson.forEach(item => {
-  if (item.category === "class" && item.classDetail) {
-    item.classDetail.forEach(classItem => {
-      if (classItem.reserveDetail) {
-        classItem.reserveDetail.forEach(reserveItem => {
-          // 解析日期为月份 "yyyy/MM"
-          const dateParts = reserveItem.reserveDate.split("/");
-          if (dateParts.length === 3) {
-            const month = dateParts.slice(0, 2).join("/");           
-            // 如果月份不存在，创建一个月份的记录并初始化计数为0
-            if (!classCountByMonth[month]) {
-              classCountByMonth[month] = 0;
-            }
-            
-            // 如果 "attendance" 是 "是"，增加计数
-            if (reserveItem.attandence === "是") {
-              //console.log("classBBBC",classCountByMonth[month])
-              classCountByMonth[month]++;
-            }
-          }
-        });
-      }
-    });
-  }
-});
+  //----------------------計算本月上課堂數並以課程分類、以attandence為是----
+  // 创建一个对象，用于按月份存储上课次数
+  const classCountByMonth = {}
+  // 遍历 "category=class" 下的数据
+  nJson.forEach((item) => {
+    if (item.category === 'class' && item.classDetail) {
+      item.classDetail.forEach((classItem) => {
+        if (classItem.reserveDetail) {
+          classItem.reserveDetail.forEach((reserveItem) => {
+            // 解析日期为月份 "yyyy/MM"
+            const dateParts = reserveItem.reserveDate.split('/')
+            if (dateParts.length === 3) {
+              const month = dateParts.slice(0, 2).join('/')
+              // 如果月份不存在，创建一个月份的记录并初始化计数为0
+              if (!classCountByMonth[month]) {
+                classCountByMonth[month] = 0
+              }
 
-// 打印每个月份的上课次数
-//可以用於每月「已」上課次數（核銷未核銷堂數）
-console.log("AAAC上课次数按月份统计：", classCountByMonth[formattedCurrentDateTime]);
-
-//----------------------計算所有的課程總堂數courseAll---------------------
-const courseAllByMonth = {}
-nJson.forEach(item => {
-  if (item.category === "class" && item.classDetail) {
-    item.classDetail.forEach(classItem => {
-      const buyDate = classItem.buyDate.split("-");
-      if (buyDate.length === 3) {
-        const month = buyDate.slice(0, 2).join("/");
-        // 如果月份不存在，创建一个月份的记录并初始化计数为0
-        if (!courseAllByMonth[month]) {
-          courseAllByMonth[month] = 0;
+              // 如果 "attandence" 是 "是"，增加计数
+              if (reserveItem.attandence === '是') {
+                //console.log("classBBBC",classCountByMonth[month])
+                classCountByMonth[month]++
+              }
+            }
+          })
         }
-        courseAllByMonth[month] += parseInt(classItem.coursesAll) || 0;
-      }
-    });
-  }
-});
-console.log("BBBC課程總堂數courseAll按月份统计：", courseAllByMonth[formattedCurrentDateTime]);
-//標題呈現本月課程堂數
-//-------------未上課次數（未核銷堂數）-> 全部課程減去已上課 ---------------------
-let courseLeftByMonth = 0
+      })
+    }
+  })
 
-courseLeftByMonth = parseInt(courseAllByMonth[formattedCurrentDateTime]??"0") - parseInt(classCountByMonth[formattedCurrentDateTime]??"0")
+  // 打印每个月份的上课次数
+  //可以用於每月「已」上課次數（核銷未核銷堂數）
+  console.log('AAAC上课次数按月份统计：', classCountByMonth[formattedCurrentDateTime])
 
-console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMonth);
+  //----------------------計算所有的課程總堂數courseAll---------------------
+  const courseAllByMonth = {}
+  nJson.forEach((item) => {
+    if (item.category === 'class' && item.classDetail) {
+      item.classDetail.forEach((classItem) => {
+        const buyDate = classItem.buyDate.split('-')
+        if (buyDate.length === 3) {
+          const month = buyDate.slice(0, 2).join('/')
+          // 如果月份不存在，创建一个月份的记录并初始化计数为0
+          if (!courseAllByMonth[month]) {
+            courseAllByMonth[month] = 0
+          }
+          courseAllByMonth[month] += parseInt(classItem.coursesAll) || 0
+        }
+      })
+    }
+  })
+  console.log('BBBC課程總堂數courseAll按月份统计：', courseAllByMonth[formattedCurrentDateTime])
+  //標題呈現本月課程堂數
+  //-------------未上課次數（未核銷堂數）-> 全部課程減去已上課 ---------------------
+  let courseLeftByMonth = 0
+
+  courseLeftByMonth =
+    parseInt(courseAllByMonth[formattedCurrentDateTime] ?? '0') -
+    parseInt(classCountByMonth[formattedCurrentDateTime] ?? '0')
+
+  console.log('BBBC課程未上課次數（未核銷堂數）：', courseLeftByMonth)
 
   //-------------------------------------------------------------------
   // 按 courseType 分类的数据 計算為未核銷金額
@@ -398,6 +398,20 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
   nJson.forEach((categoryItem) => {
     if (categoryItem.category === 'class' && categoryItem.classDetail) {
       categoryItem.classDetail.forEach((classItem) => {
+
+        // 初始化变量来计算本月的 attandence 次数--------計算attendance來計算已核銷堂數
+        let attandenceCount = 0
+        // 遍历课程的 reserveDetail 数组
+        classItem.reserveDetail.forEach((reserve) => {
+          // 获取 reserveDate 的月份部分
+          const reserveMonth = reserve.reserveDate.split('/')[0] + '/' + reserve.reserveDate.split('/')[1]
+          // 检查月份是否与当前月份匹配，并且 attandence 是否为 "是"
+          if (reserveMonth === formattedCurrentDateTime && reserve.attandence === '是') {
+            // 如果匹配，则增加计数
+            attandenceCount++
+          }
+        })
+
         const courseType = classItem.courseType
         const coursesFIN = parseInt(classItem.coursesFIN) || 0
         let totalFINSalary = 0
@@ -434,8 +448,10 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
             }
 
             // 计算 totalSalary
-            totalFINSalary = coursesFIN * coachSalary
-            totalFINCourseCount += coursesFIN
+            // totalFINSalary = coursesFIN * coachSalary
+            // totalFINCourseCount += coursesFIN
+            totalFINSalary = attandenceCount * coachSalary
+            totalFINCourseCount += attandenceCount
           }
         }
 
@@ -449,6 +465,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
       })
     }
   })
+  console.log('BBBFINcourseTotal', courseTypeFINData)
   const totalSumFIN = Object.values(courseTypeFINData).reduce(
     (sum, typeData) => sum + typeData.totalFINSalary,
     0
@@ -459,53 +476,51 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
   //console.log('AAAfincoursetotal', courseTypeFINData)
 
   //下方表格使用---------------------------------------------------
+
   //計算coachFin,coachLeft以教練分類---------------------------------------------------
-  const courseInfo = []
-  // 遍历 JSON 数据并整理课程信息
-  nJson.forEach((categoryItem) => {
-    if (categoryItem.category === 'class' && categoryItem.classDetail) {
-      categoryItem.classDetail.forEach((classItem) => {
-        const courseLeft = parseInt(classItem.courseLeft) || 0
-        const coursesFIN = parseInt(classItem.coursesFIN) || 0
+  // const courseInfo = []
+  // // 遍历 JSON 数据并整理课程信息
+  // nJson.forEach((categoryItem) => {
+  //   if (categoryItem.category === 'class' && categoryItem.classDetail) {
+  //     categoryItem.classDetail.forEach((classItem) => {
+  //       const courseLeft = parseInt(classItem.courseLeft) || 0
+  //       const coursesFIN = parseInt(classItem.coursesFIN) || 0
 
-        courseInfo.push({
-          classID: classItem.classID,
-          courseLeft,
-          coursesFIN
-        })
-      })
-    }
-  })
+  //       courseInfo.push({
+  //         classID: classItem.classID,
+  //         courseLeft,
+  //         coursesFIN
+  //       })
+  //     })
+  //   }
+  // })
 
-  const coachInfo2 = {}
+  // const coachInfo2 = {}
 
-  // 遍历 JSON 数据并根据 coach 对教练进行分类
-  nJson.forEach((categoryItem) => {
-    if (categoryItem.category === 'class' && categoryItem.classDetail) {
-      categoryItem.classDetail.forEach((classItem) => {
-        const coach = classItem.coach[0] // 假设每个班级只有一个教练
-        const coachID = coach.coachID
-        const coachName = coach.coachName
+  // // 遍历 JSON 数据并根据 coach 对教练进行分类
+  // nJson.forEach((categoryItem) => {
+  //   if (categoryItem.category === 'class' && categoryItem.classDetail) {
+  //     categoryItem.classDetail.forEach((classItem) => {
+  //       const coach = classItem.coach[0] // 假设每个班级只有一个教练
+  //       const coachID = coach.coachID
+  //       const coachName = coach.coachName
 
-        if (!coachInfo2[coachID]) {
-          coachInfo2[coachID] = {
-            coachName,
-            courseLeftTotal: 0,
-            coursesFINTotal: 0
-          }
-        }
+  //       if (!coachInfo2[coachID]) {
+  //         coachInfo2[coachID] = {
+  //           coachName,
+  //           courseLeftTotal: 0,
+  //           coursesFINTotal: 0
+  //         }
+  //       }
 
-        const courseLeft = parseInt(classItem.courseLeft) || 0
-        const coursesFIN = parseInt(classItem.coursesFIN) || 0
+  //       const courseLeft = parseInt(classItem.courseLeft) || 0
+  //       const coursesFIN = parseInt(classItem.coursesFIN) || 0
 
-        coachInfo2[coachID].courseLeftTotal += courseLeft
-        coachInfo2[coachID].coursesFINTotal += coursesFIN
-      })
-    }
-  })
-
-  // 打印课程信息
-  //console.log('课程信息', courseInfo)
+  //       coachInfo2[coachID].courseLeftTotal += courseLeft
+  //       coachInfo2[coachID].coursesFINTotal += coursesFIN
+  //     })
+  //   }
+  // })
 
   // 打印教练信息
   //console.log('教练信息', coachInfo2)
@@ -539,17 +554,34 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
   // 输出结果
   //console.log('AAAcoachInfo', coachInfo)
 
-  //課程核銷相關
+  //課程核銷相關---------------------------------------------------
   const classInfo = []
+  //const currentDateMonth = formattedCurrentDateTime // 用於測試的月份
   // 遍历包含 class 信息的数组
   nJson.forEach((categoryItem) => {
     if (categoryItem.category === 'class' && categoryItem.classDetail) {
       categoryItem.classDetail.forEach((classItem) => {
+        // 初始化变量来计算本月的 attandence 次数
+        let attandenceCount = 0
+        // 遍历课程的 reserveDetail 数组
+        classItem.reserveDetail.forEach((reserve) => {
+          // 获取 reserveDate 的月份部分
+          const reserveMonth =
+            reserve.reserveDate.split('/')[0] + '/' + reserve.reserveDate.split('/')[1]
+          // 检查月份是否与当前月份匹配，并且 attandence 是否为 "是"
+          if (reserveMonth === formattedCurrentDateTime && reserve.attandence === '是') {
+            // 如果匹配，则增加计数
+            attandenceCount++
+          }
+        })
+
         const classData = {
           classID: classItem.classID,
           coursesAll: classItem.coursesAll,
           coursesFIN: classItem.coursesFIN,
-          courseLeft: classItem.courseLeft
+          courseLeft: classItem.courseLeft,
+          //計算本月其課堂attandence次數
+          attandenceCount: attandenceCount
         }
 
         // 将提取的班级信息添加到结果数组中
@@ -560,16 +592,6 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
   // 输出结果
   console.log('AAAclassInfo', classInfo)
 
-  // const mergeInfo = coachInfo.reduce((result,itemB) => {
-  //     itemB.teachClass.forEach((classIDs) => {
-  //         const matchingClass = classIDs.map((classID) =>
-  //         classInfo.find((itemC) => itemC.classID === classID)
-  //         );
-  //         result.push({ ...itemB, ...matchingClass });
-  //     });
-  //     return result;
-  // }, []);
-  // console.log("AAAmergeInfo",mergeInfo);
   const mergeInfo = coachInfo.reduce((result, itemB) => {
     itemB.teachClass.forEach((classIDs) => {
       const matchingClassID = classIDs[0] // 假设每个班级只有一项
@@ -583,7 +605,11 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
     })
     return result
   }, [])
-  //console.log('AAAmergeInfo', mergeInfo)
+  console.log('BBBmergeInfo', mergeInfo)
+
+  //計算本月核銷課堂數--（courseAll-attandence次數）並以教練分類--------------------
+  //在上方classInfo已經有計算courseAll現在在上方的判斷中將attandence次數計算進去
+  //舊的算法是直接計算courseLeft
 
   //計算體驗課堂數exCourse---------------------------------------------------
   const coachExCourseCounts = {}
@@ -610,6 +636,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
   //console.log('coachExCourseCount', coachExCourseCounts)
 
   // 根据 coachName 分类合并信息
+
   const mergeInfoLast = mergeInfo.map((coach) => {
     const coachName = coach.coachName
     const exCourseCount = coachExCourseCounts[coachName] || 0
@@ -836,7 +863,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
               <div className="col-6">
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {totalSumFIN} / {classCountByMonth[formattedCurrentDateTime]??"0"}堂
+                  $ {totalSumFIN} / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂
                   {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
                 </h1>
               </div>
@@ -845,8 +872,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
                 <h1 className="money-title mt-2 title">
                   {/*new*/}
                   {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
-                  {/*old*/}
-                  $ {totalSumLeft} / {totalLeftCourseCount}堂
+                  {/*old*/}$ {totalSumLeft} / {totalLeftCourseCount}堂
                 </h1>
               </div>
             </div>

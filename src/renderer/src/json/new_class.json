@@ -15,7 +15,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/06/09",
+            "reserveDate": "2023/10/09",
             "reserveTime": "13:00-14:00",
             "reserveStu": [
               {
@@ -30,7 +30,7 @@
               }
             ],
             "cancel": "-",
-            "attandence": "-",
+            "attandence": "是",
             "note": "你好",
             "student": [
               {

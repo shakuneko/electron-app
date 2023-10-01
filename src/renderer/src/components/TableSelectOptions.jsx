@@ -93,7 +93,7 @@ export const columnsMoney = [
         size:100
     },
     {
-        accessorKey:"coursesFIN",
+        accessorKey:"attandenceCount",
         header:"已核銷堂數",
         size:100
     },
