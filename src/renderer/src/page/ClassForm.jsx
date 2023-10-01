@@ -80,6 +80,7 @@ function findCoachIDByName(CoachName) {
       coachName:'',
       stuName:'',
       floor: '',
+      buyDate:'',
       coursesAll:'',
       coursePrice:'',
       invoiceNum:'',
@@ -195,15 +196,17 @@ const handleSubmit = (event) => {
   event.preventDefault();
   const currentPageData = classForm[currentPage];
   if (
-    currentPageData.stuName === "" ||
-    currentPageData.coursesAll === "" ||
     currentPageData.buyDate === "" ||
+    currentPageData.coachName === "" ||
+    currentPageData.stuName === "" ||
+    currentPageData.floor === "" ||
+    currentPageData.coursesAll === "" ||
     currentPageData.coursePrice === "" ||
     currentPageData.payMethod === "" ||
     (currentPageData.exCourse === "" && !isRadioSelected) // 只有在未选择体验课时才需要 exCourse 字段
     // 添加其他字段的验证条件
   ) {
-    alert("请填写所有必填字段");
+    alert("請確認資料都已填寫完成");
     return;
   }
   // 获取已有的 classID 列表
@@ -344,7 +347,7 @@ useEffect(() => {
         </div>
         <div className="col-10 new_class">
           <div className="title_word">
-            <p>新增課程</p>
+            <h1>新增課程</h1>
           </div>
          
           <form className="form"  onSubmit={handleSubmit}>
@@ -953,8 +956,8 @@ useEffect(() => {
                           <select 
                             class="form-select"
                             name="stuName"
-                            value={classForm.page3.stuName}
-                            onChange={(e) => handleInputChange(e, 'page3')} 
+                            value={classForm.page4.stuName}
+                            onChange={(e) => handleInputChange(e, 'page4')} 
                           >
                               <option selected>-</option>
                                 {studentNames.map((name) => (
@@ -990,7 +993,7 @@ useEffect(() => {
                               class="form-select" 
                               name="coursesAll"
                               value={classForm.page4.coursesAll}
-                              onChange={(e) => handleInputChange(e, 'page5')}
+                              onChange={(e) => handleInputChange(e, 'page4')}
                             >
                                 <option selected>-</option>
                                 <option value="1">1</option>
@@ -1008,7 +1011,7 @@ useEffect(() => {
                             name="coursePrice"
                             placeholder="請填寫整數數字，例如：1200"
                             value={classForm.page4.coursePrice}
-                            onChange={(e) => handleInputChange(e, 'page5')}
+                            onChange={(e) => handleInputChange(e, 'page4')}
                             ></input>
                           </div>
                       </div>
@@ -1065,7 +1068,7 @@ useEffect(() => {
                                 rows="3" 
                                 name="buyNote"
                                 value={classForm.page4.buyNote}
-                                onChange={(e) => handleInputChange(e, 'page6')}
+                                onChange={(e) => handleInputChange(e, 'page4')}
                               ></textarea>
                             </div>  
                         </div>
