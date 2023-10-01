@@ -27,6 +27,9 @@
     /* margin: 0 10px; */
     margin-right: 30px;
   }
+  .classCoachBox p {
+    margin-bottom: 0px
+  }
   .classcontainer{
     display: flex;
     flex-direction: row;

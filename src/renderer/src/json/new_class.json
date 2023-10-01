@@ -431,8 +431,8 @@
         "buyDetail": [
           {
             "classID": "5",
-            "courseType": "一樓租借處",
-            "coachName": "D",
+            "courseType": "場地租借",
+            "coachName": "一樓租借處",
             "coursesAll": "10",
             "coursesFIN": "2",
             "courseLeft": "8",
