@@ -221,8 +221,8 @@ nJson.forEach(item => {
 });
 
 // 打印每个月份的上课次数
-//可以用於每月上課次數（核銷未核銷堂數）
-console.log("BBBC上课次数按月份统计：", classCountByMonth);
+//可以用於每月「已」上課次數（核銷未核銷堂數）
+console.log("AAAC上课次数按月份统计：", classCountByMonth[formattedCurrentDateTime]);
 
 //----------------------計算所有的課程總堂數courseAll---------------------
 const courseAllByMonth = {}
@@ -241,8 +241,14 @@ nJson.forEach(item => {
     });
   }
 });
-console.log("BBBC課程總堂數按月份统计：", courseAllByMonth);
+console.log("BBBC課程總堂數courseAll按月份统计：", courseAllByMonth[formattedCurrentDateTime]);
+//標題呈現本月課程堂數
+//-------------未上課次數（未核銷堂數）-> 全部課程減去已上課 ---------------------
+let courseLeftByMonth = 0
 
+courseLeftByMonth = parseInt(courseAllByMonth[formattedCurrentDateTime]??"0") - parseInt(classCountByMonth[formattedCurrentDateTime]??"0")
+
+console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMonth);
 
   //-------------------------------------------------------------------
   // 按 courseType 分类的数据 計算為未核銷金額
@@ -809,13 +815,14 @@ console.log("BBBC課程總堂數按月份统计：", courseAllByMonth);
               <div className="col-6">
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {totalSumFIN} / {totalFINCourseCount}堂
+                  $ {totalSumFIN} / {classCountByMonth[formattedCurrentDateTime]??"0"}堂
+                  {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
                 </h1>
               </div>
               <div className="col-6">
                 <div>未核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {totalSumLeft} / {totalLeftCourseCount}堂
+                  $ {totalSumLeft} / {courseLeftByMonth}堂
                 </h1>
               </div>
             </div>
