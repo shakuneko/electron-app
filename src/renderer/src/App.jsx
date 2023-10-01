@@ -77,7 +77,9 @@ function App() {
         menuInfo: 'no data'
       }
       const content = JSON.parse(data)
+      if (content){
       dispatch(setFileName(content))
+      }
     } catch (err) {
       console.log('沒有檔案可以讀取')
     }

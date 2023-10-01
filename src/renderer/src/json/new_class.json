@@ -15,7 +15,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/06/09",
+            "reserveDate": "2023/10/09",
             "reserveTime": "13:00-14:00",
             "reserveStu": [
               {
@@ -30,7 +30,7 @@
               }
             ],
             "cancel": "-",
-            "attandence": "-",
+            "attandence": "是",
             "note": "你好",
             "student": [
               {
@@ -112,7 +112,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/9/14",
+            "reserveDate": "2023/09/14",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -156,7 +156,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/9/20",
+            "reserveDate": "2023/09/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -172,7 +172,7 @@
           },
           {
             "reserveID": "2",
-            "reserveDate": "2023/9/25",
+            "reserveDate": "2023/09/25",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -216,7 +216,7 @@
         "reserveDetail": [
           {
             "reserveID": "1",
-            "reserveDate": "2023/9/20",
+            "reserveDate": "2023/09/20",
             "reserveTime": "09:00-11:00",
             "reserveStu": [],
             "cancel": "-",
@@ -364,7 +364,7 @@
             "preCourseLeft": "6",
             "payMethod": "現金",
             "invoiceNum": "12345678",
-            "buyDate": "2022/06/23",
+            "buyDate": "2023/09/23",
             "exCourse": "否",
             "coursePrice": "6500",
             "buyNote": "!!"
@@ -379,7 +379,7 @@
             "preCourseLeft": "1",
             "payMethod": "現金",
             "invoiceNum": "12345678",
-            "buyDate": "2023/06/23",
+            "buyDate": "2023/09/29",
             "exCourse": "是",
             "coursePrice": "6400",
             "buyNote": "!!"
@@ -542,7 +542,7 @@
         "coachContact_tel": "",
         "coachNote": "",
         "coachPhone": "0900-000-111",
-        "major": ["PT", "皮拉提斯", "運動按摩", "團課"],
+        "major": ["PT", "皮拉提斯", "運動按摩"],
         "joinDate": "2022/10/30",
         "PtSalary": "650",
         "GroupSalary": "650",
@@ -585,35 +585,10 @@
   },
   {
     "category": "revenue",
-    "revenueDetail": [
-      {
-        "revenueDateMonth": "2023/07",
-        "revenueList":[
-          {
-            "totalLeftSalary": 21000,
-            "classLeft": 6,
-            "classType": "皮拉提斯"
-          },
-          {
-            "totalLeftSalary": 11500,
-            "classLeft": 2,
-            "classType": "PT"
-          },
-          {
-            "totalLeftSalary": 11000,
-            "classLeft": 3,
-            "classType": "團課"
-          },
-          {
-            "totalLeftSalary": 12000,
-            "classLeft": 0,
-            "classType": "運動按摩"
-          }
-        ]
-      },
+    "revenueDetail": [ 
       {
         "revenueDateMonth": "2023/08",
-        "revenueList":[
+        "revenueList": [
           {
             "totalLeftSalary": 25500,
             "classLeft": 7,
@@ -626,8 +601,8 @@
           },
           {
             "totalLeftSalary": 11500,
-            "classLeft": 2,
-            "classType": "團課"
+            "classLeft": 0,
+            "classType": "場地租借"
           },
           {
             "totalLeftSalary": 15000,
@@ -635,8 +610,32 @@
             "classType": "運動按摩"
           }
         ]
+      },
+      {
+        "revenueDateMonth": "2023/09",
+        "revenueList": [
+          {
+            "totalLeftSalary": 21000,
+            "classLeft": 6,
+            "classType": "皮拉提斯"
+          },
+          {
+            "totalLeftSalary": 11500,
+            "classLeft": 2,
+            "classType": "PT"
+          },
+          {
+            "totalLeftSalary": 11000,
+            "classLeft": 0,
+            "classType": "場地租借"
+          },
+          {
+            "totalLeftSalary": 12000,
+            "classLeft": 2,
+            "classType": "運動按摩"
+          }
+        ]
       }
-
     ]
   }
 ]
