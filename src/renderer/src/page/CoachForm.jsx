@@ -85,24 +85,7 @@ const handleItemClick = (item) => {
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
-if (
-  coachForm.coachName &&
-  coachForm.coachGender &&
-  coachForm.coachIDcode &&
-  coachForm.coachPhone &&
-  coachForm.coachEmail &&
-  coachForm.coachAddress &&
-  coachForm.major.length > 0 &&
-  coachForm.joinDate &&
-  coachForm.PtSalary &&
-  coachForm.PilatesSalary &&
-  coachForm.MassageSalary &&
-  coachForm.coachBank &&
-  coachForm.coachContact &&
-  coachForm.coachRelation &&
-  coachForm.coachContact_tel &&
-  coachForm.coachNote
-) {
+
 console.log('表单数据：', coachForm);
 // const existingCoachIDs = fileNameData.newJsonData[2].coachDetail.map((coach) => parseInt(coach.coachID));
 const existingCoachIDs = newCoachData.map((coach) => coach.coachID);
@@ -145,10 +128,6 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
   // 清除表单数据为初始状态
   setCoachForm(initialFormData);
   setSelectedOptions([]);
-  } else {
-    // 如果有未填写的字段，可以在这里处理错误或显示错误消息
-    alert('請確認資料都已填寫完成');
-  }
   
 };
 
@@ -164,7 +143,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
           </div>
             <form className="form"  onSubmit={handleSubmit}>
             <div class="form-group">
-                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <label >建檔日期:</label>
                     <div className="select">
                     <input 
                       type="date" 
@@ -176,58 +155,62 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">姓名:</label>
+                    <label >姓名:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       name="coachName"
                       class="form-select" 
+                      required // 表示此字段为必填字段
                       value={coachForm.coachName}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">性別:</label>
+                    <label >性別:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       class="form-select" 
                       name="coachGender"
+                      required 
                       value={coachForm.coachGender}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">身分證字號:</label>
+                    <label >身分證字號:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       class="form-select"
                       name="coachIDcode"  
+                      required 
                       value={coachForm.coachIDcode}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">電話:</label>
+                    <label >電話:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       name="coachPhone" 
                       class="form-select" 
+                      required
                       value={coachForm.coachPhone}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email:</label>
+                    <label >Email:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="email" 
                       name="coachEmail"
                       class="form-select" 
                       placeholder="例如：123@gmail.com"
@@ -237,19 +220,20 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">地址:</label>
+                    <label >地址:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       class="form-select" 
                       name="coachAddress"
+                      required
                       value={coachForm.coachAddress}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">課程:</label>
+                  <label >課程:</label>
                   <div className="form_btn2">
                     <button 
                       type="button" 
@@ -266,94 +250,101 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                   </div>
                 </div>    
                 <div class="form-group">
-                    <label for="exampleInputEmail1">PT堂薪:</label>
+                    <label >PT堂薪:</label>
                     <div className="select">
                     <input 
                       type="number" 
                       class="form-select" 
                       name="PtSalary"
                       placeholder="請填寫整數數字，例如：1200"
+                      required
                       value={coachForm.PtSalary}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">皮拉提斯堂薪:</label>
+                    <label >皮拉提斯堂薪:</label>
                     <div className="select">
                     <input 
                       type="number" 
                       class="form-select" 
                       name="PilatesSalary"
                       placeholder="請填寫整數數字，例如：1200"
+                      required
                       value={coachForm.PilatesSalary}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">運動按摩堂薪:</label>
+                    <label>運動按摩堂薪:</label>
                     <div className="select">
                     <input 
                       type="number" 
                       class="form-select" 
                       name="MassageSalary"
                       placeholder="請填寫整數數字，例如：1200"
+                      required
                       value={coachForm.MassageSalary}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>   
                 <div class="form-group">
-                    <label for="exampleInputEmail1">帳戶:</label>
+                    <label>帳戶:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       name="coachBank"
                       class="form-select" 
+                      required
                       value={coachForm.coachBank}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">緊急連絡人姓名:</label>
+                    <label>緊急連絡人姓名:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       name="coachContact"
                       class="form-select" 
+                      required
                       value={coachForm.coachContact}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">您與他的關係:</label>
+                    <label>您與他的關係:</label>
                     <div className="select">
                     <input 
                       type="text"
                       name="coachRelation"
                       class="form-select"
+                      required
                       value={coachForm.coachRelation}
                       onChange={handleInputChange}
                      ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">緊急連絡人電話:</label>
+                    <label>緊急連絡人電話:</label>
                     <div className="select">
                     <input 
                       type="text" 
                       name="coachContact_tel"
                       class="form-select" 
+                      required
                       value={coachForm.coachContact_tel}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group2">
-                    <label for="exampleInputPassword1">備註:</label>
+                    <label>備註:</label>
                     <div className="select">
                     <textarea 
                       class="form-select" 
