@@ -69,7 +69,7 @@ function StudentForm(props){
       stuForm.stuContact_tel === "" ||
       stuForm.stuNote === ""
     ) {
-      alert("请填写所有字段");
+      alert("請確認資料都已填寫完成");
       return;
     }
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
