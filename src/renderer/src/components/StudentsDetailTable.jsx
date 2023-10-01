@@ -94,11 +94,11 @@ function StudentsDetailTable({ stuBuyDetailData }) {
                 handleSaveCell(cell, event.target.value);
                 },
             })}
-            renderBottomToolbarCustomActions={() => (
-                <Typography sx={{  p: '16px', fontWeight:"900" }} variant="body2">
-                    雙擊要修改的內容進行修改
-                </Typography>
-            )}  
+            // renderBottomToolbarCustomActions={() => (
+            //     <Typography sx={{  p: '16px', fontWeight:"900" }} variant="body2">
+            //         雙擊要修改的內容進行修改
+            //     </Typography>
+            // )}  
             muiSearchTextFieldProps={{
                 placeholder: "搜尋想查找的名稱、堂數、金額",
                 sx: { minWidth: '300px' },
