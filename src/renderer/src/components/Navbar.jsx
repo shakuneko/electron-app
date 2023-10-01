@@ -125,7 +125,7 @@ function Navbar() {
   }
 
   return (
-    <div>
+    <div style={{ height : window.innerHeight }}>
       <div className="nav_logo">
         <img src={Logo} style={{ width: '82px', height: '82px' }} alt="class-unclick" />
       </div>

@@ -1,17 +1,21 @@
 import React, {useState } from "react";
 import Navbar from "../components/Navbar";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateCoachName } from '../redux/Actions/formActions'
-import jsonData from '../json/new_class.json'
-import { setCoachFormSave } from "../redux/reducers/saveSlice";
-function generateUniqueID(existingIDs) {
-  // 找到现有 ID 中的最大值
-  const maxID = Math.max(...existingIDs);
+// import jsonData from '../json/new_class.json'
+import { selectFileName,setCoachFormSave } from "../redux/reducers/saveSlice";
 
-  // 将新的 ID 设置为最大值加一
-  const newID = maxID + 1;
+function generateUniqueID(existingCoachIDs) {
+  if (existingCoachIDs.length === 0) {
+    return "1";
+  } else {
+    const maxID = Math.max(...existingCoachIDs);
 
-  return newID.toString(); // 将新的 ID 转换为字符串
+    // 将新的 ID 设置为最大值加一
+    const newID = maxID + 1;
+  
+    return newID.toString(); // 将新的 ID 转换为字符串
+  }
 }
 
 function CoachForm(props) {
@@ -33,7 +37,6 @@ function CoachForm(props) {
     joinDate:'',
     PtSalary:'',
     PilatesSalary:'',
-    GroupSalary:'',
     MassageSalary:'', 
   };
 // 使用状态管理保存表单数据
@@ -82,14 +85,28 @@ const handleItemClick = (item) => {
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
-// dispatch(updateCoachName(coachForm));
-// props.updateCoachName(coachForm)
-// 在這裡處理表單提交的邏輯，可以使用formData中的值
+if (
+  coachForm.coachName &&
+  coachForm.coachGender &&
+  coachForm.coachIDcode &&
+  coachForm.coachPhone &&
+  coachForm.coachEmail &&
+  coachForm.coachAddress &&
+  coachForm.major.length > 0 &&
+  coachForm.joinDate &&
+  coachForm.PtSalary &&
+  coachForm.PilatesSalary &&
+  coachForm.MassageSalary &&
+  coachForm.coachBank &&
+  coachForm.coachContact &&
+  coachForm.coachRelation &&
+  coachForm.coachContact_tel &&
+  coachForm.coachNote
+) {
 console.log('表单数据：', coachForm);
-// const existingClassIDs = jsonData.find((item) => item.category === 'class').classDetail.map((class_category) => parseInt(class_category.classID));
-// const newClassID = generateUniqueID(existingClassIDs);
-
-const existingCoachIDs = jsonData.find((item) => item.category === 'coach').coachDetail.map((coach) => parseInt(coach.coachID));
+// const existingCoachIDs = fileNameData.newJsonData[2].coachDetail.map((coach) => parseInt(coach.coachID));
+const existingCoachIDs = newCoachData.map((coach) => coach.coachID);
+console.log("existingClassIDs",existingCoachIDs)
 const newCoachID = generateUniqueID(existingCoachIDs);
 
  let _newCoachData = {
@@ -109,7 +126,6 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   joinDate:coachForm.joinDate,
   PtSalary:coachForm.PtSalary,
   PilatesSalary:coachForm.PilatesSalary,
-  GroupSalary:coachForm.GroupSalary,
   MassageSalary:coachForm.MassageSalary, 
   teachClass:[],
 };
@@ -122,15 +138,18 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
       category: "coach",
       id:  newCoachID
     }));
-  const updatedJsonData = [...jsonData];
-    // 将新的学生数据添加到JSON中
-  updatedJsonData.find((item) => item.category === 'coach').coachDetail.push(_newCoachData);
+  // const updatedJsonData = [...jsonData];
+  //   // 将新的学生数据添加到JSON中
+  // updatedJsonData.find((item) => item.category === 'coach').coachDetail.push(_newCoachData);
 
   // 清除表单数据为初始状态
   setCoachForm(initialFormData);
   setSelectedOptions([]);
-
-  console.log(jsonData);
+  } else {
+    // 如果有未填写的字段，可以在这里处理错误或显示错误消息
+    alert('請確認資料都已填寫完成');
+  }
+  
 };
 
   return (
@@ -141,9 +160,21 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
         </div>
         <div className="col-10 new_class2">
           <div className="title_word">
-            <p>新增教練</p>
+            <h1>新增教練</h1>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
+            <div class="form-group">
+                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <div className="select">
+                    <input 
+                      type="date" 
+                      name="joinDate"
+                      class="form-select" 
+                      value={coachForm.joinDate}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">姓名:</label>
                     <div className="select">
@@ -199,6 +230,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="text" 
                       name="coachEmail"
                       class="form-select" 
+                      placeholder="例如：123@gmail.com"
                       value={coachForm.coachEmail}
                       onChange={handleInputChange}
                     ></input>
@@ -231,19 +263,16 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="button" 
                       onClick={() => handleItemClick('運動按摩')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('運動按摩') ? 'active' : ''}`}>運動按摩</button>
-                    <button
-                      type="button" 
-                      onClick={() => handleItemClick('團課')}
-                      className={`btn btn-outline-golden ${selectedOptions.includes('團課') ? 'active' : ''}`}>團課</button>
                   </div>
                 </div>    
                 <div class="form-group">
                     <label for="exampleInputEmail1">PT堂薪:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="number" 
                       class="form-select" 
                       name="PtSalary"
+                      placeholder="請填寫整數數字，例如：1200"
                       value={coachForm.PtSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -253,9 +282,10 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     <label for="exampleInputEmail1">皮拉提斯堂薪:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="number" 
                       class="form-select" 
                       name="PilatesSalary"
+                      placeholder="請填寫整數數字，例如：1200"
                       value={coachForm.PilatesSalary}
                       onChange={handleInputChange}
                     ></input>
@@ -265,26 +295,15 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     <label for="exampleInputEmail1">運動按摩堂薪:</label>
                     <div className="select">
                     <input 
-                      type="text" 
+                      type="number" 
                       class="form-select" 
                       name="MassageSalary"
+                      placeholder="請填寫整數數字，例如：1200"
                       value={coachForm.MassageSalary}
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">團課堂薪:</label>
-                    <div className="select">
-                    <input 
-                      type="text" 
-                      class="form-select" 
-                      name="GroupSalary"
-                      value={coachForm.GroupSalary}
-                      onChange={handleInputChange}
-                    ></input>
-                    </div>
-                </div>
+                </div>   
                 <div class="form-group">
                     <label for="exampleInputEmail1">帳戶:</label>
                     <div className="select">
@@ -333,18 +352,6 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     ></input>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">建檔日期:</label>
-                    <div className="select">
-                    <input 
-                      type="text" 
-                      name="joinDate"
-                      class="form-select" 
-                      value={coachForm.joinDate}
-                      onChange={handleInputChange}
-                    ></input>
-                    </div>
-                </div>
                 <div class="form-group2">
                     <label for="exampleInputPassword1">備註:</label>
                     <div className="select">
@@ -370,26 +377,3 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
 export default CoachForm;
 
 
-// import React from 'react';
-// import { useSelector } from 'react-redux';
-// function CoachForm() {
-//   const coachForm = useSelector((state) => state.root.coach.coachForm);
-//   const stuForm = useSelector((state) => state.root.stu.stuForm);
-//   const classForm = useSelector((state) => state.root.class.classForm);
-//   // const { coachForm } = props;
-//   // console.log(props);
-//   console.log(coachForm);
-//   console.log(stuForm);
-//   console.log(classForm);
-//   return (
-//     <div>
-//       {/* 使用从 Redux Store 中提取的 JSON 数据来渲染 */}
-//       <pre>{JSON.stringify(coachForm, null, 2)}</pre>
-//       <pre>{JSON.stringify(stuForm, null, 2)}</pre>
-//       <pre>{JSON.stringify(classForm, null, 2)}</pre>
-//      </div>
-//   );
-// }
-
-
-// export default CoachForm;

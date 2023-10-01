@@ -20,21 +20,7 @@ const initialState = {
     MassageSalary:'', 
   },
 };
-// // 创建一个 slice
-// const formSlice = createSlice({
-//   name: 'form',
-//   initialState,
-//   reducers: {
-//     updateCoachName: (state, action) => {
-//       state.coachForm = { ...state.coachForm, ...action.payload };
-//     },
-//     // 添加其他更新表单的 reducer
-//   },
-// });
 
-// // 导出 reducer 和 actions
-// export const { updateCoachName } = formSlice.actions;
-// export default formSlice.reducer;
 
 const formReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -53,3 +39,19 @@ const formReducer = (state = initialState, action) => {
 };
 
 export default formReducer;
+
+// // 创建一个 slice
+// const formSlice = createSlice({
+//   name: 'form',
+//   initialState,
+//   reducers: {
+//     updateCoachName: (state, action) => {
+//       state.coachForm = { ...state.coachForm, ...action.payload };
+//     },
+//     // 添加其他更新表单的 reducer
+//   },
+// });
+
+// // 导出 reducer 和 actions
+// export const { updateCoachName } = formSlice.actions;
+// export default formSlice.reducer;

@@ -1,7 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { connect,useDispatch } from 'react-redux';
-import { updateReserveTime } from "../redux/Actions/formActions"
-import jsonData from '../json/new_class.json'
+import { useDispatch, useSelector } from 'react-redux';
 import { updateTableData } from '../redux/Actions/saveActions'; // 导入您的更新动作
 import { addReserveTableData } from "../redux/reducers/saveSlice"
 
@@ -10,7 +8,7 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     const {tableData,setTableData} = props;
     const classes = props.classes;
     const id = props.classes.classID
-
+    const courseLeft = props.classes.courseLeft
     const initialFormData = {
       reserveDate:'',
       reserveTime:'',
@@ -19,9 +17,13 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     const [reserveForm, setReserveForm] = useState(initialFormData); // 存儲選擇的日期
     // const [selectedStudents, setSelectedStudents] = useState([]);
     const [matchingStudents, setMatchingStudents] =  useState(new Set());
-    const [selectedStudentType, setSelectedStudentType] = useState(new Set()); // 存储选定的学员类型
-  
-  const handleInputChange = (event) => {
+    // const [selectedStudentType, setSelectedStudentType] = useState(new Set()); // 存储选定的学员类型
+    const studentFormData = useSelector((state) => state.root.save.fileName.newJsonData[1].stuDetail);
+    console.log("studentFormData", studentFormData)
+
+
+    
+    const handleInputChange = (event) => {
     const { name, options, value } = event.target;
   
     if (name === "reserveStu") {
@@ -34,11 +36,6 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
               .map((option) => option.value)
           : [value], // 如果用户未选择任何选项，则使用当前值
       }));
-  
-      // 根据所选学员名称在 matchingStudents 中查找相应的学员信息
-      // const selectedStudentInfo = matchingStudents.find((student) => student.stuName === value);
-      // // 更新选中的学员信息
-      // setSelectedStudents(selectedStudentInfo);
     } else {
       // 对于其他表单字段，正常更新
       setReserveForm((prevForm) => ({
@@ -53,19 +50,14 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
    useEffect(() => {
     const newClassID = props.classes.classID;
     const newMatchingStudents = new Set(); // 使用 Set 来确保唯一性
-    const newClassType = props.classes.courseType;
-    const newMatchingType = new Set(); 
-    jsonData.find((item) => item.category === 'student').stuDetail.forEach((student) => {
+
+    // 假设您可以从 props 中获取学生数据
+    const studentData = studentFormData;
+    studentData.forEach((student) => {
+    // jsonData.find((item) => item.category === 'student').stuDetail.forEach((student) => {
       student.buyDetail.forEach((buyInfo) => {
         if (buyInfo.classID === newClassID ) { //ClassID一樣就放進來
           newMatchingStudents.add({
-            stuName: student.stuName,
-            stuID: student.stuID,
-            courseType: buyInfo.courseType,
-          });
-        }
-        if( buyInfo.courseType === newClassType){ //courseType是團課的放進來
-          newMatchingType.add({
             stuName: student.stuName,
             stuID: student.stuID,
             courseType: buyInfo.courseType,
@@ -75,25 +67,23 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
     });
   
     setMatchingStudents(Array.from(newMatchingStudents));
-    setSelectedStudentType(Array.from(newMatchingType));
-  }, [props.classes.classID,props.classes.courseType]);
+  }, [props.classes.classID]);
 
-  // console.log('newMatchingStudents:', matchingStudents);
-  // console.log('newMatchingType:', selectedStudentType);
 
 const handleSubmit = () => {
+  if (courseLeft > 0) {
   // 获取当前用户选择的学员名称
-  dispatch(updateReserveTime(reserveForm));
   const selectedStudentNames = reserveForm.reserveStu;
   //找當前classID裡面的reserveID
-  const selectedClass = jsonData.find((item) => item.category === 'class').classDetail.find((classItem) => classItem.classID === props.classes.classID);
+  const selectedClass = props.classes; // 假设 props.classes 包含了目标 class 的信息
   if (selectedClass) {
-    const existingReserveIDs = selectedClass.reserveDetail.flatMap((reserve) => parseInt(reserve.reserveID));
+    const reserveDetail = selectedClass.reserveDetail || []; // 获取目标 class 的 reserveDetail 数组，如果不存在则创建一个空数组
+    const existingReserveIDs = reserveDetail.map((reserve) => reserve.reserveID); // 提取已有的 reserveID 数组
     // 计算新的reserveID
-    const newReserveID = (existingReserveIDs.length > 0 ? (Math.max(...existingReserveIDs) + 1) : 1).toString();
+    let newReserveID = (existingReserveIDs.length > 0 ? (Math.max(...existingReserveIDs) + 1) : 1).toString();
   
   // 创建用于新预约数据的对象
-  const newReserveData = {
+  let newReserveData = {
     reserveID: newReserveID,
     reserveDate: reserveForm.reserveDate,
     reserveTime: reserveForm.reserveTime,
@@ -102,53 +92,31 @@ const handleSubmit = () => {
     note: "",
     student: [], // 将在下面更新
   };
-
+  const courseType = props.classes.courseType;
   // 更新 reserveDetail > student 
   selectedStudentNames.forEach((selectedStudentName) => {
-    let selectedStudentInfo;
-  
-    // 根据课程类型来选择要添加到学员信息的来源
-    if (props.classes.courseType === '團課') {
-      selectedStudentInfo = selectedStudentType.find(
-        (student) => student.stuName === selectedStudentName
-      );
-    } else {
-      selectedStudentInfo = matchingStudents.find(
-        (student) => student.stuName === selectedStudentName
-      );
-    }
-  
+    let selectedStudentInfo = matchingStudents.find(
+      (student) => student.stuName === selectedStudentName
+    );
+    
     if (selectedStudentInfo) {
       newReserveData.student.push({
         stuID: selectedStudentInfo.stuID,
-        courseType: selectedStudentInfo.courseType,
         stuName: selectedStudentInfo.stuName,
+        courseType: courseType, // 将 courseType 添加到学员信息中
       });
     }
   });
  
-  const updatedJsonData = [...jsonData];
-
-  updatedJsonData.find((item) => item.category === 'class').classDetail.forEach((classItem) => {
-    if (classItem.classID === props.classes.classID) { // 替换为你的实际目标 classID
-      if (!classItem.reserveDetail) {
-        classItem.reserveDetail = []; // 如果没有 reserveDetail 数组，先创建一个
-      }
-
-      // classItem.reserveDetail.push(newReserveData);
-      // setTableData(classItem.reserveDetail);
       dispatch(updateTableData([...tableData, newReserveData]))
       dispatch(addReserveTableData({data: [...tableData, newReserveData], classID: id}));
+      setReserveForm(initialFormData);
     } 
-  });
-
-  // 清除表单数据（可选）
-  setReserveForm(initialFormData);
-
-  console.log(updatedJsonData);
-  
+  }else{
+    alert('剩餘堂數已經為0，無法預約。');
   }
-};
+  };
+
     return (
       <div className="reservetab">
         <p className="reserveboxtitle">學員預約</p>
@@ -170,10 +138,9 @@ const handleSubmit = () => {
             <p className="rstitle col-3">時間：</p>
             <div className="DatePicksTitle col-9">
                 <input 
-                  id="startDate" 
+                  id="startTime" 
                   class="form-control" 
-                  type="text"
-                  placeholder="例：09:00-11:00"
+                  type="time"
                   name="reserveTime"
                   value={reserveForm.reserveTime}
                   onChange={handleInputChange}
@@ -190,21 +157,15 @@ const handleSubmit = () => {
                value={reserveForm.reserveStu} // 存储选中的学员名称的数组 
               onChange={handleInputChange}
             >
-              {props.classes.courseType === '團課'
-                ? Array.from(selectedStudentType).map((student) => (
-                    <option key={student.stuID} value={student.stuName}>
-                      {student.stuName}
-                    </option>
-                  ))
-                : Array.from(matchingStudents).map((student) => (
-                    <option key={student.stuID} value={student.stuName}>
-                      {student.stuName}
-                    </option>
-                  ))}
+               {Array.from(matchingStudents).map((student) => (
+                <option key={student.stuID} value={student.stuName}>
+                  {student.stuName}
+                </option>
+              ))}
             </select>
             </div>
           </div>
-       <div className="mb-4">
+        <div className="mb-4">
             <button 
               type="button" 
               className="btn btn-golden"

@@ -12,12 +12,18 @@ function ClassTableDetail({classes}) {
     useEffect(() => {
       const updatedClassStatus = classes.map((item, index) => {
         const nowStatus = getStatusText(item.buyDate);
-        if (item.status !== nowStatus) {
+        if (item.status !== nowStatus && item.courseType !="場地租借") {
           return {
             ...item,
             status: nowStatus,
           };
         }
+        else if (item.courseType =="場地租借"){
+            return {
+              ...item,
+              status: "無期限",
+            };
+          }
         return item;
       });
       console.log("newClassStatus", updatedClassStatus);
@@ -31,7 +37,7 @@ function ClassTableDetail({classes}) {
     
         if (cell.getValue()  == '快要截止') e = <span style={{backgroundColor:"#dee2e6", padding:"10px", borderRadius:'5px'}}>{cell.getValue()}</span>
         else if (cell.getValue()  == '已截止') e = <span style={{backgroundColor:"#F16D6D", padding:"10px", borderRadius:'5px', color:"white"}}>{cell.getValue()}</span>
-        else e = <div>-</div>
+        else e = <div>{cell.getValue()}</div>
         
         return e
     }

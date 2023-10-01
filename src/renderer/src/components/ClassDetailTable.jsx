@@ -282,6 +282,7 @@ function ClassDetailTable({
           {
             id:"delete",
             header:"刪除",
+            align: 'left',
             Cell:({ row }) => {
               return <>
               <Box sx={{ display: 'flex' }}>
@@ -308,7 +309,7 @@ function ClassDetailTable({
               },
             id:"attendanceStu",
             header:"上課學生",
-            size:150,
+            size:100,
             enableEditing: false
         },
         {
@@ -320,7 +321,7 @@ function ClassDetailTable({
         {
             accessorKey:"reserveTime",
             header:"時間",
-            size:100,
+            size:150,
         },
         {
             accessorKey:"attandence",
@@ -378,7 +379,8 @@ function ClassDetailTable({
             displayColumnDefOptions={{
               'mrt-row-actions': {
                 header: '編輯', //change "Actions" to "Edit"
-                size: 50
+                size: 50,
+                align: 'left'
                 //use a text button instead of a icon button
                 // Cell: ({ row, table }) => (
                 //   <button onClick={() => table.setEditingRow(row)}>Edit Customer</button>

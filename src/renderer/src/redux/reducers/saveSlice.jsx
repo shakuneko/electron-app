@@ -38,7 +38,19 @@ const saveSlice = createSlice({
       } 
       state.oldHash = state.currentPageHash
     },
-    setStudentFormSave: (state, action) => {
+    setClassFormSave: (state, action) => { //傳課程表單資料
+      console.log('setclassForm Action:', action.payload)
+      console.log("addReserveTableData state", current(state.fileName.newJsonData[0]));
+      let current_state = current(state)
+      let classdata = current_state.fileName.newJsonData[0]
+      const newData = classdata = {
+            ...classdata,
+            classDetail: action.payload.data
+      }
+      state.fileName.newJsonData[0] = newData
+      console.log("setCoachFormSave state", current(state));
+    },
+    setStudentFormSave: (state, action) => { //傳學員表單資料
       console.log('setStudentForm Action:', action.payload)
       console.log("addReserveTableData state", current(state.fileName.newJsonData[1]));
       let current_state = current(state)
@@ -51,7 +63,7 @@ const saveSlice = createSlice({
       state.fileName.newJsonData[1] = newData
       console.log("setCoachForm state", current(state));
     },
-    setCoachFormSave: (state, action) => {
+    setCoachFormSave: (state, action) => { //傳教練表單資料
       console.log('setCoachForm Action:', action.payload)
       console.log("addReserveTableData state", current(state.fileName.newJsonData[2]));
       let current_state = current(state)
@@ -63,6 +75,28 @@ const saveSlice = createSlice({
       state.fileName.newJsonData[2] = newData
       console.log("setCoachFormSave state", current(state));
     },
+    addNewBuyDetail: (state, action) => { //student>buydetail
+      const { selectedStudentName,selectedStudentName2 ,newBuyDetail } = action.payload;
+      const selectedStudent = state.fileName.newJsonData[1].stuDetail.find((student) => student.stuName === selectedStudentName);
+      const selectedStudent2 = state.fileName.newJsonData[1].stuDetail.find((student)=> student.stuName === selectedStudentName2);
+      if (selectedStudent) {
+        // selectedStudent.buyDetail.push(newBuyDetail);
+        selectedStudent.buyDetail = [...selectedStudent.buyDetail, newBuyDetail];
+      }
+      if (selectedStudent2) {
+        // selectedStudent.buyDetail.push(newBuyDetail);
+        selectedStudent2.buyDetail = [...selectedStudent2.buyDetail, newBuyDetail];
+      }
+    },
+    addTeachClass: (state, action) => {  //coach>coachDetail>TeachClass
+      const { selectedCoachName, newTeachClass } = action.payload;
+      const selectedCoach = state.fileName.newJsonData[2].coachDetail.find((coach) => coach.coachName === selectedCoachName);
+      if (selectedCoach) {
+        selectedCoach.teachClass = [...selectedCoach.teachClass, newTeachClass];
+        // selectedCoach.teachClass.push(newTeachClass);
+      }
+    },
+
     addReserveTableData: (state, action) => {
       // console.log("addReserveTableData payload", action.payload);
       // console.log("addReserveTableData state", state);
@@ -116,6 +150,7 @@ const saveSlice = createSlice({
       state.fileName.newJsonData = newData;
       console.log("upDateStuCourse state", current(state));
     },
+
     updateLastMonthRevenue:(state, action) => {
       state.fileName.newJsonData = action.payload;
       console.log("setNewRevenue", state.fileName.newJsonData)
@@ -136,6 +171,7 @@ const saveSlice = createSlice({
       console.log("updateClassStatus state", current(state));
 
     },
+
     // //other reducers
    
   }
@@ -150,7 +186,10 @@ export const selectIsSamePage = (state) => state.root.save.isSameObject
 
 
 // export actions to global
-export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse, upDateStuCourse, setStudentFormSave,setCoachFormSave,updateLastMonthRevenue,updateClassStatus } = saveSlice.actions
+
+export const { checkPageHash, setFileName, setHasinit, addReserveTableData, upDateClassCourse,upDateStuCourse,setStudentFormSave,setCoachFormSave,setClassFormSave,addNewBuyDetail,addTeachClass,updateLastMonthRevenue,updateClassStatus} = saveSlice.actions
+
+
 
 // export reducer to global
 export default saveSlice.reducer

@@ -15,19 +15,7 @@ const initialState = {
       buyDetail: [],
     },
   };
-//   const formSlice = createSlice({
-//     name: 'form',
-//     initialState,
-//     reducers: {
-//       updateStuForm: (state, action) => {
-//         state.jsonDate = [...state.jsonDate, action.payload];
-//       },
-//     },
-//   });
-  
-//   export const { updateStuForm } = formSlice.actions;
-  
-//   export default formSlice.reducer;
+
   const formReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'UPDATE_STU_FORM':
@@ -46,3 +34,17 @@ const initialState = {
   };
   
   export default formReducer;
+
+  //   const formSlice = createSlice({
+//     name: 'form',
+//     initialState,
+//     reducers: {
+//       updateStuForm: (state, action) => {
+//         state.jsonDate = [...state.jsonDate, action.payload];
+//       },
+//     },
+//   });
+  
+//   export const { updateStuForm } = formSlice.actions;
+  
+//   export default formSlice.reducer;

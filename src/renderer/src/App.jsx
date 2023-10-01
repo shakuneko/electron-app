@@ -127,8 +127,8 @@ function App() {
         <Route path="/revenue" element={<Revenue classes={fileContent.newJsonData} />} />
 
         <Route path="classes">
-          <Route path="form" element={<ClassForm />} />
-          <Route path="id/:id" element={<ClassDetail classes={fileContent.newJsonData} />} />
+          <Route path="form" element={<ClassForm classes={fileContent.newJsonData}/>} />
+          <Route path="id/:id" element={<ClassDetail classes={fileContent.newJsonData}/>} />
         </Route>
 
         <Route path="/student">

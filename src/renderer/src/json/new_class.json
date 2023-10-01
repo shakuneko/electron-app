@@ -11,6 +11,7 @@
         "coursesFIN": "4",
         "courseLeft": "6",
         "courseFlag": [],
+        "floor":"",
         "reserveDetail": [
           {
             "reserveID": "1",
@@ -107,6 +108,7 @@
         "coursesFIN": "1",
         "courseLeft": "0",
         "courseFlag": [],
+        "floor":"",
         "reserveDetail": [
           {
             "reserveID": "1",
@@ -150,6 +152,7 @@
         "coursesFIN": "2",
         "courseLeft": "8",
         "courseFlag": [],
+        "floor":"",
         "reserveDetail": [
           {
             "reserveID": "1",
@@ -209,6 +212,7 @@
         "coursesFIN": "8",
         "courseLeft": "2",
         "courseFlag": [],
+        "floor":"",
         "reserveDetail": [
           {
             "reserveID": "1",
@@ -240,6 +244,50 @@
           {
             "coachID": "2",
             "coachName": "B"
+          }
+        ]
+      },
+      {
+        "classID": "5",
+        "courseType": "場地租借",
+        "buyDate": "2023-01-23",
+        "exCourse": "否",
+        "coursesAll": "10",
+        "coursesFIN": "8",
+        "courseLeft": "2",
+        "courseFlag": [],
+        "floor":"二樓",
+        "reserveDetail": [
+          {
+            "reserveID": "1",
+            "reserveDate": "2023/9/20",
+            "reserveTime": "09:00-11:00",
+            "reserveStu": [],
+            "cancel": "-",
+            "attandence": "-",
+            "note": "----",
+            "student": [
+              {
+                "stuID": "4",
+                "courseType": "場地租借",
+                "stuName": "A"
+              }
+            ]
+          }
+        ],
+        "status": "-",
+        "classNote": "不限期",
+        "student": [
+          {
+            "stuID": "4",
+            "courseType": "場地租借",
+            "stuName": "A"
+          }
+        ],
+        "coach": [
+          {
+            "coachID": "5",
+            "coachName": "一樓租借處"
           }
         ]
       }
@@ -367,6 +415,36 @@
             "buyNote": "!!"
           }
         ]
+      },
+      {
+        "stuID": "4",
+        "createDate": "2023/08/23",
+        "stuName": "A",
+        "stuGender": "男",
+        "stuNote": "教練自己人",
+        "stuPhone": "0928-532-816",
+        "stuEmail": "",
+        "stuAddress": "",
+        "stuContact": "",
+        "stuRelation": "",
+        "stuContact_tel": "",
+        "buyDetail": [
+          {
+            "classID": "5",
+            "courseType": "場地租借",
+            "coachName": "一樓租借處",
+            "coursesAll": "10",
+            "coursesFIN": "2",
+            "courseLeft": "8",
+            "preCourseLeft": "9",
+            "payMethod": "無",
+            "invoiceNum": "12345678",
+            "buyDate": "2023/09/10",
+            "exCourse": "否",
+            "coursePrice": "0",
+            "buyNote": "!!"
+          }
+        ]
       }
     ]
   },
@@ -473,6 +551,32 @@
         "teachClass": [
           {
             "classID": "3"
+          }
+        ],
+        "selectedItem": null
+      },
+      {
+        "coachID": "5",
+        "coachName": "一樓租借處",
+        "coachGender": "男",
+        "coachIDcode": "",
+        "coachEmail": "",
+        "coachAddress": "",
+        "coachBank": "",
+        "coachContact": "",
+        "coachRelation": "",
+        "coachContact_tel": "",
+        "coachNote": "",
+        "coachPhone": "0900-000-111",
+        "major": ["場地租借"],
+        "joinDate": "2022/10/30",
+        "PtSalary": "0",
+        "GroupSalary": "0",
+        "MassageSalary": "0",
+        "PilatesSalary": "0",
+        "teachClass": [
+          {
+            "classID": "5"
           }
         ],
         "selectedItem": null
