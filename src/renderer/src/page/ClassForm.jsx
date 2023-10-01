@@ -344,7 +344,7 @@ useEffect(() => {
         </div>
         <div className="col-10 new_class">
           <div className="title_word">
-            <p>新增課程</p>
+            <h1>新增課程</h1>
           </div>
          
           <form className="form"  onSubmit={handleSubmit}>

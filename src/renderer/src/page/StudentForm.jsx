@@ -121,7 +121,7 @@ function StudentForm(props){
         </div>
         <div className="col-10 new_class">
           <div className="title_word">
-            <p>新增學員</p>
+            <h1>新增學員</h1>
           </div>
             <form className="form" onSubmit={handleSubmit}>
             <div class="form-group">
