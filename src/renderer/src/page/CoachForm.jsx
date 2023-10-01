@@ -160,7 +160,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
         </div>
         <div className="col-10 new_class2">
           <div className="title_word">
-            <p>新增教練</p>
+            <h1>新增教練</h1>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
             <div class="form-group">
