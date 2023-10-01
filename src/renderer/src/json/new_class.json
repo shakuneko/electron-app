@@ -542,7 +542,7 @@
         "coachContact_tel": "",
         "coachNote": "",
         "coachPhone": "0900-000-111",
-        "major": ["PT", "皮拉提斯", "運動按摩", "團課"],
+        "major": ["PT", "皮拉提斯", "運動按摩"],
         "joinDate": "2022/10/30",
         "PtSalary": "650",
         "GroupSalary": "650",
@@ -585,32 +585,7 @@
   },
   {
     "category": "revenue",
-    "revenueDetail": [
-      {
-        "revenueDateMonth": "2023/07",
-        "revenueList": [
-          {
-            "totalLeftSalary": 21000,
-            "classLeft": 6,
-            "classType": "皮拉提斯"
-          },
-          {
-            "totalLeftSalary": 11500,
-            "classLeft": 2,
-            "classType": "PT"
-          },
-          {
-            "totalLeftSalary": 11000,
-            "classLeft": 3,
-            "classType": "團課"
-          },
-          {
-            "totalLeftSalary": 12000,
-            "classLeft": 0,
-            "classType": "運動按摩"
-          }
-        ]
-      },
+    "revenueDetail": [ 
       {
         "revenueDateMonth": "2023/08",
         "revenueList": [
@@ -626,12 +601,37 @@
           },
           {
             "totalLeftSalary": 11500,
-            "classLeft": 2,
-            "classType": "團課"
+            "classLeft": 0,
+            "classType": "場地租借"
           },
           {
             "totalLeftSalary": 15000,
             "classLeft": 0,
+            "classType": "運動按摩"
+          }
+        ]
+      },
+      {
+        "revenueDateMonth": "2023/09",
+        "revenueList": [
+          {
+            "totalLeftSalary": 21000,
+            "classLeft": 6,
+            "classType": "皮拉提斯"
+          },
+          {
+            "totalLeftSalary": 11500,
+            "classLeft": 2,
+            "classType": "PT"
+          },
+          {
+            "totalLeftSalary": 11000,
+            "classLeft": 0,
+            "classType": "場地租借"
+          },
+          {
+            "totalLeftSalary": 12000,
+            "classLeft": 2,
             "classType": "運動按摩"
           }
         ]

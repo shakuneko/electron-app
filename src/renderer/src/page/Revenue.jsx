@@ -24,7 +24,28 @@ function Revenue({ classes }) {
   let lastMonth = '沒有資料'
   let lastMonthCourse = '沒有資料'
   let lastMonthRevenue = '沒有資料'
-  let lastMonthRevenueTable = []
+  let lastMonthRevenueTable = [
+    {
+      "totalLeftSalary": 0,
+      "classLeft": 0,
+      "classType": "皮拉提斯"
+    },
+    {
+      "totalLeftSalary": 0,
+      "classLeft": 0,
+      "classType": "PT"
+    },
+    {
+      "totalLeftSalary": 0,
+      "classLeft": 0,
+      "classType": "場地租借"
+    },
+    {
+      "totalLeftSalary": 0,
+      "classLeft": 0,
+      "classType": "運動按摩"
+    }
+  ]
   nJson.forEach((category) => {
     if (category.category === 'revenue') {
       category.revenueDetail.forEach((revenueData) => {
@@ -98,7 +119,7 @@ function Revenue({ classes }) {
           // 计算薪资乘以 coursesAll，并存储到 Map 中
           coachSalaryMap.set(coachID, {
             ptSalary: courseType === 'PT' ? ptSalary * coursesAll : 0,
-            groupSalary: courseType === '團課' ? groupSalary * coursesAll : 0,
+            groupSalary: courseType === '場地租借' ? groupSalary * coursesAll : 0,
             massageSalary: courseType === '運動按摩' ? massageSalary * coursesAll : 0,
             pilatesSalary: courseType === '皮拉提斯' ? pilatesSalary * coursesAll : 0
           })
@@ -287,7 +308,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
               case 'PT':
                 coachSalary = coachData.coachDetail[0].PtSalary || 0
                 break
-              case '團課':
+              case '場地租借':
                 coachSalary = coachData.coachDetail[0].GroupSalary || 0
                 break
               case '運動按摩':
@@ -302,7 +323,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
 
             if (classItem.courseType === 'PT') {
               totalLeftPtClass += courseLeft
-            } else if (classItem.courseType === '團課') {
+            } else if (classItem.courseType === '場地租借') {
               totalLeftGroupClass += courseLeft
             } else if (classItem.courseType === '運動按摩') {
               totalLeftMassageClass += courseLeft
@@ -341,7 +362,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
   //-------------------------------------------------------------------計算未核銷堂數並以課程分類
   const classLeftData = {
     PT: totalLeftPtClass,
-    團課: totalLeftGroupClass,
+    場地租借: totalLeftGroupClass,
     運動按摩: totalLeftMassageClass,
     皮拉提斯: totalLeftPilatesClass
   }
@@ -399,7 +420,7 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
               case 'PT':
                 coachSalary = coachData.coachDetail[0].PtSalary || 0
                 break
-              case '團課':
+              case '場地租借':
                 coachSalary = coachData.coachDetail[0].GroupSalary || 0
                 break
               case '運動按摩':
@@ -822,7 +843,10 @@ console.log("BBBC課程未上課次數（未核銷堂數）：", courseLeftByMon
               <div className="col-6">
                 <div>未核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {totalSumLeft} / {courseLeftByMonth}堂
+                  {/*new*/}
+                  {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
+                  {/*old*/}
+                  $ {totalSumLeft} / {totalLeftCourseCount}堂
                 </h1>
               </div>
             </div>
