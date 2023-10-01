@@ -149,6 +149,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="date" 
                       name="joinDate"
                       class="form-select" 
+                      required
                       value={coachForm.joinDate}
                       onChange={handleInputChange}
                     ></input>
