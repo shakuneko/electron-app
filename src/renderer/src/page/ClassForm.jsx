@@ -308,6 +308,7 @@ const newTeachClass ={
    // 清除表单数据为初始状态
    setClassForm(initialFormData);
    setErrorMessage("");
+   setSelectedOption("");
   //  console.log(jsonData);
    console.log(updatedClassData);
    console.log('FileName Data:', fileNameData);
