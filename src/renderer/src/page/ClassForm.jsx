@@ -170,6 +170,7 @@ const handleRadioChange = (event, page) => {
 };
 //付款方式按鈕
 const [selectedOption, setSelectedOption] = useState(); // 用于存储选中的选项
+const [errorMessage, setErrorMessage] = useState(""); // 用于显示错误消息
 const handleItemClick = (item, page) => {
   // 判断是否点击了相同的按钮，如果是，取消选择，否则选择新的按钮
   if (selectedOption === item) {
@@ -201,6 +202,12 @@ const handleSubmit = (event) => {
   const addStudentName1 = classForm[currentPage].stuName;
   let addStudentName2 = '';
 
+  //未選擇按鈕的警示
+  if (!selectedOption) {
+    setErrorMessage("請選擇購買方式");
+    return; // 阻止表单提交
+  }
+ 
  if (currentPage === 'page1') {
   addStudentName2 = classForm[currentPage].stuName2;
 }
@@ -300,7 +307,7 @@ const newTeachClass ={
 
    // 清除表单数据为初始状态
    setClassForm(initialFormData);
-
+   setErrorMessage("");
   //  console.log(jsonData);
    console.log(updatedClassData);
    console.log('FileName Data:', fileNameData);
@@ -514,6 +521,7 @@ useEffect(() => {
                             label="是"
                             checked={classForm.page1.exCourse === '是'}
                             onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称 
+                            required
                           >
                           </Radio>
                           </div>
@@ -524,6 +532,7 @@ useEffect(() => {
                             label="否"
                             checked={classForm.page1.exCourse === '否'}
                             onChange={(e) => handleRadioChange(e, 'page1')} // 传递页面名称    
+                            required
                           ></Radio>
                           </div>
                           <div className="select">
@@ -552,6 +561,9 @@ useEffect(() => {
                           ></textarea>
                         </div>  
                     </div>
+                    {errorMessage && (
+                      <div className="error-message">{errorMessage}</div>
+                    )}
                     <div class="form-group3">
                         <button type="submit" class="btn btn-golden" >新增</button>
                     </div>
@@ -697,6 +709,7 @@ useEffect(() => {
                             label="是"
                             checked={classForm.page2.exCourse === '是'}
                             onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称 
+                            required
                           >
                           </Radio>
                           </div>
@@ -706,7 +719,8 @@ useEffect(() => {
                             value="否"
                             label="否"
                             checked={classForm.page2.exCourse === '否'}
-                            onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称    
+                            onChange={(e) => handleRadioChange(e, 'page2')} // 传递页面名称   
+                            required 
                           ></Radio>
                           </div>
                           <div className="select">
@@ -715,6 +729,7 @@ useEffect(() => {
                               class="form-select"
                               name="exCoursePrice"
                               placeholder="體驗課金額(不是體驗課請填0)"
+                              required
                               value={classForm.page2.exCoursePrice}
                               onChange={(e) =>
                                 handleInputChange(e, 'page2')}
@@ -735,6 +750,9 @@ useEffect(() => {
                             ></textarea>
                           </div>  
                       </div>
+                      {errorMessage && (
+                      <div className="error-message">{errorMessage}</div>
+                      )}
                       <div class="form-group3">
                         <button type="submit" class="btn btn-golden" >新增</button>
                       </div>
@@ -880,6 +898,7 @@ useEffect(() => {
                             label="是"
                             checked={classForm.page3.exCourse === '是'}
                             onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称 
+                            required
                           >
                           </Radio>
                           </div>
@@ -889,7 +908,8 @@ useEffect(() => {
                             value="否"
                             label="否"
                             checked={classForm.page3.exCourse === '否'}
-                            onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称    
+                            onChange={(e) => handleRadioChange(e, 'page3')} // 传递页面名称   
+                            required 
                           ></Radio>
                           </div>
                           <div className="select">
@@ -898,6 +918,7 @@ useEffect(() => {
                               class="form-select"
                               name="exCoursePrice"
                               placeholder="體驗課金額(不是體驗課請填0)"
+                              required
                               value={classForm.page3.exCoursePrice}
                               onChange={(e) => handleInputChange(e, 'page3')}
                             ></input>
@@ -917,6 +938,9 @@ useEffect(() => {
                             ></textarea>
                           </div>  
                       </div>
+                      {errorMessage && (
+                      <div className="error-message">{errorMessage}</div>
+                      )}
                       <div class="form-group3">
                         <button type="submit" class="btn btn-golden" >新增</button>
                       </div>
@@ -948,7 +972,7 @@ useEffect(() => {
                                 value={classForm.page4.coachName}
                                 onChange={(e) => handleInputChange(e, 'page4')}
                               >
-                                <option value="" disabled hidden>-</option>
+                                  <option value="" disabled hidden>-</option>
                                   {coachNames.map((name) => (
                                   <option key={name} value={name}>
                                   {name}
@@ -967,7 +991,7 @@ useEffect(() => {
                             value={classForm.page4.stuName}
                             onChange={(e) => handleInputChange(e, 'page4')} 
                           >
-                              <option value="" disabled hidden>-</option>
+                                <option value="" disabled hidden>-</option>
                                 {studentNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -1084,6 +1108,9 @@ useEffect(() => {
                               ></textarea>
                             </div>  
                         </div>
+                        {errorMessage && (
+                        <div className="error-message">{errorMessage}</div>
+                        )}
                         <div class="form-group3">
                           <button type="submit" class="btn btn-golden">新增</button>
                         </div>
