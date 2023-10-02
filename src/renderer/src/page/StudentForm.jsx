@@ -58,20 +58,6 @@ function StudentForm(props){
   // 提交表單的函數
   const handleSubmit = (event) => {
     event.preventDefault();  
-    if (
-      stuForm.stuName === "" ||
-      stuForm.stuGender === "" ||
-      stuForm.stuPhone === "" ||
-      stuForm.stuEmail === "" ||
-      stuForm.stuAddress === "" ||
-      stuForm.stuContact === "" ||
-      stuForm.stuRelation === "" ||
-      stuForm.stuContact_tel === "" ||
-      stuForm.stuNote === ""
-    ) {
-      alert("請確認資料都已填寫完成");
-      return;
-    }
     // 在這裡處理表單提交的邏輯，可以使用formData中的值
     console.log('表单数据：', stuForm);
 
@@ -125,60 +111,63 @@ function StudentForm(props){
           </div>
             <form className="form" onSubmit={handleSubmit}>
             <div class="form-group">
-                    <label for="exampleInputEmail1">建檔日期:</label>
+                    <label>建檔日期:</label>
                     <div className="select">
                     <input 
                       id="tel" 
                       type="date" 
                       name="createDate"
                       class="form-select" 
-                      // placeholder="例如：2023/09/23"
+                      required
                       value={stuForm.createDate}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">姓名:</label>
+                    <label>姓名:</label>
                     <div className="select">
                     <input 
                       id="name" 
                       name="stuName"
                       type="text" 
                       class="form-select" 
+                      required
                       value={stuForm.stuName}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">性別:</label>
+                    <label>性別:</label>
                     <div className="select">
                     <input 
                       id="gender"
                       type="text" 
                       name="stuGender"
                       class="form-select" 
+                      required
                       value={stuForm.stuGender}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">電話:</label>
+                    <label>電話:</label>
                     <div className="select">
                     <input 
                       id="tel" 
                       type="text" 
                       name="stuPhone"
                       class="form-select" 
+                      required
                       value={stuForm.stuPhone}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email:</label>
+                    <label>Email:</label>
                     <div className="select">
                     <input 
                       id="email"
@@ -192,59 +181,63 @@ function StudentForm(props){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">地址:</label>
+                    <label>地址:</label>
                     <div className="select">
                     <input 
                       id="address" 
                       type="text" 
                       name="stuAddress"
                       class="form-select"  
+                      required
                       value={stuForm.stuAddress}
                       onChange={handleInputChange}  
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">緊急連絡人姓名:</label>
+                    <label>緊急連絡人姓名:</label>
                     <div className="select">
                     <input 
                       id="contact" 
                       type="text" 
                       name="stuContact"
                       class="form-select" 
+                      required
                       value={stuForm.stuContact}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">您與他的關係:</label>
+                    <label>您與他的關係:</label>
                     <div className="select">
                     <input 
                       id="relation" 
                       type="text" 
                       name="stuRelation"
                       class="form-select" 
+                      required
                       value={stuForm.stuRelation}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">緊急連絡人電話:</label>
+                    <label>緊急連絡人電話:</label>
                     <div className="select">
                     <input 
                       id="contact_tel" 
                       type="text" 
                       name="stuContact_tel"
                       class="form-select" 
+                      required
                       value={stuForm.stuContact_tel}
                       onChange={handleInputChange} 
                     ></input>
                     </div>
                 </div>
                 <div class="form-group2">
-                    <label for="exampleInputPassword1">備註:</label>
+                    <label>備註:</label>
                     <div className="select">
                     <textarea 
                       id="note" 
