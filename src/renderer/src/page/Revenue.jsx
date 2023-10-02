@@ -16,11 +16,11 @@ function Revenue({ classes }) {
   //time date使用及判斷
   // 获取当前日期和时间
   const currentDateTime = DateTime.now()
-  const formattedCurrentDateTime = currentDateTime.toFormat('yyyy/MM')
+  const formattedCurrentDateTime = currentDateTime.toFormat('yyyy-MM')
   // 减一個月
   const previousMonthDateTime = currentDateTime.minus({ months: 1 })
   // 格式化日期为 "yyyy/MM"
-  const formattedDate = previousMonthDateTime.toFormat('yyyy/MM')
+  const formattedDate = previousMonthDateTime.toFormat('yyyy-MM')
   let lastMonth = '沒有資料'
   let lastMonthCourse = '沒有資料'
   let lastMonthRevenue = '沒有資料'
@@ -168,12 +168,12 @@ function Revenue({ classes }) {
           }
 
           // 解析日期為月份 "yyyy/MM"
-          const dateParts = buyDate.split('/')
+          const dateParts = buyDate.split('-')
           if (dateParts.length !== 3) {
             // 如果日期格式不正确，则跳过此项
             return
           }
-          const month = dateParts.slice(0, 2).join('/')
+          const month = dateParts.slice(0, 2).join('-')
 
           // 如果月份不存在，创建一个月份的记录
           if (!coursePriceByMonth[month]) {
@@ -219,9 +219,9 @@ function Revenue({ classes }) {
         if (classItem.reserveDetail) {
           classItem.reserveDetail.forEach((reserveItem) => {
             // 解析日期为月份 "yyyy/MM"
-            const dateParts = reserveItem.reserveDate.split('/')
+            const dateParts = reserveItem.reserveDate.split('-')
             if (dateParts.length === 3) {
-              const month = dateParts.slice(0, 2).join('/')
+              const month = dateParts.slice(0, 2).join('-')
               // 如果月份不存在，创建一个月份的记录并初始化计数为0
               if (!classCountByMonth[month]) {
                 classCountByMonth[month] = 0
@@ -250,7 +250,7 @@ function Revenue({ classes }) {
       item.classDetail.forEach((classItem) => {
         const buyDate = classItem.buyDate.split('-')
         if (buyDate.length === 3) {
-          const month = buyDate.slice(0, 2).join('/')
+          const month = buyDate.slice(0, 2).join('-')
           // 如果月份不存在，创建一个月份的记录并初始化计数为0
           if (!courseAllByMonth[month]) {
             courseAllByMonth[month] = 0
@@ -404,7 +404,7 @@ function Revenue({ classes }) {
         // 遍历课程的 reserveDetail 数组
         classItem.reserveDetail.forEach((reserve) => {
           // 获取 reserveDate 的月份部分
-          const reserveMonth = reserve.reserveDate.split('/')[0] + '/' + reserve.reserveDate.split('/')[1]
+          const reserveMonth = reserve.reserveDate.split('-')[0] + '-' + reserve.reserveDate.split('-')[1]
           // 检查月份是否与当前月份匹配，并且 attandence 是否为 "是"
           if (reserveMonth === formattedCurrentDateTime && reserve.attandence === '是') {
             // 如果匹配，则增加计数
@@ -567,7 +567,7 @@ function Revenue({ classes }) {
         classItem.reserveDetail.forEach((reserve) => {
           // 获取 reserveDate 的月份部分
           const reserveMonth =
-            reserve.reserveDate.split('/')[0] + '/' + reserve.reserveDate.split('/')[1]
+            reserve.reserveDate.split('-')[0] + '-' + reserve.reserveDate.split('-')[1]
           // 检查月份是否与当前月份匹配，并且 attandence 是否为 "是"
           if (reserveMonth === formattedCurrentDateTime && reserve.attandence === '是') {
             // 如果匹配，则增加计数
@@ -736,7 +736,7 @@ function Revenue({ classes }) {
   //將上月資料推入array、透過時間判斷---------------------------------------------------
   //save this month data here
   const currentMonthData = {
-    revenueDateMonth: currentDateTime.toFormat('yyyy/MM'), // 自动生成当前年份和月份
+    revenueDateMonth: currentDateTime.toFormat('yyyy-MM'), // 自动生成当前年份和月份
     revenueList: newThisMonthNotCountArray
     // [
     //   {
@@ -807,7 +807,7 @@ function Revenue({ classes }) {
     const revenueMonths = data
       .flatMap((item) => item.revenueDetail || []) // 使用空数组作为默认值，以避免未定义的属性
       .map((revenue) => {
-        const parts = revenue.revenueDateMonth.split('/')
+        const parts = revenue.revenueDateMonth.split('-')
         return DateTime.fromObject({ year: parseInt(parts[0]), month: parseInt(parts[1]) })
       })
 
@@ -854,7 +854,7 @@ function Revenue({ classes }) {
             <h1 className="title">營業額</h1>
             <div>
               <div>總收入/月</div>
-              <h1 className="money-title mt-2 title">$ {totalSalarySum}</h1>
+              <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
             <RevenueSetTable classes={mergeOldAndNew} columns={columnsRevenue} />
@@ -863,7 +863,7 @@ function Revenue({ classes }) {
               <div className="col-6">
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {totalSumFIN} / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂
+                  $ {totalSumFIN?? '0'}  / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂
                   {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
                 </h1>
               </div>
@@ -872,7 +872,7 @@ function Revenue({ classes }) {
                 <h1 className="money-title mt-2 title">
                   {/*new*/}
                   {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
-                  {/*old*/}$ {totalSumLeft} / {totalLeftCourseCount}堂
+                  {/*old*/}$ {totalSumLeft  ?? '0'} / {totalLeftCourseCount  ?? '0'}堂
                 </h1>
               </div>
             </div>
