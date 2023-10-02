@@ -75,14 +75,14 @@ function CoachDetail({ classes }) {
                                     coachValue={coachData} 
                                     classes={classes}
                                 />
-                                <div className="chooseDateBox">
+                                {/* <div className="chooseDateBox">
                                     
-                                    <div className="DatePicksTitle">
+                                    <div className="DatePicksTitle"> */}
                                         {/*<DatePicker onChange={onChange} picker="month" />*/}
                                         {/* date picker here */}
-                                        <input id="startDate" class="form-control" type="month" />
+                                        {/* <input id="startDate" class="form-control" type="month" />
                                     </div>
-                                </div>
+                                </div> */}
 
                                 <div>
                                 <CoachDetailTable 
