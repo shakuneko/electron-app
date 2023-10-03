@@ -264,7 +264,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="number" 
                       class="form-select" 
                       name="PtSalary"
-                      placeholder="請填寫整數數字，例如：1200"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
                       value={coachForm.PtSalary}
                       onChange={handleInputChange}
@@ -278,7 +278,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="number" 
                       class="form-select" 
                       name="PilatesSalary"
-                      placeholder="請填寫整數數字，例如：1200"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
                       value={coachForm.PilatesSalary}
                       onChange={handleInputChange}
@@ -292,7 +292,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="number" 
                       class="form-select" 
                       name="MassageSalary"
-                      placeholder="請填寫整數數字，例如：1200"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
                       value={coachForm.MassageSalary}
                       onChange={handleInputChange}
