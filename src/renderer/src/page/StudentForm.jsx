@@ -107,7 +107,10 @@ function StudentForm(props){
         </div>
         <div className="col-10 new_class">
           <div className="title_word">
-            <h1>新增學員</h1>
+            <div className="title_word2"> 
+              <h1>新增學員</h1>
+              <div className="title_note">(請在此新增上課學員或場租人資料)</div>
+            </div>
           </div>
             <form className="form" onSubmit={handleSubmit}>
             <div class="form-group">

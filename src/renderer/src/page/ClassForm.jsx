@@ -68,6 +68,7 @@ function findCoachIDByName(CoachName) {
     page3: {
       coachName:'',
       stuName: '',
+      coursesAll: '',
       buyDate:'',
       coursePrice:'',
       payMethod:'',
@@ -812,24 +813,23 @@ useEffect(() => {
                             ))}
                           </select>
                         </div>
-                        {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                       </div>
                       <div className="form-group">
-                          <label>堂數:</label>
-                          <div className="select">
-                            <select 
-                              class="form-select" 
-                              name="coursesAll"
-                              required
-                              value={classForm.page3.coursesAll}
-                              onChange={(e) => handleInputChange(e, 'page3')}
-                            >
-                                <option value="" disabled hidden>-</option>
-                                <option value="1">1</option>
-                                <option value="10">10</option>
-                            </select>
-                          </div>
-                      </div>
+                        <label>堂數:</label>
+                        <div className="select">
+                          <select 
+                            class="form-select" 
+                            name="coursesAll"
+                            required
+                            value={classForm.page3.coursesAll}
+                            onChange={(e) => handleInputChange(e, 'page3')}
+                          >
+                              <option value="" disabled hidden>-</option>
+                              <option value="1">1</option>
+                              <option value="10">10</option>
+                          </select>
+                        </div>
+                    </div>
                       <div class="form-group">
                           <label>購買金額:</label>
                           <div className="select">
