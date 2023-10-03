@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import StudentDetailPage from '../components/StudentDetailPage'
 import testClasses from '../json/test_class.json'
+
 // import newJason from '../json/new_class.json'
 
 function StudentDetail({classes}) {

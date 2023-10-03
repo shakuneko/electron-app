@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
 import { getStatusText } from './TableSelectOptions'
-import { useDispatch } from 'react-redux';
-import { updateClassStatus } from '../redux/reducers/saveSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFileName,updateClassStatus } from '../redux/reducers/saveSlice'
 
 function ClassTableDetail({classes}) {
     const dispatch = useDispatch();
     const [newClassStatus, setNewClassStatus] = useState([]);
+
+    const fileNameData = useSelector(selectFileName);
+    const hasStudentData = fileNameData.newJsonData[1].stuDetail.length > 0;
+    const hasCoachData = fileNameData.newJsonData[2].coachDetail.length > 0;
+    
+   // 判断是否两个类别都为空
+   const bothCategoriesEmpty = !hasCoachData && !hasStudentData;
 
     useEffect(() => {
       const updatedClassStatus = classes.map((item, index) => {
@@ -154,10 +161,18 @@ function ClassTableDetail({classes}) {
           }}
         renderTopToolbarCustomActions={({table}) => (
             <div>
-            <Link to="/classes/form" className='table-link-underline-none'>
+            {hasCoachData && hasStudentData ? (
+              <Link to="/classes/form" className='table-link-underline-none'>
                 <button type="button" className="btn btn-golden">新增課程</button> 
-                
-            </Link>
+              </Link>
+            ) : (
+              <div className="addclass">
+                <button type="button" className="btn btn-golden" disabled>
+                  新增課程
+                </button>
+                <div className="addclassnote">（無法新增課程，請先輸入教練及學員資料）</div>
+              </div>
+            )}
             {/* <button onClick={()=> console.log(table.getRowModel().rows)}>ppp</button> */}
             </div>
 

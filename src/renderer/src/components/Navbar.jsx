@@ -137,7 +137,6 @@ function Navbar() {
         <FontAwesomeIcon icon={faHouse} />
         <div class="nav-word">課程管理</div>
       </NavLink>
-
       <NavLink
         to="/student"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
@@ -182,14 +181,14 @@ function Navbar() {
             <div class="nav-word">場地租借</div></Link> */}
 
 {/*存讀檔測試*/}
-      {/* <NavLink
+      <NavLink
         to="/savejson"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
         onClick={handleHashOnClick}
       >
         <FontAwesomeIcon icon={faKey} />
         <div class="nav-word">Save Page</div>
-      </NavLink> */}
+      </NavLink>
       
     </div>
 
