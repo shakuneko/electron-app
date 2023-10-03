@@ -130,7 +130,7 @@ function Navbar() {
         <img src={Logo} style={{ width: '82px', height: '82px' }} alt="class-unclick" />
       </div>
       <NavLink
-        to="/"
+        to="/classes"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
         onClick={handleHashOnClick}
       >
