@@ -137,7 +137,6 @@ function Navbar() {
         <FontAwesomeIcon icon={faHouse} />
         <div class="nav-word">課程管理</div>
       </NavLink>
-
       <NavLink
         to="/student"
         className={({ isActive }) => ['nav-item', isActive ? 'nav-item-active' : null].join(' ')}
