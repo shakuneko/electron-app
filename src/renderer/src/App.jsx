@@ -1,5 +1,5 @@
 // import Form from './page/Form'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import ClassTable from './page/ClassTable'
 import StudentTable from './page/StudentTable'
 import CoachTable from './page/CoachTable'
@@ -127,13 +127,14 @@ function App() {
   ) : (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<ClassTable classes={fileContent.newJsonData} />} />
+        <Route path="/" element={<Navigate to="/classes" />} />
+        <Route path="/classes" element={<ClassTable classes={fileContent.newJsonData} />} />
         <Route path="/student" element={<StudentTable classes={fileContent.newJsonData} />}></Route>
         {/* <Route path="/coach" element={<CoachTable classes={newJson} />} /> */}
         <Route path="/coach" element={<CoachTable classes={fileContent.newJsonData} />} />
         <Route path="/revenue" element={<Revenue classes={fileContent.newJsonData} />} />
 
-        <Route path="classes">
+        <Route path="classes" >
           <Route path="form" element={<ClassForm classes={fileContent.newJsonData}/>} />
           <Route path="id/:id" element={<ClassDetail classes={fileContent.newJsonData}/>} />
         </Route>
