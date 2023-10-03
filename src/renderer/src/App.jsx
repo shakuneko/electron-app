@@ -30,6 +30,9 @@ import { selectHasInit } from './redux/reducers/saveSlice'
 //time check
 import { DateTime } from 'luxon'
 
+//import logo
+import Logo from './images/logo.png'
+
 function App() {
   const [isLoading, setIsLoading] = useState(true)
   //save file function & read function
@@ -116,7 +119,11 @@ function App() {
   console.log('fileContent:', fileContent)
 
   return isLoading || !fileContent.newJsonData ? (
-    <div>載入檔案中...</div>
+    <div className='enterPage'>
+      <img src={Logo} style={{ width: '160px', height: '160px' }} alt="Azusa" />
+      <div></div>
+      <span style={{color:"#DFC994", fontSize:"20px"}}>載入檔案中...</span>
+    </div>
   ) : (
     <HashRouter>
       <Routes>
