@@ -405,7 +405,7 @@ function ClassDetailTable({
             確定要刪除這項預約資料嗎？
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ marginBottom:"8px" }}>
           <button onClick={handleClose} className='btn btn-outline-dbrown'>
             取消
           </button>
