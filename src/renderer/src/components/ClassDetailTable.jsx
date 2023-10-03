@@ -345,7 +345,7 @@ function ClassDetailTable({
         {
             accessorKey:"reserveDate",
             header:"日期",
-            size:100,
+            size:150,
             enableEditing: false
         },
         {
