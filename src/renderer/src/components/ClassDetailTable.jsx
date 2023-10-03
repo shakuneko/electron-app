@@ -1,18 +1,16 @@
 import { MaterialReactTable } from 'material-react-table';
-import React, { useEffect, useCallback, useState, useRef } from 'react';
-import { Typography, Checkbox } from '@mui/material';
+import React, { useCallback, useState } from 'react';
 import {
     Box,
     IconButton,
     Tooltip,
   } from '@mui/material';
-  import { Delete, Edit } from '@mui/icons-material';
-  import { useDispatch, useSelector } from 'react-redux';
+  import { Delete } from '@mui/icons-material';
+  import { useDispatch } from 'react-redux';
   import { updateTableData,updateClassCourseData, updateStuCourseData } from '../redux/Actions/saveActions'; // 导入您的更新动作
   import { addReserveTableData, upDateClassCourse, upDateStuCourse } from "../redux/reducers/saveSlice"
-  import { setFileName } from '../redux/reducers/saveSlice'
-  // import jsonData from '../json/new_class.json'
-  import Button from '@mui/material/Button';
+
+  //confirm
   import Dialog from '@mui/material/Dialog';
   import DialogActions from '@mui/material/DialogActions';
   import DialogContent from '@mui/material/DialogContent';
