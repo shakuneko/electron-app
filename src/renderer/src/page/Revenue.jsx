@@ -241,7 +241,7 @@ function Revenue({ classes }) {
 
   // 打印每个月份的上课次数
   //可以用於每月「已」上課次數（核銷未核銷堂數）
-  console.log('AAAC上课次数按月份统计：', classCountByMonth[formattedCurrentDateTime])
+  console.log('AAAC上课次数按月份统计：', classCountByMonth[formattedCurrentDateTime]?? "沒資料")
 
   //----------------------計算所有的課程總堂數courseAll---------------------
   const courseAllByMonth = {}
@@ -262,7 +262,7 @@ function Revenue({ classes }) {
       })
     }
   })
-  console.log('BBBC課程總堂數courseAll按月份统计：', courseAllByMonth[formattedCurrentDateTime])
+  console.log('BBBC課程總堂數courseAll按月份统计：', courseAllByMonth[formattedCurrentDateTime]?? "沒資料")
   //標題呈現本月課程堂數
   //-------------未上課次數（未核銷堂數）-> 全部課程減去已上課 ---------------------
   let courseLeftByMonth = 0
