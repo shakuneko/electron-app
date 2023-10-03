@@ -248,14 +248,16 @@ function Revenue({ classes }) {
   nJson.forEach((item) => {
     if (item.category === 'class' && item.classDetail) {
       item.classDetail.forEach((classItem) => {
-        const buyDate = classItem.buyDate.split('-')
-        if (buyDate.length === 3) {
-          const month = buyDate.slice(0, 2).join('-')
-          // 如果月份不存在，创建一个月份的记录并初始化计数为0
-          if (!courseAllByMonth[month]) {
-            courseAllByMonth[month] = 0
+        const buyDate = classItem.buyDate?.split('-')
+        if (buyDate) {
+          if (buyDate.length === 3) {
+            const month = buyDate.slice(0, 2).join('-')
+            // 如果月份不存在，创建一个月份的记录并初始化计数为0
+            if (!courseAllByMonth[month]) {
+              courseAllByMonth[month] = 0
+            }
+            courseAllByMonth[month] += parseInt(classItem.coursesAll) || 0
           }
-          courseAllByMonth[month] += parseInt(classItem.coursesAll) || 0
         }
       })
     }
@@ -398,13 +400,13 @@ function Revenue({ classes }) {
   nJson.forEach((categoryItem) => {
     if (categoryItem.category === 'class' && categoryItem.classDetail) {
       categoryItem.classDetail.forEach((classItem) => {
-
         // 初始化变量来计算本月的 attandence 次数--------計算attendance來計算已核銷堂數
         let attandenceCount = 0
         // 遍历课程的 reserveDetail 数组
         classItem.reserveDetail.forEach((reserve) => {
           // 获取 reserveDate 的月份部分
-          const reserveMonth = reserve.reserveDate.split('-')[0] + '-' + reserve.reserveDate.split('-')[1]
+          const reserveMonth =
+            reserve.reserveDate.split('-')[0] + '-' + reserve.reserveDate.split('-')[1]
           // 检查月份是否与当前月份匹配，并且 attandence 是否为 "是"
           if (reserveMonth === formattedCurrentDateTime && reserve.attandence === '是') {
             // 如果匹配，则增加计数
@@ -863,7 +865,7 @@ function Revenue({ classes }) {
               <div className="col-6">
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {totalSumFIN?? '0'}  / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂
+                  $ {totalSumFIN ?? '0'} / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂
                   {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
                 </h1>
               </div>
@@ -872,7 +874,7 @@ function Revenue({ classes }) {
                 <h1 className="money-title mt-2 title">
                   {/*new*/}
                   {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
-                  {/*old*/}$ {totalSumLeft  ?? '0'} / {totalLeftCourseCount  ?? '0'}堂
+                  {/*old*/}$ {totalSumLeft ?? '0'} / {totalLeftCourseCount ?? '0'}堂
                 </h1>
               </div>
             </div>
