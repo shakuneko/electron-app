@@ -139,8 +139,10 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
         </div>
         <div className="col-10 new_class2">
           <div className="title_word">
-            <h1>新增教練</h1>
-            <div className="title_note">(請在此新增開課教練或場組管理員資料)</div>
+            <div className="title_word2">
+              <h1>新增教練</h1>
+              <div className="title_note">(請在此新增開課教練或場組管理員資料)</div>
+            </div>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
             <div class="form-group">
