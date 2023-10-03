@@ -120,7 +120,7 @@ function App() {
   ) : (
     <HashRouter>
       <Routes>
-        <Route path="/classes" element={<ClassTable classes={fileContent.newJsonData} />} />
+        <Route path="/" element={<ClassTable classes={fileContent.newJsonData} />} />
         <Route path="/student" element={<StudentTable classes={fileContent.newJsonData} />}></Route>
         {/* <Route path="/coach" element={<CoachTable classes={newJson} />} /> */}
         <Route path="/coach" element={<CoachTable classes={fileContent.newJsonData} />} />
