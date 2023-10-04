@@ -4,10 +4,62 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import fs from 'fs/promises'
 import os from 'os'
+import emptyJson from '../renderer/src/json/emptyJson.json'
 
 //home directory
 const homedir = os.homedir()
 const directoryPath = `${homedir}/Desktop/AzusaBackUp`
+const filePathuse = `${directoryPath}/AzusaSavedFile.txt`
+
+const emptyJsonInit = {
+  newJsonData: [
+    {
+      "category": "class",
+      "classDetail": [
+      ]
+    },
+    {
+      "category": "student",
+      "stuDetail": [
+        
+      ]
+    },
+    {
+      "category": "coach",
+      "coachDetail": [
+        
+      ]
+    },{
+      "category": "revenue",
+      "revenueDetail": [
+        
+  
+      ]
+    }
+]  
+}
+
+//check file
+const checkFile = async () => {
+  try {
+    fs.access(filePathuse, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.log('The file does not exist.');
+        const jsonData = JSON.stringify(emptyJsonInit, null, 2);
+        fs.writeFile(filePathuse, jsonData, (err) => {
+          if (err) {
+            console.error(err)
+            return
+          }
+          console.log('The file was created successfully!')
+        })
+      }
+    })
+  }
+  catch (err) {
+    console.error(err)
+  }
+}
 
 //check folder
 const checkFolder = async () => {
@@ -32,7 +84,7 @@ const checkFolder = async () => {
 }
 
 checkFolder()
-
+checkFile()
 
 function createWindow() {
   // Create the browser window.
@@ -104,7 +156,7 @@ function createWindow() {
     ipcMain.removeHandler('writeFile')
     ipcMain.removeHandler('readFile')
     ipcMain.removeHandler('closeWindow')
-   // mainWindow = null
+    //mainWindow = null
   })
   // let showExitPrompt = true
   // win.on('close', (event) => {

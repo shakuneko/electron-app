@@ -64,8 +64,8 @@ function App() {
   //ready to close window and save file
 
   const onReadyToCloseWindows = async () => {
-    console.log('fileContent:', fileContent)
-    console.log('fileContentjson:', fileContent.newJsonData, !!fileContent.newJsonData)
+    console.log('onReadyfileContent:', fileContent)
+    console.log('onReadyfileContentjson:', fileContent.newJsonData, !!fileContent.newJsonData)
     if (!!fileContent?.newJsonData) {
       console.log('fileContentjson:', fileContent)
       const data = JSON.stringify(fileContent)
