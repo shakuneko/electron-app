@@ -1,5 +1,5 @@
 // import Form from './page/Form'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'
 import ClassTable from './page/ClassTable'
 import StudentTable from './page/StudentTable'
 import CoachTable from './page/CoachTable'
@@ -29,6 +29,9 @@ import { selectFileName } from './redux/reducers/saveSlice'
 import { selectHasInit } from './redux/reducers/saveSlice'
 //time check
 import { DateTime } from 'luxon'
+
+//import logo
+import Logo from './images/logo.png'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -116,17 +119,22 @@ function App() {
   console.log('fileContent:', fileContent)
 
   return isLoading || !fileContent.newJsonData ? (
-    <div>載入檔案中...</div>
+    <div className='enterPage'>
+      <img src={Logo} style={{ width: '160px', height: '160px' }} alt="Azusa" />
+      <div></div>
+      <span style={{color:"#DFC994", fontSize:"20px"}}>載入檔案中...</span>
+    </div>
   ) : (
     <HashRouter>
       <Routes>
-        <Route path="/" element={<ClassTable classes={fileContent.newJsonData} />} />
+        <Route path="/" element={<Navigate to="/classes" />} />
+        <Route path="/classes" element={<ClassTable classes={fileContent.newJsonData} />} />
         <Route path="/student" element={<StudentTable classes={fileContent.newJsonData} />}></Route>
         {/* <Route path="/coach" element={<CoachTable classes={newJson} />} /> */}
         <Route path="/coach" element={<CoachTable classes={fileContent.newJsonData} />} />
         <Route path="/revenue" element={<Revenue classes={fileContent.newJsonData} />} />
 
-        <Route path="classes">
+        <Route path="/classes">
           <Route path="form" element={<ClassForm classes={fileContent.newJsonData}/>} />
           <Route path="id/:id" element={<ClassDetail classes={fileContent.newJsonData}/>} />
         </Route>

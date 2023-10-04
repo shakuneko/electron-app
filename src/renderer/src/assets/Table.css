@@ -64,3 +64,14 @@
     justify-content: left;
     align-items: center;
   }
+
+  /* add class button */
+  .addclass{
+    display: flex;
+    flex-direction: row;
+  }
+  .addclassnote{
+    font-size: 16px;
+    padding-top: 10px;
+    color:#dc3545
+  }

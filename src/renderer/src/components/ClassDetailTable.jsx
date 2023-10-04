@@ -1,17 +1,21 @@
 import { MaterialReactTable } from 'material-react-table';
-import React, { useEffect, useCallback, useState, useRef } from 'react';
-import { Typography, Checkbox } from '@mui/material';
+import React, { useCallback, useState } from 'react';
 import {
     Box,
     IconButton,
     Tooltip,
   } from '@mui/material';
-  import { Delete, Edit } from '@mui/icons-material';
-  import { useDispatch, useSelector } from 'react-redux';
+  import { Delete } from '@mui/icons-material';
+  import { useDispatch } from 'react-redux';
   import { updateTableData,updateClassCourseData, updateStuCourseData } from '../redux/Actions/saveActions'; // 导入您的更新动作
   import { addReserveTableData, upDateClassCourse, upDateStuCourse } from "../redux/reducers/saveSlice"
-  import { setFileName } from '../redux/reducers/saveSlice'
-  // import jsonData from '../json/new_class.json'
+
+  //confirm
+  import Dialog from '@mui/material/Dialog';
+  import DialogActions from '@mui/material/DialogActions';
+  import DialogContent from '@mui/material/DialogContent';
+  import DialogContentText from '@mui/material/DialogContentText';
+  import DialogTitle from '@mui/material/DialogTitle';
 
 function ClassDetailTable({ 
   classes ,
@@ -215,13 +219,37 @@ function ClassDetailTable({
     };
 
     //   console.log("splitClasses",splitClasses)
+
+    const [open, setOpen] = useState(false);
+    const [rowToDelete, setRowToDelete] = useState(null);
+  
+    const handleClickOpen = (row) => {
+      setRowToDelete(row); // 保存要删除的行数据
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setRowToDelete(null); // 关闭对话框时重置要删除的行数据
+      setOpen(false);
+    };
+
+    const handleDeleteConfirmed = () => {
+      if (rowToDelete) {
+        // 执行删除操作
+        handleDeleteRow(rowToDelete);
+  
+        // 清除要删除的行数据和关闭对话框
+        setRowToDelete(null);
+        setOpen(false);
+      }
+    };
     const handleDeleteRow = useCallback( //  儲存刪除
         (row) => {
-          if (
-            !confirm(`確定刪除此欄資料`)
-          ) {
-            return;
-          }
+          // if (
+          //   !confirm(`確定刪除此欄資料`)
+          // ) {
+          //   return;
+          // }
           //send api delete request here, then refetch or update local table data for re-render
           // tableData.splice(row.index, 1);
           setTableData([...tableData]);
@@ -277,6 +305,8 @@ function ClassDetailTable({
         },
         [tableData],
       );
+    
+
 
     const columns = [ //表格有的資料
           {
@@ -287,7 +317,7 @@ function ClassDetailTable({
               return <>
               <Box sx={{ display: 'flex' }}>
                 <Tooltip arrow placement="right" title="Delete">
-                    <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                    <IconButton color="error" onClick={() => handleClickOpen(row)}>
                         <Delete />
                     </IconButton>
                 </Tooltip>
@@ -315,7 +345,7 @@ function ClassDetailTable({
         {
             accessorKey:"reserveDate",
             header:"日期",
-            size:100,
+            size:150,
             enableEditing: false
         },
         {
@@ -361,7 +391,28 @@ function ClassDetailTable({
 
   return (
     <div>
-        {/* <p>剩餘堂數：{courseLeft}</p> */}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title" style={{ fontWeight:900}}>確認刪除？</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            確定要刪除這項預約資料嗎？
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions style={{ marginBottom:"8px" }}>
+          <button onClick={handleClose} className='btn btn-outline-dbrown'>
+            取消
+          </button>
+          <button onClick={handleDeleteConfirmed} className='btn btn-golden'>
+            確認
+          </button>
+        </DialogActions>
+      </Dialog>
+
         <MaterialReactTable
             columns={columns}
             data={tableData}
@@ -381,10 +432,6 @@ function ClassDetailTable({
                 header: '編輯', //change "Actions" to "Edit"
                 size: 50,
                 align: 'left'
-                //use a text button instead of a icon button
-                // Cell: ({ row, table }) => (
-                //   <button onClick={() => table.setEditingRow(row)}>Edit Customer</button>
-                // ),
               },
             }}
             // muiTableBodyCellEditTextFieldProps={({ cell, row }) => ({
@@ -397,11 +444,6 @@ function ClassDetailTable({
               placeholder: "請輸入想查詢的學生及時間",
               sx: { minWidth: '300px' },
             }}
-            // renderBottomToolbarCustomActions={() => (
-            //     <Typography sx={{  p: '16px', fontWeight:"900" }} variant="body2">
-            //         雙擊要修改的內容進行修改
-            //     </Typography>
-            // )}
         />
     </div>
 

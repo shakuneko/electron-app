@@ -139,7 +139,10 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
         </div>
         <div className="col-10 new_class2">
           <div className="title_word">
-            <h1>新增教練</h1>
+            <div className="title_word2">
+              <h1>新增教練</h1>
+              <div className="title_note">(請在此新增開課教練或場組管理員資料)</div>
+            </div>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
             <div class="form-group">
@@ -248,6 +251,10 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="button" 
                       onClick={() => handleItemClick('運動按摩')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('運動按摩') ? 'active' : ''}`}>運動按摩</button>
+                      <button
+                      type="button" 
+                      onClick={() => handleItemClick('場地租借')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('場地租借') ? 'active' : ''}`}>場地租借</button>
                   </div>
                 </div>    
                 <div class="form-group">
@@ -257,7 +264,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="number" 
                       class="form-select" 
                       name="PtSalary"
-                      placeholder="請填寫整數數字，例如：1200"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
                       value={coachForm.PtSalary}
                       onChange={handleInputChange}
@@ -271,7 +278,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="number" 
                       class="form-select" 
                       name="PilatesSalary"
-                      placeholder="請填寫整數數字，例如：1200"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
                       value={coachForm.PilatesSalary}
                       onChange={handleInputChange}
@@ -285,7 +292,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       type="number" 
                       class="form-select" 
                       name="MassageSalary"
-                      placeholder="請填寫整數數字，例如：1200"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
                       value={coachForm.MassageSalary}
                       onChange={handleInputChange}

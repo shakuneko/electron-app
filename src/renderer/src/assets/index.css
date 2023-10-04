@@ -187,3 +187,14 @@ a:hover {
     width: 100%;
   }
 }
+
+/* 載入頁 */
+.enterPage{
+  width: 100vw; 
+  height: 100vh;
+  background-color: #352F29;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
