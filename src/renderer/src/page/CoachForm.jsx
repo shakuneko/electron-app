@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateCoachName } from '../redux/Actions/formActions'
 // import jsonData from '../json/new_class.json'
 import { selectFileName,setCoachFormSave } from "../redux/reducers/saveSlice";
-import { useNavigate } from 'react-router-dom';
+//alert
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 function generateUniqueID(existingCoachIDs) {
   if (existingCoachIDs.length === 0) {
     return "1";
@@ -20,7 +25,6 @@ function generateUniqueID(existingCoachIDs) {
 
 function CoachForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
-  const navigate = useNavigate(); // 获取 navigate 函数
   const [newCoaData, setNewCoaData] = useState({});
   const initialFormData = {
     coachName:'',
@@ -82,7 +86,10 @@ const handleItemClick = (item) => {
     };
   });
 };
-
+const [open, setOpen] = useState(false);
+const handleClose = () => {
+  setOpen(false);
+};
 // 提交表單的函數
 const handleSubmit = (event) => {
 event.preventDefault();
@@ -130,12 +137,30 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
   setCoachForm(initialFormData);
   setSelectedOptions([]);
   // window.alert('資料填寫完成！');
-  navigate('/coach'); // 使用 navigate 进行导航
+  setOpen(true);
 
 };
 
   return (
     <div className="container-fluid">
+       <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title" style={{ fontWeight:900}}>新增完成</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              已添加一筆新的教練資料！
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions style={{ marginBottom:"8px" }}>
+            <button onClick={handleClose} className='btn btn-golden'>
+              確認
+            </button>
+          </DialogActions>
+        </Dialog>
       <div className="row form_class row-no-gutters">
         <div className="nav col-2">
           <Navbar /> 

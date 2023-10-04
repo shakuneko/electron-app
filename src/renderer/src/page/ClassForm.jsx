@@ -2,7 +2,12 @@ import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import Radio from '@mui/joy/Radio';
-import { useNavigate } from 'react-router-dom';
+//alert
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass} from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
 function generateUniqueID(existingClassIDs) {
@@ -21,7 +26,6 @@ function generateUniqueID(existingClassIDs) {
 
 function ClassForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
-  const navigate = useNavigate(); // 获取 navigate 函数
   //設定每個分頁的初始狀態
   const fileNameData = useSelector(selectFileName);
   const stuID = fileNameData.newJsonData[1].stuDetail[0].stuID;
@@ -192,7 +196,10 @@ const handleItemClick = (item, page) => {
   // 返回分页和选项值
   return { page, item };
 };
-
+const [open, setOpen] = useState(false);
+const handleClose = () => {
+  setOpen(false);
+};
 const handleSubmit = (event) => {
   event.preventDefault();
   // 获取已有的 classID 列表
@@ -310,7 +317,7 @@ const newTeachClass ={
    setClassForm(initialFormData);
    setErrorMessage("");
    setSelectedOption("");
-   navigate('/'); // 使用 navigate 进行导航
+   setOpen(true);
 
 
   
@@ -334,6 +341,24 @@ useEffect(() => {
 
   return (
     <div className="container-fluid">
+      <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title" style={{ fontWeight:900}}>新增完成</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              已添加一筆新的課程資料！
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions style={{ marginBottom:"8px" }}>
+            <button onClick={handleClose} className='btn btn-golden'>
+              確認
+            </button>
+          </DialogActions>
+        </Dialog>
       <div className="row form_class row-no-gutters">
         <div className="nav col-2">
           <Navbar /> 
