@@ -113,7 +113,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   coachRelation:coachForm.coachRelation,
   coachContact_tel:coachForm.coachContact_tel,
   coachNote:coachForm.coachNote,
-  major:[coachForm.major], 
+  major:coachForm.major, 
   joinDate:coachForm.joinDate,
   PtSalary:coachForm.PtSalary,
   PilatesSalary:coachForm.PilatesSalary,
