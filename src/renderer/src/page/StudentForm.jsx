@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
 import {  selectFileName,setStudentFormSave } from "../redux/reducers/saveSlice";
-
+import { useNavigate } from 'react-router-dom';
 function generateUniqueID(existingStuIDs) {
   if (existingStuIDs.length === 0) {
     return "1";
@@ -18,6 +18,7 @@ function generateUniqueID(existingStuIDs) {
 }
 function StudentForm(props){
   const dispatch = useDispatch(); // 获取dispatch函数的引用
+  const navigate = useNavigate(); // 获取 navigate 函数
   const fileNameData = useSelector(selectFileName);
   const [newStudentData, setNewStudentData] = useState({});
   const initialFormData = {
@@ -92,10 +93,9 @@ function StudentForm(props){
 
     // 清除表单数据为初始状态
     setStuForm(initialFormData);
+    navigate('/student'); // 使用 navigate 进行导航
 
-    // jsonData.push(stuForm);
-
-    console.log(updatedStuData);
+    
     
   };
 
