@@ -3,9 +3,35 @@ import hash from 'object-hash'
 // Part1: Define Slice (including reducers and actions)
 import originalJson from '../../json/class.json'
 import emptyJson from '../../json/emptyJson.json'
-
+const emptyJsonInit = {
+  newJsonData: [
+    {
+      "category": "class",
+      "classDetail": [
+      ]
+    },
+    {
+      "category": "student",
+      "stuDetail": [
+        
+      ]
+    },
+    {
+      "category": "coach",
+      "coachDetail": [
+        
+      ]
+    },{
+      "category": "revenue",
+      "revenueDetail": [
+        
+  
+      ]
+    }
+]  
+}
 const initialState = {
-  fileName: emptyJson,
+  fileName: emptyJsonInit.newJsonData,
   hasInit: false,
   currentPageHash: '',//傳進來的value
   oldHash: hash(originalJson),
