@@ -2,7 +2,7 @@ import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import Radio from '@mui/joy/Radio';
-
+import { useNavigate } from 'react-router-dom';
 import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass} from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
 function generateUniqueID(existingClassIDs) {
@@ -21,7 +21,7 @@ function generateUniqueID(existingClassIDs) {
 
 function ClassForm(props) {
   const dispatch = useDispatch(); // 获取dispatch函数的引用
-
+  const navigate = useNavigate(); // 获取 navigate 函数
   //設定每個分頁的初始狀態
   const fileNameData = useSelector(selectFileName);
   const stuID = fileNameData.newJsonData[1].stuDetail[0].stuID;
@@ -310,9 +310,9 @@ const newTeachClass ={
    setClassForm(initialFormData);
    setErrorMessage("");
    setSelectedOption("");
-  //  console.log(jsonData);
-   console.log(updatedClassData);
-   console.log('FileName Data:', fileNameData);
+   navigate('/'); // 使用 navigate 进行导航
+
+
   
 };
 
