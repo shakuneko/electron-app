@@ -8,6 +8,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 import { selectFileName,setClassFormSave,addNewBuyDetail,addTeachClass} from '../redux/reducers/saveSlice'
 //找ID最大值並往下增加ID
 function generateUniqueID(existingClassIDs) {
@@ -100,6 +102,7 @@ const [coachNames, setCoachNames] = useState([]);
 const [selectedCourse, setSelectedCourse] = useState("PT"); // 用于存储当前所选的课程名称
 const [isRadioSelected, setIsRadioSelected] = useState(false); //體驗課按鈕
 
+
 let newClassData = props.classes[0].classDetail.map((item, index) => {
   return item
 });
@@ -124,6 +127,7 @@ const handleInputChange = (event,page) => {
   }));
 
   
+
   //下拉選單選學員的名稱，找出學員、教練對應的ID
   if (name === 'stuName') {
       // 构建新购买详情对象
@@ -215,7 +219,7 @@ const handleSubmit = (event) => {
     setErrorMessage("請選擇購買方式");
     return; // 阻止表单提交
   }
- 
+  
  if (currentPage === 'page1') {
   addStudentName2 = classForm[currentPage].stuName2;
 }
@@ -315,6 +319,7 @@ const newTeachClass ={
 
    // 清除表单数据为初始状态
    setClassForm(initialFormData);
+
    setErrorMessage("");
    setSelectedOption("");
    setOpen(true);
@@ -397,23 +402,63 @@ useEffect(() => {
                     <div className="form-group">
                         <label>教練:</label>
                         <div className="select">
-                          <select className="form-select" 
+                        <Autocomplete
+                          disablePortal
+                          id="coachName"
+                          options={["", ...coachNames]} 
+                          value={classForm.page1.coachName}
+                          onChange={(event, newValue) => {
+                            handleInputChange({
+                              target: { name: 'coachName', value: newValue }, // 模拟事件对象
+                            }, 'page1');
+
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              className="custom-autocomplete" // 添加一个自定义的 CSS 类名
+                            />
+                          )}
+                          
+                        />
+                          {/* <select className="form-select" 
                           name="coachName"
                           required
                           value={classForm.page1.coachName}
                           onChange={(e) => handleInputChange(e, 'page1')}
                           >
-                             <option value="" disabled hidden>-</option> {/* 默认占位符 */}
+                             <option value="" disabled hidden>-</option>
                               {coachNames.map((name) => (
                               <option key={name} value={name}>
                               {name}
                             </option>
                             ))}
-                          </select>
+                          </select> */}
                         </div>
                     </div>
                     <div className="form-group">
-                        <label>學員1:</label>
+                    <label>學員1:</label>
+                    <div className="select">
+                    <Autocomplete
+                      disablePortal
+                      id="stuName"
+                      options={["", ...studentNames]} 
+                      value={classForm.page1.stuName}
+                      onChange={(event, newValue) => {
+                        handleInputChange({
+                          target: { name: 'stuName', value: newValue }, // 模拟事件对象
+                        }, 'page1');
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          className="custom-autocomplete"
+                          // variant="outlined"
+                        />
+                      )}
+                    />
+                    </div>
+                        {/* <label>學員1:</label>
                         <div className="select">
                         <select 
                           class="form-select" 
@@ -429,28 +474,59 @@ useEffect(() => {
                             </option>
                             ))}
                         </select>
-                        </div>     
+                        </div>      */}
                     </div>
                     <div className="form-group"> 
                           <label>學員2:</label>
                           <div className="select">
-                            <select 
+                          <Autocomplete
+                            disablePortal
+                            id="stuName2"
+                            options={["", ...studentNames]}
+                            value={classForm.page1.stuName2}
+                            onChange={(event, newValue) => {
+                              handleInputChange(
+                                { target: { name: 'stuName2', value: newValue } },
+                                'page1'
+                              );
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                className="custom-autocomplete"
+                              />
+                            )}
+                          />
+                            {/* <select 
                             class="form-select " 
                             name="stuName2"
-                            required
                             value={classForm.page1.stuName2}
                             onChange={(e) => handleInputChange(e, 'page1')}
                             >
-                              <option value="" disabled hidden>-</option>
+                              <option value="" >-</option>
                                 {studentNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
                               </option>
                             ))}
-                            </select>
+                            </select> */}
                       </div>                
                     </div>
-                    <div className="form-group">
+                    <div class="form-group">
+                        <label>堂數：</label>
+                        <div className="select">
+                          <input 
+                            type="number" 
+                            class="form-select"
+                            name="coursesAll"
+                            required
+                            placeholder="請填寫整數數字，例如：10"
+                            value={classForm.page1.coursesAll}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                          ></input>
+                        </div>
+                    </div>
+                    {/* <div className="form-group">
                         <label>堂數:</label>
                         <div className="select">
                           <select 
@@ -465,7 +541,7 @@ useEffect(() => {
                               <option value="10">10</option>
                           </select>
                         </div>
-                    </div>
+                    </div> */}
                     <div class="form-group">
                         <label>購買金額:</label>
                         <div className="select">
@@ -532,7 +608,7 @@ useEffect(() => {
                             type="text" 
                             class="form-select"
                             name="invoiceNum2"
-                            required
+                            placeholder="沒有學員2的話不用填寫"
                             value={classForm.page1.invoiceNum2}
                             onChange={(e) => handleInputChange(e, 'page1')}
                             ></input>
@@ -615,58 +691,65 @@ useEffect(() => {
                       <div className="form-group">
                           <label>教練:</label>
                           <div className="select">
-                            <select 
-                              className="form-select " 
-                              name="coachName"
-                              required
+                          <Autocomplete
+                              disablePortal
+                              id="coachName"
+                              options={["", ...coachNames]} 
                               value={classForm.page2.coachName}
-                              onChange={(e) => handleInputChange(e, 'page2')} 
-                            >
-                                <option value="" disabled hidden>-</option>
-                                {coachNames.map((name) => (
-                                <option key={name} value={name}>
-                                {name}
-                              </option>
-                              ))}
-                            </select>
+                              // value={classForm.page1.coachName}
+                              onChange={(event, newValue) => {
+                                handleInputChange({
+                                  target: { name: 'coachName', value: newValue }, // 模拟事件对象
+                                }, 'page2');
+                              }}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  className="custom-autocomplete" // 添加一个自定义的 CSS 类名
+                                />
+                              )}
+                            />
                           </div>
                       </div>
                       <div className="form-group">
                           <label>學員:</label>
                           <div className="select">
-                          <select 
-                            class="form-select"
-                            name="stuName"
-                            required
+                          <Autocomplete
+                            disablePortal
+                            id="stuName"
+                            options={["", ...studentNames]} 
                             value={classForm.page2.stuName}
-                            onChange={(e) => handleInputChange(e, 'page2')} 
-                          >
-                              <option value="" disabled hidden>-</option>
-                              {studentNames.map((name) => (
-                              <option key={name} value={name}>
-                              {name}
-                            </option>
-                            ))}
-                          </select>
+                            // value={classForm.page1.stuName}
+                            onChange={(event, newValue) => {
+                              handleInputChange({
+                                target: { name: 'stuName', value: newValue }, // 模拟事件对象
+                              }, 'page2');
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                className="custom-autocomplete"
+                                // variant="outlined"
+                              />
+                            )}
+                          />
                         </div>
                         {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                       </div>
-                      <div className="form-group">
-                          <label>堂數:</label>
-                          <div className="select">
-                            <select 
-                              class="form-select" 
-                              name="coursesAll"
-                              required
-                              value={classForm.page2.coursesAll}
-                              onChange={(e) => handleInputChange(e, 'page2')}
-                            >
-                                <option value="" disabled hidden>-</option>
-                                <option value="1">1</option>
-                                <option value="10">10</option>
-                            </select>
-                          </div>
-                      </div>
+                      <div class="form-group">
+                        <label>堂數：</label>
+                        <div className="select">
+                          <input 
+                            type="number" 
+                            class="form-select"
+                            name="coursesAll"
+                            required
+                            placeholder="請填寫整數數字，例如：10"
+                            value={classForm.page2.coursesAll}
+                            onChange={(e) => handleInputChange(e, 'page2')}
+                          ></input>
+                        </div>
+                    </div>
                       <div class="form-group">
                           <label>購買金額:</label>
                           <div className="select">
@@ -804,55 +887,62 @@ useEffect(() => {
                       <div className="form-group">
                           <label>教練:</label>
                           <div className="select">
-                            <select 
-                              className="form-select " 
-                              name="coachName"
-                              required
-                              value={classForm.page3.coachName}
-                              onChange={(e) => handleInputChange(e, 'page3')} 
-                            >
-                              <option value="" disabled hidden>-</option>
-                                {coachNames.map((name) => (
-                                <option key={name} value={name}>
-                                {name}
-                              </option>
-                              ))}
-                            </select>
+                          <Autocomplete
+                          disablePortal
+                          id="coachName"
+                          options={["", ...coachNames]} 
+                          value={classForm.page3.coachName}
+                          // value={classForm.page1.coachName}
+                          onChange={(event, newValue) => {
+                            handleInputChange({
+                              target: { name: 'coachName', value: newValue }, // 模拟事件对象
+                            }, 'page3');
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              className="custom-autocomplete" // 添加一个自定义的 CSS 类名
+                            />
+                          )}
+                        />
                           </div>
                       </div>
                       <div className="form-group">
                           <label>學員:</label>
                           <div className="select">
-                          <select 
-                            class="form-select"
-                            name="stuName"
-                            required
+                          <Autocomplete
+                            disablePortal
+                            id="stuName"
+                            options={["", ...studentNames]} 
                             value={classForm.page3.stuName}
-                            onChange={(e) => handleInputChange(e, 'page3')} 
-                          >
-                              <option value="" disabled hidden>-</option>
-                                {studentNames.map((name) => (
-                                <option key={name} value={name}>
-                                {name}
-                              </option>
-                            ))}
-                          </select>
+                            // value={classForm.page1.stuName}
+                            onChange={(event, newValue) => {
+                              handleInputChange({
+                                target: { name: 'stuName', value: newValue }, // 模拟事件对象
+                              }, 'page3');
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                className="custom-autocomplete"
+                                // variant="outlined"
+                              />
+                            )}
+                          />
                         </div>
                       </div>
-                      <div className="form-group">
-                        <label>堂數:</label>
+                      <div class="form-group">
+                        <label>堂數：</label>
                         <div className="select">
-                          <select 
-                            class="form-select" 
+                          <input 
+                            type="number" 
+                            class="form-select"
                             name="coursesAll"
                             required
+                            placeholder="請填寫整數數字，例如：10"
                             value={classForm.page3.coursesAll}
                             onChange={(e) => handleInputChange(e, 'page3')}
-                          >
-                              <option value="" disabled hidden>-</option>
-                              <option value="1">1</option>
-                              <option value="10">10</option>
-                          </select>
+                          ></input>
                         </div>
                     </div>
                       <div class="form-group">
@@ -991,77 +1081,87 @@ useEffect(() => {
                         <div className="form-group">
                             <label>教練:</label>
                             <div className="select">
-                              <select 
-                                className="form-select " 
-                                name="coachName"
-                                required
-                                value={classForm.page4.coachName}
-                                onChange={(e) => handleInputChange(e, 'page4')}
-                              >
-                                  <option value="" disabled hidden>-</option>
-                                  {coachNames.map((name) => (
-                                  <option key={name} value={name}>
-                                  {name}
-                                </option>
-                                ))}
-                              </select>
+                            <Autocomplete
+                              disablePortal
+                              id="coachName"
+                              options={["", ...coachNames]} 
+                              value={classForm.page4.coachName}
+                              // value={classForm.page1.coachName}
+                              onChange={(event, newValue) => {
+                                handleInputChange({
+                                  target: { name: 'coachName', value: newValue }, // 模拟事件对象
+                                }, 'page4');
+                              }}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  className="custom-autocomplete" // 添加一个自定义的 CSS 类名
+                                />
+                              )}
+                            />
                             </div>
                         </div>
                         <div className="form-group">
                           <label>學員:</label>
                           <div className="select">
-                          <select 
-                            class="form-select"
-                            name="stuName"
-                            required
+                          <Autocomplete
+                            disablePortal
+                            id="stuName"
+                            options={["", ...studentNames]} 
                             value={classForm.page4.stuName}
-                            onChange={(e) => handleInputChange(e, 'page4')} 
-                          >
-                                <option value="" disabled hidden>-</option>
-                                {studentNames.map((name) => (
-                                <option key={name} value={name}>
-                                {name}
-                              </option>
-                            ))}
-                          </select>
+                            // value={classForm.page1.stuName}
+                            onChange={(event, newValue) => {
+                              handleInputChange({
+                                target: { name: 'stuName', value: newValue }, // 模拟事件对象
+                              }, 'page4');
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                className="custom-autocomplete"
+                                // variant="outlined"
+                              />
+                            )}
+                          />
                         </div>
                         {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                       </div>
                         <div className="form-group">
                             <label>樓層:</label>
                             <div className="select">
-                              <select 
-                                className="form-select " 
-                                name="floor"
-                                required
-                                value={classForm.page4.floor}
-                                onChange={(e) => handleInputChange(e, 'page4')}
-                              >
-                                  <option value="" disabled hidden>-</option>
-                                  <option value="1">1樓</option>
-                                  <option value="2">2樓</option>
-                                  <option value="3">3樓</option>
-                                  <option value="4">4樓</option>
-                              </select>
+                            <Autocomplete
+                              disablePortal
+                              id="floor"
+                              options={[ "","1樓", "2樓", "3樓", "4樓"]} // 在 options 中添加选项
+                              value={classForm.page4.floor}
+                              onChange={(event, newValue) => {
+                                handleInputChange({
+                                  target: { name: 'floor', value: newValue }, // 模拟事件对象
+                                }, 'page4');
+                              }}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  className="custom-autocomplete" // 添加一个自定义的 CSS 类名
+                                />
+                              )}
+                            />
                             </div>
                         </div>
-                        <div className="form-group">
-                          <label>堂數:</label>
-                          <div className="select">
-                            <select 
-                              class="form-select" 
-                              name="coursesAll"
-                              required
-                              value={classForm.page4.coursesAll}
-                              onChange={(e) => handleInputChange(e, 'page4')}
-                            >
-                                <option value="" disabled hidden>-</option>
-                                <option value="1">1</option>
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                            </select>
-                          </div>
-                      </div>
+                        <div class="form-group">
+                        <label>堂數：</label>
+                        <div className="select">
+                          <input 
+                            type="number" 
+                            class="form-select"
+                            name="coursesAll"
+                            required
+                            placeholder="請填寫整數數字，例如：10"
+                            value={classForm.page4.coursesAll}
+                            onChange={(e) => handleInputChange(e, 'page4')}
+                          ></input>
+                        </div>
+                    </div>
                       <div class="form-group">
                           <label>購買金額:</label>
                           <div className="select">
