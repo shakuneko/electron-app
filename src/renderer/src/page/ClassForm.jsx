@@ -102,6 +102,7 @@ const [coachNames, setCoachNames] = useState([]);
 const [selectedCourse, setSelectedCourse] = useState("PT"); // 用于存储当前所选的课程名称
 const [isRadioSelected, setIsRadioSelected] = useState(false); //體驗課按鈕
 
+
 let newClassData = props.classes[0].classDetail.map((item, index) => {
   return item
 });
@@ -114,17 +115,19 @@ console.log("newClassData",newClassData)
 
 
 // 定義一個處理表單輸入變化的函數
-const handleInputChange = (event,page,studentField) => {
+const handleInputChange = (event,page) => {
   // 從事件對象中獲取輸入的名稱和值
   const{name,value}=event.target;
   setClassForm((prevFormData) => ({
     ...prevFormData,
     [page]: {
       ...prevFormData[page],
-      [studentField]: value,
+      [name]: value,
     },
   }));
+
   
+
   //下拉選單選學員的名稱，找出學員、教練對應的ID
   if (name === 'stuName') {
       // 构建新购买详情对象
@@ -216,7 +219,7 @@ const handleSubmit = (event) => {
     setErrorMessage("請選擇購買方式");
     return; // 阻止表单提交
   }
- 
+  
  if (currentPage === 'page1') {
   addStudentName2 = classForm[currentPage].stuName2;
 }
@@ -316,6 +319,7 @@ const newTeachClass ={
 
    // 清除表单数据为初始状态
    setClassForm(initialFormData);
+
    setErrorMessage("");
    setSelectedOption("");
    setOpen(true);
@@ -401,13 +405,13 @@ useEffect(() => {
                         <Autocomplete
                           disablePortal
                           id="coachName"
-                          options={["-", ...coachNames]} // 在 options 中添加 "-"
-                          defaultValue="-" // 设置初始值为 "-"
-                          // value={classForm.page1.coachName}
+                          options={["", ...coachNames]} 
+                          value={classForm.page1.coachName}
                           onChange={(event, newValue) => {
                             handleInputChange({
                               target: { name: 'coachName', value: newValue }, // 模拟事件对象
                             }, 'page1');
+
                           }}
                           renderInput={(params) => (
                             <TextField
@@ -415,6 +419,7 @@ useEffect(() => {
                               className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                             />
                           )}
+                          
                         />
                           {/* <select className="form-select" 
                           name="coachName"
@@ -437,13 +442,12 @@ useEffect(() => {
                     <Autocomplete
                       disablePortal
                       id="stuName"
-                      options={["-", ...studentNames]} // 在 options 中添加 "-"
-                      defaultValue="-" // 设置初始值为 "-"
-                      // value={classForm.page1.stuName}
+                      options={["", ...studentNames]} 
+                      value={classForm.page1.stuName}
                       onChange={(event, newValue) => {
                         handleInputChange({
                           target: { name: 'stuName', value: newValue }, // 模拟事件对象
-                        }, 'page1', 'stuName');
+                        }, 'page1');
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -478,13 +482,12 @@ useEffect(() => {
                           <Autocomplete
                             disablePortal
                             id="stuName2"
-                            options={["-", ...studentNames]}
-                            defaultValue="-"
+                            options={["", ...studentNames]}
+                            value={classForm.page1.stuName2}
                             onChange={(event, newValue) => {
                               handleInputChange(
                                 { target: { name: 'stuName2', value: newValue } },
-                                'page1',
-                                'stuName2'
+                                'page1'
                               );
                             }}
                             renderInput={(params) => (
@@ -510,7 +513,7 @@ useEffect(() => {
                       </div>                
                     </div>
                     <div class="form-group">
-                        <label>堂數</label>
+                        <label>堂數：</label>
                         <div className="select">
                           <input 
                             type="number" 
@@ -691,8 +694,8 @@ useEffect(() => {
                           <Autocomplete
                               disablePortal
                               id="coachName"
-                              options={["-", ...coachNames]} // 在 options 中添加 "-"
-                              defaultValue="-" // 设置初始值为 "-"
+                              options={["", ...coachNames]} 
+                              value={classForm.page2.coachName}
                               // value={classForm.page1.coachName}
                               onChange={(event, newValue) => {
                                 handleInputChange({
@@ -714,13 +717,13 @@ useEffect(() => {
                           <Autocomplete
                             disablePortal
                             id="stuName"
-                            options={["-", ...studentNames]} // 在 options 中添加 "-"
-                            defaultValue="-" // 设置初始值为 "-"
+                            options={["", ...studentNames]} 
+                            value={classForm.page2.stuName}
                             // value={classForm.page1.stuName}
                             onChange={(event, newValue) => {
                               handleInputChange({
                                 target: { name: 'stuName', value: newValue }, // 模拟事件对象
-                              }, 'page2', 'stuName');
+                              }, 'page2');
                             }}
                             renderInput={(params) => (
                               <TextField
@@ -734,7 +737,7 @@ useEffect(() => {
                         {/* <button className="btn btn-originalgray" type="button">已付費</button> */}
                       </div>
                       <div class="form-group">
-                        <label>堂數</label>
+                        <label>堂數：</label>
                         <div className="select">
                           <input 
                             type="number" 
@@ -887,8 +890,8 @@ useEffect(() => {
                           <Autocomplete
                           disablePortal
                           id="coachName"
-                          options={["-", ...coachNames]} // 在 options 中添加 "-"
-                          defaultValue="-" // 设置初始值为 "-"
+                          options={["", ...coachNames]} 
+                          value={classForm.page3.coachName}
                           // value={classForm.page1.coachName}
                           onChange={(event, newValue) => {
                             handleInputChange({
@@ -910,13 +913,13 @@ useEffect(() => {
                           <Autocomplete
                             disablePortal
                             id="stuName"
-                            options={["-", ...studentNames]} // 在 options 中添加 "-"
-                            defaultValue="-" // 设置初始值为 "-"
+                            options={["", ...studentNames]} 
+                            value={classForm.page3.stuName}
                             // value={classForm.page1.stuName}
                             onChange={(event, newValue) => {
                               handleInputChange({
                                 target: { name: 'stuName', value: newValue }, // 模拟事件对象
-                              }, 'page3', 'stuName');
+                              }, 'page3');
                             }}
                             renderInput={(params) => (
                               <TextField
@@ -929,7 +932,7 @@ useEffect(() => {
                         </div>
                       </div>
                       <div class="form-group">
-                        <label>堂數</label>
+                        <label>堂數：</label>
                         <div className="select">
                           <input 
                             type="number" 
@@ -1081,8 +1084,8 @@ useEffect(() => {
                             <Autocomplete
                               disablePortal
                               id="coachName"
-                              options={["-", ...coachNames]} // 在 options 中添加 "-"
-                              defaultValue="-" // 设置初始值为 "-"
+                              options={["", ...coachNames]} 
+                              value={classForm.page4.coachName}
                               // value={classForm.page1.coachName}
                               onChange={(event, newValue) => {
                                 handleInputChange({
@@ -1104,13 +1107,13 @@ useEffect(() => {
                           <Autocomplete
                             disablePortal
                             id="stuName"
-                            options={["-", ...studentNames]} // 在 options 中添加 "-"
-                            defaultValue="-" // 设置初始值为 "-"
+                            options={["", ...studentNames]} 
+                            value={classForm.page4.stuName}
                             // value={classForm.page1.stuName}
                             onChange={(event, newValue) => {
                               handleInputChange({
                                 target: { name: 'stuName', value: newValue }, // 模拟事件对象
-                              }, 'page4', 'stuName');
+                              }, 'page4');
                             }}
                             renderInput={(params) => (
                               <TextField
@@ -1126,23 +1129,27 @@ useEffect(() => {
                         <div className="form-group">
                             <label>樓層:</label>
                             <div className="select">
-                              <select 
-                                className="form-select " 
-                                name="floor"
-                                required
-                                value={classForm.page4.floor}
-                                onChange={(e) => handleInputChange(e, 'page4')}
-                              >
-                                  <option value="" disabled hidden>-</option>
-                                  <option value="1">1樓</option>
-                                  <option value="2">2樓</option>
-                                  <option value="3">3樓</option>
-                                  <option value="4">4樓</option>
-                              </select>
+                            <Autocomplete
+                              disablePortal
+                              id="floor"
+                              options={[ "","1樓", "2樓", "3樓", "4樓"]} // 在 options 中添加选项
+                              value={classForm.page4.floor}
+                              onChange={(event, newValue) => {
+                                handleInputChange({
+                                  target: { name: 'floor', value: newValue }, // 模拟事件对象
+                                }, 'page4');
+                              }}
+                              renderInput={(params) => (
+                                <TextField
+                                  {...params}
+                                  className="custom-autocomplete" // 添加一个自定义的 CSS 类名
+                                />
+                              )}
+                            />
                             </div>
                         </div>
                         <div class="form-group">
-                        <label>堂數</label>
+                        <label>堂數：</label>
                         <div className="select">
                           <input 
                             type="number" 
