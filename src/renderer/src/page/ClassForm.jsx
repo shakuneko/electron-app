@@ -437,11 +437,10 @@ useEffect(() => {
                             <select 
                             class="form-select " 
                             name="stuName2"
-                            required
                             value={classForm.page1.stuName2}
                             onChange={(e) => handleInputChange(e, 'page1')}
                             >
-                              <option value="" disabled hidden>-</option>
+                              <option value="" >-</option>
                                 {studentNames.map((name) => (
                                 <option key={name} value={name}>
                                 {name}
@@ -450,7 +449,21 @@ useEffect(() => {
                             </select>
                       </div>                
                     </div>
-                    <div className="form-group">
+                    <div class="form-group">
+                        <label>堂數</label>
+                        <div className="select">
+                          <input 
+                            type="number" 
+                            class="form-select"
+                            name="coursesAll"
+                            required
+                            placeholder="請填寫整數數字，例如：10"
+                            value={classForm.page1.coursesAll}
+                            onChange={(e) => handleInputChange(e, 'page1')}
+                          ></input>
+                        </div>
+                    </div>
+                    {/* <div className="form-group">
                         <label>堂數:</label>
                         <div className="select">
                           <select 
@@ -465,7 +478,7 @@ useEffect(() => {
                               <option value="10">10</option>
                           </select>
                         </div>
-                    </div>
+                    </div> */}
                     <div class="form-group">
                         <label>購買金額:</label>
                         <div className="select">
@@ -532,7 +545,7 @@ useEffect(() => {
                             type="text" 
                             class="form-select"
                             name="invoiceNum2"
-                            required
+                            placeholder="沒有學員2的話不用填寫"
                             value={classForm.page1.invoiceNum2}
                             onChange={(e) => handleInputChange(e, 'page1')}
                             ></input>
