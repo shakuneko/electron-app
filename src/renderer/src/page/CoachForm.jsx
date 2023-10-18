@@ -43,6 +43,7 @@ function CoachForm(props) {
     PtSalary:'',
     PilatesSalary:'',
     MassageSalary:'', 
+    RentSalary:'',
   };
 // 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
@@ -118,6 +119,7 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   PtSalary:coachForm.PtSalary,
   PilatesSalary:coachForm.PilatesSalary,
   MassageSalary:coachForm.MassageSalary, 
+  RentSalary:coachForm.RentSalary, 
   teachClass:[],
 };
 setNewCoaData(
@@ -173,7 +175,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
             </div>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
-            <div class="form-group">
+            {/* <div class="form-group">
                     <label >建檔日期:</label>
                     <div className="select">
                     <input 
@@ -185,7 +187,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label >姓名:</label>
                     <div className="select">
@@ -238,7 +240,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     ></input>
                     </div>
                 </div>
-                <div class="form-group">
+                {/* <div class="form-group">
                     <label >Email:</label>
                     <div className="select">
                     <input 
@@ -263,7 +265,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                   <label >課程:</label>
                   <div className="form_btn2">
@@ -326,7 +328,21 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>   
+                </div>
+                <div class="form-group">
+                    <label>場地租借費用:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="RentSalary"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
+                      required
+                      value={coachForm.RentSalary}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>      
                 <div class="form-group">
                     <label>帳戶:</label>
                     <div className="select">
