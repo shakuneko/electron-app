@@ -31,9 +31,9 @@ function StudentForm(props){
     stuID:'',
     stuName:'',
     stuGender: '',
+    stuBirth:'',
+    stuAge:'',
     stuPhone: '',
-    stuEmail: '',
-    stuAddress: '',
     stuContact: '',
     stuRelation:'',
     stuContact_tel:'',
@@ -83,8 +83,8 @@ function StudentForm(props){
       stuName: stuForm.stuName,
       stuGender: stuForm.stuGender,
       stuPhone: stuForm.stuPhone,
-      stuEmail: stuForm.stuEmail,
-      stuAddress: stuForm.stuAddress,
+      stuBirth:stuForm.stuBirth,
+      stuAge:stuForm.stuAge,
       stuContact: stuForm.stuContact,
       stuRelation: stuForm.stuRelation,
       stuContact_tel: stuForm.stuContact_tel,
@@ -141,7 +141,7 @@ function StudentForm(props){
             </div>
           </div>
             <form className="form" onSubmit={handleSubmit}>
-            <div class="form-group">
+              {/* <div class="form-group">
                     <label>建檔日期:</label>
                     <div className="select">
                     <input 
@@ -154,7 +154,7 @@ function StudentForm(props){
                       onChange={handleInputChange} 
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label>姓名:</label>
                     <div className="select">
@@ -184,6 +184,34 @@ function StudentForm(props){
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>出生年月日:</label>
+                    <div className="select">
+                    <input 
+                      id="birth"
+                      type="text" 
+                      name="stuBirth"
+                      class="form-select" 
+                      required
+                      value={stuForm.stuBirth}
+                      onChange={handleInputChange} 
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>年齡:</label>
+                    <div className="select">
+                    <input 
+                      id="age"
+                      type="text" 
+                      name="stuAge"
+                      class="form-select" 
+                      required
+                      value={stuForm.stuAge}
+                      onChange={handleInputChange} 
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>電話:</label>
                     <div className="select">
                     <input 
@@ -197,7 +225,7 @@ function StudentForm(props){
                     ></input>
                     </div>
                 </div>
-                <div class="form-group">
+                {/* <div class="form-group">
                     <label>Email:</label>
                     <div className="select">
                     <input 
@@ -224,7 +252,7 @@ function StudentForm(props){
                       onChange={handleInputChange}  
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label>緊急連絡人姓名:</label>
                     <div className="select">
