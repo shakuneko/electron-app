@@ -121,6 +121,10 @@
 .form_btn{
     width: 90%;    
 }
+.form_btn1{
+    margin-top: 5px;
+    padding-left: 10px;  
+}
 .form_btn2{
     width: 90%;  
     padding-left: 10px;  

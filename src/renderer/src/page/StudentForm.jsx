@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
@@ -39,6 +39,7 @@ function StudentForm(props){
     stuContact_tel:'',
     stuNote:'',
     createDate:'',
+    calculateAge: false,
   };
   //  // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
@@ -59,8 +60,33 @@ function StudentForm(props){
         ...stuForm,
         [name]: value,
       });
+
+      if (name === 'stuBirth') {
+        setStuForm({ ...stuForm, stuBirth: value });
+      } else if (name === 'stuAge') {
+        setStuForm({ ...stuForm, stuAge: value });
+      }
   };
- 
+ // 在另一个地方或使用 useEffect 来计算年龄
+useEffect(() => {
+  if (stuForm.stuBirth) {
+    const birthDateString = stuForm.stuBirth;
+    const birthDate = new Date(birthDateString);
+    const currentDate = new Date();
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+      currentDate.getMonth() < birthDate.getMonth() ||
+      (currentDate.getMonth() === birthDate.getMonth() &&
+        currentDate.getDate() < birthDate.getDate())
+    ) {
+      age--; // 生日还未到，减去一年
+    }
+
+    setStuForm({ ...stuForm, stuAge: age });
+  }
+}, [stuForm.stuBirth]);
+
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -194,6 +220,7 @@ function StudentForm(props){
                       required
                       value={stuForm.stuBirth}
                       onChange={handleInputChange} 
+                      placeholder="填寫格式：1995/10/04"
                     ></input>
                     </div>
                 </div>
