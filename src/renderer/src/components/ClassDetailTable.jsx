@@ -363,7 +363,7 @@ function ClassDetailTable({
         },
         {
             accessorKey:"cancel",
-            header:"取消預約",
+            header:"請假",
             // id:"cansole", 影響編輯
             //影響說明：雖然值一樣，但是如果用滑鼠再框格中點一下取消反白，或是點擊框框中的文字也會被視為修改資料，單單出席跟取消預約有問題
             size:50,
