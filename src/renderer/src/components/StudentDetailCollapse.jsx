@@ -14,15 +14,15 @@ function StudentDetailCollapse({ stuData }) {
         flexDirection: 'column',
       }}
     >
+      <hr></hr>
       <div style={{
         marginBottom: '10px',
         display: 'flex'
       }}>
         {/* <div className='classCoachBox-item'>姓名：{stuData.stuName}</div>
       <div className='classCoachBox-item'>性別：{stuData.stuGender}</div> */}
+        <div className="classCoachBox-item">年齡：{stuData.stuAge}</div>
         <div className="classCoachBox-item">電話：{stuData.stuPhone}</div>
-        <div className="classCoachBox-item">Email：{stuData.stuEmail}</div>
-        <div className="classCoachBox-item">地址：{stuData.stuAddress}</div>
       </div>
       <div style={{
         display: 'flex',
@@ -32,6 +32,7 @@ function StudentDetailCollapse({ stuData }) {
         <div className="classCoachBox-item">緊急連絡人電話：{stuData.stuContact_tel}</div>
         <div className="classCoachBox-item">備註：{stuData.stuNote}</div>
       </div>
+      <hr></hr>
     </div>
   )
 }
