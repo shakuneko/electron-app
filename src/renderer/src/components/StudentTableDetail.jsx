@@ -62,7 +62,12 @@ function StudentTableDetail({classes}) {
     <MaterialReactTable 
         columns={columns}
         data={classes} 
-        initialState={{ showGlobalFilter: true }} //show filters by default
+        initialState={{ 
+            showGlobalFilter: true,
+            sorting: [
+                { id: 'stuID', desc: true }, //sort by classID in descending order by default
+              ],
+         }} //show filters by default
         enableColumnActions={false} //no need for column actions if none of them are enabled
         enableDensityToggle={false} //density does not work with memoized table body
         enableFullScreenToggle={false}

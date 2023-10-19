@@ -68,6 +68,11 @@ function ClassTableDetail({classes}) {
     // console.log(result);
 
     const columns = [ //表格有的資料
+          {
+            accessorKey:"classID",
+            header:"#",
+            size:50,
+        },
         {
             accessorFn: (row) => {
                 // !!row.coach && 
@@ -135,11 +140,11 @@ function ClassTableDetail({classes}) {
         },
         {
             accessorKey:"classID",
+            id:"checkout_id",
             header:"操作",
             size:50,
             Cell: CheckOut,
             enableSorting: false
-
         }
     ];
     
@@ -148,7 +153,12 @@ function ClassTableDetail({classes}) {
     <MaterialReactTable 
         columns={columns}
         data={newClassStatus} 
-        initialState={{ showGlobalFilter: true }} //show filters by default
+        initialState={{ 
+          showGlobalFilter: true ,
+          sorting: [
+            { id: 'classID', desc: true }, //sort by classID in descending order by default
+          ],
+        }} //show filters by default
         enableColumnActions={false} //no need for column actions if none of them are enable
         enableDensityToggle={false} //density does not work with memoized table body
         enableFullScreenToggle={false}

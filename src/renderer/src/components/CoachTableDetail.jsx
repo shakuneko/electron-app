@@ -21,7 +21,7 @@ function CoachTableDetail({classes}) {
             accessorKey:"coachID",
             header:"#",
             size:50,
-            enableSorting: false
+            // enableSorting: false
 
         },
         {
@@ -75,7 +75,12 @@ function CoachTableDetail({classes}) {
     <MaterialReactTable 
         columns={columns}
         data={classes} 
-        initialState={{ showGlobalFilter: true }} //show filters by default
+        initialState={{ 
+            showGlobalFilter: true,
+            sorting: [
+                { id: 'coachID', desc: true }, //sort by classID in descending order by default
+            ],
+         }} //show filters by default
         enableColumnActions={false} //no need for column actions if none of them are enabled
         enableColumnFilters={false} //filtering does not work with memoized table body
         

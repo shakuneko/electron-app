@@ -370,21 +370,12 @@ function ClassDetailTable({
             enableSorting: false,
             editVariant: 'select',
             editSelectOptions:selectOptins,
-            // muiTableBodyCellEditTextFieldProps: {
-            //   select: true, //change to select for a dropdown
-            //   children: selectOptins.map((state) => (
-            //     <MenuItem key={state} value={state}>
-            //       {state}
-            //     </MenuItem>
-            //   )),
-            // },
         },
         {
             accessorKey:"note",
             header:"備註",
             size:200,
             enableSorting: false,
-            // enableEditing: false
          }
     ];
 
@@ -416,7 +407,12 @@ function ClassDetailTable({
         <MaterialReactTable
             columns={columns}
             data={tableData}
-            initialState={{ showGlobalFilter: true }} //show filters by default
+            initialState={{ 
+              showGlobalFilter: true,
+              sorting: [
+                { id: 'reserveDate', desc: true }, //sort by classID in descending order by default
+            ],
+             }} //show filters by default
             enableColumnActions={false} //no need for column actions if none of them are enabled
             enableDensityToggle={false} //density does not work with memoized table body
             enableFullScreenToggle={false}
