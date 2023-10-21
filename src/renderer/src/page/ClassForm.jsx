@@ -46,7 +46,7 @@ function findCoachIDByName(CoachName) {
 }
   const initialFormData = {
     page1: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       stuName2:'',
       coursesAll: '',
@@ -57,7 +57,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page2: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       coursesAll: '',
       buyDate:'',
@@ -67,7 +67,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page3: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       coursesAll: '',
       buyDate:'',
@@ -77,7 +77,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page4: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       coursesAll: '',
       buyDate:'',
@@ -87,7 +87,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page5: {
-      coachName:'',
+      coachName:null,
       stuName:'',
       floor: '',
       buyDate:'',
@@ -97,7 +97,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page6: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       coursesAll: '1',
       buyDate:'',
@@ -107,7 +107,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page7: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       stuName2:'',
       coursesAll: '1',
@@ -118,7 +118,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page8: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       coursesAll: '1',
       buyDate:'',
@@ -128,7 +128,7 @@ function findCoachIDByName(CoachName) {
       buyNote: '',
     },
     page9: {
-      coachName:'',
+      coachName:null,
       stuName: '',
       coursesAll: '1',
       buyDate:'',
@@ -145,8 +145,6 @@ const [studentNames, setStudentNames] = useState([]);
 const [coachNames, setCoachNames] = useState([]);
 const [selectedCourse, setSelectedCourse] = useState("PT"); // 用于存储当前所选的课程名称
 // const [isRadioSelected, setIsRadioSelected] = useState(false); //體驗課按鈕
-
-
 let newClassData = props.classes[0].classDetail.map((item, index) => {
   return item
 });
@@ -458,8 +456,11 @@ useEffect(() => {
                         <Autocomplete
                           disablePortal
                           id="coachName"
-                          options={["", ...coachNames]} 
-                          value={classForm.page1.coachName}
+                          options={["", ...coachNames].filter((coachName) => {
+                            const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                            return coach && coach.major.includes(selectedCourse);
+                          })}
+                          value={classForm.page1.coachName} 
                           onChange={(event, newValue) => {
                             handleInputChange({
                               target: { name: 'coachName', value: newValue }, // 模拟事件对象
@@ -472,7 +473,6 @@ useEffect(() => {
                               className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                             />
                           )}
-                          
                         />
                           {/* <select className="form-select" 
                           name="coachName"
@@ -748,7 +748,10 @@ useEffect(() => {
                           <Autocomplete
                               disablePortal
                               id="coachName"
-                              options={["", ...coachNames]} 
+                              options={["", ...coachNames].filter((coachName) => {
+                                const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                                return coach && coach.major.includes(selectedCourse);
+                              })}
                               value={classForm.page2.coachName}
                               // value={classForm.page1.coachName}
                               onChange={(event, newValue) => {
@@ -762,6 +765,7 @@ useEffect(() => {
                                   className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                                 />
                               )}
+                              noOptionsText="沒有符合的教練"
                             />
                           </div>
                       </div>
@@ -906,7 +910,10 @@ useEffect(() => {
                           <Autocomplete
                               disablePortal
                               id="coachName"
-                              options={["", ...coachNames]} 
+                              options={["", ...coachNames].filter((coachName) => {
+                                const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                                return coach && coach.major.includes(selectedCourse);
+                              })}
                               value={classForm.page3.coachName}
                               // value={classForm.page1.coachName}
                               onChange={(event, newValue) => {
@@ -920,6 +927,7 @@ useEffect(() => {
                                   className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                                 />
                               )}
+                              noOptionsText="沒有符合的教練"
                             />
                           </div>
                       </div>
@@ -1064,7 +1072,10 @@ useEffect(() => {
                           <Autocomplete
                           disablePortal
                           id="coachName"
-                          options={["", ...coachNames]} 
+                          options={["", ...coachNames].filter((coachName) => {
+                            const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                            return coach && coach.major.includes(selectedCourse);
+                          })}
                           value={classForm.page4.coachName}
                           // value={classForm.page1.coachName}
                           onChange={(event, newValue) => {
@@ -1078,6 +1089,7 @@ useEffect(() => {
                               className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                             />
                           )}
+                          noOptionsText="沒有符合的教練"
                         />
                           </div>
                       </div>
@@ -1221,7 +1233,10 @@ useEffect(() => {
                             <Autocomplete
                               disablePortal
                               id="coachName"
-                              options={["", ...coachNames]} 
+                              options={["", ...coachNames].filter((coachName) => {
+                                const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                                return coach && coach.major.includes(selectedCourse);
+                              })}
                               value={classForm.page5.coachName}
                               // value={classForm.page1.coachName}
                               onChange={(event, newValue) => {
@@ -1236,6 +1251,7 @@ useEffect(() => {
                                   placeholder="請在 “新增教練頁面” 新增租借處資料"
                                 />
                               )}
+                              noOptionsText="沒有符合的教練"
                             />
                             </div>
                         </div>
@@ -1402,7 +1418,10 @@ useEffect(() => {
                               <Autocomplete
                                   disablePortal
                                   id="coachName"
-                                  options={["", ...coachNames]} 
+                                  options={["", ...coachNames].filter((coachName) => {
+                                    const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                                    return coach && coach.major.includes(selectedCourse);
+                                  })}
                                   value={classForm.page6.coachName}
                                   // value={classForm.page1.coachName}
                                   onChange={(event, newValue) => {
@@ -1416,6 +1435,7 @@ useEffect(() => {
                                       className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                                     />
                                   )}
+                                  noOptionsText="沒有符合的教練"
                                 />
                               </div>
                           </div>
@@ -1559,7 +1579,10 @@ useEffect(() => {
                               <Autocomplete
                                 disablePortal
                                 id="coachName"
-                                options={["", ...coachNames]} 
+                                options={["", ...coachNames].filter((coachName) => {
+                                  const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                                  return coach && coach.major.includes(selectedCourse);
+                                })}
                                 value={classForm.page7.coachName}
                                 onChange={(event, newValue) => {
                                   handleInputChange({
@@ -1573,7 +1596,7 @@ useEffect(() => {
                                     className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                                   />
                                 )}
-                                
+                                noOptionsText="沒有符合的教練"
                               />
                               </div>
                           </div>
@@ -1738,7 +1761,10 @@ useEffect(() => {
                                   <Autocomplete
                                       disablePortal
                                       id="coachName"
-                                      options={["", ...coachNames]} 
+                                      options={["", ...coachNames].filter((coachName) => {
+                                        const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                                        return coach && coach.major.includes(selectedCourse);
+                                      })}
                                       value={classForm.page8.coachName}
                                       // value={classForm.page1.coachName}
                                       onChange={(event, newValue) => {
@@ -1752,6 +1778,7 @@ useEffect(() => {
                                           className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                                         />
                                       )}
+                                      noOptionsText="沒有符合的教練"
                                     />
                                   </div>
                               </div>
@@ -1895,7 +1922,10 @@ useEffect(() => {
                                   <Autocomplete
                                       disablePortal
                                       id="coachName"
-                                      options={["", ...coachNames]} 
+                                      options={["", ...coachNames].filter((coachName) => {
+                                        const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                                        return coach && coach.major.includes(selectedCourse);
+                                      })}
                                       value={classForm.page9.coachName}
                                       // value={classForm.page1.coachName}
                                       onChange={(event, newValue) => {
@@ -1909,6 +1939,7 @@ useEffect(() => {
                                           className="custom-autocomplete" // 添加一个自定义的 CSS 类名
                                         />
                                       )}
+                                      noOptionsText="沒有符合的教練"
                                     />
                                   </div>
                               </div>

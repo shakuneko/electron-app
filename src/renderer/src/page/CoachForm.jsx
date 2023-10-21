@@ -307,7 +307,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                 )}
                 {selectedOptions.includes('基皮') && (
                 <div class="form-group">
-                    <label >基皮:</label>
+                    <label >基皮堂薪:</label>
                     <div className="select">
                     <input 
                       type="number" 
@@ -323,7 +323,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                 )}
                 {selectedOptions.includes('高皮') && (
                 <div class="form-group">
-                    <label >高皮:</label>
+                    <label >高皮堂薪:</label>
                     <div className="select">
                     <input 
                       type="number" 
