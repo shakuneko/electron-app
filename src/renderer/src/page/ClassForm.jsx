@@ -268,8 +268,8 @@ const handleSubmit = (event) => {
 const newClassItem = {
   classID: newClassID, 
   courseType: selectedCourse, 
-  exCourse: classForm[currentPage].exCourse, 
-  exCoursePrice:classForm[currentPage].exCoursePrice, 
+  // exCourse: classForm[currentPage].exCourse, 
+  // exCoursePrice:classForm[currentPage].exCoursePrice, 
   coursesAll: classForm[currentPage].coursesAll,
   courseLeft:classForm[currentPage].coursesAll,
   coursesFIN:0,
