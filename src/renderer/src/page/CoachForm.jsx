@@ -39,7 +39,8 @@ function CoachForm(props) {
     major: null, // 新增一个字段用于存储按钮选项值
     joinDate:'',
     PtSalary:'',
-    PilatesSalary:'',
+    PilatesSalary1:'',
+    PilatesSalary2:'',
     MassageSalary:'', 
     RentSalary:'',
   };
@@ -113,7 +114,8 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   major:coachForm.major, 
   joinDate:coachForm.joinDate,
   PtSalary:coachForm.PtSalary,
-  PilatesSalary:coachForm.PilatesSalary,
+  PilatesSalary1:coachForm.PilatesSalary1,
+  PilatesSalary2:coachForm.PilatesSalary2,
   MassageSalary:coachForm.MassageSalary, 
   RentSalary:coachForm.RentSalary, 
   teachClass:[],
@@ -271,8 +273,12 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       className={`btn btn-outline-golden ${selectedOptions.includes('PT') ? 'active' : ''}`}>PT</button>
                     <button 
                       type="button" 
-                      onClick={() => handleItemClick('皮拉提斯')}
-                      className={`btn btn-outline-golden ${selectedOptions.includes('皮拉提斯') ? 'active' : ''}`}>皮拉提斯</button>
+                      onClick={() => handleItemClick('基皮')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('基皮') ? 'active' : ''}`}>基皮</button>
+                      <button 
+                      type="button" 
+                      onClick={() => handleItemClick('高皮')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('高皮') ? 'active' : ''}`}>高皮</button>
                     <button
                       type="button" 
                       onClick={() => handleItemClick('運動按摩')}
@@ -283,6 +289,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       className={`btn btn-outline-golden ${selectedOptions.includes('場地租借') ? 'active' : ''}`}>場地租借</button>
                   </div>
                 </div>    
+                {selectedOptions.includes('PT') && (
                 <div class="form-group">
                     <label >PT堂薪:</label>
                     <div className="select">
@@ -297,20 +304,40 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     ></input>
                     </div>
                 </div>
+                )}
+                {selectedOptions.includes('基皮') && (
                 <div class="form-group">
-                    <label >皮拉提斯堂薪:</label>
+                    <label >基皮:</label>
                     <div className="select">
                     <input 
                       type="number" 
                       class="form-select" 
-                      name="PilatesSalary"
+                      name="PilatesSalary1"
                       placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
-                      value={coachForm.PilatesSalary}
+                      value={coachForm.PilatesSalary1}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
+                )}
+                {selectedOptions.includes('高皮') && (
+                <div class="form-group">
+                    <label >高皮:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="PilatesSalary2"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
+                      required
+                      value={coachForm.PilatesSalary2}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
+                )}
+                {selectedOptions.includes('運動按摩') && (
                 <div class="form-group">
                     <label>運動按摩堂薪:</label>
                     <div className="select">
@@ -325,6 +352,8 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     ></input>
                     </div>
                 </div>
+                )}
+                 {selectedOptions.includes('場地租借') && (
                 <div class="form-group">
                     <label>場地租借費用:</label>
                     <div className="select">
@@ -339,6 +368,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     ></input>
                     </div>
                 </div>      
+                 )}
                 <div class="form-group">
                     <label>帳戶:</label>
                     <div className="select">
