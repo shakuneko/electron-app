@@ -417,7 +417,7 @@ useEffect(() => {
          
           <form className="form"  onSubmit={handleSubmit}>
               <div class="form-group">
-                  <label>種類:</label>
+                  <label>課程種類:</label>
                   <div className="form_btn">
                     <div className="form_btn1">
                       <button className={`btn btn-outline-golden page-button ${currentPage === 'page1' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page1','PT')}>PT</button>

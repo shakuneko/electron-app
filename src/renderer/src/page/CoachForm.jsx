@@ -269,7 +269,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     </div>
                 </div> */}
                 <div class="form-group">
-                  <label >課程:</label>
+                  <label >課程種類:</label>
                   <div className="form_btn2">
                   <div className="form_btn1">
                     <button 
