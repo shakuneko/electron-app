@@ -1,7 +1,16 @@
 import React from "react";
 import Navbar from '../components/Navbar'
+import StuDataModifyDetail from '../components/StuDataModifyDetail'
+import { useParams } from 'react-router-dom';
 
-function StuDataModify() {
+function StuDataModify ({ classes }) {
+    const { stuID } = useParams();
+    const stuDetail =  !!classes && classes.find(item => item.category === "student").stuDetail
+    const stuData = stuDetail.find(
+        (x) => x.stuID === stuID
+    );
+    console.log("ID, stuData", stuID, stuData)
+
     return (
         <div className="container-fluid">
             <div className="row form_class row-no-gutters">
@@ -9,13 +18,16 @@ function StuDataModify() {
                     <Navbar /> 
                 </div>
                 <div className='col-10 container margin-left-right'>  
-                    <div className='table-container'>
-                        <h1 className='title'>學員資料修改</h1>
-                        {/* <button onClick={()=> console.log(classes)}>pp</button> */}
-
+                    <div className="title_word">
+                        <div className="title_word2"> 
+                            <h1>學員資料修改</h1>
+                        </div>
                     </div>
+                    <StuDataModifyDetail 
+                        stuData={stuData}
+                        stuDetail={stuDetail}
+                    />
                 </div>
-                
             </div>
         </div>       
     )
