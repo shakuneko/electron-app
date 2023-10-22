@@ -83,6 +83,23 @@ function StuDataModifyDetail({stuData, stuDetail}) {
      setOpen(true);
     };
 
+    let stuAge = 0
+    if (stuForm.stuBirth) {
+        const birthDateString = stuForm.stuBirth;
+        const birthDate = new Date(birthDateString);
+        const currentDate = new Date();
+        let age = currentDate.getFullYear() - birthDate.getFullYear();
+    
+        if (
+          currentDate.getMonth() < birthDate.getMonth() ||
+          (currentDate.getMonth() === birthDate.getMonth() &&
+            currentDate.getDate() < birthDate.getDate())
+        ) {
+          age--; // 生日还未到，减去一年
+        }
+        stuAge = age
+    }
+
     return (
         <div>
             <Dialog
@@ -104,25 +121,24 @@ function StuDataModifyDetail({stuData, stuDetail}) {
                 </DialogActions>
             </Dialog>
             <form className="form" onSubmit={handleSubmit}>
-                <div class="form-group">
+               {/* <div class="form-group">
                     <label>建檔日期:</label>
                     <div className="select">
-                        <input 
-                            id="tel" 
-                            type="date" 
-                            name="createDate"
-                            class="form-select" 
-                            required
-                            value={stuForm.createDate}
-                            // onChange={handleInputChange} 
-                            disabled
-                        ></input>
+                    <input 
+                        id="tel" 
+                        type="date" 
+                        name="createDate"
+                        class="form-select" 
+                        required
+                        value={stuForm.createDate}
+                        onChange={handleInputChange} 
+                    ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label>姓名:</label>
                     <div className="select">
-                        <input 
+                    <input 
                         id="name" 
                         name="stuName"
                         type="text" 
@@ -130,13 +146,13 @@ function StuDataModifyDetail({stuData, stuDetail}) {
                         required
                         value={stuForm.stuName}
                         onChange={handleInputChange}
-                        ></input>
+                    ></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>性別:</label>
                     <div className="select">
-                        <input 
+                    <input 
                         id="gender"
                         type="text" 
                         name="stuGender"
@@ -144,13 +160,42 @@ function StuDataModifyDetail({stuData, stuDetail}) {
                         required
                         value={stuForm.stuGender}
                         onChange={handleInputChange} 
-                        ></input>
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>出生年月日:</label>
+                    <div className="select">
+                    <input 
+                        id="tel" 
+                        type="date" 
+                        name="stuBirth"
+                        class="form-select" 
+                        required
+                        value={stuForm.stuBirth}
+                        onChange={handleInputChange} 
+                    ></input>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label>年齡:</label>
+                    <div className="select">
+                    <input 
+                        id="age"
+                        type="text" 
+                        name="stuAge"
+                        class="form-select" 
+                        required
+                        value={stuAge}
+                        //   onChange={handleInputChange} 
+                        disabled
+                    ></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>電話:</label>
                     <div className="select">
-                        <input 
+                    <input 
                         id="tel" 
                         type="text" 
                         name="stuPhone"
@@ -158,41 +203,41 @@ function StuDataModifyDetail({stuData, stuDetail}) {
                         required
                         value={stuForm.stuPhone}
                         onChange={handleInputChange} 
-                        ></input>
+                    ></input>
                     </div>
                 </div>
-                <div class="form-group">
+                {/* <div class="form-group">
                     <label>Email:</label>
                     <div className="select">
-                        <input 
-                        id="email"
-                        type="email" 
-                        name="stuEmail"
-                        class="form-select" 
-                        placeholder="例如：123@gmail.com"
-                        value={stuForm.stuEmail}
-                        onChange={handleInputChange} 
-                        ></input>
+                    <input 
+                      id="email"
+                      type="email" 
+                      name="stuEmail"
+                      class="form-select" 
+                      placeholder="例如：123@gmail.com"
+                      value={stuForm.stuEmail}
+                      onChange={handleInputChange} 
+                    ></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>地址:</label>
                     <div className="select">
-                        <input 
-                        id="address" 
-                        type="text" 
-                        name="stuAddress"
-                        class="form-select"  
-                        required
-                        value={stuForm.stuAddress}
-                        onChange={handleInputChange}  
+                    <input 
+                      id="address" 
+                      type="text" 
+                      name="stuAddress"
+                      class="form-select"  
+                      required
+                      value={stuForm.stuAddress}
+                      onChange={handleInputChange}  
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label>緊急連絡人姓名:</label>
                     <div className="select">
-                        <input 
+                    <input 
                         id="contact" 
                         type="text" 
                         name="stuContact"
@@ -200,13 +245,13 @@ function StuDataModifyDetail({stuData, stuDetail}) {
                         required
                         value={stuForm.stuContact}
                         onChange={handleInputChange} 
-                        ></input>
+                    ></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>您與他的關係:</label>
                     <div className="select">
-                        <input 
+                    <input 
                         id="relation" 
                         type="text" 
                         name="stuRelation"
@@ -214,13 +259,13 @@ function StuDataModifyDetail({stuData, stuDetail}) {
                         required
                         value={stuForm.stuRelation}
                         onChange={handleInputChange} 
-                        ></input>
+                    ></input>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>緊急連絡人電話:</label>
                     <div className="select">
-                        <input 
+                    <input 
                         id="contact_tel" 
                         type="text" 
                         name="stuContact_tel"
@@ -228,13 +273,13 @@ function StuDataModifyDetail({stuData, stuDetail}) {
                         required
                         value={stuForm.stuContact_tel}
                         onChange={handleInputChange} 
-                        ></input>
+                    ></input>
                     </div>
                 </div>
                 <div class="form-group2">
                     <label>備註:</label>
                     <div className="select">
-                        <textarea 
+                    <textarea 
                         id="note" 
                         name="stuNote"
                         class="form-select" 

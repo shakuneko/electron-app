@@ -31,14 +31,26 @@ function CoachTopBar({coachValue, classes}) {
           if (names.courseType === "PT" ) {
             totalSalary +=  names.coursesFIN * coachValue.PtSalary
           }
-          else if (names.courseType === "皮拉提斯" ) {
-            totalSalary +=  names.coursesFIN * coachValue.PilatesSalary
+          else if (names.courseType === "基皮" ) {
+            totalSalary +=  names.coursesFIN * coachValue.PilatesSalary1
+          }
+          else if (names.courseType === "高皮" ) {
+            totalSalary +=  names.coursesFIN * coachValue.PilatesSalary2
           }
           else if (names.courseType === "團課" ) {
             totalSalary +=  names.coursesFIN * coachValue.GroupSalary
           }
           else if (names.courseType === "運動按摩" ) {
             totalSalary +=  names.coursesFIN * coachValue.MassageSalary
+          }
+          else if (names.courseType === "場地租借" ) {
+            totalSalary +=  names.coursesFIN * coachValue.RentSalary
+          }
+          else if (names.courseType === "體驗PT1v1" ) {
+            totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary1
+          }
+          else if (names.courseType === "體驗PT1v2" ) {
+            totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary2
           }
         }
 

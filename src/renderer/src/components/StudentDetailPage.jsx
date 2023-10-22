@@ -24,24 +24,24 @@ function StudentDetailPage({ stuData }) {
     if (stuData.buyDetail[i].courseType == 'PT') {
       ptCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
     }
-    else if (stuData.buyDetail[i].courseType == '皮拉提斯') {
-      pilaCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
-    }
-    // else if (stuData.buyDetail[i].courseType == '基皮') {
+    // else if (stuData.buyDetail[i].courseType == '皮拉提斯') {
     //   pilaCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
     // }
-    // else if (stuData.buyDetail[i].courseType == '高皮') {
-    //   proPilaCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
-    // }
+    else if (stuData.buyDetail[i].courseType == '基皮') {
+      pilaCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
+    }
+    else if (stuData.buyDetail[i].courseType == '高皮') {
+      proPilaCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
+    }
     else if (stuData.buyDetail[i].courseType == '團課') {
       groupCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
     }
     else if (stuData.buyDetail[i].courseType == '運動按摩') {
       massageCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
     }
-    // else if (stuData.buyDetail[i].courseType.substring(0, 3) == '體驗課') {
-    //   exCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
-    // }
+    else if (stuData.buyDetail[i].courseType.substring(0, 2) == '體驗') {
+      exCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
+    }
     else if (stuData.buyDetail[i].courseType == '場地租借') {
       rentCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
     }
@@ -60,15 +60,15 @@ function StudentDetailPage({ stuData }) {
             {ptCourseLeftSum != 0 ? (
                <p className="classCoachBox-item">PT 剩餘堂數：{ptCourseLeftSum}</p>
             ) : null}
-            {pilaCourseLeftSum != 0 ? (
-               <p className="classCoachBox-item">皮拉提斯剩餘堂數：{pilaCourseLeftSum}</p>
-            ) : null}
             {/* {pilaCourseLeftSum != 0 ? (
+               <p className="classCoachBox-item">皮拉提斯剩餘堂數：{pilaCourseLeftSum}</p>
+            ) : null} */}
+            {pilaCourseLeftSum != 0 ? (
                <p className="classCoachBox-item">基皮剩餘堂數：{pilaCourseLeftSum}</p>
             ) : null}
             {proPilaCourseLeftSum != 0 ? (
                <p className="classCoachBox-item">高皮剩餘堂數：{proPilaCourseLeftSum}</p>
-            ) : null} */}
+            ) : null}
             {groupCourseLeftSum != 0 ? (
                <p className="classCoachBox-item">團課剩餘堂數：{groupCourseLeftSum}</p>
             ) : null}
