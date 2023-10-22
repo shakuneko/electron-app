@@ -71,14 +71,9 @@ function StuDataModifyDetail({stuData, stuDetail}) {
         }
         return student;
       });
-    //  const updatedStuData = [_newStudentData];
+
      dispatch(updateStuStatus(updatedStuData))
-    //  dispatch(upDateStuCourse({
-    //    data:newStudentData,
-    //    category: "student",
-      
-    //  }));
-    console.log('updatedStuData', updatedStuData);
+     console.log('updatedStuData', updatedStuData);
      setStuForm(newStudentData); // local update
      setOpen(true);
     };

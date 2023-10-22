@@ -1,14 +1,16 @@
 import React from "react";
 import Navbar from '../components/Navbar'
+import CoachDataModifyDetail from '../components/CoachDataModifyDetail'
 import { useParams } from 'react-router-dom';
 
 function CoachDataModify ({ classes }) {
     const { coachID } = useParams();
-    let coachDetail = !!classes && classes[2].coachDetail
+    let coachDetail = !!classes && classes.find(item => item.category === "coach").coachDetail
 
     const coachData = coachDetail.find(
         (x) => x.coachID === coachID
     );
+    console.log("page coachData", coachData)
 
     return (
         <div className="container-fluid">
@@ -22,7 +24,10 @@ function CoachDataModify ({ classes }) {
                             <h1>教練資料修改</h1>
                         </div>
                     </div>
-                    <StuDataModifyDetail stuData={stuData}/>
+                    <CoachDataModifyDetail 
+                        coachData={coachData}
+                        coachDetail={coachDetail}
+                    />
                 </div>
                 
             </div>
