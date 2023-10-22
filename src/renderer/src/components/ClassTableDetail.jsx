@@ -77,7 +77,7 @@ function ClassTableDetail({classes}) {
       dispatch(updateClassStatus(newTableData));
       setNewClassStatus(newTableData);
     },
-    [classes],
+    [newClassStatus],
   );
 
   const AddBGC = ({cell}) => { // 設定邊框

@@ -46,22 +46,22 @@ function CoachTableDetail({classes}) {
         dispatch(updateCoachStatus(newTableData));
         setNewCoachStatus(newTableData);
         },
-        [classes],
+        [newCoachStatus],
     );
 
     //操作BTN
     const CheckOut = ({renderedCellValue, row}) => { //設定查看按鈕要進入的頁面
         return<>
             <div style={{display:"flex", flexDirection:"row"}}>
-            <Link to={`/coach/name/${renderedCellValue}`} className='table-link-underline-none'>  
-                <button type="button" className="btn btn-golden">查看</button> 
-            </Link>
-            <button type="button" className="btn btn-danger" onClick={() => handleClickOpen(row)}>              
-                刪除
-            </button> 
+                <Link to={`/coach/name/${renderedCellValue}`} className='table-link-underline-none'>  
+                    <button type="button" className="btn btn-golden">查看</button> 
+                </Link>
+                <button type="button" className="btn btn-danger" onClick={() => handleClickOpen(row)}>              
+                    刪除
+                </button> 
             </div>
         </>
-        };
+    };
 
     const columns = [ //表格有的資料
         {
