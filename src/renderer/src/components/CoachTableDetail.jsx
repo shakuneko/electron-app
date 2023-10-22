@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { updateClassStatus } from '../redux/reducers/saveSlice'
+import { updateCoachStatus } from '../redux/reducers/saveSlice'
 
 //confirm
 import Dialog from '@mui/material/Dialog';
@@ -16,6 +16,7 @@ function CoachTableDetail({classes}) {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [rowToDelete, setRowToDelete] = useState(null);
+    const [newCoachStatus, setNewCoachStatus] = useState(() => classes);
 
     const handleClickOpen = (row) => {
         setRowToDelete(row); // 保存要删除的行数据
@@ -42,8 +43,8 @@ function CoachTableDetail({classes}) {
         // setTableData([...classes]);
         const newTableData = classes.filter((item, index) => index !== row.index);
         console.log("newTableData data", newTableData);
-        dispatch(updateClassStatus(newTableData));
-        setNewClassStatus(newTableData);
+        dispatch(updateCoachStatus(newTableData));
+        setNewCoachStatus(newTableData);
         },
         [classes],
     );
@@ -139,7 +140,7 @@ function CoachTableDetail({classes}) {
 
         <MaterialReactTable 
             columns={columns}
-            data={classes} 
+            data={newCoachStatus} 
             initialState={{ 
                 showGlobalFilter: true,
                 sorting: [
