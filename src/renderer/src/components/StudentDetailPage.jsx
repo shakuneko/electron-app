@@ -94,7 +94,7 @@ function StudentDetailPage({ stuData }) {
             style={{
               marginLeft: 'auto',
               display: 'flex',
-              alignItems: 'space-between'
+              alignItems: 'space-between',
             }}
           >
             <Button
@@ -105,6 +105,9 @@ function StudentDetailPage({ stuData }) {
             >
               詳細資料
             </Button>
+            <Link to={`/classes`} className='table-link-underline-none'>
+              <Button className="btn btn-dbrown ">修改資料</Button> 
+            </Link>
           </div>
         </div>
         <Collapse in={open}>

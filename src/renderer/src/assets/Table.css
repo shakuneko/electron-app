@@ -53,8 +53,9 @@
     display: none;
 }
 .table-link-underline-none{
-    text-decoration: none ;
-    color: transparent !important;
+    text-decoration: none;
+    border: none !important;
+    /* color: transparent !important; */
 }
 
 /* class detail */
