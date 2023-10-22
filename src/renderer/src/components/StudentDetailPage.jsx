@@ -105,7 +105,7 @@ function StudentDetailPage({ stuData }) {
             >
               詳細資料
             </Button>
-            <Link to={`/classes`} className='table-link-underline-none'>
+            <Link to={`/student/modify/${stuData.stuID}`} className='table-link-underline-none'>
               <Button className="btn btn-dbrown ">修改資料</Button> 
             </Link>
           </div>

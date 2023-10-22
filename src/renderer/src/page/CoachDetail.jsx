@@ -3,6 +3,7 @@ import StudentsList from '../components/StudentsList'
 import CoachTopBar from '../components/CoachTopBar'
 import CoachDetailTable from '../components/CoachDetailTable'
 import Navbar from '../components/Navbar'
+import Button from 'react-bootstrap/Button'
 //json
 //import testClass from '../json/test_class.json'
 import { useParams } from 'react-router-dom';
@@ -62,6 +63,17 @@ function CoachDetail({ classes }) {
                             <p className="classCoachBox-item">教練：{coachData.coachName}</p>
                             <p className="classCoachBox-item">性別：{coachData.coachGender}</p>
                             {/* <p className="classCoachBox-item">堂薪：{coachData.salary}</p> */}
+                            <div
+                                style={{
+                                marginLeft: 'auto',
+                                display: 'flex',
+                                alignItems: 'space-between',
+                                }}
+                            >
+                                <Link to={`/coach/modify/${coachID}`} className='table-link-underline-none'>
+                                    <Button className="btn btn-dbrown ">修改資料</Button> 
+                                </Link>
+                            </div>
                         </div>
 
                         <div className="classcontainer">
