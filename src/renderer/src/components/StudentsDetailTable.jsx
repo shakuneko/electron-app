@@ -34,20 +34,20 @@ function StudentsDetailTable({ stuBuyDetailData }) {
         {
             accessorKey:"coursesAll",
             header:"堂數",
-            size:100,
+            size:50,
             enableSorting: false,
             enableEditing:false
         },
         {
             accessorKey:"coachName",
             header:"教練",
-            size:50,
+            size:100,
             enableEditing:false
         },
         {
             accessorKey:"payMethod",
             header:"付款方式",
-            size:100,
+            size:50,
             enableEditing:false
         },
         {
