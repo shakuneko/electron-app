@@ -31,8 +31,6 @@ function CoachForm(props) {
     coachGender: '',
     coachIDcode: '',
     coachPhone:'',
-    coachEmail: '',
-    coachAddress: '',
     coachBank:'',
     coachContact: '',
     coachRelation:'',
@@ -41,8 +39,12 @@ function CoachForm(props) {
     major: null, // 新增一个字段用于存储按钮选项值
     joinDate:'',
     PtSalary:'',
-    PilatesSalary:'',
+    PilatesSalary1:'',
+    PilatesSalary2:'',
+    exCoursePilatesSalary1:'',
+    exCoursePilatesSalary2:'',
     MassageSalary:'', 
+    RentSalary:'',
   };
 // 使用状态管理保存表单数据
 const [coachForm, setCoachForm] = useState(initialFormData);
@@ -106,8 +108,6 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   coachGender:coachForm.coachGender,
   coachIDcode:coachForm.coachIDcode,
   coachPhone:coachForm.coachPhone,
-  coachEmail:coachForm.coachEmail,
-  coachAddress:coachForm.coachEmail,
   coachBank:coachForm.coachBank,
   coachContact:coachForm.coachContact,
   coachRelation:coachForm.coachRelation,
@@ -116,8 +116,12 @@ const newCoachID = generateUniqueID(existingCoachIDs);
   major:coachForm.major, 
   joinDate:coachForm.joinDate,
   PtSalary:coachForm.PtSalary,
-  PilatesSalary:coachForm.PilatesSalary,
+  PilatesSalary1:coachForm.PilatesSalary1,
+  PilatesSalary2:coachForm.PilatesSalary2,
+  exCoursePilatesSalary1:coachForm.exCoursePilatesSalary1,
+  exCoursePilatesSalary2:coachForm.exCoursePilatesSalary2,
   MassageSalary:coachForm.MassageSalary, 
+  RentSalary:coachForm.RentSalary, 
   teachClass:[],
 };
 setNewCoaData(
@@ -173,7 +177,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
             </div>
           </div>
             <form className="form"  onSubmit={handleSubmit}>
-            <div class="form-group">
+            {/* <div class="form-group">
                     <label >建檔日期:</label>
                     <div className="select">
                     <input 
@@ -185,7 +189,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label >姓名:</label>
                     <div className="select">
@@ -238,7 +242,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     ></input>
                     </div>
                 </div>
-                <div class="form-group">
+                {/* <div class="form-group">
                     <label >Email:</label>
                     <div className="select">
                     <input 
@@ -263,28 +267,53 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
-                  <label >課程:</label>
+                  <label >課程種類:</label>
                   <div className="form_btn2">
+                  <div className="form_btn1">
                     <button 
                       type="button" 
                       onClick={() => handleItemClick('PT')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('PT') ? 'active' : ''}`}>PT</button>
                     <button 
                       type="button" 
-                      onClick={() => handleItemClick('皮拉提斯')}
-                      className={`btn btn-outline-golden ${selectedOptions.includes('皮拉提斯') ? 'active' : ''}`}>皮拉提斯</button>
+                      onClick={() => handleItemClick('基皮')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('基皮') ? 'active' : ''}`}>基皮</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handleItemClick('高皮')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('高皮') ? 'active' : ''}`}>高皮</button>
                     <button
                       type="button" 
                       onClick={() => handleItemClick('運動按摩')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('運動按摩') ? 'active' : ''}`}>運動按摩</button>
-                      <button
+                    <button
                       type="button" 
                       onClick={() => handleItemClick('場地租借')}
                       className={`btn btn-outline-golden ${selectedOptions.includes('場地租借') ? 'active' : ''}`}>場地租借</button>
+                      </div>
+                      <div className="form_btn1">
+                      <button
+                      type="button" 
+                      onClick={() => handleItemClick('體驗PT1v1')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('體驗PT1v1') ? 'active' : ''}`}>體驗PT1v1</button>
+                      <button
+                      type="button" 
+                      onClick={() => handleItemClick('體驗PT1v2')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('體驗PT1v2') ? 'active' : ''}`}>體驗PT1v2</button>
+                      <button
+                      type="button" 
+                      onClick={() => handleItemClick('體驗基皮')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('體驗基皮') ? 'active' : ''}`}>體驗基皮</button>
+                      <button
+                      type="button" 
+                      onClick={() => handleItemClick('體驗高皮')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('體驗高皮') ? 'active' : ''}`}>體驗高皮</button>
+                   </div>
                   </div>
                 </div>    
+                {selectedOptions.includes('PT') && (
                 <div class="form-group">
                     <label >PT堂薪:</label>
                     <div className="select">
@@ -299,20 +328,40 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                     ></input>
                     </div>
                 </div>
+                )}
+                {selectedOptions.includes('基皮') && (
                 <div class="form-group">
-                    <label >皮拉提斯堂薪:</label>
+                    <label >基皮堂薪:</label>
                     <div className="select">
                     <input 
                       type="number" 
                       class="form-select" 
-                      name="PilatesSalary"
+                      name="PilatesSalary1"
                       placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
-                      value={coachForm.PilatesSalary}
+                      value={coachForm.PilatesSalary1}
                       onChange={handleInputChange}
                     ></input>
                     </div>
                 </div>
+                )}
+                {selectedOptions.includes('高皮') && (
+                <div class="form-group">
+                    <label >高皮堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="PilatesSalary2"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
+                      required
+                      value={coachForm.PilatesSalary2}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
+                )}
+                {selectedOptions.includes('運動按摩') && (
                 <div class="form-group">
                     <label>運動按摩堂薪:</label>
                     <div className="select">
@@ -326,7 +375,56 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       onChange={handleInputChange}
                     ></input>
                     </div>
-                </div>   
+                </div>
+                )}
+                 {selectedOptions.includes('場地租借') && (
+                <div class="form-group">
+                    <label>場地租借費用:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="RentSalary"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
+                      required
+                      value={coachForm.RentSalary}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>      
+                 )}
+                 {selectedOptions.includes('體驗基皮') && (
+                <div class="form-group">
+                    <label>體驗基皮堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="exCoursePilatesSalary1"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
+                      required
+                      value={coachForm.exCoursePilatesSalary1}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>      
+                 )}
+                 {selectedOptions.includes('體驗高皮') && (
+                <div class="form-group">
+                    <label>體驗高皮堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="exCoursePilatesSalary2"
+                      placeholder="請填寫整數數字，例如：1200，如未開課請填0"
+                      required
+                      value={coachForm.exCoursePilatesSalary1}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>      
+                 )}
                 <div class="form-group">
                     <label>帳戶:</label>
                     <div className="select">

@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, {useState,useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateStuForm } from '../redux/Actions/formActions'
@@ -31,14 +31,15 @@ function StudentForm(props){
     stuID:'',
     stuName:'',
     stuGender: '',
+    stuBirth:'',
+    stuAge:'',
     stuPhone: '',
-    stuEmail: '',
-    stuAddress: '',
     stuContact: '',
     stuRelation:'',
     stuContact_tel:'',
     stuNote:'',
     createDate:'',
+    calculateAge: false,
   };
   //  // 使用useState來創建一個狀態變數，並初始化為空字串
    const [stuForm, setStuForm] = useState(initialFormData);
@@ -59,8 +60,33 @@ function StudentForm(props){
         ...stuForm,
         [name]: value,
       });
+
+      if (name === 'stuBirth') {
+        setStuForm({ ...stuForm, stuBirth: value });
+      } else if (name === 'stuAge') {
+        setStuForm({ ...stuForm, stuAge: value });
+      }
   };
- 
+ // 在另一个地方或使用 useEffect 来计算年龄
+useEffect(() => {
+  if (stuForm.stuBirth) {
+    const birthDateString = stuForm.stuBirth;
+    const birthDate = new Date(birthDateString);
+    const currentDate = new Date();
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+      currentDate.getMonth() < birthDate.getMonth() ||
+      (currentDate.getMonth() === birthDate.getMonth() &&
+        currentDate.getDate() < birthDate.getDate())
+    ) {
+      age--; // 生日还未到，减去一年
+    }
+
+    setStuForm({ ...stuForm, stuAge: age });
+  }
+}, [stuForm.stuBirth]);
+
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -83,8 +109,8 @@ function StudentForm(props){
       stuName: stuForm.stuName,
       stuGender: stuForm.stuGender,
       stuPhone: stuForm.stuPhone,
-      stuEmail: stuForm.stuEmail,
-      stuAddress: stuForm.stuAddress,
+      stuBirth:stuForm.stuBirth,
+      stuAge:stuForm.stuAge,
       stuContact: stuForm.stuContact,
       stuRelation: stuForm.stuRelation,
       stuContact_tel: stuForm.stuContact_tel,
@@ -141,7 +167,7 @@ function StudentForm(props){
             </div>
           </div>
             <form className="form" onSubmit={handleSubmit}>
-            <div class="form-group">
+              {/* <div class="form-group">
                     <label>建檔日期:</label>
                     <div className="select">
                     <input 
@@ -154,7 +180,7 @@ function StudentForm(props){
                       onChange={handleInputChange} 
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label>姓名:</label>
                     <div className="select">
@@ -184,6 +210,35 @@ function StudentForm(props){
                     </div>
                 </div>
                 <div class="form-group">
+                    <label>出生年月日:</label>
+                    <div className="select">
+                    <input 
+                      id="birth"
+                      type="text" 
+                      name="stuBirth"
+                      class="form-select" 
+                      required
+                      value={stuForm.stuBirth}
+                      onChange={handleInputChange} 
+                      placeholder="填寫格式：1995/10/04"
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>年齡:</label>
+                    <div className="select">
+                    <input 
+                      id="age"
+                      type="text" 
+                      name="stuAge"
+                      class="form-select" 
+                      required
+                      value={stuForm.stuAge}
+                      onChange={handleInputChange} 
+                    ></input>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>電話:</label>
                     <div className="select">
                     <input 
@@ -197,7 +252,7 @@ function StudentForm(props){
                     ></input>
                     </div>
                 </div>
-                <div class="form-group">
+                {/* <div class="form-group">
                     <label>Email:</label>
                     <div className="select">
                     <input 
@@ -224,7 +279,7 @@ function StudentForm(props){
                       onChange={handleInputChange}  
                     ></input>
                     </div>
-                </div>
+                </div> */}
                 <div class="form-group">
                     <label>緊急連絡人姓名:</label>
                     <div className="select">
