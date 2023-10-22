@@ -87,8 +87,8 @@ function StudentTableDetail({classes}) {
             enableSorting: false
         },
         {
-            accessorKey:"createDate",
-            header:"建檔日期",
+            accessorKey:"stuBirth",
+            header:"生日日期",
             size:100,
         },
         {
