@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from '../components/Navbar'
 import StuDataModifyDetail from '../components/StuDataModifyDetail'
 import { useParams } from 'react-router-dom';
+//components
+import GoBackBTN from '../components/GoBackBTN'
 
 function StuDataModify ({ classes }) {
     const { stuID } = useParams();
@@ -20,6 +22,7 @@ function StuDataModify ({ classes }) {
                 <div className='col-10 container margin-left-right'>  
                     <div className="title_word">
                         <div className="title_word2"> 
+                            <GoBackBTN/>
                             <h1>學員資料修改</h1>
                         </div>
                     </div>

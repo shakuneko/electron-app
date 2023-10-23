@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from '../components/Navbar'
 import CoachDataModifyDetail from '../components/CoachDataModifyDetail'
 import { useParams } from 'react-router-dom';
+//components
+import GoBackBTN from '../components/GoBackBTN'
 
 function CoachDataModify ({ classes }) {
     const { coachID } = useParams();
@@ -21,6 +23,7 @@ function CoachDataModify ({ classes }) {
                 <div className='col-10 container margin-left-right'>  
                     <div className="title_word">
                         <div className="title_word2"> 
+                            <GoBackBTN/>
                             <h1>教練資料修改</h1>
                         </div>
                     </div>

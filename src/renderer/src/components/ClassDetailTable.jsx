@@ -5,17 +5,17 @@ import {
     IconButton,
     Tooltip,
   } from '@mui/material';
-  import { Delete } from '@mui/icons-material';
-  import { useDispatch } from 'react-redux';
-  import { updateTableData,updateClassCourseData, updateStuCourseData } from '../redux/Actions/saveActions'; // 导入您的更新动作
-  import { addReserveTableData, upDateClassCourse, upDateStuCourse } from "../redux/reducers/saveSlice"
+import { Delete } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+import { updateTableData,updateClassCourseData, updateStuCourseData } from '../redux/Actions/saveActions'; // 导入您的更新动作
+import { addReserveTableData, upDateClassCourse, upDateStuCourse } from "../redux/reducers/saveSlice"
 
-  //confirm
-  import Dialog from '@mui/material/Dialog';
-  import DialogActions from '@mui/material/DialogActions';
-  import DialogContent from '@mui/material/DialogContent';
-  import DialogContentText from '@mui/material/DialogContentText';
-  import DialogTitle from '@mui/material/DialogTitle';
+//confirm
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function ClassDetailTable({ 
   classes ,
