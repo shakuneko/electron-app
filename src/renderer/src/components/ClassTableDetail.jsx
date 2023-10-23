@@ -3,7 +3,7 @@ import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
 import { getStatusText } from './TableSelectOptions'
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFileName,updateClassStatus } from '../redux/reducers/saveSlice'
+import { selectFileName, updateClassStatus, upDateStuCourse } from '../redux/reducers/saveSlice'
 
 //confirm
 import Dialog from '@mui/material/Dialog';
@@ -12,7 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-function ClassTableDetail({classes}) {
+function ClassTableDetail({classDetail, classes}) {
     const dispatch = useDispatch();
     const [newClassStatus, setNewClassStatus] = useState([]);
 
@@ -24,7 +24,7 @@ function ClassTableDetail({classes}) {
    const bothCategoriesEmpty = !hasCoachData && !hasStudentData;
 
   useEffect(() => {
-    const updatedClassStatus = classes.map((item, index) => {
+    const updatedClassStatus = classDetail.map((item, index) => {
       const nowStatus = getStatusText(item.buyDate);
       if (item.status !== nowStatus && item.courseType !="場地租借") {
         return {
@@ -69,11 +69,43 @@ function ClassTableDetail({classes}) {
       setOpen(false);
     }
   };
+
+
+
   const handleDeleteRow = useCallback( //  儲存刪除
     (row) => {
-      // setTableData([...classes]);
-      const newTableData = classes.filter((item, index) => index !== row.index);
+      // setTableData([...classDetail]);
+      //update classDetail
+      const newTableData = classDetail.filter((item, index) => index !== row.index);
       console.log("newTableData data", newTableData);
+
+      //update student buyDetail
+      const studentIDs = [];
+      let stuDetailData = classes.find(item => item.category === "student");
+      if (stuDetailData) {
+        stuDetailData.stuDetail.forEach(student => {
+          student.buyDetail.forEach(buy => {
+            if (buy.classID == (row.index+1)) {
+              studentIDs.push(student.stuID);
+            }
+            
+          });
+        });
+      }
+      console.log("updatedStuBuydetail data",  stuDetailData, row.index, studentIDs);
+      const updatedStuBuydetail = stuDetailData.stuDetail.map((student) => {// update stu course num
+        if (studentIDs.includes(student.stuID)) {
+          const updatedBuyDetail = student.buyDetail.filter(buy => buy.classID !== (row.index+1).toString());
+          return {
+            ...student,
+            buyDetail: updatedBuyDetail,
+          };
+        }
+        return student;
+      });
+      // console.log("stu course count check", updatedStuCourse)
+      console.log("updatedStuBuydetail data",  updatedStuBuydetail);
+      dispatch(upDateStuCourse(updatedStuBuydetail));
       dispatch(updateClassStatus(newTableData));
       setNewClassStatus(newTableData);
     },

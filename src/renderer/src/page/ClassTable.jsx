@@ -15,7 +15,10 @@ function ClassTable({classes}) {
                     <div className='table-container'>
                         <h1 className='title'>課程管理</h1>
                         {/* <button onClick={()=> console.log(classes)}>pp</button> */}
-                        <ClassTableDetail classes={classDetail}/>
+                        <ClassTableDetail 
+                            classDetail={classDetail}
+                            classes={classes}
+                        />
                     </div>
                 </div>
                 
