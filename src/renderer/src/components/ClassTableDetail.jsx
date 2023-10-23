@@ -167,17 +167,17 @@ function ClassTableDetail({classes}) {
         size:100,
         Cell: AddAlertMode
     },
-    {
-        accessorKey:"exCourse",
-        header:"體驗課",
-        size:50,
-        Cell: ({ renderedCellValue }) => {
-            if (renderedCellValue === '是') return <span className="alert-mode">{renderedCellValue}</span>;
-            else return<>{renderedCellValue}</>
+    // {
+    //     accessorKey:"exCourse",
+    //     header:"體驗課",
+    //     size:50,
+    //     Cell: ({ renderedCellValue }) => {
+    //         if (renderedCellValue === '是') return <span className="alert-mode">{renderedCellValue}</span>;
+    //         else return<>{renderedCellValue}</>
             
-        },
+    //     },
       
-    },
+    // },
     {
         accessorKey:"status",
         header:"狀態",

@@ -46,10 +46,10 @@ function CoachTopBar({coachValue, classes}) {
           else if (names.courseType === "場地租借" ) {
             totalSalary +=  names.coursesFIN * coachValue.RentSalary
           }
-          else if (names.courseType === "體驗PT1v1" ) {
+          else if (names.courseType === "體驗基皮" ) {
             totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary1
           }
-          else if (names.courseType === "體驗PT1v2" ) {
+          else if (names.courseType === "體驗高皮" ) {
             totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary2
           }
         }
