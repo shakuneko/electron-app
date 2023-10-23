@@ -41,8 +41,8 @@ function CoachForm(props) {
     PtSalary:'',
     PilatesSalary1:'',
     PilatesSalary2:'',
-    exCoursePilatesSalary1:'',
-    exCoursePilatesSalary2:'',
+    exCoursePilatesSalary1:'700',
+    exCoursePilatesSalary2:'1000',
     MassageSalary:'', 
     RentSalary:'',
   };
