@@ -214,7 +214,7 @@ useEffect(() => {
                     <div className="select">
                     <input 
                       id="birth"
-                      type="text" 
+                      type="date" 
                       name="stuBirth"
                       class="form-select" 
                       required
