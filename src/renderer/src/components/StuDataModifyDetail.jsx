@@ -39,6 +39,23 @@ function StuDataModifyDetail({stuData, stuDetail}) {
      setOpen(false);
    };
 
+   let stuAge = 0
+   if (stuForm.stuBirth) {
+       const birthDateString = stuForm.stuBirth;
+       const birthDate = new Date(birthDateString);
+       const currentDate = new Date();
+       let age = currentDate.getFullYear() - birthDate.getFullYear();
+   
+       if (
+         currentDate.getMonth() < birthDate.getMonth() ||
+         (currentDate.getMonth() === birthDate.getMonth() &&
+           currentDate.getDate() < birthDate.getDate())
+       ) {
+         age--; // 生日还未到，减去一年
+       }
+       stuAge = age
+   }
+
    // 提交表單的函數
    const handleSubmit = (event) => {
      event.preventDefault();  
@@ -51,6 +68,7 @@ function StuDataModifyDetail({stuData, stuDetail}) {
      let newStudentData = {
         ...stuForm,
         stuName: stuForm.stuName,
+        stuAge: stuAge,
         stuGender: stuForm.stuGender,
         stuPhone: stuForm.stuPhone,
         stuEmail: stuForm.stuEmail,
@@ -78,22 +96,7 @@ function StuDataModifyDetail({stuData, stuDetail}) {
      setOpen(true);
     };
 
-    let stuAge = 0
-    if (stuForm.stuBirth) {
-        const birthDateString = stuForm.stuBirth;
-        const birthDate = new Date(birthDateString);
-        const currentDate = new Date();
-        let age = currentDate.getFullYear() - birthDate.getFullYear();
-    
-        if (
-          currentDate.getMonth() < birthDate.getMonth() ||
-          (currentDate.getMonth() === birthDate.getMonth() &&
-            currentDate.getDate() < birthDate.getDate())
-        ) {
-          age--; // 生日还未到，减去一年
-        }
-        stuAge = age
-    }
+
 
     return (
         <div>
