@@ -6,7 +6,8 @@ import Collapse from 'react-bootstrap/Collapse'
 import Button from 'react-bootstrap/Button'
 import { useState } from 'react'
 import StudentDetailCollapse from './StudentDetailCollapse'
-function StudentDetailPage({ stuData }) {
+
+function StudentDetailPage({ stuData, stuDetailData }) {
   const [open, setOpen] = useState(false)
 
   let ptCourseLeftSum = 0
@@ -123,7 +124,9 @@ function StudentDetailPage({ stuData }) {
           {/* <button onClick={()=> console.log(stuData)}>pp</button> */}
           <DoneClasses stuData={stuData} />
         </div>
-        <StudentsDetailTable stuBuyDetailData={stuBuyDetailData} />
+        <StudentsDetailTable 
+          stuBuyDetailData={stuBuyDetailData} 
+          stuDetailData={stuDetailData}/>
       </div>
     </div>
   )

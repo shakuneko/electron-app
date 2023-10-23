@@ -18,6 +18,23 @@ const CountMoney = ( {row, renderedCellValue} ) => {
     return <>{ row.original.salary * renderedCellValue}</>
 }
 
+export const getStuAge = (stuBuyDetailData) => {
+    const birthDateString = stuBuyDetailData;
+    const birthDate = new Date(birthDateString);
+    const currentDate = new Date();
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+
+    if (
+        currentDate.getMonth() < birthDate.getMonth() ||
+        (currentDate.getMonth() === birthDate.getMonth() &&
+        currentDate.getDate() < birthDate.getDate())
+    ) {
+        age--; // 生日还未到，减去一年
+    }
+    console.log("age",age)
+    return age
+}
+
 export const getStatusText = (dateString) => {
     const currentDate = new Date(); // 当前日期
     const inputDate = new Date(dateString); // 输入的日期
