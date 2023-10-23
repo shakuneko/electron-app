@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom'
 import { MaterialReactTable } from 'material-react-table';
-import React, { useEffect, useMemo, useState } from 'react';
-import { Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { updateStuStatus } from '../redux/reducers/saveSlice'
+import { useDispatch } from 'react-redux';
+import { getStuAge } from './TableSelectOptions'
 
-function StudentsDetailTable({ stuBuyDetailData }) {
+function StudentsDetailTable({ stuBuyDetailData, stuDetailData }) {
     const [tableData, setTableData] = useState(() => stuBuyDetailData);
-
+    const dispatch = useDispatch();
     const handleSaveCell = (cell, value) => {
       //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here
       tableData[cell.row.index][cell.column.id] = value;
@@ -15,6 +16,25 @@ function StudentsDetailTable({ stuBuyDetailData }) {
     };
 
     console.log("tableData",tableData)
+
+    useEffect(() => {
+        const updatedStuData = stuDetailData.map((item, index) => {
+            if (item.stuID === stuBuyDetailData.stuID) {
+                if (item.stuBirth) {
+                    const nowAge = getStuAge(item.stuBirth);
+                    if (item.stuAge !== nowAge) {
+                      return {
+                        ...item,
+                        stuAge: nowAge,
+                      };
+                    }
+                }
+            }
+          return item;
+        });
+        console.log("updatedStuData", updatedStuData);
+        dispatch(updateStuStatus(updatedStuData));
+      }, []);
 
     const columns = [ //表格有的資料
         {
