@@ -419,7 +419,7 @@ dispatch(updateCoachName([...newCoachData, _newCoachData]))
                       name="exCoursePilatesSalary2"
                       placeholder="請填寫整數數字，例如：1200，如未開課請填0"
                       required
-                      value={coachForm.exCoursePilatesSalary1}
+                      value={coachForm.exCoursePilatesSalary2}
                       onChange={handleInputChange}
                     ></input>
                     </div>
