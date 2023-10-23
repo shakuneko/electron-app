@@ -10,7 +10,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 function StuDataModifyDetail({stuData, stuDetail}) {
-    //  // 使用useState來創建一個狀態變數，並初始化為空字串
+    // 使用useState來創建一個狀態變數，並初始化為空字串
     const dispatch = useDispatch();
    const [stuForm, setStuForm] = useState(stuData);
    console.log("stuForm data", stuForm)
@@ -68,7 +68,6 @@ function StuDataModifyDetail({stuData, stuDetail}) {
      let newStudentData = {
         ...stuForm,
         stuName: stuForm.stuName,
-        stuAge: stuAge,
         stuGender: stuForm.stuGender,
         stuPhone: stuForm.stuPhone,
         stuBirth:stuForm.stuBirth,
