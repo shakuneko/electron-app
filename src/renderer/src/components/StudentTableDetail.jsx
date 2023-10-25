@@ -90,6 +90,10 @@ function StudentTableDetail({classes}) {
             accessorKey:"stuID",
             header:"#",
             size:50,
+            Cell:({row}) => {
+                console.log("row data", row.index)
+                return row.index+1
+            },
         },
         {
             accessorKey:"stuName",
