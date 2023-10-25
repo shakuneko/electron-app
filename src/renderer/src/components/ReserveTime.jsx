@@ -98,7 +98,7 @@ const handleSubmit = () => {
     reserveID: newReserveID,
     reserveDate: reserveForm.reserveDate,
     reserveTime: reserveForm.reserveTime,
-    cancel: "-",
+    cancel: "否",
     attandence: "-",
     note: "",
     student: [], // 将在下面更新

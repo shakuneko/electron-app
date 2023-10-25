@@ -1,5 +1,5 @@
 import { MaterialReactTable } from 'material-react-table';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import {
     Box,
     IconButton,
@@ -35,6 +35,29 @@ function ClassDetailTable({
       { value: '是', text: '是' },
       { value: '否', text: '否' },
     ];
+
+    const selectOptinsTakeOFf = [
+      // { value: '-', text: '-' },
+      { value: '否', text: '否' },
+      { value: '是', text: '是' },
+    ];
+
+    //replace cancel option - with 否
+    useEffect(() => {
+      const removeCancelDefalt = tableData.map((item) => {
+        if (item.cancel === "-") {
+          return {
+              ...item,
+              cancel: "否",
+          };
+          }
+          return item;
+        });
+        console.log(" removeCancelDefalt", removeCancelDefalt, id);
+        dispatch(addReserveTableData({data: removeCancelDefalt, classID: id}));
+        setTableData(removeCancelDefalt); //re-render with new data
+    }, []);
+
     const stuItem = [] //找到這一row的stuID
     if (classCourse.student !== undefined)
     for (let i = 0; i < classCourse.student.length; i++) {
@@ -369,7 +392,7 @@ function ClassDetailTable({
             size:50,
             enableSorting: false,
             editVariant: 'select',
-            editSelectOptions:selectOptins,
+            editSelectOptions:selectOptinsTakeOFf,
         },
         {
             accessorKey:"note",
