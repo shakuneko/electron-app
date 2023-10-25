@@ -29,7 +29,28 @@ function ReserveTime(props) {
   console.log("studentFormData", studentFormData)
 
 
-  
+  const [reserveTime, setReserveTime] = useState({
+    reserveTime: "00:00" // 初始化时间
+  });
+
+  // 生成整点和30分钟的选项
+  const timeOptions = [];
+  for (let hour = 0; hour < 24; hour++) {
+    for (let minute = 0; minute < 60; minute += 30) {
+      const hh = hour.toString().padStart(2, "0");
+      const mm = minute.toString().padStart(2, "0");
+      timeOptions.push(`${hh}:${mm}`);
+    }
+  }
+
+  const handleTimeChange = (event) => {
+    const { name, value } = event.target;
+    setReserveTime((prevForm) => ({
+      ...prevForm,
+      [name]: value
+    }));
+  };
+
   const handleInputChange = (event) => {
   const { name, options, value } = event.target;
 
@@ -97,7 +118,7 @@ const handleSubmit = () => {
   let newReserveData = {
     reserveID: newReserveID,
     reserveDate: reserveForm.reserveDate,
-    reserveTime: reserveForm.reserveTime,
+    reserveTime: reserveTime.reserveTime,
     cancel: "否",
     attandence: "-",
     note: "",
@@ -168,17 +189,22 @@ const handleSubmit = () => {
             <div className="reservebox-item">
               <p className="rstitle col-3">時間：</p>
               <div className="DatePicksTitle col-9">
-                  <input 
-                    id="startTime" 
-                    class="form-control" 
-                    type="time"
-                    name="reserveTime"
-                    value={reserveForm.reserveTime}
-                    onChange={handleInputChange}
-                  />
+              <select
+                id="startTime"
+                className="form-control"
+                name="reserveTime"
+                value={reserveTime.reserveTime}
+                onChange={handleTimeChange}
+              >
+                {timeOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
               </div>
             </div>
-            <div className="reservebox-item">
+            {/* <div className="reservebox-item">
               <p className="rstitle col-3">學員：</p>
               <div className="DatePicksTitle col-9">
               <select 
@@ -195,7 +221,7 @@ const handleSubmit = () => {
                 ))}
               </select>
               </div>
-            </div>
+            </div> */}
           <div className="mb-4">
               <button 
                 type="button" 
