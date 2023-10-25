@@ -272,7 +272,7 @@ const handleSubmit = (event) => {
     return; // 阻止表单提交
   }
   
- if (currentPage === 'page1') {
+ if (currentPage === 'page7' ||currentPage === 'page10') {
   addStudentName2 = classForm[currentPage].stuName2;
 }
 const newClassItem = {
