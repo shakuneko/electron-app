@@ -268,6 +268,7 @@ const handleSubmit = (event) => {
 const newClassItem = {
   classID: newClassID, 
   courseType: selectedCourse, 
+  buyDate:classForm[currentPage].buyDate,
   // exCourse: classForm[currentPage].exCourse, 
   // exCoursePrice:classForm[currentPage].exCoursePrice, 
   coursesAll: classForm[currentPage].coursesAll,
