@@ -174,7 +174,7 @@ function ClassTableDetail({classDetail, classes}) {
         accessorKey:"classID",
         header:"#",
         Cell:({row}) => {
-          console.log("row data", row.index)
+          // console.log("row data", row.index)
           return row.index+1
         },
         size:50,
@@ -184,7 +184,6 @@ function ClassTableDetail({classDetail, classes}) {
             // !!row.coach && 
             const newData = row.coach.map((item) => {
                 const coachs = []
-                console.log("row data", row, typeof getRowId)
                 coachs.push(item.coachName)
                 return coachs
             })

@@ -91,7 +91,7 @@ function StudentTableDetail({classes}) {
             header:"#",
             size:50,
             Cell:({row}) => {
-                console.log("row data", row.index)
+                // console.log("row data", row.index)
                 return row.index+1
             },
         },
