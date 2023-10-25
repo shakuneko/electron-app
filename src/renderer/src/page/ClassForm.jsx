@@ -48,7 +48,6 @@ function findCoachIDByName(CoachName) {
     page1: {
       coachName:null,
       stuName: '',
-      stuName2:'',
       coursesAll: '',
       buyDate:'',
       coursePrice:'',
@@ -137,6 +136,17 @@ function findCoachIDByName(CoachName) {
       invoiceNum:'',
       buyNote: '',
     },
+    page10: {
+      coachName:null,
+      stuName: '',
+      stuName2:'',
+      coursesAll: '',
+      buyDate:'',
+      coursePrice:'',
+      payMethod:'',
+      invoiceNum:'',
+      buyNote: '',
+    }
   };
 // 使用状态管理保存表单数据
 const [classForm, setClassForm] = useState(initialFormData);
@@ -421,7 +431,8 @@ useEffect(() => {
                   <label>課程種類:</label>
                   <div className="form_btn">
                     <div className="form_btn1">
-                      <button className={`btn btn-outline-golden page-button ${currentPage === 'page1' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page1','PT')}>PT</button>
+                      <button className={`btn btn-outline-golden page-button ${currentPage === 'page1' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page1','PT1v1')}>PT1v1</button>
+                      <button className={`btn btn-outline-golden page-button ${currentPage === 'page10' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page10','PT1v2')}>PT1v2</button>
                       <button className={`btn btn-outline-golden page-button ${currentPage === 'page2' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page2','基皮')}>基皮</button>
                       <button className={`btn btn-outline-golden page-button ${currentPage === 'page3' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page3','高皮')}>高皮</button>
                       <button className={`btn btn-outline-golden page-button ${currentPage === 'page4' ? 'active' : ''}`} type="button" onClick={() => handleButtonClick('page4','運動按摩')}>運動按摩</button>
@@ -435,7 +446,7 @@ useEffect(() => {
                     </div>          
                   </div>
               </div>
-              {/* PT課 */}
+              {/* PT1v1 */}
               {currentPage === 'page1' && (
                 <div className="class_category">
                    <div class="form-group">
@@ -529,43 +540,6 @@ useEffect(() => {
                             ))}
                         </select>
                         </div>      */}
-                    </div>
-                    <div className="form-group"> 
-                          <label>學員2:</label>
-                          <div className="select">
-                          <Autocomplete
-                            disablePortal
-                            id="stuName2"
-                            options={["", ...studentNames]}
-                            value={classForm.page1.stuName2}
-                            onChange={(event, newValue) => {
-                              handleInputChange(
-                                { target: { name: 'stuName2', value: newValue } },
-                                'page1'
-                              );
-                            }}
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                className="custom-autocomplete"
-                                placeholder="如沒有學員2 “請空白”"
-                              />
-                            )}
-                          />
-                            {/* <select 
-                            class="form-select " 
-                            name="stuName2"
-                            value={classForm.page1.stuName2}
-                            onChange={(e) => handleInputChange(e, 'page1')}
-                            >
-                              <option value="" >-</option>
-                                {studentNames.map((name) => (
-                                <option key={name} value={name}>
-                                {name}
-                              </option>
-                            ))}
-                            </select> */}
-                      </div>                
                     </div>
                     <div class="form-group">
                         <label>堂數：</label>
@@ -716,6 +690,188 @@ useEffect(() => {
                           name="buyNote"
                           value={classForm.page1.buyNote}
                           onChange={(e) => handleInputChange(e, 'page1')}
+                          ></textarea>
+                        </div>  
+                    </div>
+                    {errorMessage && (
+                      <div className="error-message">{errorMessage}</div>
+                    )}
+                    <div class="form-group3">
+                        <button type="submit" class="btn btn-golden" >新增</button>
+                    </div>
+                </div>
+                )}
+                 {/* PT1v2 */}
+              {currentPage === 'page10' && (
+                <div className="class_category">
+                   <div class="form-group">
+                        <label>建檔日期:</label>
+                        <div className="select">
+                          <input 
+                            type="date" 
+                            class="form-select"
+                            name="buyDate"
+                            required
+                            value={classForm.page10.buyDate}
+                            onChange={(e) => handleInputChange(e, 'page10')}
+                          ></input>
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label>教練:</label>
+                        <div className="select">
+                        <Autocomplete
+                          disablePortal
+                          id="coachName"
+                          options={["", ...coachNames].filter((coachName) => {
+                            const coach = fileNameData.newJsonData[2].coachDetail.find((coach) => coach.coachName === coachName);
+                            return coach && coach.major.includes(selectedCourse);
+                          })}
+                          value={classForm.page10.coachName} 
+                          onChange={(event, newValue) => {
+                            handleInputChange({
+                              target: { name: 'coachName', value: newValue }, // 模拟事件对象
+                            }, 'page10');
+
+                          }}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              className="custom-autocomplete" // 添加一个自定义的 CSS 类名
+                            />
+                          )}
+                        />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                    <label>學員1:</label>
+                    <div className="select">
+                    <Autocomplete
+                      disablePortal
+                      id="stuName"
+                      options={["", ...studentNames]} 
+                      value={classForm.page10.stuName}
+                      onChange={(event, newValue) => {
+                        handleInputChange({
+                          target: { name: 'stuName', value: newValue }, // 模拟事件对象
+                        }, 'page10');
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          className="custom-autocomplete"
+                          // variant="outlined"
+                        />
+                      )}
+                    />
+                    </div>
+                    </div>
+                    <div className="form-group"> 
+                          <label>學員2:</label>
+                          <div className="select">
+                          <Autocomplete
+                            disablePortal
+                            id="stuName2"
+                            options={["", ...studentNames]}
+                            value={classForm.page10.stuName2}
+                            onChange={(event, newValue) => {
+                              handleInputChange(
+                                { target: { name: 'stuName2', value: newValue } },
+                                'page10'
+                              );
+                            }}
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                className="custom-autocomplete"
+                              />
+                            )}
+                          />
+                      </div>                
+                    </div>
+                    <div class="form-group">
+                        <label>堂數：</label>
+                        <div className="select">
+                          <input 
+                            type="number" 
+                            class="form-select"
+                            name="coursesAll"
+                            required
+                            placeholder="請填寫整數數字，例如：10"
+                            value={classForm.page10.coursesAll}
+                            onChange={(e) => handleInputChange(e, 'page10')}
+                          ></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>購買金額:</label>
+                        <div className="select">
+                          <input 
+                            type="number" 
+                            class="form-select"
+                            name="coursePrice"
+                            required
+                            placeholder="請填寫整數數字，例如：1200"
+                            value={classForm.page10.coursePrice}
+                            onChange={(e) => handleInputChange(e, 'page10')}
+                          ></input>
+                        </div>
+                    </div>
+                  <div class="form-group">
+                    <label>購買方式:</label>
+                    <div className="form_btn2">
+                      <button 
+                        type="button" 
+                        onClick={() => {
+                          const { page, item } = handleItemClick('現金', currentPage);
+                          console.log(`用户在分页 ${page} 选择了付款方式：${item}`);
+                        }}
+                        className={`btn btn-outline-golden ${selectedOption === '現金' ? 'active' : ''}`}> 
+                        現金
+                      </button>
+                      <button 
+                        type="button" 
+                        onClick={() => {
+                          const { page, item } = handleItemClick('匯款', currentPage);
+                          console.log(`用户在分页 ${page} 选择了付款方式：${item}`);
+                        }}
+                        className={`btn btn-outline-golden ${selectedOption === '匯款' ? 'active' : ''}`}>
+                          匯款
+                      </button>
+                      <button
+                        type="button" 
+                        onClick={() => {
+                          const { page, item } = handleItemClick('刷卡', currentPage);
+                          console.log(`用户在分页 ${page} 选择了付款方式：${item}`);
+                        }}
+                        className={`btn btn-outline-golden ${selectedOption === '刷卡' ? 'active' : ''}`}>
+                        刷卡
+                      </button>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                          <label>發票號碼:</label>
+                          <div className="select">
+                            <input 
+                            type="text" 
+                            class="form-select"
+                            name="invoiceNum"
+                            required
+                            value={classForm.page10.invoiceNum}
+                            onChange={(e) => handleInputChange(e, 'page10')}
+                            ></input>
+                          </div>
+                      </div>   
+                    <div class="form-group2">
+                        <label>備註:</label>
+                        <div className="select">
+                          <textarea 
+                          class="form-select" 
+                          id="exampleFormControlTextarea1" 
+                          rows="3" 
+                          name="buyNote"
+                          value={classForm.page10.buyNote}
+                          onChange={(e) => handleInputChange(e, 'page10')}
                           ></textarea>
                         </div>  
                     </div>
@@ -1641,7 +1797,6 @@ useEffect(() => {
                                     <TextField
                                       {...params}
                                       className="custom-autocomplete"
-                                      placeholder="如沒有學員2 “請空白”"
                                     />
                                   )}
                                 />
