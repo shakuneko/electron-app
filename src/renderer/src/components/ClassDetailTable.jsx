@@ -332,25 +332,6 @@ function ClassDetailTable({
 
 
     const columns = [ //表格有的資料
-          {
-            id:"delete",
-            header:"刪除",
-            align: 'left',
-            Cell:({ row }) => {
-              return <>
-              <Box sx={{ display: 'flex' }}>
-                <Tooltip arrow placement="right" title="Delete">
-                    <IconButton color="error" onClick={() => handleClickOpen(row)}>
-                        <Delete />
-                    </IconButton>
-                </Tooltip>
-              </Box>
-              </>
-
-            },
-            size:50,
-            enableEditing: false
-        },
         {
             accessorFn: (row) => {
                 const newData = row.student.map((item) => {
@@ -374,7 +355,7 @@ function ClassDetailTable({
         {
             accessorKey:"reserveTime",
             header:"時間",
-            size:150,
+            size:100,
         },
         {
             accessorKey:"attandence",
@@ -399,7 +380,26 @@ function ClassDetailTable({
             header:"備註",
             size:200,
             enableSorting: false,
-         }
+        },
+        {
+          id:"delete",
+          header:"刪除",
+          align: 'left',
+          Cell:({ row }) => {
+            return <>
+            <Box sx={{ display: 'flex' }}>
+              <Tooltip arrow placement="right" title="Delete">
+                  <IconButton color="error" onClick={() => handleClickOpen(row)}>
+                      <Delete />
+                  </IconButton>
+              </Tooltip>
+            </Box>
+            </>
+
+          },
+          size:50,
+          enableEditing: false
+      },
     ];
 
 
@@ -450,9 +450,11 @@ function ClassDetailTable({
               'mrt-row-actions': {
                 header: '編輯', //change "Actions" to "Edit"
                 size: 50,
-                align: 'left'
+                align: 'left',
+               
               },
             }}
+            positionActionsColumn="last"
             // muiTableBodyCellEditTextFieldProps={({ cell, row }) => ({
             //     //onBlur is more efficient, but could use onChange instead
             //     onBlur: (event) => {
