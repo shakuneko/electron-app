@@ -40,9 +40,18 @@ function ClassTableDetail({classDetail, classes}) {
         }
       return item;
     });
-    console.log("newClassStatus", updatedClassStatus);
     dispatch(updateClassStatus(updatedClassStatus));
-    setNewClassStatus(updatedClassStatus);
+    const classIDToNum = classDetail.map((item, index) => {
+      if (typeof item.classID === "string") {
+        return {
+          ...item,
+          classID: parseInt(item.classID, 10),
+        };
+      }
+      return item;
+    });
+    console.log("newClassStatus", updatedClassStatus, " classIDToNum", classIDToNum);
+    setNewClassStatus(classIDToNum);
   }, []);
 
   console.log("newClassStatus", newClassStatus);
@@ -84,8 +93,10 @@ function ClassTableDetail({classDetail, classes}) {
       let stuDetailData = classes.find(item => item.category === "student");
       if (stuDetailData) {
         stuDetailData.stuDetail.forEach(student => {
-          student.buyDetail.forEach(buy => {
-            if (buy.classID == (row.index+1)) {
+          student.buyDetail.map(buy => {
+            
+            if (buy.classID == (row.original.classID)) {
+              console.log("row.original.classID", row.original.classID, buy.classID)
               studentIDs.push(student.stuID);
             }
             
@@ -95,7 +106,7 @@ function ClassTableDetail({classDetail, classes}) {
       console.log("updatedStuBuydetail data",  stuDetailData, row.index, studentIDs);
       const updatedStuBuydetail = stuDetailData.stuDetail.map((student) => {// update stu course num
         if (studentIDs.includes(student.stuID)) {
-          const updatedBuyDetail = student.buyDetail.filter(buy => buy.classID !== (row.index+1).toString());
+          const updatedBuyDetail = student.buyDetail.filter(buy => buy.classID !== row.original.classID);
           return {
             ...student,
             buyDetail: updatedBuyDetail,
@@ -107,7 +118,18 @@ function ClassTableDetail({classDetail, classes}) {
       console.log("updatedStuBuydetail data",  updatedStuBuydetail);
       dispatch(upDateStuCourse(updatedStuBuydetail));
       dispatch(updateClassStatus(newTableData));
-      setNewClassStatus(newTableData);
+
+      const classIDToNum = newTableData.map((item) => {
+        if (typeof item.classID === "string") {
+          return {
+            ...item,
+            classID: parseInt(item.classID, 10),
+          };
+        }
+        return item;
+      });
+      console.log(" classIDToNum data", classIDToNum);
+      setNewClassStatus(classIDToNum);
     },
     [newClassStatus],
   );
@@ -123,6 +145,7 @@ function ClassTableDetail({classDetail, classes}) {
   }
   
   const CheckOut = ({renderedCellValue, row}) => { //設定查看按鈕要進入的頁面
+    // console.log(row,"row")
     return<>
       <div style={{display:"flex", flexDirection:"row"}}>
         <Link to={`/classes/id/${renderedCellValue}`} className='table-link-underline-none'>
@@ -257,9 +280,12 @@ function ClassTableDetail({classDetail, classes}) {
         initialState={{ 
           showGlobalFilter: true ,
           sorting: [
-            { id: 'classID', desc: true }, //sort by classID in descending order by default
+            { id: 'classID', 
+              desc: true,
+          }, //sort by classID in descending order by default
           ],
         }} //show filters by default
+      
         enableColumnActions={false} //no need for column actions if none of them are enable
         enableDensityToggle={false} //density does not work with memoized table body
         enableFullScreenToggle={false}

@@ -112,7 +112,7 @@ function CoachDataModifyDetail ({coachData, coachDetail}) {
             <DialogTitle id="alert-dialog-title" style={{ fontWeight:900}}>修改資料</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    已修改 {coachForm.coachName} 學員資料！
+                    已修改 {coachForm.coachName} 教練資料！
                 </DialogContentText>
             </DialogContent>
             <DialogActions style={{ marginBottom:"8px" }}>

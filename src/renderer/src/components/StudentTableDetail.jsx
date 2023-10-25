@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -16,6 +16,21 @@ function StudentTableDetail({classes}) {
     const [open, setOpen] = useState(false);
     const [rowToDelete, setRowToDelete] = useState(null);
     const [newStuStatus, setNewStuStatus] = useState(() => classes);
+    const [newClassStatus, setNewClassStatus] = useState(() => classes);
+
+    useEffect(() => {
+        const stuIDToNum = classes.map((item) => {
+                if (typeof item.stuID === "string") {
+                return {
+                    ...item,
+                    stuID: parseInt(item.stuID, 10),
+                };
+                }
+                return item;
+            });
+            console.log(" stuIDToNum", stuIDToNum);
+            setNewClassStatus(stuIDToNum);
+    }, []);
 
     const handleClickOpen = (row) => {
         setRowToDelete(row); // 保存要删除的行数据
@@ -37,16 +52,24 @@ function StudentTableDetail({classes}) {
         setOpen(false);
         }
     };
-    const handleDeleteRow = useCallback( //  儲存刪除
-        (row) => {
-        // setTableData([...classes]);
+    const handleDeleteRow = useCallback((row) => {
         const newTableData = classes.filter((item, index) => index !== row.index);
         console.log("newTableData data", newTableData);
         dispatch(updateStuStatus(newTableData));
-        setNewStuStatus(newTableData);
-        },
-        [newStuStatus],
-    );
+
+        const stuIDToNum = newTableData.map((item) => {
+          if (typeof item.stuID === "string") {
+            return {
+              ...item,
+              stuID: parseInt(item.stuID, 10),
+            };
+          }
+          return item;
+        });
+        console.log("stuIDToNum data", stuIDToNum);
+        setNewClassStatus(stuIDToNum);
+      }, [classes]);
+      
 
     //操作BTN
     const CheckOut = ({renderedCellValue, row}) => { //設定查看按鈕要進入的頁面
@@ -72,7 +95,6 @@ function StudentTableDetail({classes}) {
             accessorKey:"stuName",
             header:"學員",
             size:100,
-            enableSorting: false
         },
         {
             accessorKey:"stuGender",
@@ -134,7 +156,7 @@ function StudentTableDetail({classes}) {
 
         <MaterialReactTable 
             columns={columns}
-            data={classes} 
+            data={newClassStatus} 
             initialState={{ 
                 showGlobalFilter: true,
                 sorting: [

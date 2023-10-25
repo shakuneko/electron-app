@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { MaterialReactTable } from 'material-react-table';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -17,6 +17,21 @@ function CoachTableDetail({classes}) {
     const [open, setOpen] = useState(false);
     const [rowToDelete, setRowToDelete] = useState(null);
     const [newCoachStatus, setNewCoachStatus] = useState(() => classes);
+    const [newClassStatus, setNewClassStatus] = useState(() => classes);
+
+    useEffect(() => {
+        const coachIDToNum = classes.map((item) => {
+                if (typeof item.coachID === "string") {
+                return {
+                    ...item,
+                    coachID: parseInt(item.coachID, 10),
+                };
+                }
+                return item;
+            });
+            console.log(" coachIDToNum", coachIDToNum);
+            setNewClassStatus(coachIDToNum);
+    }, []);
 
     const handleClickOpen = (row) => {
         setRowToDelete(row); // 保存要删除的行数据
@@ -38,16 +53,24 @@ function CoachTableDetail({classes}) {
         setOpen(false);
         }
     };
-    const handleDeleteRow = useCallback( //  儲存刪除
-        (row) => {
-        // setTableData([...classes]);
+
+    const handleDeleteRow = useCallback((row) => {
         const newTableData = classes.filter((item, index) => index !== row.index);
         console.log("newTableData data", newTableData);
         dispatch(updateCoachStatus(newTableData));
-        setNewCoachStatus(newTableData);
-        },
-        [newCoachStatus],
-    );
+
+        const coachIDToNum = newTableData.map((item) => {
+            if (typeof item.coachID === "string") {
+            return {
+                ...item,
+                coachID: parseInt(item.coachID, 10),
+            };
+            }
+            return item;
+        });
+        console.log("coachIDToNum data", coachIDToNum);
+        setNewClassStatus(coachIDToNum);
+      }, [classes]);
 
     //操作BTN
     const CheckOut = ({renderedCellValue, row}) => { //設定查看按鈕要進入的頁面
@@ -140,7 +163,7 @@ function CoachTableDetail({classes}) {
 
         <MaterialReactTable 
             columns={columns}
-            data={newCoachStatus} 
+            data={newClassStatus} 
             initialState={{ 
                 showGlobalFilter: true,
                 sorting: [
