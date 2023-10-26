@@ -106,7 +106,10 @@ function ClassTableDetail({classDetail, classes}) {
       console.log("updatedStuBuydetail data",  stuDetailData, row.index, studentIDs);
       const updatedStuBuydetail = stuDetailData.stuDetail.map((student) => {// update stu course num
         if (studentIDs.includes(student.stuID)) {
-          const updatedBuyDetail = student.buyDetail.filter(buy => buy.classID !== row.original.classID);
+          // console.log("row.original.classID", row.original.classID, row.original.classID.toString())
+          const classIDString = row.original.classID.toString();
+          const updatedBuyDetail = student.buyDetail.filter(buy => buy.classID !== classIDString);
+          console.log("updatedBuyDetail", updatedBuyDetail)
           return {
             ...student,
             buyDetail: updatedBuyDetail,
