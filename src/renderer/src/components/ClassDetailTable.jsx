@@ -5,7 +5,7 @@ import {
     IconButton,
     Tooltip,
   } from '@mui/material';
-import { Delete } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 import { updateTableData,updateClassCourseData, updateStuCourseData } from '../redux/Actions/saveActions'; // 导入您的更新动作
 import { addReserveTableData, upDateClassCourse, upDateStuCourse } from "../redux/reducers/saveSlice"
@@ -332,20 +332,20 @@ function ClassDetailTable({
 
 
     const columns = [ //表格有的資料
-        {
-            accessorFn: (row) => {
-                const newData = row.student.map((item) => {
-                    const students = []
-                    students.push(item.stuName)
-                    return students
-                })
-                return `${newData.join("、")} `
-              },
-            id:"attendanceStu",
-            header:"上課學生",
-            size:100,
-            enableEditing: false
-        },
+        // {
+        //     accessorFn: (row) => {
+        //         const newData = row.student.map((item) => {
+        //             const students = []
+        //             students.push(item.stuName)
+        //             return students
+        //         })
+        //         return `${newData.join("、")} `
+        //       },
+        //     id:"attendanceStu",
+        //     header:"上課學生",
+        //     size:100,
+        //     enableEditing: false
+        // },
         {
             accessorKey:"reserveDate",
             header:"日期",
@@ -381,25 +381,25 @@ function ClassDetailTable({
             size:200,
             enableSorting: false,
         },
-        {
-          id:"delete",
-          header:"刪除",
-          align: 'left',
-          Cell:({ row }) => {
-            return <>
-            <Box sx={{ display: 'flex' }}>
-              <Tooltip arrow placement="right" title="Delete">
-                  <IconButton color="error" onClick={() => handleClickOpen(row)}>
-                      <Delete />
-                  </IconButton>
-              </Tooltip>
-            </Box>
-            </>
+      //   {
+      //     id:"delete",
+      //     header:"刪除",
+      //     align: 'left',
+      //     Cell:({ row }) => {
+      //       return <>
+      //       <Box sx={{ display: 'flex' }}>
+      //         <Tooltip arrow placement="right" title="Delete">
+      //             <IconButton color="error" onClick={() => handleClickOpen(row)}>
+      //                 <Delete />
+      //             </IconButton>
+      //         </Tooltip>
+      //       </Box>
+      //       </>
 
-          },
-          size:50,
-          enableEditing: false
-      },
+      //     },
+      //     size:50,
+      //     enableEditing: false
+      // },
     ];
 
 
@@ -444,16 +444,45 @@ function ClassDetailTable({
             enableFacetedValues
             // editingMode="cell"
             enableEditing
-            editingMode="row"
+            editDisplayMode='row'
             onEditingRowSave={handleSaveRow}
+            // displayColumnDefOptions={{
+            //   'mrt-row-actions': {
+            //     header: '編輯', //change "Actions" to "Edit"
+            //     size: 50,
+            //     align: 'left',
+               
+            //   },
+            // }}
             displayColumnDefOptions={{
               'mrt-row-actions': {
-                header: '編輯', //change "Actions" to "Edit"
+                muiTableHeadCellProps: {
+                  align: 'center',
+                },
+                header: '操作', //change "Actions" to "Edit"
                 size: 50,
                 align: 'left',
                
               },
             }}
+            renderRowActions={({ row, table }) => (
+              <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
+                <Box sx={{ display: 'flex' }}>
+                  <Tooltip arrow placement="right" title="Edit">
+                      <IconButton style={{color: "#DFC994"}} onClick={() => table.setEditingRow(row)}>
+                          <Edit />
+                      </IconButton>
+                  </Tooltip>
+                </Box>
+                <Box sx={{ display: 'flex' }}>
+                  <Tooltip arrow placement="right" title="Delete">
+                      <IconButton color="error" onClick={() => handleClickOpen(row, table)}>
+                          <Delete />
+                      </IconButton>
+                  </Tooltip>
+                </Box>
+              </Box>
+            )}
             positionActionsColumn="last"
             // muiTableBodyCellEditTextFieldProps={({ cell, row }) => ({
             //     //onBlur is more efficient, but could use onChange instead
