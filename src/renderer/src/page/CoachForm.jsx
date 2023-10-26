@@ -38,13 +38,13 @@ function CoachForm(props) {
     coachNote:'',
     major: null, // 新增一个字段用于存储按钮选项值
     joinDate:'',
-    PtSalary:'',
-    PtSalary1v2:'',
-    PilatesSalary1:'',
-    PilatesSalary2:'',
+    PtSalary:'800',
+    PtSalary1v2:'1000',
+    PilatesSalary1:'800',
+    PilatesSalary2:'1000',
     exCoursePilatesSalary1:'700',
     exCoursePilatesSalary2:'1000',
-    MassageSalary:'', 
+    MassageSalary:'800', 
     RentSalary:'',
   };
 // 使用状态管理保存表单数据

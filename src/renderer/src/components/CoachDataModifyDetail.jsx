@@ -74,6 +74,7 @@ function CoachDataModifyDetail ({coachData, coachDetail}) {
             major:coachForm.major, 
             joinDate:coachForm.joinDate,
             PtSalary:coachForm.PtSalary,
+            PtSalary1v2:coachForm.PtSalary1v2,
             PilatesSalary1:coachForm.PilatesSalary1,
             PilatesSalary2:coachForm.PilatesSalary2,
             exCoursePilatesSalary1:coachForm.exCoursePilatesSalary1,
@@ -218,9 +219,13 @@ function CoachDataModifyDetail ({coachData, coachDetail}) {
                 <div className="form_btn2">
                 <div className="form_btn1">
                 <button 
-                    type="button" 
-                    onClick={() => handleItemClick('PT')}
-                    className={`btn btn-outline-golden ${selectedOptions.includes('PT') ? 'active' : ''}`}>PT</button>
+                      type="button" 
+                      onClick={() => handleItemClick('PT1v1')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('PT1v1') ? 'active' : ''}`}>PT1v1</button>
+                    <button 
+                      type="button" 
+                      onClick={() => handleItemClick('PT1v2')}
+                      className={`btn btn-outline-golden ${selectedOptions.includes('PT1v2') ? 'active' : ''}`}>PT1v2</button>
                 <button 
                     type="button" 
                     onClick={() => handleItemClick('基皮')}
@@ -258,22 +263,38 @@ function CoachDataModifyDetail ({coachData, coachDetail}) {
                 </div>
                 </div>
             </div>    
-            {selectedOptions.includes('PT') && (
-            <div class="form-group">
-                <label >PT堂薪:</label>
-                <div className="select">
-                <input 
-                    type="number" 
-                    class="form-select" 
-                    name="PtSalary"
-                    placeholder="請填寫整數數字，例如：1200，如未開課請填0"
-                    required
-                    value={coachForm.PtSalary}
-                    onChange={handleInputChange}
-                ></input>
+            {selectedOptions.includes('PT1v1') && (
+                <div class="form-group">
+                    <label >PT1v1堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="PtSalary"
+                      placeholder="請填寫整數數字，例如：1200"
+                      required
+                      value={coachForm.PtSalary}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
                 </div>
-            </div>
-            )}
+                )}
+                {selectedOptions.includes('PT1v2') && (
+                <div class="form-group">
+                    <label >PT1v2堂薪:</label>
+                    <div className="select">
+                    <input 
+                      type="number" 
+                      class="form-select" 
+                      name="PtSalary1v2"
+                      placeholder="請填寫整數數字，例如：1200"
+                      required
+                      value={coachForm.PtSalary1v2}
+                      onChange={handleInputChange}
+                    ></input>
+                    </div>
+                </div>
+                )}
             {selectedOptions.includes('基皮') && (
             <div class="form-group">
                 <label >基皮堂薪:</label>
