@@ -3,7 +3,7 @@ import { MaterialReactTable } from 'material-react-table';
 import { Link ,useParams} from 'react-router-dom';
 import { getStatusText } from './TableSelectOptions'
 import { useDispatch, useSelector } from 'react-redux';
-import { selectFileName, updateClassStatus, upDateStuCourse } from '../redux/reducers/saveSlice'
+import { selectFileName, updateClassStatus, upDateStuCourse, updateCoachStatus } from '../redux/reducers/saveSlice'
 
 //confirm
 import Dialog from '@mui/material/Dialog';
@@ -86,7 +86,8 @@ function ClassTableDetail({classDetail, classes}) {
       // setTableData([...classDetail]);
       //update classDetail
       const newTableData = classDetail.filter((item, index) => index !== row.index);
-      console.log("newTableData data", newTableData);
+      console.log("newTableData data", newTableData, row.original.coach[0].coachID);
+      const classIDString = row.original.classID.toString();
 
       //update student buyDetail
       const studentIDs = [];
@@ -106,7 +107,10 @@ function ClassTableDetail({classDetail, classes}) {
       console.log("updatedStuBuydetail data",  stuDetailData, row.index, studentIDs);
       const updatedStuBuydetail = stuDetailData.stuDetail.map((student) => {// update stu course num
         if (studentIDs.includes(student.stuID)) {
-          const updatedBuyDetail = student.buyDetail.filter(buy => buy.classID !== row.original.classID);
+          // console.log("row.original.classID", row.original.classID, row.original.classID.toString())
+          
+          const updatedBuyDetail = student.buyDetail.filter(buy => buy.classID !== classIDString);
+          console.log("updatedBuyDetail", updatedBuyDetail)
           return {
             ...student,
             buyDetail: updatedBuyDetail,
@@ -116,7 +120,28 @@ function ClassTableDetail({classDetail, classes}) {
       });
       // console.log("stu course count check", updatedStuCourse)
       console.log("updatedStuBuydetail data",  updatedStuBuydetail);
+
+      // 遍历 coachDetail 数组
+      let coachDetailData = classes.find(item => item.category === "coach");
+      let targetCoachID = row.original.coach[0].coachID
+      const updatedCoachTeachClass = coachDetailData.coachDetail.map(coach => {
+        if (coach.coachID === targetCoachID) {
+          // 找到匹配的教练后，修改他们的 teachClass
+          console.log("targetCoachID data",  targetCoachID, classIDString);
+          const updatedTeachClass = coach.teachClass.filter(item => item.classID !== classIDString);
+          console.log("updatedTeachClass data",  updatedTeachClass);
+          return {
+            ...coach,
+            teachClass: updatedTeachClass,
+          };
+         
+        }
+        return coach;
+      });
+      console.log("updatedCoachTeachClass", coachDetailData,updatedCoachTeachClass)
+
       dispatch(upDateStuCourse(updatedStuBuydetail));
+      dispatch(updateCoachStatus(updatedCoachTeachClass));
       dispatch(updateClassStatus(newTableData));
 
       const classIDToNum = newTableData.map((item) => {
