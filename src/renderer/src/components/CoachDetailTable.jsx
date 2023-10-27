@@ -16,7 +16,7 @@ import { addReserveTableData } from "../redux/reducers/saveSlice"
 function CoachDetailTable({ classes, tableData, setTableData }) {
   //optionally, you can manage the row selection state yourself
   const dispatch = useDispatch();
-
+  console.log("tableData", tableData)
 
   // const [tableData, setTableData] = useState(() => reserveData);
   // const handleDeleteRow = useCallback( //  儲存刪除
@@ -56,10 +56,23 @@ function CoachDetailTable({ classes, tableData, setTableData }) {
     //   size:50,
     // },
     {
-      accessorFn: (row) => `${row.student[0].courseType} `,
+      // accessorFn: (row) => {
+      //   console.log("row.student", row.student[0].stuID)
+      //   if (row.student.lenth>1)
+      //   // return`${row.student[0].courseType} `
+      // return 1
+      // },
+      accessorKey: 'student',
       id:"courseType",
       header: '課程種類',
       size: 50,
+      Cell:({row}) => {
+        // console.log("row", row.original)
+
+        // console.log("row.student", row.original.student[0].courseType)
+        return`${row.original.student[0].courseType} `
+
+      },
       filterVariant: 'select',
     },
     {
@@ -86,7 +99,6 @@ function CoachDetailTable({ classes, tableData, setTableData }) {
       accessorKey: 'reserveTime',
       header: '時間',
       size: 100,
-      enableSorting: false
     },
     {
       accessorKey: 'attandence',
@@ -116,6 +128,7 @@ function CoachDetailTable({ classes, tableData, setTableData }) {
         showGlobalFilter: true,
         sorting: [
           { id: 'reserveDate', desc: true }, //sort by classID in descending order by default
+          { id: 'reserveTime', desc: true }, 
       ],
        }} //show filters by default
       enableColumnActions={false} //no need for column actions if none of them are enabled
