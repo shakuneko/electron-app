@@ -108,6 +108,7 @@ const handleSubmit = () => {
   const selectedStudentNames = reserveForm.reserveStu;
   //找當前classID裡面的reserveID
   const selectedClass = props.classes; // 假设 props.classes 包含了目标 class 的信息
+  console.log("selectedClass", selectedClass.student)
   if (selectedClass) {
     const reserveDetail = selectedClass.reserveDetail || []; // 获取目标 class 的 reserveDetail 数组，如果不存在则创建一个空数组
     const existingReserveIDs = reserveDetail.map((reserve) => reserve.reserveID); // 提取已有的 reserveID 数组
@@ -122,8 +123,9 @@ const handleSubmit = () => {
     cancel: "否",
     attandence: "-",
     note: "",
-    student: [], // 将在下面更新
+    student: selectedClass.student, // 将在下面更新
   };
+  console.log("newReserveData", newReserveData)
   const courseType = props.classes.courseType;
   // 更新 reserveDetail > student 
   selectedStudentNames.forEach((selectedStudentName) => {
@@ -133,8 +135,8 @@ const handleSubmit = () => {
     
     if (selectedStudentInfo) {
       newReserveData.student.push({
-        stuID: selectedStudentInfo.stuID,
-        stuName: selectedStudentInfo.stuName,
+        stuID: props.classes.stuID,
+        stuName: props.classes.stuName,
         courseType: courseType, // 将 courseType 添加到学员信息中
       });
     }
