@@ -11,6 +11,7 @@ function StudentDetailPage({ stuData, stuDetailData }) {
   const [open, setOpen] = useState(false)
 
   let ptCourseLeftSum = 0
+  let pt1v2CourseLeftSum = 0
   let pilaCourseLeftSum = 0
   let groupCourseLeftSum = 0
   let massageCourseLeftSum = 0
@@ -22,8 +23,11 @@ function StudentDetailPage({ stuData, stuDetailData }) {
     if (stuData.buyDetail[i].exCourse == '是') {
       exCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
     }
-    if (stuData.buyDetail[i].courseType == 'PT') {
+    if (stuData.buyDetail[i].courseType == 'PT1v1') {
       ptCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
+    }
+    else if (stuData.buyDetail[i].courseType == 'PT1v2') {
+      pt1v2CourseLeftSum += stuData.buyDetail[i].courseLeft * 1
     }
     // else if (stuData.buyDetail[i].courseType == '皮拉提斯') {
     //   pilaCourseLeftSum += stuData.buyDetail[i].courseLeft * 1
@@ -59,7 +63,10 @@ function StudentDetailPage({ stuData, stuDetailData }) {
             <p className="classCoachBox-item">姓名：{stuData.stuName}</p>
             <p className="classCoachBox-item">性別：{stuData.stuGender}</p>
             {ptCourseLeftSum != 0 ? (
-               <p className="classCoachBox-item">PT 剩餘堂數：{ptCourseLeftSum}</p>
+               <p className="classCoachBox-item">PT1v1 剩餘堂數：{ptCourseLeftSum}</p>
+            ) : null}
+            {pt1v2CourseLeftSum != 0 ? (
+               <p className="classCoachBox-item">PT1v2 剩餘堂數：{pt1v2CourseLeftSum}</p>
             ) : null}
             {/* {pilaCourseLeftSum != 0 ? (
                <p className="classCoachBox-item">皮拉提斯剩餘堂數：{pilaCourseLeftSum}</p>
@@ -87,7 +94,8 @@ function StudentDetailPage({ stuData, stuDetailData }) {
               && pilaCourseLeftSum == 0 
               && groupCourseLeftSum == 0 
               && massageCourseLeftSum == 0
-              && exCourseLeftSum == 0 ? (
+              && exCourseLeftSum == 0 
+              && pt1v2CourseLeftSum == 0 ? (
                <p className="classCoachBox-item">尚未購買課程</p>
             ) : null}
           </div>
