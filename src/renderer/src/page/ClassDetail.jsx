@@ -24,6 +24,7 @@ function ClassDetail({classes}) {
         detailData.push(Class.reserveDetail[i])
     }
 
+    console.log("detailData", detailData)
     let stuDetailData = classes.find(item => item.category === "student").stuDetail
     console.log("stuDetailData",stuDetailData);
 

@@ -37,7 +37,7 @@ function CoachDetail({ classes }) {
           reserveData.push(item.reserveDetail[i])
         }
     })
-    console.log('預約資料:', reserveData)
+    console.log('預約資料:', classDetailData, reserveData)
     
     
     const dispatch = useDispatch();

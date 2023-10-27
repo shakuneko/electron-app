@@ -23,35 +23,44 @@ function CoachTopBar({coachValue, classes}) {
     console.log("count",matchingStudentData)
 
     let totalSalary = 0
+    let alreadyCount = []
     // 將學生剩餘堂數加到陣列
     matchingStudentData.forEach(item => {
       item.buyDetail.forEach(names => {
         if (teachClassIDs.includes(names.classID)) {
-          courseLefts.push(names.courseLeft)
-          if (names.courseType === "PT" ) {
-            totalSalary +=  names.coursesFIN * coachValue.PtSalary
+          if (! alreadyCount.includes(names.classID)){
+            alreadyCount.push(names.classID)
+            courseLefts.push(names.courseLeft)
+            console.log("alreadyCount",alreadyCount)
+            if (names.courseType === "PT1v1" ) {
+              totalSalary +=  names.coursesFIN * coachValue.PtSalary
+            }
+            else if (names.courseType === "PT1v2" ) {
+              totalSalary +=  names.coursesFIN * coachValue.PtSalary1v2
+            }
+            if (names.courseType === "基皮" ) {
+              totalSalary +=  names.coursesFIN * coachValue.PilatesSalary1
+            }
+            else if (names.courseType === "高皮" ) {
+              totalSalary +=  names.coursesFIN * coachValue.PilatesSalary2
+            }
+            else if (names.courseType === "團課" ) {
+              totalSalary +=  names.coursesFIN * coachValue.GroupSalary
+            }
+            else if (names.courseType === "運動按摩" ) {
+              totalSalary +=  names.coursesFIN * coachValue.MassageSalary
+            }
+            else if (names.courseType === "場地租借" ) {
+              totalSalary +=  names.coursesFIN * coachValue.RentSalary
+            }
+            else if (names.courseType === "體驗基皮" ) {
+              totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary1
+            }
+            else if (names.courseType === "體驗高皮" ) {
+              totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary2
+            }
           }
-          else if (names.courseType === "基皮" ) {
-            totalSalary +=  names.coursesFIN * coachValue.PilatesSalary1
-          }
-          else if (names.courseType === "高皮" ) {
-            totalSalary +=  names.coursesFIN * coachValue.PilatesSalary2
-          }
-          else if (names.courseType === "團課" ) {
-            totalSalary +=  names.coursesFIN * coachValue.GroupSalary
-          }
-          else if (names.courseType === "運動按摩" ) {
-            totalSalary +=  names.coursesFIN * coachValue.MassageSalary
-          }
-          else if (names.courseType === "場地租借" ) {
-            totalSalary +=  names.coursesFIN * coachValue.RentSalary
-          }
-          else if (names.courseType === "體驗基皮" ) {
-            totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary1
-          }
-          else if (names.courseType === "體驗高皮" ) {
-            totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary2
-          }
+
         }
 
       })
