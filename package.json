@@ -1,7 +1,7 @@
 {
   "name": "azusa",
   "productName": "Azusa",
-  "version": "1.0.03",
+  "version": "1.1.00",
   "description": "An Electron application with React",
   "main": "./out/main/index.js",
   "license": "MIT",
