@@ -20,22 +20,36 @@ function CoachTopBar({coachValue, classes, tableData}) {
       }
     }
 
-    // console.log("count",matchingStudentData)
+    console.log("count",matchingStudentData)
     const currentDate = new Date();
     let currentYear = currentDate.getFullYear()
     let currentMonth = currentDate.getMonth()
-    // console.log("currentDate",currentDate, currentYear, currentMonth, tableData)
+    console.log("currentDate",currentDate, currentYear, currentMonth, tableData, coachValue)
 
     let thisMonthTotalClass = 0
+    let countedReserve = []
     if(tableData){
       tableData.forEach( item => {
         const reserveTime = new Date(item.reserveDate);
         if (reserveTime.getFullYear() == currentYear && reserveTime.getMonth() == currentMonth) {
-          thisMonthTotalClass ++
+          if (!countedReserve.includes(item.reserveID)){
+            if ( (item.attandence =='是' && item.cancel =='否') || (item.attandence =='否' && item.cancel =='否') ) {
+              thisMonthTotalClass ++
+              countedReserve.push(item.reserveID)
+            }
+          }
+          else {
+            if ( item.attandence =='否' && item.cancel =='是' ) {
+              thisMonthTotalClass --
+              countedReserve = countedReserve.filter((index) => index !== item.reserveID);
+            }
+          }
         }
-      })
-    }
-    // console.log("thisMonthTotalClass",thisMonthTotalClass)
+
+        }
+      )}
+    
+    console.log("thisMonthTotalClass",thisMonthTotalClass)
 
     let totalSalary = 0
     let alreadyCount = []
