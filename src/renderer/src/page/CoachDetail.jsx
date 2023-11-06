@@ -86,6 +86,7 @@ function CoachDetail({ classes }) {
                                 <CoachTopBar 
                                     coachValue={coachData} 
                                     classes={classes}
+                                    tableData={tableData}
                                 />
                                 {/* <div className="chooseDateBox">
                                     

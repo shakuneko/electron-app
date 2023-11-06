@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 // import newJson from '../json/new_class.json'
 
-function CoachTopBar({coachValue, classes}) {
+function CoachTopBar({coachValue, classes, tableData}) {
     const { id } = useParams();
   //console.log('courseleft:', coachValue[id].student.courseLeft)
 
@@ -20,7 +20,22 @@ function CoachTopBar({coachValue, classes}) {
       }
     }
 
-    console.log("count",matchingStudentData)
+    // console.log("count",matchingStudentData)
+    const currentDate = new Date();
+    let currentYear = currentDate.getFullYear()
+    let currentMonth = currentDate.getMonth()
+    // console.log("currentDate",currentDate, currentYear, currentMonth, tableData)
+
+    let thisMonthTotalClass = 0
+    if(tableData){
+      tableData.forEach( item => {
+        const reserveTime = new Date(item.reserveDate);
+        if (reserveTime.getFullYear() == currentYear && reserveTime.getMonth() == currentMonth) {
+          thisMonthTotalClass ++
+        }
+      })
+    }
+    // console.log("thisMonthTotalClass",thisMonthTotalClass)
 
     let totalSalary = 0
     let alreadyCount = []
@@ -31,33 +46,33 @@ function CoachTopBar({coachValue, classes}) {
           if (! alreadyCount.includes(names.classID)){
             alreadyCount.push(names.classID)
             courseLefts.push(names.courseLeft)
-            console.log("alreadyCount",alreadyCount)
+            // console.log("alreadyCount",alreadyCount)
             if (names.courseType === "PT1v1" ) {
-              totalSalary +=  names.coursesFIN * coachValue.PtSalary
+              totalSalary +=  thisMonthTotalClass * coachValue.PtSalary
             }
             else if (names.courseType === "PT1v2" ) {
-              totalSalary +=  names.coursesFIN * coachValue.PtSalary1v2
+              totalSalary +=  thisMonthTotalClass * coachValue.PtSalary1v2
             }
             if (names.courseType === "基皮" ) {
-              totalSalary +=  names.coursesFIN * coachValue.PilatesSalary1
+              totalSalary +=  thisMonthTotalClass * coachValue.PilatesSalary1
             }
             else if (names.courseType === "高皮" ) {
-              totalSalary +=  names.coursesFIN * coachValue.PilatesSalary2
+              totalSalary +=  thisMonthTotalClass * coachValue.PilatesSalary2
             }
             else if (names.courseType === "團課" ) {
-              totalSalary +=  names.coursesFIN * coachValue.GroupSalary
+              totalSalary +=  thisMonthTotalClass * coachValue.GroupSalary
             }
             else if (names.courseType === "運動按摩" ) {
-              totalSalary +=  names.coursesFIN * coachValue.MassageSalary
+              totalSalary +=  thisMonthTotalClass * coachValue.MassageSalary
             }
             else if (names.courseType === "場地租借" ) {
-              totalSalary +=  names.coursesFIN * coachValue.RentSalary
+              totalSalary +=  thisMonthTotalClass * coachValue.RentSalary
             }
             else if (names.courseType === "體驗基皮" ) {
-              totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary1
+              totalSalary +=  thisMonthTotalClass * coachValue.exCoursePilatesSalary1
             }
             else if (names.courseType === "體驗高皮" ) {
-              totalSalary +=  names.coursesFIN * coachValue.exCoursePilatesSalary2
+              totalSalary +=  thisMonthTotalClass * coachValue.exCoursePilatesSalary2
             }
           }
 
@@ -65,7 +80,7 @@ function CoachTopBar({coachValue, classes}) {
 
       })
     })
-    console.log("totalSalary",totalSalary)
+    // console.log("totalSalary",totalSalary)
 
     // 將學生剩餘堂數加總
     const totalStudentCourseLeft = courseLefts.reduce((accumulator, currentValue) => {
