@@ -16,6 +16,9 @@ import StudentDetail from './page/StudentDetail'
 import StuDataModify from './page/StuDataModify'
 import CoachDataModify from './page/CoachDataModify'
 
+import RevenueCourseType from './page/RevenueCourseType'
+import RevenueCoach from './page/RevenueCoach'
+
 //json test data
 import classes from './json/class.json'
 import testClass from './json/test_class.json'
@@ -153,6 +156,11 @@ function App() {
           {/* <Route path="name/:coachID" element={<CoachDetail classes={newJson} />} /> */}
           <Route path="name/:coachID" element={<CoachDetail classes={fileContent.newJsonData} />} />
           <Route path="modify/:coachID" element={<CoachDataModify classes={fileContent.newJsonData}/>} />
+        </Route>
+
+        <Route path="/revenue">
+          <Route path="courseType/:courseID" element={<RevenueCourseType classes={fileContent.newJsonData} />} />
+          <Route path="coach/:coachID" element={<RevenueCoach classes={fileContent.newJsonData}/>} />
         </Route>
 
         <Route path="/savejson" element={<SaveJsonPage />} />
