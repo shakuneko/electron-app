@@ -76,3 +76,29 @@
     padding-top: 10px;
     color:#dc3545
   }
+
+  /* revenue */
+  .revenue-export-btn{
+    align-items: end;
+    margin-bottom: 20px;
+    justify-content: end;
+    padding-right: 7px;
+  }
+
+  .revenue-link:link {
+    color: #352F29;
+    background-color: transparent;
+    text-decoration: none;
+  }
+    
+  .revenue-link:hover {
+    color: #DFC994;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+  .revenue-link:active {
+    color: #352F29;
+    background-color: transparent;
+    text-decoration: underline;
+  }

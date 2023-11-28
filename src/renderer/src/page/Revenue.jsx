@@ -853,32 +853,44 @@ function Revenue({ classes }) {
         </div>
         <div className="col-10 container margin-left-right">
           <div className="table-container">
-            <h1 className="title">營業額</h1>
-            <div>
-              <div>總收入/月</div>
-              <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
+            <h1 className="title">金流</h1>
+            <div className='row'>
+              <div className='col-4'>
+                <div>X 月簽約總收入</div> 
+                {/* x月要計算 */}
+                <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
+              </div>
+              <div className='col-4'>
+                <div>X 月核銷課總收入</div> 
+                {/* x月要計算 */}
+                <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
+              </div>
+              <div className='col-4 revenue-export-btn' style={{display:"flex", flexDirection:"row"}}>
+                <button type="button" className="btn btn-golden">Date picker</button> 
+                <button type="button" className="btn btn-golden">匯出 PDF</button> 
+              </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
             <RevenueSetTable classes={mergeOldAndNew} columns={columnsRevenue} />
-            <h1 className="title  mt-4">核銷</h1>
+            {/* <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
-                  $ {totalSumFIN ?? '0'} / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂
+                  $ {totalSumFIN ?? '0'} / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂 */}
                   {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
-                </h1>
+                {/* </h1>
               </div>
               <div className="col-6">
                 <div>未核銷</div>
-                <h1 className="money-title mt-2 title">
+                <h1 className="money-title mt-2 title"> */}
                   {/*new*/}
                   {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
-                  {/*old*/}$ {totalSumLeft ?? '0'} / {totalLeftCourseCount ?? '0'}堂
-                </h1>
+                  {/*old$ {totalSumLeft ?? '0'} / {totalLeftCourseCount ?? '0'}堂*/}
+                {/* </h1>
               </div>
             </div>
-            <RevenueSetTable classes={mergeInfoLast} columns={columnsMoney} />
+            <RevenueSetTable classes={mergeInfoLast} columns={columnsMoney} /> */}
             <div></div>
           </div>
         </div>
