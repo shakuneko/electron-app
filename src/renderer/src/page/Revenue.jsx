@@ -8,6 +8,179 @@ import { useSelector, useDispatch } from 'react-redux'
 import { updateLastMonthRevenue } from '../redux/reducers/saveSlice'
 import { useEffect } from 'react'
 
+// Json第五包初步設計
+export const newData = [
+  {
+    courseType:'PT 1v1',
+    preLeftCourse:'10',
+    preLeftMoney:'1000',
+    totalCourse:'5000',
+    totalMoney:'5000',
+    finCourse:'20',
+    finMoney:'1000',
+    leftCourse:'10',
+    leftMoney:'3000',
+    coaches:[
+      {
+        coachName:'何軒',
+        preLeftCourse:'10',
+        preLeftMoney:'1000',
+        totalCourse:'5000',
+        totalMoney:'5000',
+        finCourse:'20',
+        finMoney:'1000',
+        leftCourse:'10',
+        leftMoney:'3000',
+        exCourseTotal:'3',
+        
+      },
+      {
+        coachName:'A',
+        preLeftCourse:'10',
+        preLeftMoney:'1000',
+        totalCourse:'5000',
+        totalMoney:'5000',
+        finCourse:'20',
+        finMoney:'1000',
+        leftCourse:'10',
+        leftMoney:'3000',
+        exCourseTotal:'3',
+        
+      }
+    ]
+  },
+  {
+    courseType:'PT 1v2',
+    preLeftCourse:'10',
+    preLeftMoney:'1000',
+    totalCourse:'5000',
+    totalMoney:'5000',
+    finCourse:'20',
+    finMoney:'1000',
+    leftCourse:'10',
+    leftMoney:'3000',
+    coaches:[
+      {
+        coachName:'B',
+        preLeftCourse:'10',
+        preLeftMoney:'1000',
+        totalCourse:'5000',
+        totalMoney:'5000',
+        finCourse:'20',
+        finMoney:'1000',
+        leftCourse:'10',
+        leftMoney:'3000',
+        exCourseTotal:'3',
+        
+      }
+    ]
+  },
+  {
+    courseType:'基礎皮拉提斯',
+    preLeftCourse:'10',
+    preLeftMoney:'1000',
+    totalCourse:'5000',
+    totalMoney:'5000',
+    finCourse:'20',
+    finMoney:'1000',
+    leftCourse:'10',
+    leftMoney:'3000',
+    coaches:[
+      {
+        coachName:'C',
+        preLeftCourse:'10',
+        preLeftMoney:'1000',
+        totalCourse:'5000',
+        totalMoney:'5000',
+        finCourse:'20',
+        finMoney:'1000',
+        leftCourse:'10',
+        leftMoney:'3000',
+        exCourseTotal:'3',
+        
+      }
+    ]
+  },
+  {
+    courseType:'高階皮拉提斯',
+    preLeftCourse:'10',
+    preLeftMoney:'1000',
+    totalCourse:'5000',
+    totalMoney:'5000',
+    finCourse:'20',
+    finMoney:'1000',
+    leftCourse:'10',
+    leftMoney:'3000',
+    coaches:[
+      {
+        coachName:'D',
+        preLeftCourse:'10',
+        preLeftMoney:'1000',
+        totalCourse:'5000',
+        totalMoney:'5000',
+        finCourse:'20',
+        finMoney:'1000',
+        leftCourse:'10',
+        leftMoney:'3000',
+        exCourseTotal:'3',
+        
+      }
+    ]
+  },
+  {
+    courseType:'運動按摩',
+    preLeftCourse:'10',
+    preLeftMoney:'1000',
+    totalCourse:'5000',
+    totalMoney:'5000',
+    finCourse:'20',
+    finMoney:'1000',
+    leftCourse:'10',
+    leftMoney:'3000',
+    coaches:[
+      {
+        coachName:'E',
+        preLeftCourse:'10',
+        preLeftMoney:'1000',
+        totalCourse:'5000',
+        totalMoney:'5000',
+        finCourse:'20',
+        finMoney:'1000',
+        leftCourse:'10',
+        leftMoney:'3000',
+        exCourseTotal:'3',
+        
+      }
+    ]
+  },
+  {
+    courseType:'場地租金',
+    preLeftCourse:'10',
+    preLeftMoney:'1000',
+    totalCourse:'5000',
+    totalMoney:'5000',
+    finCourse:'20',
+    finMoney:'1000',
+    leftCourse:'10',
+    leftMoney:'3000',
+    coaches:[
+      {
+        coachName:'F',
+        preLeftCourse:'10',
+        preLeftMoney:'1000',
+        totalCourse:'5000',
+        totalMoney:'5000',
+        finCourse:'20',
+        finMoney:'1000',
+        leftCourse:'10',
+        leftMoney:'3000',
+        exCourseTotal:'3',
+        
+      }
+    ]
+  }
+]
+
 function Revenue({ classes }) {
   const dispatch = useDispatch()
   //new json new_class
@@ -871,7 +1044,7 @@ function Revenue({ classes }) {
               </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
-            <RevenueSetTable classes={mergeOldAndNew} columns={columnsRevenue} />
+            <RevenueSetTable classes={newData} columns={columnsRevenue} />
             {/* <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">

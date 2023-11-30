@@ -16,6 +16,7 @@ import StudentDetail from './page/StudentDetail'
 import StuDataModify from './page/StuDataModify'
 import CoachDataModify from './page/CoachDataModify'
 
+import {newData} from './page/Revenue'
 import RevenueCourseType from './page/RevenueCourseType'
 import RevenueCoach from './page/RevenueCoach'
 
@@ -159,7 +160,9 @@ function App() {
         </Route>
 
         <Route path="/revenue">
-          <Route path="courseType/:courseID" element={<RevenueCourseType classes={fileContent.newJsonData} />} />
+          {/* <Route path="courseType/:courseID" element={<RevenueCourseType classes={fileContent.newJsonData} />} />
+          <Route path="coach/:coachID" element={<RevenueCoach classes={fileContent.newJsonData}/>} /> */}
+          <Route path="courseType/:courseID" element={<RevenueCourseType classes={newData} />}/>
           <Route path="coach/:coachID" element={<RevenueCoach classes={fileContent.newJsonData}/>} />
         </Route>
 

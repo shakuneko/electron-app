@@ -73,38 +73,34 @@ export const selectOptions = [ //下拉選單篩選
 
 export const columnsRevenue = [
     {
-        accessorKey:"classType",
+        accessorKey:"courseType",
         header:"項目名稱",
-        id:"classType",
+        id:"courseType",
         Cell: ({renderedCellValue})=> {
             console.log(renderedCellValue)
             return <Link to={`/revenue/courseType/${renderedCellValue}`} className='table-link-underline-none revenue-link'>{renderedCellValue} </Link>
         }
     },
     {
-        accessorKey:"classLeftLast",
+        accessorFn: (row) => `$ ${row.preLeftMoney} / ${row.preLeftCourse}堂`,
+        id:"preMonthLeft",
         header:"Ｘ月未核銷 (金額 / 堂)",
     },
     {
-        // accessorFn: (row) => `${row.salary*row.preCourseLeft} `,
-        accessorKey:"totalLeftSalaryLast",
-        id:"lastMonthMoney",
-        // accessorKey:"preCourseLeft",
+        accessorFn: (row) => `$ ${row.totalMoney} / ${row.totalCourse}堂`,
+        id:"thisMonthTotal",
         header:"Ｘ月簽約  (金額 / 堂)",
-        // Cell:CountMoney
     },
     {
-        accessorKey:"classLeft",
+        accessorFn: (row) => `$ ${row.finMoney} / ${row.finCourse}堂`,
+        id:"thisMonthFin",
         header:"Ｘ月已核銷 (金額 / 堂)",
         
     },
     {
-        // accessorFn: (row) => `${row.salary*row.courseLeft} `,
-        accessorKey:"totalLeftSalary",
-        id:"thisMonthMoney",
-        // accessorKey:"courseLeft",
+        accessorFn: (row) => `$ ${row.leftMoney} / ${row.leftCourse}堂`,
+        id:"thisMonthLeft",
         header:"Ｘ月未核銷 (金額 / 堂)",       
-        // Cell:CountMoney
     }
 ]
 
