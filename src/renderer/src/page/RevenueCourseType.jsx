@@ -25,6 +25,9 @@ function RevenueCourseType({classes}) {
                             <GoBackBTN/>
                             <h1 className='title'>{courseID}</h1>
                         </div>
+                        <div className='revenue-export-btn' style={{display:"flex", padding:"0px"}}>
+                            <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
+                        </div>
                         {/* <h1 className='title'>{courseID}</h1> */}
                         <RevenueCourseDetail classes={classes} courseData={courseData} courseID={courseID}/>
                     </div>

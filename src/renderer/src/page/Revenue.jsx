@@ -32,7 +32,54 @@ export const newData = [
         leftCourse:'10',
         leftMoney:'3000',
         exCourseTotal:'3',
-        
+        total:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          },
+          {
+            buyDate:'2023-07-29',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          }
+        ],
+        fin:[
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          },
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          }
+        ],
+        left:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          },
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          }
+        ]
       },
       {
         coachName:'A',
@@ -45,7 +92,54 @@ export const newData = [
         leftCourse:'10',
         leftMoney:'3000',
         exCourseTotal:'3',
-        
+        total:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          },
+          {
+            buyDate:'2023-07-29',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          }
+        ],
+        fin:[
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          },
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          }
+        ],
+        left:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          },
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          }
+        ]
       }
     ]
   },
@@ -71,7 +165,54 @@ export const newData = [
         leftCourse:'10',
         leftMoney:'3000',
         exCourseTotal:'3',
-        
+        total:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          },
+          {
+            buyDate:'2023-07-29',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          }
+        ],
+        fin:[
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          },
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          }
+        ],
+        left:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          },
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          }
+        ]
       }
     ]
   },
@@ -97,7 +238,54 @@ export const newData = [
         leftCourse:'10',
         leftMoney:'3000',
         exCourseTotal:'3',
-        
+        total:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          },
+          {
+            buyDate:'2023-07-29',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          }
+        ],
+        fin:[
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          },
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          }
+        ],
+        left:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          },
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          }
+        ]
       }
     ]
   },
@@ -123,7 +311,54 @@ export const newData = [
         leftCourse:'10',
         leftMoney:'3000',
         exCourseTotal:'3',
-        
+        total:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          },
+          {
+            buyDate:'2023-07-29',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          }
+        ],
+        fin:[
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          },
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          }
+        ],
+        left:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          },
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          }
+        ]
       }
     ]
   },
@@ -149,7 +384,54 @@ export const newData = [
         leftCourse:'10',
         leftMoney:'3000',
         exCourseTotal:'3',
-        
+        total:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          },
+          {
+            buyDate:'2023-07-29',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          }
+        ],
+        fin:[
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          },
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          }
+        ],
+        left:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          },
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          }
+        ]
       }
     ]
   },
@@ -175,7 +457,54 @@ export const newData = [
         leftCourse:'10',
         leftMoney:'3000',
         exCourseTotal:'3',
-        
+        total:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          },
+          {
+            buyDate:'2023-07-29',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            invoiceNum:'XXXXX'
+          }
+        ],
+        fin:[
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          },
+          {
+            courseDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            money:'2,000,000',
+            courseSalary:'1000'
+          }
+        ],
+        left:[
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          },
+          {
+            buyDate:'2023-07-30',
+            stuName:'Lulu',
+            course:'80',
+            finCourse:'10',
+            leftCourse:'70'
+          }
+        ]
       }
     ]
   }
@@ -1040,7 +1369,7 @@ function Revenue({ classes }) {
               </div>
               <div className='col-4 revenue-export-btn' style={{display:"flex", flexDirection:"row"}}>
                 <button type="button" className="btn btn-golden">Date picker</button> 
-                <button type="button" className="btn btn-golden">匯出 PDF</button> 
+                <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
               </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}

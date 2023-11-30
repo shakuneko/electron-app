@@ -5,24 +5,24 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import * as XLSX from 'xlsx';
 
 function RevenueSetTable({classes, columns}) {
-    const downloadExcel=()=>{
-        const newData=classes.map(row=>{
-          delete row.invoiceNum
-          return row
-        })
-        console.log(newData)
-        const workSheet=XLSX.utils.json_to_sheet(newData)
-        const workBook=XLSX.utils.book_new()
+  // downloadExcel現在應該不能用
+  // const downloadExcel=()=>{
+  //     const newData=classes.map(row=>{
+  //       delete row.invoiceNum
+  //       return row
+  //     })
+  //     console.log(newData)
+  //     const workSheet=XLSX.utils.json_to_sheet(newData)
+  //     const workBook=XLSX.utils.book_new()
 
-        XLSX.utils.book_append_sheet(workBook,workSheet,"Data")
-        //Buffer
-        let buf=XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
-        //Binary string
-        XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
-        //Download
-        XLSX.writeFile(workBook,"Data.xlsx")  
-        
-      }
+  //     XLSX.utils.book_append_sheet(workBook,workSheet,"Data")
+  //     //Buffer
+  //     let buf=XLSX.write(workBook,{bookType:"xlsx",type:"buffer"})
+  //     //Binary string
+  //     XLSX.write(workBook,{bookType:"xlsx",type:"binary"})
+  //     //Download
+  //     XLSX.writeFile(workBook,"Data.xlsx") 
+  // }
       
   return (
     
@@ -36,7 +36,7 @@ function RevenueSetTable({classes, columns}) {
         enableHiding={false} //column hiding does not work with memoized table body
         enableStickyHeader
         muiSearchTextFieldProps={{
-          placeholder: "搜尋想查找的名稱、金額",
+          placeholder: "搜尋想查找的資料",
           sx: { minWidth: '300px' },
         }}
                                 

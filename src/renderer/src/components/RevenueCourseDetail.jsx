@@ -14,7 +14,7 @@ function RevenueCourseDetail(props) {
         size:100,
         filterVariant: 'select',
         Cell: ({renderedCellValue})=> {
-          console.log(renderedCellValue)
+          // console.log(renderedCellValue)
           return <Link to={`/revenue/${props.courseID}/${renderedCellValue}`} className='table-link-underline-none revenue-link'>{renderedCellValue} </Link>
         }
     },
@@ -50,28 +50,6 @@ function RevenueCourseDetail(props) {
     
   return (
     <div>
-      {/* <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title" style={{ fontWeight:900}}>確認刪除？</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            確定要刪除這項資料嗎？
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions style={{ marginBottom:"8px" }}>
-          <button onClick={handleClose} className='btn btn-outline-dbrown'>
-            取消
-          </button>
-          <button onClick={handleDeleteConfirmed} className='btn btn-golden'>
-            確認
-          </button>
-        </DialogActions>
-      </Dialog> */}
-
       <MaterialReactTable 
         columns={columns}
         data={props.courseData} 
@@ -86,14 +64,11 @@ function RevenueCourseDetail(props) {
         enableStickyHeader
         enableFacetedValues
         muiSearchTextFieldProps={{
-            placeholder: "搜尋想查找的名稱、堂數",
+            placeholder: "搜尋想查找的資料",
             sx: { minWidth: '300px' },
           }}                                
       />
-    </div>
-    
-   
-                
+    </div>                
   )
 }
 

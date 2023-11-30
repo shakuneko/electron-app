@@ -64,41 +64,50 @@
     flex-direction: row;
     justify-content: left;
     align-items: center;
-  }
+}
 
-  /* add class button */
-  .addclass{
+/* add class button */
+.addclass{
     display: flex;
     flex-direction: row;
-  }
-  .addclassnote{
+}
+.addclassnote{
     font-size: 16px;
     padding-top: 10px;
     color:#dc3545
-  }
+}
 
-  /* revenue */
-  .revenue-export-btn{
+/* revenue */
+.revenue-export-btn{
     align-items: end;
     margin-bottom: 20px;
     justify-content: end;
     padding-right: 7px;
-  }
+}
 
-  .revenue-link:link {
+.revenue-link:link {
     color: #352F29;
     background-color: transparent;
     text-decoration: none;
-  }
-    
-  .revenue-link:hover {
+}
+
+.revenue-link:hover {
     color: #DFC994;
     background-color: transparent;
     text-decoration: underline;
-  }
-  
-  .revenue-link:active {
+}
+
+.revenue-link:active {
     color: #352F29;
     background-color: transparent;
     text-decoration: underline;
-  }
+}
+
+.money-title2{
+    color: gray;
+    margin-left: 20px;
+}
+
+.revenue-btn-mr0{
+    margin-right: 0px;
+}

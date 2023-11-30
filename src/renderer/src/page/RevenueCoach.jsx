@@ -1,13 +1,23 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import { useParams } from 'react-router-dom';
+import RevenueCoachDetail from '../components/RevenueCoachDetail'
 import GoBackBTN from '../components/GoBackBTN'
+import { columnsTotal, columnsFin, columnsLeft } from '../components/RevenueCoachColumns'
 
 function RevenueCoach({classes}) {
     const { courseID, coachID } = useParams();
     let coachAllData = !!classes && classes.find(
         (x) => x.courseType === courseID
-     ) || {};
+    ) || {};
+
+    let coachData = !!coachAllData && coachAllData.coaches.find(
+        (x) => x.coachName === coachID
+    ) || {};
+    const totalData = coachData.total
+    const finData = coachData.fin
+    const leftData = coachData.left
+    // console.log('courseData data', courseID, coachID, coachData,coachAllData, totalData, finData, leftData)
 
     return (
         <div className="container-fluid">
@@ -21,7 +31,35 @@ function RevenueCoach({classes}) {
                             <GoBackBTN/>
                             <h1 className='title'>{coachID}</h1>
                         </div>
-
+                        <div className="mb-5">
+                            <div className="title_word2 mb-3" style={{justifyContent:'space-between'}}> 
+                                <div className="title_word2">
+                                    <span className="money-title">X月簽約</span>
+                                    <span className="money-title2 ml-5">簽約金額：$ 138,000</span>
+                                </div>
+                                <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
+                            </div>
+                            <RevenueCoachDetail classes={classes} data={totalData} columns={columnsTotal}/>
+                        </div>
+                        <div className="mb-5">
+                            <div className="title_word2 mb-3" style={{justifyContent:'space-between'}}> 
+                                <div className="title_word2">
+                                    <span className="money-title">X月已核銷</span>
+                                    <span className="money-title2 ml-5">核銷金額：$ 138,000 / 堂薪：$ 169.000 / 堂數：100堂</span>
+                                </div>
+                                <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
+                            </div>
+                            <RevenueCoachDetail classes={classes} data={finData} columns={columnsFin}/>
+                        </div>
+                        <div className="mb-5">
+                            <div className="title_word2 mb-3" style={{justifyContent:'space-between'}}> 
+                                <div className="title_word2">
+                                    <span className="money-title">X月未核銷</span>
+                                </div>
+                                <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
+                            </div>
+                            <RevenueCoachDetail classes={classes} data={leftData} columns={columnsLeft}/>
+                        </div>
                     </div>
                 </div>
                 
