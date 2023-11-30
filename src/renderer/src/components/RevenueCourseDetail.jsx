@@ -15,7 +15,7 @@ function RevenueCourseDetail(props) {
         filterVariant: 'select',
         Cell: ({renderedCellValue})=> {
           console.log(renderedCellValue)
-          return <Link to={`/revenue/coach/${renderedCellValue}`} className='table-link-underline-none revenue-link'>{renderedCellValue} </Link>
+          return <Link to={`/revenue/${props.courseID}/${renderedCellValue}`} className='table-link-underline-none revenue-link'>{renderedCellValue} </Link>
         }
     },
     {

@@ -21,14 +21,12 @@ function RevenueCourseType({classes}) {
                 </div>
                 <div className='col-10 container margin-left-right'>  
                     <div className='table-container'>
-
-                            <div className="title_word2"> 
-                                <GoBackBTN/>
-                                <h1 className='title'>{courseID}</h1>
-                            </div>
-                  
+                        <div className="title_word2"> 
+                            <GoBackBTN/>
+                            <h1 className='title'>{courseID}</h1>
+                        </div>
                         {/* <h1 className='title'>{courseID}</h1> */}
-                        <RevenueCourseDetail classes={classes} courseData={courseData}/>
+                        <RevenueCourseDetail classes={classes} courseData={courseData} courseID={courseID}/>
                     </div>
                 </div>
                 
