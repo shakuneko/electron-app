@@ -6,503 +6,505 @@ import { DateTime } from 'luxon'
 import emptyJson from '../json/emptyJson.json'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateLastMonthRevenue } from '../redux/reducers/saveSlice'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 // Json第五包初步設計
 export const newData = [
   {
-    courseType:'PT 1v1',
-    preLeftCourse:'10',
-    preLeftMoney:'1000',
-    totalCourse:'5000',
-    totalMoney:'5000',
-    finCourse:'20',
-    finMoney:'1000',
-    leftCourse:'10',
-    leftMoney:'3000',
-    coaches:[
+    courseType: 'PT 1v1',
+    preLeftCourse: '10',
+    preLeftMoney: '1000',
+    totalCourse: '5000',
+    totalMoney: '5000',
+    finCourse: '20',
+    finMoney: '1000',
+    leftCourse: '10',
+    leftMoney: '3000',
+    coaches: [
       {
-        coachName:'何軒',
-        preLeftCourse:'10',
-        preLeftMoney:'1000',
-        totalCourse:'5000',
-        totalMoney:'5000',
-        finCourse:'20',
-        finMoney:'1000',
-        leftCourse:'10',
-        leftMoney:'3000',
-        exCourseTotal:'3',
-        total:[
+        coachName: '何軒',
+        preLeftCourse: '10',
+        preLeftMoney: '1000',
+        totalCourse: '5000',
+        totalMoney: '5000',
+        finCourse: '20',
+        finMoney: '1000',
+        leftCourse: '10',
+        leftMoney: '3000',
+        exCourseTotal: '3',
+        total: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           },
           {
-            buyDate:'2023-07-29',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-29',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           }
         ],
-        fin:[
+        fin: [
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           },
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           }
         ],
-        left:[
+        left: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           },
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           }
         ]
       },
       {
-        coachName:'A',
-        preLeftCourse:'10',
-        preLeftMoney:'1000',
-        totalCourse:'5000',
-        totalMoney:'5000',
-        finCourse:'20',
-        finMoney:'1000',
-        leftCourse:'10',
-        leftMoney:'3000',
-        exCourseTotal:'3',
-        total:[
+        coachName: 'A',
+        preLeftCourse: '10',
+        preLeftMoney: '1000',
+        totalCourse: '5000',
+        totalMoney: '5000',
+        finCourse: '20',
+        finMoney: '1000',
+        leftCourse: '10',
+        leftMoney: '3000',
+        exCourseTotal: '3',
+        total: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           },
           {
-            buyDate:'2023-07-29',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-29',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           }
         ],
-        fin:[
+        fin: [
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           },
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           }
         ],
-        left:[
+        left: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           },
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           }
         ]
       }
     ]
   },
   {
-    courseType:'PT 1v2',
-    preLeftCourse:'10',
-    preLeftMoney:'1000',
-    totalCourse:'5000',
-    totalMoney:'5000',
-    finCourse:'20',
-    finMoney:'1000',
-    leftCourse:'10',
-    leftMoney:'3000',
-    coaches:[
+    courseType: 'PT 1v2',
+    preLeftCourse: '10',
+    preLeftMoney: '1000',
+    totalCourse: '5000',
+    totalMoney: '5000',
+    finCourse: '20',
+    finMoney: '1000',
+    leftCourse: '10',
+    leftMoney: '3000',
+    coaches: [
       {
-        coachName:'B',
-        preLeftCourse:'10',
-        preLeftMoney:'1000',
-        totalCourse:'5000',
-        totalMoney:'5000',
-        finCourse:'20',
-        finMoney:'1000',
-        leftCourse:'10',
-        leftMoney:'3000',
-        exCourseTotal:'3',
-        total:[
+        coachName: 'B',
+        preLeftCourse: '10',
+        preLeftMoney: '1000',
+        totalCourse: '5000',
+        totalMoney: '5000',
+        finCourse: '20',
+        finMoney: '1000',
+        leftCourse: '10',
+        leftMoney: '3000',
+        exCourseTotal: '3',
+        total: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           },
           {
-            buyDate:'2023-07-29',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-29',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           }
         ],
-        fin:[
+        fin: [
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           },
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           }
         ],
-        left:[
+        left: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           },
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           }
         ]
       }
     ]
   },
   {
-    courseType:'基礎皮拉提斯',
-    preLeftCourse:'10',
-    preLeftMoney:'1000',
-    totalCourse:'5000',
-    totalMoney:'5000',
-    finCourse:'20',
-    finMoney:'1000',
-    leftCourse:'10',
-    leftMoney:'3000',
-    coaches:[
+    courseType: '基礎皮拉提斯',
+    preLeftCourse: '10',
+    preLeftMoney: '1000',
+    totalCourse: '5000',
+    totalMoney: '5000',
+    finCourse: '20',
+    finMoney: '1000',
+    leftCourse: '10',
+    leftMoney: '3000',
+    coaches: [
       {
-        coachName:'C',
-        preLeftCourse:'10',
-        preLeftMoney:'1000',
-        totalCourse:'5000',
-        totalMoney:'5000',
-        finCourse:'20',
-        finMoney:'1000',
-        leftCourse:'10',
-        leftMoney:'3000',
-        exCourseTotal:'3',
-        total:[
+        coachName: 'C',
+        preLeftCourse: '10',
+        preLeftMoney: '1000',
+        totalCourse: '5000',
+        totalMoney: '5000',
+        finCourse: '20',
+        finMoney: '1000',
+        leftCourse: '10',
+        leftMoney: '3000',
+        exCourseTotal: '3',
+        total: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           },
           {
-            buyDate:'2023-07-29',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-29',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           }
         ],
-        fin:[
+        fin: [
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           },
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           }
         ],
-        left:[
+        left: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           },
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           }
         ]
       }
     ]
   },
   {
-    courseType:'高階皮拉提斯',
-    preLeftCourse:'10',
-    preLeftMoney:'1000',
-    totalCourse:'5000',
-    totalMoney:'5000',
-    finCourse:'20',
-    finMoney:'1000',
-    leftCourse:'10',
-    leftMoney:'3000',
-    coaches:[
+    courseType: '高階皮拉提斯',
+    preLeftCourse: '10',
+    preLeftMoney: '1000',
+    totalCourse: '5000',
+    totalMoney: '5000',
+    finCourse: '20',
+    finMoney: '1000',
+    leftCourse: '10',
+    leftMoney: '3000',
+    coaches: [
       {
-        coachName:'D',
-        preLeftCourse:'10',
-        preLeftMoney:'1000',
-        totalCourse:'5000',
-        totalMoney:'5000',
-        finCourse:'20',
-        finMoney:'1000',
-        leftCourse:'10',
-        leftMoney:'3000',
-        exCourseTotal:'3',
-        total:[
+        coachName: 'D',
+        preLeftCourse: '10',
+        preLeftMoney: '1000',
+        totalCourse: '5000',
+        totalMoney: '5000',
+        finCourse: '20',
+        finMoney: '1000',
+        leftCourse: '10',
+        leftMoney: '3000',
+        exCourseTotal: '3',
+        total: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           },
           {
-            buyDate:'2023-07-29',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-29',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           }
         ],
-        fin:[
+        fin: [
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           },
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           }
         ],
-        left:[
+        left: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           },
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           }
         ]
       }
     ]
   },
   {
-    courseType:'運動按摩',
-    preLeftCourse:'10',
-    preLeftMoney:'1000',
-    totalCourse:'5000',
-    totalMoney:'5000',
-    finCourse:'20',
-    finMoney:'1000',
-    leftCourse:'10',
-    leftMoney:'3000',
-    coaches:[
+    courseType: '運動按摩',
+    preLeftCourse: '10',
+    preLeftMoney: '1000',
+    totalCourse: '5000',
+    totalMoney: '5000',
+    finCourse: '20',
+    finMoney: '1000',
+    leftCourse: '10',
+    leftMoney: '3000',
+    coaches: [
       {
-        coachName:'E',
-        preLeftCourse:'10',
-        preLeftMoney:'1000',
-        totalCourse:'5000',
-        totalMoney:'5000',
-        finCourse:'20',
-        finMoney:'1000',
-        leftCourse:'10',
-        leftMoney:'3000',
-        exCourseTotal:'3',
-        total:[
+        coachName: 'E',
+        preLeftCourse: '10',
+        preLeftMoney: '1000',
+        totalCourse: '5000',
+        totalMoney: '5000',
+        finCourse: '20',
+        finMoney: '1000',
+        leftCourse: '10',
+        leftMoney: '3000',
+        exCourseTotal: '3',
+        total: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           },
           {
-            buyDate:'2023-07-29',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-29',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           }
         ],
-        fin:[
+        fin: [
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           },
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           }
         ],
-        left:[
+        left: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           },
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           }
         ]
       }
     ]
   },
   {
-    courseType:'場地租金',
-    preLeftCourse:'10',
-    preLeftMoney:'1000',
-    totalCourse:'5000',
-    totalMoney:'5000',
-    finCourse:'20',
-    finMoney:'1000',
-    leftCourse:'10',
-    leftMoney:'3000',
-    coaches:[
+    courseType: '場地租金',
+    preLeftCourse: '10',
+    preLeftMoney: '1000',
+    totalCourse: '5000',
+    totalMoney: '5000',
+    finCourse: '20',
+    finMoney: '1000',
+    leftCourse: '10',
+    leftMoney: '3000',
+    coaches: [
       {
-        coachName:'F',
-        preLeftCourse:'10',
-        preLeftMoney:'1000',
-        totalCourse:'5000',
-        totalMoney:'5000',
-        finCourse:'20',
-        finMoney:'1000',
-        leftCourse:'10',
-        leftMoney:'3000',
-        exCourseTotal:'3',
-        total:[
+        coachName: 'F',
+        preLeftCourse: '10',
+        preLeftMoney: '1000',
+        totalCourse: '5000',
+        totalMoney: '5000',
+        finCourse: '20',
+        finMoney: '1000',
+        leftCourse: '10',
+        leftMoney: '3000',
+        exCourseTotal: '3',
+        total: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           },
           {
-            buyDate:'2023-07-29',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            invoiceNum:'XXXXX'
+            buyDate: '2023-07-29',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            invoiceNum: 'XXXXX'
           }
         ],
-        fin:[
+        fin: [
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           },
           {
-            courseDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            money:'2,000,000',
-            courseSalary:'1000'
+            courseDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            money: '2,000,000',
+            courseSalary: '1000'
           }
         ],
-        left:[
+        left: [
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           },
           {
-            buyDate:'2023-07-30',
-            stuName:'Lulu',
-            course:'80',
-            finCourse:'10',
-            leftCourse:'70'
+            buyDate: '2023-07-30',
+            stuName: 'Lulu',
+            course: '80',
+            finCourse: '10',
+            leftCourse: '70'
           }
         ]
       }
@@ -743,7 +745,7 @@ function Revenue({ classes }) {
 
   // 打印每个月份的上课次数
   //可以用於每月「已」上課次數（核銷未核銷堂數）
-  console.log('AAAC上课次数按月份统计：', classCountByMonth[formattedCurrentDateTime]?? "沒資料")
+  console.log('AAAC上课次数按月份统计：', classCountByMonth[formattedCurrentDateTime] ?? '沒資料')
 
   //----------------------計算所有的課程總堂數courseAll---------------------
   const courseAllByMonth = {}
@@ -764,7 +766,10 @@ function Revenue({ classes }) {
       })
     }
   })
-  console.log('BBBC課程總堂數courseAll按月份统计：', courseAllByMonth[formattedCurrentDateTime]?? "沒資料")
+  console.log(
+    'BBBC課程總堂數courseAll按月份统计：',
+    courseAllByMonth[formattedCurrentDateTime] ?? '沒資料'
+  )
   //標題呈現本月課程堂數
   //-------------未上課次數（未核銷堂數）-> 全部課程減去已上課 ---------------------
   let courseLeftByMonth = 0
@@ -1347,6 +1352,33 @@ function Revenue({ classes }) {
     console.log('数据变量未定义或不是数组。')
   }
 
+  //11月之後寫的---------------------------------------------------
+
+  //pick date
+  //selectDate選的月份
+  //displayText顯示的月份
+  const [selectedDate, setSelectedDate] = useState(null)
+  const [displayText, setDisplayText] = useState('請選擇月份');
+  const [displayMonth, setDisplayMonth] = useState('某月份');
+  useEffect(() => {
+    if (selectedDate) {
+      const formattedDate = selectedDate.toLocaleDateString('zh-TW', {
+        year: 'numeric',
+        month: '2-digit'
+      });
+      setDisplayText(`${formattedDate}`);
+      const formattedMonth = selectedDate.toLocaleDateString('zh-TW', {
+        month: '2-digit'
+      });
+      setDisplayMonth(`${formattedMonth}`);
+    } else {
+      setDisplayText('請選擇月份');
+      setDisplayMonth('某月份');
+    }
+  }, [selectedDate]);
+
+  
+
   return (
     <div className="container-fluid" style={{ backgroundColor: 'white' }}>
       <div className="row form_class row-no-gutters">
@@ -1356,20 +1388,51 @@ function Revenue({ classes }) {
         <div className="col-10 container margin-left-right">
           <div className="table-container">
             <h1 className="title">金流</h1>
-            <div className='row'>
-              <div className='col-4'>
-                <div>X 月簽約總收入</div> 
+            <div className="row">
+              <div className="col-4">
+               <div>{displayText}月簽約總收入</div>
                 {/* x月要計算 */}
                 <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
               </div>
-              <div className='col-4'>
-                <div>X 月核銷課總收入</div> 
+              <div className="col-4">
+                <div>{displayText}月核銷課總收入</div>
                 {/* x月要計算 */}
                 <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
               </div>
-              <div className='col-4 revenue-export-btn' style={{display:"flex", flexDirection:"row"}}>
-                <button type="button" className="btn btn-golden">Date picker</button> 
-                <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
+              <div
+                className="col-4 revenue-export-btn"
+                style={{ display: 'flex', flexDirection: 'row' }}
+              >
+                <DatePicker
+                  portalId="root-portal"
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  dateFormat="yyyy/MM"
+                  showMonthYearPicker
+                  isClearable
+                  placeholderText="輸入月份"
+                  popperClassName="some-custom-class"
+                  popperPlacement="right-end"
+                  popperModifiers={[
+                    {
+                      name: 'offset',
+                      options: {
+                        offset: [0, 10]
+                      }
+                    },
+                    {
+                      name: 'preventOverflow',
+                      options: {
+                        rootBoundary: 'viewport',
+                        tether: false,
+                        altAxis: true
+                      }
+                    }
+                  ]}
+                />
+                <button type="button" className="btn btn-golden revenue-btn-mr0">
+                  匯出 PDF
+                </button>
               </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
@@ -1380,16 +1443,16 @@ function Revenue({ classes }) {
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
                   $ {totalSumFIN ?? '0'} / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂 */}
-                  {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
-                {/* </h1>
+            {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
+            {/* </h1>
               </div>
               <div className="col-6">
                 <div>未核銷</div>
                 <h1 className="money-title mt-2 title"> */}
-                  {/*new*/}
-                  {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
-                  {/*old$ {totalSumLeft ?? '0'} / {totalLeftCourseCount ?? '0'}堂*/}
-                {/* </h1>
+            {/*new*/}
+            {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
+            {/*old$ {totalSumLeft ?? '0'} / {totalLeftCourseCount ?? '0'}堂*/}
+            {/* </h1>
               </div>
             </div>
             <RevenueSetTable classes={mergeInfoLast} columns={columnsMoney} /> */}

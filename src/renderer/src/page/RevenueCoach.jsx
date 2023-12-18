@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import RevenueCoachDetail from '../components/RevenueCoachDetail'
 import GoBackBTN from '../components/GoBackBTN'
 import { columnsTotal, columnsFin, columnsLeft } from '../components/RevenueCoachColumns'
+import { DateTime } from 'luxon'
 
 function RevenueCoach({classes}) {
     const { courseID, coachID } = useParams();
@@ -17,7 +18,12 @@ function RevenueCoach({classes}) {
     const totalData = coachData.total
     const finData = coachData.fin
     const leftData = coachData.left
-    // console.log('courseData data', courseID, coachID, coachData,coachAllData, totalData, finData, leftData)
+    //console.log('courseData data', courseID, coachID, coachData,coachAllData, totalData, finData, leftData)
+    
+    // //get current date
+    // const currentDateTime = DateTime.now()
+    // const formattedCurrentDateTime = currentDateTime.toFormat('yyyy-MM')
+    // console.log('currentDateTime', formattedCurrentDateTime)
 
     return (
         <div className="container-fluid">
