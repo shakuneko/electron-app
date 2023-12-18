@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-// Json第五包初步設計
+// Json第五包初步設計－for新的金流表格
 export const newData = [
   {
     courseType: 'PT 1v1',
@@ -1436,7 +1436,7 @@ function Revenue({ classes }) {
               </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
-            <RevenueSetTable classes={newData} columns={columnsRevenue} />
+            <RevenueSetTable classes={newData} columns={columnsRevenue(displayMonth)} />
             {/* <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">

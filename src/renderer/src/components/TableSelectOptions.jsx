@@ -71,7 +71,7 @@ export const selectOptions = [ //下拉選單篩選
 { text: '運動舒緩', value: '運動舒緩' }
 ];
 
-export const columnsRevenue = [
+export const columnsRevenue = (month) => [
     {
         accessorKey:"courseType",
         header:"項目名稱",
@@ -84,23 +84,23 @@ export const columnsRevenue = [
     {
         accessorFn: (row) => `$ ${row.preLeftMoney} / ${row.preLeftCourse}堂`,
         id:"preMonthLeft",
-        header:"Ｘ月未核銷 (金額 / 堂)",
+        header:`${month}未核銷 (金額 / 堂)`,
     },
     {
         accessorFn: (row) => `$ ${row.totalMoney} / ${row.totalCourse}堂`,
         id:"thisMonthTotal",
-        header:"Ｘ月簽約  (金額 / 堂)",
+        header:`${month}簽約  (金額 / 堂)`,
     },
     {
         accessorFn: (row) => `$ ${row.finMoney} / ${row.finCourse}堂`,
         id:"thisMonthFin",
-        header:"Ｘ月已核銷 (金額 / 堂)",
+        header:`${month}已核銷 (金額 / 堂)`,
         
     },
     {
         accessorFn: (row) => `$ ${row.leftMoney} / ${row.leftCourse}堂`,
         id:"thisMonthLeft",
-        header:"Ｘ月未核銷 (金額 / 堂)",       
+        header:`${month}未核銷 (金額 / 堂)`,       
     }
 ]
 

@@ -11,7 +11,9 @@ function RevenueCourseType({classes}) {
     ) || {};
 
     let courseData = courseAllData.coaches
-    console.log('courseData data', courseData, courseAllData)
+    //console.log('courseData data', courseData, courseAllData)
+
+    //console.log('courseID in revenueCourseType', courseID)//course name
     
     return (
         <div className="container-fluid">
