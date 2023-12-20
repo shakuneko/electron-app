@@ -7,7 +7,8 @@ import { columnsTotal, columnsFin, columnsLeft } from '../components/RevenueCoac
 import { DateTime } from 'luxon'
 
 function RevenueCoach({classes}) {
-    const { courseID, coachID } = useParams();
+    const { courseID, coachID, month } = useParams();
+    console.log('courseID in revenueCoach', courseID, coachID)//course name
     let coachAllData = !!classes && classes.find(
         (x) => x.courseType === courseID
     ) || {};
@@ -20,10 +21,11 @@ function RevenueCoach({classes}) {
     const leftData = coachData.left
     //console.log('courseData data', courseID, coachID, coachData,coachAllData, totalData, finData, leftData)
     
-    // //get current date
-    // const currentDateTime = DateTime.now()
-    // const formattedCurrentDateTime = currentDateTime.toFormat('yyyy-MM')
-    // console.log('currentDateTime', formattedCurrentDateTime)
+    console.log('selectedMonthValue in revenueCoach', month)
+
+    //month
+    const monthValue = month
+
 
     return (
         <div className="container-fluid">
@@ -40,7 +42,7 @@ function RevenueCoach({classes}) {
                         <div className="mb-5">
                             <div className="title_word2 mb-3" style={{justifyContent:'space-between'}}> 
                                 <div className="title_word2">
-                                    <span className="money-title">X月簽約</span>
+                                    <span className="money-title">{monthValue}簽約</span>
                                     <span className="money-title2 ml-5">簽約金額：$ 138,000</span>
                                 </div>
                                 <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 

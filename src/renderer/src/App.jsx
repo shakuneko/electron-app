@@ -162,8 +162,8 @@ function App() {
         <Route path="/revenue">
           {/* <Route path="courseType/:courseID" element={<RevenueCourseType classes={fileContent.newJsonData} />} />
           <Route path="coach/:coachID" element={<RevenueCoach classes={fileContent.newJsonData}/>} /> */}
-          <Route path="courseType/:courseID" element={<RevenueCourseType classes={newData} />}/>
-          <Route path=":courseID/:coachID" element={<RevenueCoach classes={newData}/>} />
+          <Route path="courseType/:courseID/:month" element={<RevenueCourseType classes={newData} />}/>
+          <Route path=":courseID/:coachID/:month" element={<RevenueCoach classes={newData}/>} />
         </Route>
 
         <Route path="/savejson" element={<SaveJsonPage />} />

@@ -78,7 +78,7 @@ export const columnsRevenue = (month) => [
         id:"courseType",
         Cell: ({renderedCellValue})=> {
             console.log(renderedCellValue)
-            return <Link to={`/revenue/courseType/${renderedCellValue}`} className='table-link-underline-none revenue-link'>{renderedCellValue} </Link>
+            return <Link to={`/revenue/courseType/${renderedCellValue}/${month}`} className='table-link-underline-none revenue-link'>{renderedCellValue} </Link>
         }
     },
     {

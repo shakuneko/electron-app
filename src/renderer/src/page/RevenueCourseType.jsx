@@ -5,10 +5,13 @@ import RevenueCourseDetail from '../components/RevenueCourseDetail'
 import GoBackBTN from '../components/GoBackBTN'
 
 function RevenueCourseType({classes}) {
-    const { courseID } = useParams();
+    const { courseID, month } = useParams();
     let courseAllData = !!classes && classes.find(
        (x) => x.courseType === courseID
     ) || {};
+    
+    let monthValue = month
+    console.log('selectedMonthValue', monthValue) 
 
     let courseData = courseAllData.coaches
     //console.log('courseData data', courseData, courseAllData)
@@ -31,7 +34,7 @@ function RevenueCourseType({classes}) {
                             <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
                         </div>
                         {/* <h1 className='title'>{courseID}</h1> */}
-                        <RevenueCourseDetail classes={classes} courseData={courseData} courseID={courseID}/>
+                        <RevenueCourseDetail classes={classes} courseData={courseData} courseID={courseID} monthValue={monthValue}/>
                     </div>
                 </div>
                 
