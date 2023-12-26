@@ -1349,11 +1349,14 @@ function Revenue({ classes }) {
   //用來計算的變數
   let totalSalarySum = 0
 
-  //coursePriceByMonth記錄每個月的收入、以月份分類/課程類型、金額
+  //coursePriceByMonth記錄每個月的收入、以月份分類/課程類型、金額***************
   const coursePriceByMonth = {}
 
+  //courseAllByMonth記錄每個月的簽約堂數、以月份分類/課程類型、堂數***************
+  const coursesAllByMonth = {}
+
   // 遍歷json的資料
-  //改成function
+  //改成function 計算簽約總收入
   const countTotalSalary = () => {
     nJson.forEach((item) => {
       if (item.category === 'student' && item.stuDetail) {
@@ -1362,6 +1365,9 @@ function Revenue({ classes }) {
             const buyDate = buyItem.buyDate
             const courseType = buyItem.courseType || '未知'
             const coursePrice = parseInt(buyItem.coursePrice) || 0 // 解析课程价格字段
+
+            // 與學生簽約堂數計算（買課堂數）
+            const coursesAll = parseInt(buyItem.coursesAll) || 0 // 簽約堂數
 
             // 添加错误检查：如果没有 buyDate 字段或其值为空，则跳过此项
             if (!buyDate) {
@@ -1388,19 +1394,31 @@ function Revenue({ classes }) {
 
             // 累加课程价格
             coursePriceByMonth[month][courseType] += coursePrice
+
+            // 如果月份不存在，创建一个月份的记录
+            if (!coursesAllByMonth[month]) {
+              coursesAllByMonth[month] = {}
+            }
+            // 與學生簽約堂數計算（買課堂數）
+            if (!coursesAllByMonth[month][courseType]) {
+              coursesAllByMonth[month][courseType] = 0
+            }
+            // 累加课程次數
+            coursesAllByMonth[month][courseType] += coursesAll
           })
         })
       }
     })
-    //console.log('is counted coursepriccc', coursePriceByMonth['2023-12'])
+    console.log('is counted coursepriccc', coursePriceByMonth)
+    console.log('is counted courseAllByMonth', coursesAllByMonth)
+
     // list all price by month
     for (const month in coursePriceByMonth) {
-      // get the data by month
-      console.log('is counted coursePriceByMonth', coursePriceByMonth)
+      // get the data by month->courseType及月份分類簽約金額
       const monthData = coursePriceByMonth[month]
 
       console.log('itemData month is', month)
-      console.log('itemDate', monthData)
+      console.log('itemData', monthData)
       console.log('the chosen month iss', displayText)
 
       //比對選擇的日期
