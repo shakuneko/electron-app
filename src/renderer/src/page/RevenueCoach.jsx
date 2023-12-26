@@ -52,7 +52,7 @@ function RevenueCoach({classes}) {
                         <div className="mb-5">
                             <div className="title_word2 mb-3" style={{justifyContent:'space-between'}}> 
                                 <div className="title_word2">
-                                    <span className="money-title">X月已核銷</span>
+                                    <span className="money-title">{monthValue}已核銷</span>
                                     <span className="money-title2 ml-5">核銷金額：$ 138,000 / 堂薪：$ 169.000 / 堂數：100堂</span>
                                 </div>
                                 <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
@@ -62,7 +62,7 @@ function RevenueCoach({classes}) {
                         <div className="mb-5">
                             <div className="title_word2 mb-3" style={{justifyContent:'space-between'}}> 
                                 <div className="title_word2">
-                                    <span className="money-title">X月未核銷</span>
+                                    <span className="money-title">{monthValue}未核銷</span>
                                 </div>
                                 <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
                             </div>

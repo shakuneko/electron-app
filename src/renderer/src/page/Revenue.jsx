@@ -10,6 +10,10 @@ import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
+//計算：
+//本月未核銷：上月未核銷 ＋ 本月購買 - 本月已核銷
+//本月簽約：這個月學員有來買課的金額 不管有沒有核銷
+
 // Json第五包初步設計－for新的金流表格
 export const newData = [
   {
@@ -521,6 +525,7 @@ function Revenue({ classes }) {
   // 获取当前日期和时间
   const currentDateTime = DateTime.now()
   const formattedCurrentDateTime = currentDateTime.toFormat('yyyy-MM')
+  console.log('獲取本月的月份formattedCurrentDateTime', formattedCurrentDateTime)
   // 减一個月
   const previousMonthDateTime = currentDateTime.minus({ months: 1 })
   // 格式化日期为 "yyyy/MM"
@@ -650,68 +655,6 @@ function Revenue({ classes }) {
       salaries.ptSalary + salaries.groupSalary + salaries.massageSalary + salaries.pilatesSalary
     console.log(`Coach ID: ${coachID}, Total Salary: ${totalSalary}`)
   })
-
-  //total salary所有教練加總 總薪水 總月收入---------------------------------------------------
-  //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
-  let totalSalarySum = 0
-  // 创建一个对象用于按月份存储课程价格
-  const coursePriceByMonth = {}
-
-  // 遍历 "class" 类别中的数据
-  nJson.forEach((item) => {
-    if (item.category === 'student' && item.stuDetail) {
-      item.stuDetail.forEach((studentItem) => {
-        studentItem?.buyDetail.forEach((buyItem) => {
-          const buyDate = buyItem.buyDate
-          const courseType = buyItem.courseType || '未知'
-          const coursePrice = parseInt(buyItem.coursePrice) || 0 // 解析课程价格字段
-
-          // 添加错误检查：如果没有 buyDate 字段或其值为空，则跳过此项
-          if (!buyDate) {
-            return
-          }
-
-          // 解析日期為月份 "yyyy/MM"
-          const dateParts = buyDate.split('-')
-          if (dateParts.length !== 3) {
-            // 如果日期格式不正确，则跳过此项
-            return
-          }
-          const month = dateParts.slice(0, 2).join('-')
-
-          // 如果月份不存在，创建一个月份的记录
-          if (!coursePriceByMonth[month]) {
-            coursePriceByMonth[month] = {}
-          }
-
-          // 如果课程类型不存在，创建一个课程类型的记录
-          if (!coursePriceByMonth[month][courseType]) {
-            coursePriceByMonth[month][courseType] = 0
-          }
-
-          // 累加课程价格
-          coursePriceByMonth[month][courseType] += coursePrice
-        })
-      })
-    }
-  })
-  //console.log("coursepriccc",coursePriceByMonth["2023/09"])
-  // 打印每月的课程价格
-  for (const month in coursePriceByMonth) {
-    // 获取该月份的课程价格对象
-    const monthData = coursePriceByMonth[month]
-    // 创建一个 DateTime 对象以便与当前日期比较
-    const itemDate = DateTime.fromFormat(month, 'yyyy/MM')
-    console.log('itemDate', monthData)
-    // console.log("itemDate2",formattedCurrentDateTime)
-    // 在这里，你可以进行与当前日期的比较以及累加 totalSalarySum 的逻辑
-    if (month === formattedCurrentDateTime) {
-      for (const courseType in monthData) {
-        totalSalarySum += monthData[courseType]
-      }
-    }
-  }
-  //console.log(`所有薪水总和: ${totalSalarySum}`)
 
   //----------------------計算本月上課堂數並以課程分類、以attandence為是----
   // 创建一个对象，用于按月份存储上课次数
@@ -1352,32 +1295,134 @@ function Revenue({ classes }) {
     console.log('数据变量未定义或不是数组。')
   }
 
-  //11月之後寫的---------------------------------------------------
+  //11月之後寫的---------------------------------------------------------------------------------------------11月之後寫的
 
   //pick date
   //selectDate選的月份
   //displayText顯示的月份
+  //當選擇不同月份做不同計算、以以下useEffect做動態改變
   const [selectedDate, setSelectedDate] = useState(null)
-  const [displayText, setDisplayText] = useState('請選擇月份');
-  const [displayMonth, setDisplayMonth] = useState('某月份');
+  const [displayText, setDisplayText] = useState('請選擇月份')
+
+  //文字化 X月份
+  const [displayMonth, setDisplayMonth] = useState('某月份')
+
+  const [totalSalarySumDisplay, setTotalSalarySumDisplay] = useState(10)
+
+  //轉換方式
+  //date.toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit' }).replace(/\//g, '-');
+  //setSelectedDate(date);
+
+  //渲然table的月份
   useEffect(() => {
     if (selectedDate) {
-      const formattedDate = selectedDate.toLocaleDateString('zh-TW', {
-        year: 'numeric',
-        month: '2-digit'
-      });
-      setDisplayText(`${formattedDate}`);
+      //月份的header呈現
+      const selectFormattedDate = selectedDate
+        .toLocaleDateString('zh-TW', {
+          year: 'numeric',
+          month: '2-digit'
+        })
+        .replace(/\//g, '-')
+      setDisplayText(`${selectFormattedDate}`)
       const formattedMonth = selectedDate.toLocaleDateString('zh-TW', {
         month: '2-digit'
-      });
-      setDisplayMonth(`${formattedMonth}`);
+      })
+      setDisplayMonth(`${formattedMonth}`)
+      //計算總收入
     } else {
-      setDisplayText('請選擇月份');
-      setDisplayMonth('某月份');
+      setDisplayText('請選擇月份')
+      setDisplayMonth('某月份')
     }
-  }, [selectedDate]);
+    //countTotalSalary()
+  }, [selectedDate])
 
-  
+  //即時渲染計算總收入
+  useEffect(() => {
+    countTotalSalary()
+    setTotalSalarySumDisplay(totalSalarySum)
+    //console.log('totalSalarySumDisplay', totalSalarySumDisplay)
+  }, [displayText])
+
+  //簽約總收入 - 以月份分類---------------------------------------------------
+  //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
+
+  //用來計算的變數
+  let totalSalarySum = 0
+
+  //coursePriceByMonth記錄每個月的收入、以月份分類/課程類型、金額
+  const coursePriceByMonth = {}
+
+  // 遍歷json的資料
+  //改成function
+  const countTotalSalary = () => {
+    nJson.forEach((item) => {
+      if (item.category === 'student' && item.stuDetail) {
+        item.stuDetail.forEach((studentItem) => {
+          studentItem?.buyDetail.forEach((buyItem) => {
+            const buyDate = buyItem.buyDate
+            const courseType = buyItem.courseType || '未知'
+            const coursePrice = parseInt(buyItem.coursePrice) || 0 // 解析课程价格字段
+
+            // 添加错误检查：如果没有 buyDate 字段或其值为空，则跳过此项
+            if (!buyDate) {
+              return
+            }
+
+            // 解析日期為月份 "yyyy/MM"
+            const dateParts = buyDate.split('-')
+            if (dateParts.length !== 3) {
+              // 如果日期格式不正确，则跳过此项
+              return
+            }
+            const month = dateParts.slice(0, 2).join('-')
+
+            // 如果月份不存在，创建一个月份的记录
+            if (!coursePriceByMonth[month]) {
+              coursePriceByMonth[month] = {}
+            }
+
+            // 如果课程类型不存在，创建一个课程类型的记录
+            if (!coursePriceByMonth[month][courseType]) {
+              coursePriceByMonth[month][courseType] = 0
+            }
+
+            // 累加课程价格
+            coursePriceByMonth[month][courseType] += coursePrice
+          })
+        })
+      }
+    })
+    //console.log('is counted coursepriccc', coursePriceByMonth['2023-12'])
+    // list all price by month
+    for (const month in coursePriceByMonth) {
+      // get the data by month
+      console.log('is counted coursePriceByMonth', coursePriceByMonth)
+      const monthData = coursePriceByMonth[month]
+
+      console.log('itemData month is', month)
+      console.log('itemDate', monthData)
+      console.log('the chosen month iss', displayText)
+
+      //比對選擇的日期
+      //formattedCurrentDateTime是本月月份
+      //將formattedCurrentDateTime(本月月份)改成選擇的月份
+      //if (month === formattedCurrentDateTime) {
+
+      console.log('is counted selected month', month)
+      console.log('is counted selected fomated', displayText)
+      if (month.toString() === displayText.toString()) {
+        console.log('有該月份資料')
+
+        console.log('is counted monthData', monthData)
+        for (const courseType in monthData) {
+          totalSalarySum += monthData[courseType]
+        }
+        console.log('totalSalarySum總簽約收入', totalSalarySum)
+      } else {
+        console.log('沒有該月份資料')
+      }
+    }
+  }
 
   return (
     <div className="container-fluid" style={{ backgroundColor: 'white' }}>
@@ -1390,9 +1435,9 @@ function Revenue({ classes }) {
             <h1 className="title">金流</h1>
             <div className="row">
               <div className="col-4">
-               <div>{displayText}月簽約總收入</div>
+                <div>{displayText}月簽約總收入</div>
                 {/* x月要計算 */}
-                <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
+                <h1 className="money-title mt-2 title">$ {totalSalarySumDisplay}</h1>
               </div>
               <div className="col-4">
                 <div>{displayText}月核銷課總收入</div>
@@ -1407,7 +1452,7 @@ function Revenue({ classes }) {
                   portalId="root-portal"
                   selected={selectedDate}
                   onChange={(date) => setSelectedDate(date)}
-                  dateFormat="yyyy/MM"
+                  dateFormat="yyyy-MM"
                   showMonthYearPicker
                   isClearable
                   placeholderText="輸入月份"

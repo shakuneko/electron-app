@@ -1,0 +1,630 @@
+[
+  {
+    "category": "class",
+    "classDetail": [
+      {
+        "classID": "1",
+        "courseType": "皮拉提斯",
+        "buyDate": "2022-06-23",
+        "exCourse": "否",
+        "coursesAll": "10",
+        "coursesFIN": "4",
+        "courseLeft": "6",
+        "courseFlag": [],
+        "floor": "",
+        "reserveDetail": [
+          {
+            "reserveID": "1",
+            "reserveDate": "2023-10-09",
+            "reserveTime": "13:00-14:00",
+            "reserveStu": [
+              { "stuID": "1", "courseType": "皮拉提斯", "stuName": "Lulu" },
+              { "stuID": "2", "courseType": "皮拉提斯", "stuName": "甜甜" }
+            ],
+            "cancel": "-",
+            "attandence": "是",
+            "note": "你好",
+            "student": [
+              { "stuID": "1", "courseType": "皮拉提斯", "stuName": "Lulu" },
+              { "stuID": "2", "courseType": "皮拉提斯", "stuName": "甜甜" }
+            ]
+          },
+          {
+            "reserveID": "2",
+            "reserveDate": "2023-06-10",
+            "reserveTime": "13:00-14:00",
+            "reserveStu": [
+              { "stuID": "1", "courseType": "皮拉提斯", "stuName": "Lulu" },
+              { "stuID": "2", "courseType": "皮拉提斯", "stuName": "甜甜" }
+            ],
+            "cancel": "-",
+            "attandence": "-",
+            "note": "～～～～",
+            "student": [
+              { "stuID": "1", "courseType": "皮拉提斯", "stuName": "Lulu" },
+              { "stuID": "2", "courseType": "皮拉提斯", "stuName": "甜甜" }
+            ]
+          }
+        ],
+        "status": "已截止",
+        "classNote": "哈囉！",
+        "student": [
+          { "stuID": "1", "courseType": "皮拉提斯", "stuName": "Lulu" },
+          { "stuID": "2", "courseType": "皮拉提斯", "stuName": "甜甜" }
+        ],
+        "coach": [{ "coachID": "1", "coachName": "A" }]
+      },
+      {
+        "classID": "2",
+        "courseType": "PT",
+        "buyDate": "2023-04-30",
+        "exCourse": "是",
+        "coursesAll": "1",
+        "coursesFIN": "1",
+        "courseLeft": "0",
+        "courseFlag": [],
+        "floor": "",
+        "reserveDetail": [
+          {
+            "reserveID": "1",
+            "reserveDate": "2023-09-14",
+            "reserveTime": "09:00-11:00",
+            "reserveStu": [],
+            "cancel": "-",
+            "attandence": "-",
+            "note": "尚無",
+            "student": [{ "stuID": "2", "courseType": "PT", "stuName": "甜甜" }]
+          }
+        ],
+        "status": "快要截止",
+        "classNote": "哈囉！",
+        "student": [{ "stuID": "2", "courseType": "PT", "stuName": "甜甜" }],
+        "coach": [{ "coachID": "3", "coachName": "C" }]
+      },
+      {
+        "classID": "3",
+        "courseType": "PT",
+        "buyDate": "2023-09-10",
+        "exCourse": "否",
+        "coursesAll": "10",
+        "coursesFIN": "2",
+        "courseLeft": "8",
+        "courseFlag": [],
+        "floor": "",
+        "reserveDetail": [
+          {
+            "reserveID": "1",
+            "reserveDate": "2023-09-20",
+            "reserveTime": "09:00-11:00",
+            "reserveStu": [],
+            "cancel": "-",
+            "attandence": "-",
+            "note": "之後要添加十個學生",
+            "student": [{ "stuID": "3", "courseType": "PT", "stuName": "大衛" }]
+          },
+          {
+            "reserveID": "2",
+            "reserveDate": "2023-09-25",
+            "reserveTime": "09:00-11:00",
+            "reserveStu": [],
+            "cancel": "-",
+            "attandence": "-",
+            "note": "之後要添加十個學生",
+            "student": [{ "stuID": "3", "courseType": "PT", "stuName": "大衛" }]
+          }
+        ],
+        "status": "-",
+        "classNote": "好多人",
+        "student": [{ "stuID": "3", "courseType": "PT", "stuName": "大衛" }],
+        "coach": [{ "coachID": "4", "coachName": "D" }]
+      },
+      {
+        "classID": "4",
+        "courseType": "運動按摩",
+        "buyDate": "2020-01-23",
+        "exCourse": "否",
+        "coursesAll": "10",
+        "coursesFIN": "8",
+        "courseLeft": "2",
+        "courseFlag": [],
+        "floor": "",
+        "reserveDetail": [
+          {
+            "reserveID": "1",
+            "reserveDate": "2023-09-20",
+            "reserveTime": "09:00-11:00",
+            "reserveStu": [],
+            "cancel": "-",
+            "attandence": "-",
+            "note": "----",
+            "student": [{ "stuID": "1", "courseType": "運動按摩", "stuName": "Lulu" }]
+          }
+        ],
+        "status": "已截止",
+        "classNote": "好多人",
+        "student": [{ "stuID": "1", "courseType": "運動按摩", "stuName": "Lulu" }],
+        "coach": [{ "coachID": "2", "coachName": "B" }]
+      },
+      {
+        "classID": "5",
+        "courseType": "場地租借",
+        "buyDate": "2023-01-23",
+        "exCourse": "否",
+        "coursesAll": "10",
+        "coursesFIN": "8",
+        "courseLeft": "2",
+        "courseFlag": [],
+        "floor": "二樓",
+        "reserveDetail": [
+          {
+            "reserveID": "1",
+            "reserveDate": "2023-09-20",
+            "reserveTime": "09:00-11:00",
+            "reserveStu": [],
+            "cancel": "-",
+            "attandence": "-",
+            "note": "----",
+            "student": [{ "stuID": "4", "courseType": "場地租借", "stuName": "A" }]
+          }
+        ],
+        "status": "無期限",
+        "classNote": "不限期",
+        "student": [{ "stuID": "4", "courseType": "場地租借", "stuName": "A" }],
+        "coach": [{ "coachID": "5", "coachName": "一樓租借處" }]
+      },
+      {
+        "classID": "6",
+        "courseType": "體驗PT1v1",
+        "coursesAll": "1",
+        "courseLeft": "1",
+        "coursesFIN": 0,
+        "courseFlag": [],
+        "payMethod": "現金",
+        "reserveDetail": [],
+        "coach": [{ "coachID": "7", "coachName": "F" }],
+        "student": [{ "stuID": "5", "courseType": "體驗PT1v1", "stuName": "淨淨" }],
+        "status": "-"
+      },
+      {
+        "classID": "7",
+        "courseType": "體驗基皮",
+        "coursesAll": "1",
+        "courseLeft": "1",
+        "coursesFIN": 0,
+        "courseFlag": [],
+        "payMethod": "現金",
+        "reserveDetail": [],
+        "coach": [{ "coachID": "6", "coachName": "E" }],
+        "student": [{ "stuID": "3", "courseType": "體驗基皮", "stuName": "大衛" }],
+        "status": "-"
+      },
+      {
+        "classID": "8",
+        "courseType": "基皮",
+        "coursesAll": "10",
+        "courseLeft": "9",
+        "coursesFIN": "1",
+        "courseFlag": [0],
+        "payMethod": "匯款",
+        "reserveDetail": [
+          {
+            "reserveID": "1",
+            "reserveDate": "2023-10-30",
+            "reserveTime": "09:45",
+            "cancel": "否",
+            "attandence": "是",
+            "note": "",
+            "student": [{ "stuID": "5", "stuName": "淨淨", "courseType": "基皮" }],
+            "attendanceStu": "淨淨 "
+          }
+        ],
+        "coach": [{ "coachID": "6", "coachName": "E" }],
+        "student": [{ "stuID": "5", "courseType": "基皮", "stuName": "淨淨" }],
+        "status": "-"
+      }
+    ]
+  },
+  {
+    "category": "student",
+    "stuDetail": [
+      {
+        "stuID": "1",
+        "createDate": "2022-06-23",
+        "stuName": "Lulu",
+        "stuGender": "女",
+        "stuNote": "睡眠不足",
+        "stuPhone": "0928-532-816",
+        "stuEmail": "",
+        "stuAddress": "",
+        "stuContact": "",
+        "stuRelation": "",
+        "stuContact_tel": "",
+        "buyDetail": [
+          {
+            "classID": "1",
+            "courseType": "皮拉提斯",
+            "coachName": "A",
+            "coursesAll": "10",
+            "coursesFIN": "4",
+            "courseLeft": "6",
+            "preCourseLeft": "6",
+            "payMethod": "現金",
+            "invoiceNum": "12345678",
+            "buyDate": "2022-06-23",
+            "exCourse": "否",
+            "coursePrice": "6500",
+            "buyNote": "!!"
+          },
+          {
+            "classID": "4",
+            "courseType": "運動按摩",
+            "coachName": "B",
+            "coursesAll": "10",
+            "coursesFIN": "8",
+            "courseLeft": "2",
+            "preCourseLeft": "5",
+            "payMethod": "現金",
+            "invoiceNum": "12345678",
+            "buyDate": "2020-01-23",
+            "exCourse": "否",
+            "coursePrice": "6000",
+            "buyNote": "!!"
+          }
+        ]
+      },
+      {
+        "stuID": "2",
+        "createDate": "2022-08-23",
+        "stuName": "甜甜",
+        "stuGender": "男",
+        "stuNote": "吃太多",
+        "stuPhone": "0928-532-816",
+        "stuEmail": "",
+        "stuAddress": "",
+        "stuContact": "",
+        "stuRelation": "",
+        "stuContact_tel": "",
+        "buyDetail": [
+          {
+            "classID": "1",
+            "courseType": "皮拉提斯",
+            "coachName": "A",
+            "coursesAll": "10",
+            "coursesFIN": "4",
+            "courseLeft": "6",
+            "preCourseLeft": "6",
+            "payMethod": "現金",
+            "invoiceNum": "12345678",
+            "buyDate": "2023-09-23",
+            "exCourse": "否",
+            "coursePrice": "6500",
+            "buyNote": "!!"
+          },
+          {
+            "classID": "2",
+            "courseType": "PT",
+            "coachName": "C",
+            "coursesAll": "1",
+            "coursesFIN": "1",
+            "courseLeft": "0",
+            "preCourseLeft": "1",
+            "payMethod": "現金",
+            "invoiceNum": "12345678",
+            "buyDate": "2023-09-29",
+            "exCourse": "是",
+            "coursePrice": "6400",
+            "buyNote": "!!"
+          }
+        ]
+      },
+      {
+        "stuID": "3",
+        "createDate": "2023-08-23",
+        "stuName": "大衛",
+        "stuGender": "男",
+        "stuNote": "已有基本肌肉",
+        "stuPhone": "0928-532-816",
+        "stuEmail": "",
+        "stuAddress": "",
+        "stuContact": "",
+        "stuRelation": "",
+        "stuContact_tel": "",
+        "buyDetail": [
+          {
+            "classID": "3",
+            "courseType": "PT",
+            "coachName": "D",
+            "coursesAll": "10",
+            "coursesFIN": "2",
+            "courseLeft": "8",
+            "preCourseLeft": "9",
+            "payMethod": "信用卡",
+            "invoiceNum": "12345678",
+            "buyDate": "2023-09-10",
+            "exCourse": "否",
+            "coursePrice": "6400",
+            "buyNote": "!!"
+          },
+          {
+            "classID": "7",
+            "coachName": "E",
+            "coursesAll": "1",
+            "coursePrice": "700",
+            "courseType": "體驗基皮",
+            "buyNote": "",
+            "buyDate": "2023-10-24",
+            "courseLeft": "1",
+            "coursesFIN": 0,
+            "payMethod": "現金",
+            "preCourseLeft": 0,
+            "invoiceNum": "111"
+          }
+        ]
+      },
+      {
+        "stuID": "4",
+        "createDate": "2023-08-23",
+        "stuName": "A",
+        "stuGender": "男",
+        "stuNote": "教練自己人",
+        "stuPhone": "0928-532-816",
+        "stuEmail": "",
+        "stuAddress": "",
+        "stuContact": "",
+        "stuRelation": "",
+        "stuContact_tel": "",
+        "buyDetail": [
+          {
+            "classID": "5",
+            "courseType": "場地租借",
+            "coachName": "一樓租借處",
+            "coursesAll": "10",
+            "coursesFIN": "2",
+            "courseLeft": "8",
+            "preCourseLeft": "9",
+            "payMethod": "無",
+            "invoiceNum": "12345678",
+            "buyDate": "2023-09-10",
+            "exCourse": "否",
+            "coursePrice": "0",
+            "buyNote": "!!"
+          }
+        ]
+      },
+      {
+        "stuID": "5",
+        "stuName": "淨淨",
+        "stuGender": "男",
+        "stuPhone": "0928531889",
+        "stuBirth": "1995/10/04",
+        "stuAge": 28,
+        "stuContact": "淨媽",
+        "stuRelation": "母子",
+        "stuContact_tel": "0988788399",
+        "stuNote": "",
+        "createDate": "",
+        "buyDetail": [
+          {
+            "classID": "6",
+            "coachName": "F",
+            "coursesAll": "1",
+            "coursePrice": "0",
+            "courseType": "體驗PT1v1",
+            "buyNote": "",
+            "buyDate": "2023-10-23",
+            "courseLeft": "1",
+            "coursesFIN": 0,
+            "payMethod": "現金",
+            "preCourseLeft": 0,
+            "invoiceNum": "231321"
+          },
+          {
+            "classID": "8",
+            "coachName": "E",
+            "coursesAll": "10",
+            "coursePrice": "2800",
+            "courseType": "基皮",
+            "buyNote": "",
+            "buyDate": "2023-10-23",
+            "courseLeft": "9",
+            "coursesFIN": "1",
+            "payMethod": "匯款",
+            "preCourseLeft": 0,
+            "invoiceNum": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "coach",
+    "coachDetail": [
+      {
+        "coachID": "1",
+        "coachName": "A",
+        "coachGender": "男",
+        "coachIDcode": "",
+        "coachEmail": "",
+        "coachAddress": "",
+        "coachBank": "",
+        "coachContact": "",
+        "coachRelation": "",
+        "coachContact_tel": "",
+        "coachNote": "Hello",
+        "coachPhone": "0900-000-000",
+        "major": ["PT", "皮拉提斯"],
+        "joinDate": "2020-01-30",
+        "PtSalary": "650",
+        "GroupSalary": "650",
+        "MassageSalary": "650",
+        "PilatesSalary": "650",
+        "teachClass": [{ "classID": "1" }],
+        "selectedItem": null
+      },
+      {
+        "coachID": "2",
+        "coachName": "B",
+        "coachGender": "男",
+        "coachIDcode": "",
+        "coachEmail": "",
+        "coachAddress": "",
+        "coachBank": "",
+        "coachContact": "",
+        "coachRelation": "",
+        "coachContact_tel": "",
+        "coachNote": "",
+        "coachPhone": "0900-000-111",
+        "major": ["PT", "皮拉提斯", "運動按摩"],
+        "joinDate": "2022-10-30",
+        "PtSalary": "650",
+        "GroupSalary": "650",
+        "MassageSalary": "650",
+        "PilatesSalary": "650",
+        "teachClass": [{ "classID": "4" }],
+        "selectedItem": null
+      },
+      {
+        "coachID": "3",
+        "coachName": "C",
+        "coachGender": "女",
+        "coachIDcode": "",
+        "coachEmail": "",
+        "coachAddress": "",
+        "coachBank": "",
+        "coachContact": "",
+        "coachRelation": "",
+        "coachContact_tel": "",
+        "coachNote": "",
+        "coachPhone": "0900-000-111",
+        "major": ["PT", "皮拉提斯", "運動按摩"],
+        "joinDate": "2022-10-30",
+        "PtSalary": "650",
+        "GroupSalary": "650",
+        "MassageSalary": "650",
+        "PilatesSalary": "650",
+        "teachClass": [{ "classID": "2" }],
+        "selectedItem": null
+      },
+      {
+        "coachID": "4",
+        "coachName": "D",
+        "coachGender": "男",
+        "coachIDcode": "",
+        "coachEmail": "",
+        "coachAddress": "",
+        "coachBank": "",
+        "coachContact": "",
+        "coachRelation": "",
+        "coachContact_tel": "",
+        "coachNote": "",
+        "coachPhone": "0900-000-111",
+        "major": ["PT", "皮拉提斯", "運動按摩"],
+        "joinDate": "2022-10-30",
+        "PtSalary": "650",
+        "GroupSalary": "650",
+        "MassageSalary": "650",
+        "PilatesSalary": "650",
+        "teachClass": [{ "classID": "3" }],
+        "selectedItem": null
+      },
+      {
+        "coachID": "5",
+        "coachName": "一樓租借處",
+        "coachGender": "男",
+        "coachIDcode": "",
+        "coachEmail": "",
+        "coachAddress": "",
+        "coachBank": "",
+        "coachContact": "",
+        "coachRelation": "",
+        "coachContact_tel": "",
+        "coachNote": "",
+        "coachPhone": "0900-000-111",
+        "major": ["場地租借"],
+        "joinDate": "2022-10-30",
+        "PtSalary": "0",
+        "GroupSalary": "0",
+        "MassageSalary": "0",
+        "PilatesSalary": "0",
+        "teachClass": [{ "classID": "5" }],
+        "selectedItem": null
+      },
+      {
+        "coachID": "6",
+        "coachName": "E",
+        "coachGender": "男",
+        "coachIDcode": "A111111111",
+        "coachPhone": "0928788394",
+        "coachBank": "2999200381932",
+        "coachContact": "11",
+        "coachRelation": "11",
+        "coachContact_tel": "11",
+        "coachNote": "",
+        "major": ["基皮", "高皮", "體驗基皮", "體驗高皮"],
+        "joinDate": "",
+        "PtSalary": "",
+        "PilatesSalary1": "1000",
+        "PilatesSalary2": "2000",
+        "exCoursePilatesSalary1": "700",
+        "exCoursePilatesSalary2": "1000",
+        "MassageSalary": "",
+        "RentSalary": "",
+        "teachClass": [{ "classID": "7" }, { "classID": "8" }]
+      },
+      {
+        "coachID": "7",
+        "coachName": "F",
+        "coachGender": "女",
+        "coachIDcode": "U222222222",
+        "coachPhone": "0988989392",
+        "coachBank": "2222033021032",
+        "coachContact": "2",
+        "coachRelation": "2",
+        "coachContact_tel": "2",
+        "coachNote": "教很多",
+        "major": ["PT", "運動按摩", "體驗PT1v1", "體驗PT1v2"],
+        "joinDate": "",
+        "PtSalary": "1000",
+        "PilatesSalary1": "",
+        "PilatesSalary2": "",
+        "exCoursePilatesSalary1": "",
+        "exCoursePilatesSalary2": "",
+        "MassageSalary": "1000",
+        "RentSalary": "",
+        "teachClass": [{ "classID": "6" }]
+      }
+    ]
+  },
+  {
+    "category": "revenue",
+    "revenueDetail": [
+      {
+        "revenueDateMonth": "2023-08",
+        "revenueList": [
+          { "totalLeftSalary": 25500, "classLeft": 7, "classType": "皮拉提斯" },
+          { "totalLeftSalary": 13500, "classLeft": 1, "classType": "PT" },
+          { "totalLeftSalary": 11500, "classLeft": 0, "classType": "場地租借" },
+          { "totalLeftSalary": 15000, "classLeft": 0, "classType": "運動按摩" }
+        ]
+      },
+      {
+        "revenueDateMonth": "2023-09",
+        "revenueList": [
+          { "totalLeftSalary": 21000, "classLeft": 6, "classType": "皮拉提斯" },
+          { "totalLeftSalary": 11500, "classLeft": 2, "classType": "PT" },
+          { "totalLeftSalary": 11000, "classLeft": 0, "classType": "場地租借" },
+          { "totalLeftSalary": 12000, "classLeft": 2, "classType": "運動按摩" }
+        ]
+      },
+      {
+        "revenueDateMonth": "2023-10",
+        "revenueList": [
+          { "totalLeftSalary": 3900, "classLeft": 6, "classType": "皮拉提斯" },
+          { "totalLeftSalary": 5200, "classLeft": 8, "classType": "PT" },
+          { "totalLeftSalary": 1300, "classLeft": 2, "classType": "運動按摩" },
+          { "totalLeftSalary": 1300, "classLeft": 2, "classType": "場地租借" }
+        ]
+      }
+    ]
+  }
+]
