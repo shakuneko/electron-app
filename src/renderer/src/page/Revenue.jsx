@@ -14,6 +14,8 @@ import 'react-datepicker/dist/react-datepicker.css'
 //本月未核銷：上月未核銷 ＋ 本月購買 - 本月已核銷
 //本月簽約：這個月學員有來買課的金額 不管有沒有核銷
 
+//使用的第一個月的未核銷： 0 ＋ 本月購買（簽約） - 本月已核銷
+
 // Json第五包初步設計－for新的金流表格
 export const newData = [
   {
@@ -1341,6 +1343,9 @@ function Revenue({ classes }) {
     countTotalSalary()
     setTotalSalarySumDisplay(totalSalarySum)
     //console.log('totalSalarySumDisplay', totalSalarySumDisplay)
+
+    getBuyFormThreeDetailData()
+    getAttandenceFormFourDetailData()
   }, [displayText])
 
   //簽約總收入 - 以月份分類---------------------------------------------------
@@ -1421,6 +1426,9 @@ function Revenue({ classes }) {
       console.log('itemData', monthData)
       console.log('the chosen month iss', displayText)
 
+      const monthCountData = coursesAllByMonth[month]
+      console.log('is counted selected monthCountData', monthCountData)
+
       //比對選擇的日期
       //formattedCurrentDateTime是本月月份
       //將formattedCurrentDateTime(本月月份)改成選擇的月份
@@ -1440,6 +1448,87 @@ function Revenue({ classes }) {
         console.log('沒有該月份資料')
       }
     }
+  }
+
+  //撈出所有的課程－教練下的學生資料（表三四五用）-----------------------------------------------------------
+
+  //本月購買(簽約)
+  const allBuyDetailDataFormThree = []
+  const getBuyFormThreeDetailData = () => {
+    //撈buyDetail -- buyDate,courseAll,coursePrice,invoiceNum
+    //stuName在stuDetail下
+    //用 coachName 去分類
+    nJson.forEach((item) => {
+      if (item.category === 'student' && item.stuDetail) {
+        //紀錄學生資料並存成陣列
+        //name
+        item.stuDetail.forEach((studnetItem) => {
+          const stuName = studnetItem.stuName
+          studnetItem?.buyDetail.forEach((buyItem) => {
+            const buyDate = buyItem.buyDate
+            const courseAll = buyItem.coursesAll
+            const coursePrice = buyItem.coursePrice
+            const invoiceNum = buyItem.invoiceNum
+
+            //分類用
+            const coachName = buyItem.coachName
+            const courseType = buyItem.courseType
+
+            allBuyDetailDataFormThree.push({
+              coachName,
+              courseType,
+              stuName,
+              buyDate,
+              courseAll,
+              coursePrice,
+              invoiceNum
+            })
+          })
+        })
+
+        console.log('DataFormThree', allBuyDetailDataFormThree)
+      }
+    })
+  }
+
+  //本月已核銷：有上課的課程＊堂薪
+  //獲取所有的課程資料來計算
+  const allAttandenceDetailDataFormFour = []
+  const getAttandenceFormFourDetailData = () => {
+    //撈reserveDetail -- reserveDate,attandence
+    //用 coachName 去分類
+    nJson.forEach((item) => {
+      if (item.category === 'class' && item.classDetail) {
+        //紀錄資料並存成陣列
+        item.classDetail.forEach((classItem) => {
+          console.log('DataFormFouritem', classItem)
+          const coachName = classItem?.coach[0]?.coachName
+          
+          const courseType = classItem.courseType
+          const classID = classItem.classID
+
+
+          
+          classItem?.reserveDetail.forEach((reserveItem) => {
+            const reserveDate = reserveItem.reserveDate
+            const attandence = reserveItem.attandence
+            const studentName = reserveItem.student[0]?.stuName
+            allAttandenceDetailDataFormFour.push({
+              studentName,
+              coachName,
+              courseType,
+              classID,
+              reserveDate,
+              attandence
+            })
+            
+          })
+          
+        })
+
+        console.log('DataFormFour', allAttandenceDetailDataFormFour)
+      }
+    })
   }
 
   return (
