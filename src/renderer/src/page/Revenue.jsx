@@ -1503,12 +1503,16 @@ function Revenue({ classes }) {
         item.classDetail.forEach((classItem) => {
           console.log('DataFormFouritem', classItem)
           const coachName = classItem?.coach[0]?.coachName
-          
+
           const courseType = classItem.courseType
+
           const classID = classItem.classID
 
-
+          //classDetail下的courseFin
+          //並用classID去coachDetail下找堂薪
+          const courseFin = classItem.coursesFIN
           
+
           classItem?.reserveDetail.forEach((reserveItem) => {
             const reserveDate = reserveItem.reserveDate
             const attandence = reserveItem.attandence
@@ -1518,16 +1522,28 @@ function Revenue({ classes }) {
               coachName,
               courseType,
               classID,
+              courseFin,
               reserveDate,
               attandence
             })
-            
           })
-          
         })
 
-        console.log('DataFormFour', allAttandenceDetailDataFormFour)
+        console.log('DataFormFour有上課之課程明細', allAttandenceDetailDataFormFour)
       }
+
+      if (item.category === 'coach' && item.coachDetail) {
+      
+        item.coachDetail.forEach((coachItem) => {
+          const classID = coachItem.teachClass[0]?.classID
+          console.log('DataFormFourclassID', classID)
+        })
+      }
+
+
+
+
+
     })
   }
 
