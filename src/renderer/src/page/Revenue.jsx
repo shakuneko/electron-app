@@ -1491,9 +1491,10 @@ function Revenue({ classes }) {
     })
   }
 
-  //本月已核銷：有上課的課程＊堂薪
+  //本月已核銷：有上課的課程＊堂薪-----------------------------------------------------------表四
   //獲取所有的課程資料來計算
   const allAttandenceDetailDataFormFour = []
+  const allCoachSalayDataFormFour = []
   const getAttandenceFormFourDetailData = () => {
     //撈reserveDetail -- reserveDate,attandence
     //用 coachName 去分類
@@ -1511,7 +1512,6 @@ function Revenue({ classes }) {
           //classDetail下的courseFin
           //並用classID去coachDetail下找堂薪
           const courseFin = classItem.coursesFIN
-          
 
           classItem?.reserveDetail.forEach((reserveItem) => {
             const reserveDate = reserveItem.reserveDate
@@ -1532,18 +1532,68 @@ function Revenue({ classes }) {
         console.log('DataFormFour有上課之課程明細', allAttandenceDetailDataFormFour)
       }
 
+      //用classID去coachDetail下找堂薪
+      //列出所有並分類-- {classID:'x':salary:'堂薪'}
+      //salary種類
+      //"PtSalary":"800",
+      //"PtSalary1v2":"1000",
+      //"PilatesSalary1":"800",
+      //"PilatesSalary2":"1000",
+      //"exCoursePilatesSalary1":"700",
+      //"exCoursePilatesSalary2":"1000",
+      //"MassageSalary":"800",
+      //"RentSalary":""
       if (item.category === 'coach' && item.coachDetail) {
-      
         item.coachDetail.forEach((coachItem) => {
-          const classID = coachItem.teachClass[0]?.classID
-          console.log('DataFormFourclassID', classID)
+          const coachName = coachItem.coachName
+          const classesID = coachItem.teachClass
+
+          //salary種類
+          const PtSalary = coachItem.PtSalary
+          const PtSalary1v2 = coachItem.PtSalary1v2
+          const PilatesSalary1 = coachItem.PilatesSalary1
+          const PilatesSalary2 = coachItem.PilatesSalary2
+          const exCoursePilatesSalary1 = coachItem.exCoursePilatesSalary1
+          const exCoursePilatesSalary2 = coachItem.exCoursePilatesSalary2
+          const MassageSalary = coachItem.MassageSalary
+          const RentSalary = coachItem.RentSalary
+
+          console.log('DataFormFourclassID', classesID)
+
+          allCoachSalayDataFormFour.push({
+            coachName,
+            classesID,
+            PtSalary,
+            PtSalary1v2,
+            PilatesSalary1,
+            PilatesSalary2,
+            exCoursePilatesSalary1,
+            exCoursePilatesSalary2,
+            MassageSalary,
+            RentSalary
+          })
+          console.log('DataFormFourallCoachSalayDataFormFour', allCoachSalayDataFormFour)
         })
       }
 
-
-
-
-
+      //將以上兩個陣列合併
+      //allAttandenceDetailDataFormFour
+      //allCoachSalayDataFormFour
+      const mergeAttandenceAndSalary = [
+        ...allAttandenceDetailDataFormFour,
+        ...allCoachSalayDataFormFour
+      ]
+      console.log('DataFormFourmergeAttandenceAndSalary', mergeAttandenceAndSalary)
+      const groupByClassID = mergeAttandenceAndSalary.reduce((result, item) => {
+        const { class: classInfo, ...rest } = item;
+        if (classInfo && classInfo.classesID) {
+          const { classID } = classInfo;
+          result[classID] = result[classID] || [];
+          result[classID].push(rest);
+        }
+        return result;
+      }, {})
+      console.log('DataFormFourgroupByClassID', groupByClassID)
     })
   }
 
