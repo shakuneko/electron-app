@@ -1311,6 +1311,8 @@ function Revenue({ classes }) {
 
   const [totalSalarySumDisplay, setTotalSalarySumDisplay] = useState(10)
 
+  const [newTotalSumFINDisplay, setNewTotalSumFINDisplay] = useState(20)
+
   //轉換方式
   //date.toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit' }).replace(/\//g, '-');
   //setSelectedDate(date);
@@ -1342,10 +1344,15 @@ function Revenue({ classes }) {
   useEffect(() => {
     countTotalSalary()
     setTotalSalarySumDisplay(totalSalarySum)
+
     //console.log('totalSalarySumDisplay', totalSalarySumDisplay)
 
     getBuyFormThreeDetailData()
     getAttandenceFormFourDetailData()
+    setNewTotalSumFINDisplay(newTotalSumFIN)
+    getAbsentFormFiveDetailData()
+    getAbsentFormFiveDetailDataByFilter()
+    
   }, [displayText])
 
   //簽約總收入 - 以月份分類---------------------------------------------------
@@ -1495,6 +1502,11 @@ function Revenue({ classes }) {
   //獲取所有的課程資料來計算
   const allAttandenceDetailDataFormFour = []
   const allCoachSalayDataFormFour = []
+
+  const mergeAttandenceAndSalaryArray = []
+
+  let newTotalSumFIN = 0
+
   const getAttandenceFormFourDetailData = () => {
     //撈reserveDetail -- reserveDate,attandence
     //用 coachName 去分類
@@ -1529,7 +1541,7 @@ function Revenue({ classes }) {
           })
         })
 
-        console.log('DataFormFour有上課之課程明細', allAttandenceDetailDataFormFour)
+        //console.log('DataFormFour有上課之課程明細', allAttandenceDetailDataFormFour)
       }
 
       //用classID去coachDetail下找堂薪
@@ -1572,28 +1584,136 @@ function Revenue({ classes }) {
             MassageSalary,
             RentSalary
           })
-          console.log('DataFormFourallCoachSalayDataFormFour', allCoachSalayDataFormFour)
+          //console.log('DataFormFourallCoachSalayDataFormFour', allCoachSalayDataFormFour)
         })
       }
+    })
 
-      //將以上兩個陣列合併
-      //allAttandenceDetailDataFormFour
-      //allCoachSalayDataFormFour
-      const mergeAttandenceAndSalary = [
-        ...allAttandenceDetailDataFormFour,
-        ...allCoachSalayDataFormFour
-      ]
-      console.log('DataFormFourmergeAttandenceAndSalary', mergeAttandenceAndSalary)
-      const groupByClassID = mergeAttandenceAndSalary.reduce((result, item) => {
-        const { class: classInfo, ...rest } = item;
-        if (classInfo && classInfo.classesID) {
-          const { classID } = classInfo;
-          result[classID] = result[classID] || [];
-          result[classID].push(rest);
+    //將以上兩個陣列中的資料相乘
+    //allAttandenceDetailDataFormFour
+    //allCoachSalayDataFormFour
+    console.log('DataFormFourallCoachSalayDataFormFour', allCoachSalayDataFormFour)
+    console.log('DataFormFourallAttandenceDetailDataFormFour', allAttandenceDetailDataFormFour)
+
+    //將coach的salary 依照classType來去 ＊ 堂數
+    //major["PT1v1","PT1v2","基皮","高皮","運動按摩","場地租借","體驗高皮","體驗基皮","體驗PT1v2","體驗PT1v1"]
+    //courseFIN
+    allAttandenceDetailDataFormFour.forEach((attandenceItem) => {
+      allCoachSalayDataFormFour.forEach((salaryItem) => {
+        if (attandenceItem.coachName === salaryItem.coachName) {
+          let salaryPerClass = ''
+          let hasDonePrice = ''
+          if (attandenceItem.courseType === 'PT1v1') {
+            hasDonePrice = parseInt(salaryItem.PtSalary || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.PtSalary || 0
+          } else if (attandenceItem.courseType === 'PT1v2') {
+            hasDonePrice =
+              parseInt(salaryItem.PtSalary1v2 || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.PtSalary1v2 || 0
+          } else if (attandenceItem.courseType === '基皮') {
+            hasDonePrice =
+              parseInt(salaryItem.PilatesSalary1 || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.PilatesSalary1 || 0
+          } else if (attandenceItem.courseType === '高皮') {
+            hasDonePrice =
+              parseInt(salaryItem.PilatesSalary2 || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.PilatesSalary2 || 0
+          } else if (attandenceItem.courseType === '體驗基皮') {
+            hasDonePrice =
+              parseInt(salaryItem.exCoursePilatesSalary1 || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.exCoursePilatesSalary1 || 0
+          } else if (attandenceItem.courseType === '體驗高皮') {
+            hasDonePrice =
+              parseInt(salaryItem.exCoursePilatesSalary2 || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.exCoursePilatesSalary2 || 0
+          } else if (attandenceItem.courseType === '運動按摩') {
+            hasDonePrice =
+              parseInt(salaryItem.MassageSalary || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.MassageSalary || 0
+          } else if (attandenceItem.courseType === '場地租借') {
+            hasDonePrice = parseInt(salaryItem.RentSalary || 0) * parseInt(attandenceItem.courseFin)
+            salaryPerClass = salaryItem.RentSalary || 0
+          } else {
+            hasDonePrice = 0
+            salaryPerClass = 0
+          }
+
+          mergeAttandenceAndSalaryArray.push({
+            ...attandenceItem,
+            ...salaryItem,
+            hasDonePrice,
+            salaryPerClass
+          })
         }
-        return result;
-      }, {})
-      console.log('DataFormFourgroupByClassID', groupByClassID)
+      })
+    })
+    console.log('DataFormFourmergeAttandenceAndSalaryArray', mergeAttandenceAndSalaryArray)
+
+    //將以上的price相加----為本月已核銷課程總收入-----須以月份分類
+
+    //let totalFINCourseCount = 0
+    mergeAttandenceAndSalaryArray.forEach((item) => {
+      if (
+        item.reserveDate.split('-')[0] + '-' + item.reserveDate.split('-')[1] === displayText &&
+        item.attandence === '是'
+      ) {
+        //console.log('DataFormFouritem', item)
+        newTotalSumFIN += parseInt(item.salaryPerClass)
+        //console.log('DataFormFournewTotalSumFIN', newTotalSumFIN)
+        //totalFINCourseCount += parseInt(item.coursesFIN)
+      }
+    })
+    console.log('DataFormFournewTotalSumFINLast', newTotalSumFIN)
+  }
+
+  //計算未核銷課程form five--------------------------------------------------------------------------------------------------------表五
+  const allAbsentDetailDataFormFive = []
+  //欄位：coachName, coursetype, buyDate, studentName,buy堂數,已核銷堂數coursesFIN,未核銷堂數courseLeft
+  const getAbsentFormFiveDetailData = () => {
+    //撈buyDetail -- buyDate,courseAll,coursesFIN,courseLeft
+
+    nJson.forEach((item) => {
+      if (item.category === 'student' && item.stuDetail) {
+        //紀錄資料並存成陣列
+        //console.log('DataFormFiveitem', item)
+        item.stuDetail?.forEach((studentItem) => {
+          const stuName = studentItem.stuName
+          studentItem.buyDetail?.forEach((buyItem) => {
+            const classID = buyItem.classID
+
+            const buyDate = buyItem.buyDate
+            const coachName = buyItem.coachName
+            const courseType = buyItem.courseType
+
+            const courseAll = buyItem.coursesAll
+            const courseFin = buyItem.coursesFIN
+            const courseLeft = buyItem.courseLeft
+
+            allAbsentDetailDataFormFive.push({
+              coachName,
+              courseType,
+              classID,
+              stuName,
+              buyDate,
+              courseAll,
+              courseFin,
+              courseLeft
+            })
+          })
+        })
+      }
+    })
+    console.log('DataFormFiveallAbsentDetailDataFormFive', allAbsentDetailDataFormFive)
+
+    
+  }
+
+  const getAbsentFormFiveDetailDataByFilter = () => {
+    //須以月份分類
+    allAbsentDetailDataFormFive.forEach((item) => {
+      if (item.buyDate.split('-')[0] + '-' + item.buyDate.split('-')[1] === displayText) {
+        console.log('DataFormFiveitemByMonth', item)
+      }
     })
   }
 
@@ -1615,7 +1735,8 @@ function Revenue({ classes }) {
               <div className="col-4">
                 <div>{displayText}月核銷課總收入</div>
                 {/* x月要計算 */}
-                <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1>
+                {/* <h1 className="money-title mt-2 title">$ {totalSalarySum ?? '0'}</h1> */}
+                <h1 className="money-title mt-2 title">$ {newTotalSumFINDisplay}</h1>
               </div>
               <div
                 className="col-4 revenue-export-btn"
