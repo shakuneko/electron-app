@@ -157,7 +157,7 @@ export const newData = [
     preLeftMoney: '1000',
     totalCourse: '5000',
     totalMoney: '5000',
-    finCourse: '20',
+    finCourse: '19',
     finMoney: '1000',
     leftCourse: '10',
     leftMoney: '3000',
