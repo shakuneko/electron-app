@@ -8,7 +8,7 @@ import { DateTime } from 'luxon'
 
 function RevenueCoach({classes}) {
     const { courseID, coachID, month } = useParams();
-    console.log('courseID in revenueCoach', courseID, coachID,month)//course name
+    console.log('courseID in revenueCoach', courseID, coachID,month)//course name - PT1v1 何軒 02月
     let coachAllData = !!classes && classes.find(
         (x) => x.courseType === courseID
     ) || {};

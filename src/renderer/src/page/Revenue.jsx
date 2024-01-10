@@ -17,7 +17,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 //使用的第一個月的未核銷： 0 ＋ 本月購買（簽約） - 本月已核銷
 
 // Json第五包初步設計－for新的金流表格
-export const newData = [
+export let newData = [
   {
     courseType: 'PT 1v1',
     preLeftCourse: '10',
@@ -168,7 +168,7 @@ export const newData = [
         preLeftMoney: '1000',
         totalCourse: '5000',
         totalMoney: '5000',
-        finCourse: '20',
+        finCourse: '200',
         finMoney: '1000',
         leftCourse: '10',
         leftMoney: '3000',
@@ -216,7 +216,7 @@ export const newData = [
           {
             buyDate: '2023-07-30',
             stuName: 'Lulu',
-            course: '80',
+            course: '800',
             finCourse: '10',
             leftCourse: '70'
           }
@@ -1308,37 +1308,57 @@ function Revenue({ classes }) {
 
   //文字化 X月份
   const [displayMonth, setDisplayMonth] = useState('某月份')
+  const [displayMonth2, setDisplayMonth2] = useState('某月份') //minus a month
 
   const [totalSalarySumDisplay, setTotalSalarySumDisplay] = useState(10)
 
   const [newTotalSumFINDisplay, setNewTotalSumFINDisplay] = useState(20)
+
+  // const updateMinusMonth = () => {
+  //   const currentMonth = displayMonth.replace('月', '')
+  //   // 將 '02月' 轉換為日期對象，這裡將年份設為固定值，例如 2022
+  //   const dateObj = new Date(`2022-${currentMonth}-01`)
+  //   console.log('monthDatadateObj', dateObj)
+  //   // 減去一個月
+  //   dateObj.setMonth(dateObj.getMonth() - 1)
+  //   // 取得新的月份，並格式化為 'MM月'
+  //   let minusMonth = (dateObj.getMonth() + 1).toString().padStart(2, '0') + '月'
+  //   //console.log('monthData-1',minusMonth); // minus a month
+  //   if (minusMonth === 'NaN月') {
+  //     minusMonth = '某月份'
+  //   }
+  //   console.log('monthData-1DD', minusMonth) // minus a month
+  // }
 
   //轉換方式
   //date.toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit' }).replace(/\//g, '-');
   //setSelectedDate(date);
 
   //渲然table的月份
-  useEffect(() => {
-    if (selectedDate) {
-      //月份的header呈現
-      const selectFormattedDate = selectedDate
-        .toLocaleDateString('zh-TW', {
-          year: 'numeric',
+  useEffect(
+    () => {
+      if (selectedDate) {
+        //月份的header呈現
+        const selectFormattedDate = selectedDate
+          .toLocaleDateString('zh-TW', {
+            year: 'numeric',
+            month: '2-digit'
+          })
+          .replace(/\//g, '-')
+        setDisplayText(`${selectFormattedDate}`)
+        const formattedMonth = selectedDate.toLocaleDateString('zh-TW', {
           month: '2-digit'
         })
-        .replace(/\//g, '-')
-      setDisplayText(`${selectFormattedDate}`)
-      const formattedMonth = selectedDate.toLocaleDateString('zh-TW', {
-        month: '2-digit'
-      })
-      setDisplayMonth(`${formattedMonth}`)
-      //計算總收入
-    } else {
-      setDisplayText('請選擇月份')
-      setDisplayMonth('某月份')
-    }
-    //countTotalSalary()
-  }, [selectedDate])
+        setDisplayMonth(`${formattedMonth}`)
+      } else {
+        setDisplayText('請選擇月份')
+        setDisplayMonth('某月份')
+      }
+      //countTotalSalary()
+    },
+    [selectedDate],
+    [displayText]
+  )
 
   //即時渲染計算總收入
   useEffect(() => {
@@ -1352,8 +1372,11 @@ function Revenue({ classes }) {
     setNewTotalSumFINDisplay(newTotalSumFIN)
     getAbsentFormFiveDetailData()
     getAbsentFormFiveDetailDataByFilter()
-    
   }, [displayText])
+
+  useEffect(() => {
+    updateTable()
+  }, [newData])
 
   //簽約總收入 - 以月份分類---------------------------------------------------
   //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
@@ -1663,7 +1686,7 @@ function Revenue({ classes }) {
         //totalFINCourseCount += parseInt(item.coursesFIN)
       }
     })
-    console.log('DataFormFournewTotalSumFINLast', newTotalSumFIN)
+    console.log('DataFormFournewTotalSumFINLast', newTotalSumFIN) //本月已核銷課程總收入 title顯示的部分
   }
 
   //計算未核銷課程form five--------------------------------------------------------------------------------------------------------表五
@@ -1704,8 +1727,6 @@ function Revenue({ classes }) {
       }
     })
     console.log('DataFormFiveallAbsentDetailDataFormFive', allAbsentDetailDataFormFive)
-
-    
   }
 
   const getAbsentFormFiveDetailDataByFilter = () => {
@@ -1715,6 +1736,12 @@ function Revenue({ classes }) {
         console.log('DataFormFiveitemByMonth', item)
       }
     })
+  }
+
+  //update table
+  const updateTable = () => {
+    newData[0].finCourse = '210'
+    newData[0].coaches[0].finCourse = '21'
   }
 
   return (

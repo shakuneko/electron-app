@@ -7,7 +7,20 @@ function RevenueCourseDetail(props) {
   console.log('props', props, courseData)
 
   const monthData = props.monthValue
+  console.log('monthData', monthData)
+  const currentMonth = monthData.replace('月', '');
 
+  // 將 '02月' 轉換為日期對象，這裡將年份設為固定值，例如 2022
+const dateObj = new Date(`2022-${currentMonth}-01`);
+console.log('monthDatadateObj',dateObj)
+// 減去一個月
+dateObj.setMonth(dateObj.getMonth() - 1);
+// 取得新的月份，並格式化為 'MM月'
+let minusMonth = (dateObj.getMonth() + 1).toString().padStart(2, '0') + '月';
+//console.log('monthData-1',minusMonth); // minus a month
+if (minusMonth === 'NaN月') {
+  minusMonth = '某月份'
+}
   const columns = [
     //表格有的資料
     {
@@ -32,7 +45,7 @@ function RevenueCourseDetail(props) {
       accessorFn: (row) => `$ ${row.preLeftMoney} / ${row.preLeftCourse}堂`,
       id: 'preMonthLeft',
       size: 100,
-      header: `${monthData}未核銷 (金額 / 堂)`,
+      header: `${minusMonth}未核銷 (金額 / 堂)`,
     },
     {
       accessorFn: (row) => `$ ${row.totalMoney} / ${row.totalCourse}堂`,
