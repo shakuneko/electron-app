@@ -4,8 +4,7 @@ import { useParams } from 'react-router-dom';
 import RevenueCoachDetail from '../components/RevenueCoachDetail'
 import GoBackBTN from '../components/GoBackBTN'
 import { columnsTotal, columnsFin, columnsLeft } from '../components/RevenueCoachColumns'
-import { jsPDF } from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import { CoachExportPDF } from '../components/ExportPdf'
 import '../font/NotoSansTC-normal.js'
 function RevenueCoach({classes}) {
     const { courseID, coachID } = useParams();
@@ -21,69 +20,7 @@ function RevenueCoach({classes}) {
     const leftData = coachData.left
     // console.log('courseData data', courseID, coachID, coachData,coachAllData, totalData, finData, leftData)
     
-    const handleExportRows = (rows, title) => {
-        const doc = new jsPDF();
-        doc.setFont('NotoSansTC');
-        const tableData = rows.map((row) => Object.values(row));
-        const tableHeaders = ['購買日期','學員','堂數','金額','發票號碼']
-
-        //把Ｘ月簽約套到標題
-        // doc.text(`Exported PDF - ${title}`, 10, 10);
-
-        autoTable(doc, {
-            head: [tableHeaders],
-            body: tableData,
-            startY: 20,
-            styles: {
-                font: "NotoSansTC",
-                fontStyle:'bold',
-            }
-        });
-        
-        doc.save(`${title.toLowerCase()}.pdf`);
-    };
-    const handleExportFinData = (rows, title) => {
-        const doc = new jsPDF();
-        doc.setFont('NotoSansTC');
-        const tableData = rows.map((row) => Object.values(row));
-        const tableHeaders = ['上課日期','學員','堂數','金額','堂薪']
-
-        //把Ｘ月簽約套到標題
-        // doc.text(`Exported PDF - ${title}`, 10, 10);
-
-        autoTable(doc, {
-            head: [tableHeaders],
-            body: tableData,
-            startY: 20,
-            styles: {
-                font: "NotoSansTC",
-                fontStyle:'bold',
-            }
-        });
-        
-        doc.save(`${title.toLowerCase()}.pdf`);
-    };
-    const handleExportLeftData = (rows, title) => {
-        const doc = new jsPDF();
-        doc.setFont('NotoSansTC');
-        const tableData = rows.map((row) => Object.values(row));
-        const tableHeaders = ['購買日期','學員','購買堂數','已核銷堂數','未核銷堂數']
-
-        //把Ｘ月簽約套到標題
-        // doc.text(`Exported PDF - ${title}`, 10, 10);
-
-        autoTable(doc, {
-            head: [tableHeaders],
-            body: tableData,
-            startY: 20,
-            styles: {
-                font: "NotoSansTC",
-                fontStyle:'bold',
-            }
-        });
-        
-        doc.save(`${title.toLowerCase()}.pdf`);
-    };
+    
     return (
         <div className="container-fluid">
             <div className="row form_class row-no-gutters">
@@ -102,12 +39,13 @@ function RevenueCoach({classes}) {
                                     <span className="money-title">X月簽約</span>
                                     <span className="money-title2 ml-5">簽約金額：$ 138,000</span>
                                 </div>
-                                <button 
-                                    type="button" 
+                                <button
+                                    type="button"
                                     className="btn btn-golden revenue-btn-mr0"
-                                    onClick={() => handleExportRows(totalData, "X月簽約")}
+                                    onClick={() => CoachExportPDF(totalData, "X月簽約", ['購買日期','學員','堂數','金額','發票號碼'])}
                                 >
-                                    匯出 PDF</button> 
+                                    匯出 PDF
+                                </button>
                             </div>
                             <RevenueCoachDetail classes={classes} data={totalData} columns={columnsTotal}/>
                         </div>
@@ -117,11 +55,13 @@ function RevenueCoach({classes}) {
                                     <span className="money-title">X月已核銷</span>
                                     <span className="money-title2 ml-5">核銷金額：$ 138,000 / 堂薪：$ 169.000 / 堂數：100堂</span>
                                 </div>
-                                <button 
-                                    type="button" 
+                                <button
+                                    type="button"
                                     className="btn btn-golden revenue-btn-mr0"
-                                    onClick={() => handleExportFinData(finData, "X月已核銷")}
-                                >匯出 PDF</button> 
+                                    onClick={() => CoachExportPDF(finData, "X月已核銷", ['上課日期','學員','堂數','金額','堂薪'])}
+                                >
+                                    匯出 PDF
+                                </button>
                             </div>
                             <RevenueCoachDetail classes={classes} data={finData} columns={columnsFin}/>
                         </div>
@@ -130,11 +70,13 @@ function RevenueCoach({classes}) {
                                 <div className="title_word2">
                                     <span className="money-title">X月未核銷</span>
                                 </div>
-                                <button 
-                                    type="button" 
+                                <button
+                                    type="button"
                                     className="btn btn-golden revenue-btn-mr0"
-                                    onClick={() => handleExportLeftData(leftData, "X月未核銷")}
-                                >匯出 PDF</button> 
+                                    onClick={() => CoachExportPDF(leftData, "X月未核銷", ['購買日期','學員','購買堂數','已核銷堂數','未核銷堂數'])}
+                                >
+                                    匯出 PDF
+                                </button>
                             </div>
                             <RevenueCoachDetail classes={classes} data={leftData} columns={columnsLeft}/>
                         </div>
