@@ -7,7 +7,8 @@ import emptyJson from '../json/emptyJson.json'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateLastMonthRevenue } from '../redux/reducers/saveSlice'
 import { useEffect } from 'react'
-
+import { RevenueExportPDF } from '../components/ExportPdf'
+import '../font/NotoSansTC-normal.js'
 // Json第五包初步設計
 export const newData = [
   {
@@ -1369,7 +1370,13 @@ function Revenue({ classes }) {
               </div>
               <div className='col-4 revenue-export-btn' style={{display:"flex", flexDirection:"row"}}>
                 <button type="button" className="btn btn-golden">Date picker</button> 
-                <button type="button" className="btn btn-golden revenue-btn-mr0">匯出 PDF</button> 
+                <button
+                    type="button"
+                    className="btn btn-golden revenue-btn-mr0"
+                    onClick={() => RevenueExportPDF(newData, "金流")}
+                >
+                    匯出 PDF
+                </button>
               </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
