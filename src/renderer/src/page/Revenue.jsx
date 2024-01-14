@@ -1314,6 +1314,8 @@ function Revenue({ classes }) {
 
   const [newTotalSumFINDisplay, setNewTotalSumFINDisplay] = useState(20)
 
+  const [newDataCopy, setNewDataCopy] = useState([])
+
   // const updateMinusMonth = () => {
   //   const currentMonth = displayMonth.replace('月', '')
   //   // 將 '02月' 轉換為日期對象，這裡將年份設為固定值，例如 2022
@@ -1350,6 +1352,10 @@ function Revenue({ classes }) {
           month: '2-digit'
         })
         setDisplayMonth(`${formattedMonth}`)
+        
+        //update陣列
+        updateTable()
+
       } else {
         setDisplayText('請選擇月份')
         setDisplayMonth('某月份')
@@ -1358,6 +1364,7 @@ function Revenue({ classes }) {
     },
     [selectedDate],
     [displayText]
+   
   )
 
   //即時渲染計算總收入
@@ -1372,11 +1379,13 @@ function Revenue({ classes }) {
     setNewTotalSumFINDisplay(newTotalSumFIN)
     getAbsentFormFiveDetailData()
     getAbsentFormFiveDetailDataByFilter()
-  }, [displayText])
 
-  useEffect(() => {
-    updateTable()
-  }, [newData])
+ 
+    
+
+  }, [displayText],[newDataCopy])
+
+ 
 
   //簽約總收入 - 以月份分類---------------------------------------------------
   //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
@@ -1738,10 +1747,15 @@ function Revenue({ classes }) {
     })
   }
 
-  //update table
+  //update table  更新整個table ---------------------------------------------------
+  //修改newData、並傳入newDataCopy更新
   const updateTable = () => {
-    newData[0].finCourse = '210'
-    newData[0].coaches[0].finCourse = '21'
+    newData[0].finCourse = '19'
+
+
+
+
+    setNewDataCopy(newData)
   }
 
   return (
@@ -1802,7 +1816,7 @@ function Revenue({ classes }) {
               </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
-            <RevenueSetTable classes={newData} columns={columnsRevenue(displayMonth)} />
+            <RevenueSetTable classes={newDataCopy} columns={columnsRevenue(displayMonth)} />
             {/* <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">
