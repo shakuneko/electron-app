@@ -5,7 +5,7 @@ import autoTable from 'jspdf-autotable';
 //金流匯出
 export const RevenueExportPDF = (rows, title) => {
     const doc = new jsPDF();
-    doc.setFont('NotoSansTC');
+    doc.setFont('JhengHei');
 
     const columns = [
         { header: "項目名稱", dataKey: "courseType" },
@@ -30,8 +30,12 @@ export const RevenueExportPDF = (rows, title) => {
         body: tableData,
         startY: 20,
         styles: {
-            font: "NotoSansTC",
+            font: "JhengHei",
             fontStyle: 'bold',
+        },
+        headerStyles: {
+            fillColor: [223, 201, 148],
+            textColor: [53, 47, 41]
         }
     });
 
@@ -41,7 +45,7 @@ export const RevenueExportPDF = (rows, title) => {
 //點進課程頁的匯出
 export const CourseTyprExportPDF = (rows, title) => {
     const doc = new jsPDF();
-    doc.setFont('NotoSansTC');
+    doc.setFont('JhengHei');
 
     const columns = [
         { header: "教練名稱", dataKey: "coachName" },
@@ -68,8 +72,12 @@ export const CourseTyprExportPDF = (rows, title) => {
         body: tableData,
         startY: 20,
         styles: {
-            font: "NotoSansTC",
+            font: "JhengHei",
             fontStyle: 'bold',
+        },
+        headerStyles: {
+            fillColor: [223, 201, 148],
+            textColor: [53, 47, 41]
         }
     });
 
@@ -79,7 +87,7 @@ export const CourseTyprExportPDF = (rows, title) => {
 //點進教練的匯出
 export const CoachExportPDF = (rows, title, headers) => {
     const doc = new jsPDF();
-    doc.setFont('NotoSansTC');
+    doc.setFont('JhengHei');
     const tableData = rows.map((row) => Object.values(row));
 
     autoTable(doc, {
@@ -87,8 +95,12 @@ export const CoachExportPDF = (rows, title, headers) => {
         body: tableData,
         startY: 20,
         styles: {
-            font: "NotoSansTC",
+            font: "JhengHei",
             fontStyle: 'bold',
+        },
+        headerStyles: {
+            fillColor: [223, 201, 148],
+            textColor: [53, 47, 41]
         }
     });
 

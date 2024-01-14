@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import RevenueCourseDetail from '../components/RevenueCourseDetail'
 import GoBackBTN from '../components/GoBackBTN'
 import { CourseTyprExportPDF } from '../components/ExportPdf'
-import '../font/NotoSansTC-normal.js'
+import '../font/JhengHei-bold.js'
 function RevenueCourseType({classes}) {
     const { courseID } = useParams();
     let courseAllData = !!classes && classes.find(

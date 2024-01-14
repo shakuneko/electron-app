@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { updateLastMonthRevenue } from '../redux/reducers/saveSlice'
 import { useEffect } from 'react'
 import { RevenueExportPDF } from '../components/ExportPdf'
-import '../font/NotoSansTC-normal.js'
+import '../font/JhengHei-bold.js'
 // Json第五包初步設計
 export const newData = [
   {

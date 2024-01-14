@@ -5,7 +5,7 @@ import RevenueCoachDetail from '../components/RevenueCoachDetail'
 import GoBackBTN from '../components/GoBackBTN'
 import { columnsTotal, columnsFin, columnsLeft } from '../components/RevenueCoachColumns'
 import { CoachExportPDF } from '../components/ExportPdf'
-import '../font/NotoSansTC-normal.js'
+import '../font/JhengHei-bold.js'
 function RevenueCoach({classes}) {
     const { courseID, coachID } = useParams();
     let coachAllData = !!classes && classes.find(
