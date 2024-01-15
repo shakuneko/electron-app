@@ -22,8 +22,8 @@ export let newData = [
     courseType: 'PT 1v1',
     preLeftCourse: '10',
     preLeftMoney: '1000',
-    totalCourse: '5000',
-    totalMoney: '5000',
+    totalCourse: '51',
+    totalMoney: '5100',
     finCourse: '20',
     finMoney: '1000',
     leftCourse: '10',
@@ -1352,10 +1352,9 @@ function Revenue({ classes }) {
           month: '2-digit'
         })
         setDisplayMonth(`${formattedMonth}`)
-        
+
         //update陣列
         updateTable()
-
       } else {
         setDisplayText('請選擇月份')
         setDisplayMonth('某月份')
@@ -1364,28 +1363,25 @@ function Revenue({ classes }) {
     },
     [selectedDate],
     [displayText]
-   
   )
 
   //即時渲染計算總收入
-  useEffect(() => {
-    countTotalSalary()
-    setTotalSalarySumDisplay(totalSalarySum)
+  useEffect(
+    () => {
+      countTotalSalary()
+      setTotalSalarySumDisplay(totalSalarySum)
 
-    //console.log('totalSalarySumDisplay', totalSalarySumDisplay)
+      //console.log('totalSalarySumDisplay', totalSalarySumDisplay)
 
-    getBuyFormThreeDetailData()
-    getAttandenceFormFourDetailData()
-    setNewTotalSumFINDisplay(newTotalSumFIN)
-    getAbsentFormFiveDetailData()
-    getAbsentFormFiveDetailDataByFilter()
-
- 
-    
-
-  }, [displayText],[newDataCopy])
-
- 
+      getBuyFormThreeDetailData()
+      getAttandenceFormFourDetailData()
+      setNewTotalSumFINDisplay(newTotalSumFIN)
+      getAbsentFormFiveDetailData()
+      getAbsentFormFiveDetailDataByFilter()
+    },
+    [displayText],
+    [newDataCopy]
+  )
 
   //簽約總收入 - 以月份分類---------------------------------------------------
   //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
@@ -1493,6 +1489,16 @@ function Revenue({ classes }) {
 
   //本月購買(簽約)
   const allBuyDetailDataFormThree = []
+  const allBuyDetailDataFormThreeByMonth = []
+  const allBuyDetailDataFormThreeByMonthByTypePT1v1 = []
+  const allBuyDetailDataFormThreeByMonthByTypePT1v2 = []
+  const allBuyDetailDataFormThreeByMonthByTypePilates1 = [] //基礎
+  const allBuyDetailDataFormThreeByMonthByTypePilates2 = [] //進階
+  // const allBuyDetailDataFormThreeByMonthByTypeexCoursePilates1 = []
+  // const allBuyDetailDataFormThreeByMonthByTypeexCoursePilates2 = []
+  const allBuyDetailDataFormThreeByMonthByTypeMassage = []
+  const allBuyDetailDataFormThreeByMonthByTypeRent = []
+
   const getBuyFormThreeDetailData = () => {
     //撈buyDetail -- buyDate,courseAll,coursePrice,invoiceNum
     //stuName在stuDetail下
@@ -1508,11 +1514,9 @@ function Revenue({ classes }) {
             const courseAll = buyItem.coursesAll
             const coursePrice = buyItem.coursePrice
             const invoiceNum = buyItem.invoiceNum
-
             //分類用
             const coachName = buyItem.coachName
             const courseType = buyItem.courseType
-
             allBuyDetailDataFormThree.push({
               coachName,
               courseType,
@@ -1524,11 +1528,171 @@ function Revenue({ classes }) {
             })
           })
         })
-
         console.log('DataFormThree', allBuyDetailDataFormThree)
       }
     })
+
+    //第一頁table的簽約、金額、堂數
+    allBuyDetailDataFormThree.forEach((buyItem) => {
+      if (buyItem.buyDate.split('-')[0] + '-' + buyItem.buyDate.split('-')[1] === displayText) {
+        allBuyDetailDataFormThreeByMonth.push({
+          coachName: buyItem.coachName,
+          courseType: buyItem.courseType,
+          stuName: buyItem.stuName,
+          buyDate: buyItem.buyDate,
+          courseAll: buyItem.courseAll,
+          coursePrice: buyItem.coursePrice,
+          invoiceNum: buyItem.invoiceNum
+        })
+      }
+    })
+    console.log('DataFormThreeByMonth', allBuyDetailDataFormThreeByMonth)
+
+    //以type分類
+    let countingCourseAllPT1v1 = 0
+    let countingCourseAllPT1v2 = 0
+    let countingCourseAllPilates1 = 0
+    let countingCourseAllPilates2 = 0
+    let countingCourseAllMassage = 0
+    let countingCourseAllRent = 0
+
+    let countingcoursePricePT1v1 = 0
+    let countingcoursePricePT1v2 = 0
+    let countingcoursePricePilates1 = 0
+    let countingcoursePricePilates2 = 0
+    let countingcoursePriceMassage = 0
+    let countingcoursePriceRent = 0
+
+    allBuyDetailDataFormThreeByMonth.forEach((buyItem) => {
+      if (buyItem.courseType === 'PT1v1') {
+        countingCourseAllPT1v1 += parseInt(buyItem.courseAll)
+        countingcoursePricePT1v1 += parseInt(buyItem.coursePrice)
+
+        allBuyDetailDataFormThreeByMonthByTypePT1v1.push({
+          coachName: buyItem.coachName,
+          courseType: buyItem.courseType,
+          stuName: buyItem.stuName,
+          buyDate: buyItem.buyDate,
+          courseAll: buyItem.courseAll,
+          coursePrice: buyItem.coursePrice,
+          invoiceNum: buyItem.invoiceNum,
+          countCourseAll: countingCourseAllPT1v1,
+          countCoursePrice: countingcoursePricePT1v1
+        })
+      } else if (buyItem.courseType === 'PT1v2') {
+        countingCourseAllPT1v2 += parseInt(buyItem.courseAll)
+        countingcoursePricePT1v2 += parseInt(buyItem.coursePrice)
+
+        allBuyDetailDataFormThreeByMonthByTypePT1v2.push({
+          coachName: buyItem.coachName,
+          courseType: buyItem.courseType,
+          stuName: buyItem.stuName,
+          buyDate: buyItem.buyDate,
+          courseAll: buyItem.courseAll,
+          coursePrice: buyItem.coursePrice,
+          invoiceNum: buyItem.invoiceNum,
+          countCourseAll: countingCourseAllPT1v2,
+          countCoursePrice: countingcoursePricePT1v2
+        })
+      } else if (buyItem.courseType === '基皮') {
+        countingCourseAllPilates1 += parseInt(buyItem.courseAll)
+        countingcoursePricePilates1 += parseInt(buyItem.coursePrice)
+
+        allBuyDetailDataFormThreeByMonthByTypePilates1.push({
+          coachName: buyItem.coachName,
+          courseType: buyItem.courseType,
+          stuName: buyItem.stuName,
+          buyDate: buyItem.buyDate,
+          courseAll: buyItem.courseAll,
+          coursePrice: buyItem.coursePrice,
+          invoiceNum: buyItem.invoiceNum,
+          countCourseAll: countingCourseAllPilates1,
+          countCoursePrice: countingcoursePricePilates1
+        })
+      } else if (buyItem.courseType === '高皮') {
+        countingCourseAllPilates2 += parseInt(buyItem.courseAll)
+        countingcoursePricePilates2 += parseInt(buyItem.coursePrice)
+
+        allBuyDetailDataFormThreeByMonthByTypePilates2.push({
+          coachName: buyItem.coachName,
+          courseType: buyItem.courseType,
+          stuName: buyItem.stuName,
+          buyDate: buyItem.buyDate,
+          courseAll: buyItem.courseAll,
+          coursePrice: buyItem.coursePrice,
+          invoiceNum: buyItem.invoiceNum,
+          countCourseAll: countingCourseAllPilates2,
+          countCoursePrice: countingcoursePricePilates2
+        })
+      } else if (buyItem.courseType === '運動按摩') {
+        countingCourseAllMassage += parseInt(buyItem.courseAll)
+        countingcoursePriceMassage += parseInt(buyItem.coursePrice)
+
+        allBuyDetailDataFormThreeByMonthByTypeMassage.push({
+          coachName: buyItem.coachName,
+          courseType: buyItem.courseType,
+          stuName: buyItem.stuName,
+          buyDate: buyItem.buyDate,
+          courseAll: buyItem.courseAll,
+          coursePrice: buyItem.coursePrice,
+          invoiceNum: buyItem.invoiceNum,
+          countCourseAll: countingCourseAllMassage,
+          countCoursePrice: countingcoursePriceMassage        
+        })
+      } else if (buyItem.courseType === '場地租借') {
+        countingCourseAllRent += parseInt(buyItem.courseAll)
+        countingcoursePriceRent += parseInt(buyItem.coursePrice)
+
+        allBuyDetailDataFormThreeByMonthByTypeRent.push({
+          coachName: buyItem.coachName,
+          courseType: buyItem.courseType,
+          stuName: buyItem.stuName,
+          buyDate: buyItem.buyDate,
+          courseAll: buyItem.courseAll,
+          coursePrice: buyItem.coursePrice,
+          invoiceNum: buyItem.invoiceNum,
+          countCourseAll: countingCourseAllRent,
+          countCoursePrice: countingcoursePriceRent
+        })
+      }
+
+      console.log('DataFormThreeByMonthByType1', allBuyDetailDataFormThreeByMonthByTypePT1v1)
+      console.log('DataFormThreeByMonthByType2', allBuyDetailDataFormThreeByMonthByTypePT1v2)
+      console.log('DataFormThreeByMonthByType3', allBuyDetailDataFormThreeByMonthByTypePilates1)
+      console.log('DataFormThreeByMonthByType4', allBuyDetailDataFormThreeByMonthByTypePilates2)
+      console.log('DataFormThreeByMonthByType5', allBuyDetailDataFormThreeByMonthByTypeMassage)
+      console.log('DataFormThreeByMonthByType6', allBuyDetailDataFormThreeByMonthByTypeRent)
+
+      
+    })
+    
+    newData.forEach((item) => {
+      if(item.classType === 'PT 1v1'){
+        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCourseAll
+        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCoursePrice
+      }else if(item.classType === 'PT 1v2'){
+        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePT1v2[0]?.countCourseAll
+        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePT1v2[0]?.countCoursePrice
+      }else if(item.classType === '基礎皮拉提斯'){
+        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePilates1[0]?.countCourseAll
+        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePilates1[0]?.countCoursePrice
+      }else if(item.classType === '高階皮拉提斯'){
+        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePilates2[0]?.countCourseAll
+        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePilates2[0]?.countCoursePrice
+      }else if(item.classType === '運動按摩'){
+        item.finCourse = allBuyDetailDataFormThreeByMonthByTypeMassage[0]?.countCourseAll
+        item.finMoney = allBuyDetailDataFormThreeByMonthByTypeMassage[0]?.countCoursePrice
+      }else if(item.classType === '場地租借'){
+        item.finCourse = allBuyDetailDataFormThreeByMonthByTypeRent[0]?.countCourseAll
+        item.finMoney = allBuyDetailDataFormThreeByMonthByTypeRent[0]?.countCoursePrice
+      }
+
+      console.log('DataFormThreeByMonthByType1f', item.finCourse)
+    })
+    
+
   }
+  
 
   //本月已核銷：有上課的課程＊堂薪-----------------------------------------------------------表四
   //獲取所有的課程資料來計算
@@ -1750,10 +1914,7 @@ function Revenue({ classes }) {
   //update table  更新整個table ---------------------------------------------------
   //修改newData、並傳入newDataCopy更新
   const updateTable = () => {
-    newData[0].finCourse = '19'
-
-
-
+    newData[0].leftCourse = '2'
 
     setNewDataCopy(newData)
   }
