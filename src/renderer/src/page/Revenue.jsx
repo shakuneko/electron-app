@@ -24,7 +24,7 @@ export let newData = [
     preLeftMoney: '1000',
     totalCourse: '51',
     totalMoney: '5100',
-    finCourse: '20',
+    finCourse: '1',
     finMoney: '1000',
     leftCourse: '10',
     leftMoney: '3000',
@@ -1314,7 +1314,11 @@ function Revenue({ classes }) {
 
   const [newTotalSumFINDisplay, setNewTotalSumFINDisplay] = useState(20)
 
-  const [newDataCopy, setNewDataCopy] = useState([])
+   //table用的array
+  const [newDataCopy, setNewDataCopy] = useState({ courseType: 'example', preLeftCourse: '10'}) 
+
+  const [flagUpdate, setFlagUpdate] = useState(false)
+
 
   // const updateMinusMonth = () => {
   //   const currentMonth = displayMonth.replace('月', '')
@@ -1353,21 +1357,27 @@ function Revenue({ classes }) {
         })
         setDisplayMonth(`${formattedMonth}`)
 
-        //update陣列
-        updateTable()
+        setNewDataCopy([])//洗掉舊的table
+
+        setFlagUpdate(true)
+
       } else {
         setDisplayText('請選擇月份')
         setDisplayMonth('某月份')
       }
       //countTotalSalary()
+
+     
+
     },
-    [selectedDate],
-    [displayText]
+    [selectedDate]
   )
 
   //即時渲染計算總收入
   useEffect(
     () => {
+
+
       countTotalSalary()
       setTotalSalarySumDisplay(totalSalarySum)
 
@@ -1378,10 +1388,27 @@ function Revenue({ classes }) {
       setNewTotalSumFINDisplay(newTotalSumFIN)
       getAbsentFormFiveDetailData()
       getAbsentFormFiveDetailDataByFilter()
+
+     
+      
+
     },
-    [displayText],
-    [newDataCopy]
+    [displayText,
+    newData,newDataCopy]
   )
+
+  useEffect(
+    () => {
+      //setFlagUpdate(true)
+      if(flagUpdate){
+        console.log('hasUpdate')
+        setNewDataCopy(newData)
+        setFlagUpdate(false)
+      }
+    },
+    [flagUpdate,newDataCopy]
+  )
+ 
 
   //簽約總收入 - 以月份分類---------------------------------------------------
   //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
@@ -1498,6 +1525,8 @@ function Revenue({ classes }) {
   // const allBuyDetailDataFormThreeByMonthByTypeexCoursePilates2 = []
   const allBuyDetailDataFormThreeByMonthByTypeMassage = []
   const allBuyDetailDataFormThreeByMonthByTypeRent = []
+
+  const resultArrayForFirstTable = []
 
   const getBuyFormThreeDetailData = () => {
     //撈buyDetail -- buyDate,courseAll,coursePrice,invoiceNum
@@ -1655,21 +1684,22 @@ function Revenue({ classes }) {
           countCoursePrice: countingcoursePriceRent
         })
       }
-
-      console.log('DataFormThreeByMonthByType1', allBuyDetailDataFormThreeByMonthByTypePT1v1)
-      console.log('DataFormThreeByMonthByType2', allBuyDetailDataFormThreeByMonthByTypePT1v2)
-      console.log('DataFormThreeByMonthByType3', allBuyDetailDataFormThreeByMonthByTypePilates1)
-      console.log('DataFormThreeByMonthByType4', allBuyDetailDataFormThreeByMonthByTypePilates2)
-      console.log('DataFormThreeByMonthByType5', allBuyDetailDataFormThreeByMonthByTypeMassage)
-      console.log('DataFormThreeByMonthByType6', allBuyDetailDataFormThreeByMonthByTypeRent)
-
-      
     })
+
+    console.log('DataFormThreeByMonthByType1', allBuyDetailDataFormThreeByMonthByTypePT1v1)
+    console.log('DataFormThreeByMonthByType2', allBuyDetailDataFormThreeByMonthByTypePT1v2)
+    console.log('DataFormThreeByMonthByType3', allBuyDetailDataFormThreeByMonthByTypePilates1)
+    console.log('DataFormThreeByMonthByType4', allBuyDetailDataFormThreeByMonthByTypePilates2)
+    console.log('DataFormThreeByMonthByType5', allBuyDetailDataFormThreeByMonthByTypeMassage)
+    console.log('DataFormThreeByMonthByType6', allBuyDetailDataFormThreeByMonthByTypeRent)
     
     newData.forEach((item) => {
-      if(item.classType === 'PT 1v1'){
-        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCourseAll
-        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCoursePrice
+   
+      if(item.courseType === 'PT 1v1'){ 
+        console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCourseAll)
+        item.totalCourse = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCourseAll||0
+        item.totalMoney = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCoursePrice||0
+       
       }else if(item.classType === 'PT 1v2'){
         item.finCourse = allBuyDetailDataFormThreeByMonthByTypePT1v2[0]?.countCourseAll
         item.finMoney = allBuyDetailDataFormThreeByMonthByTypePT1v2[0]?.countCoursePrice
@@ -1686,13 +1716,16 @@ function Revenue({ classes }) {
         item.finCourse = allBuyDetailDataFormThreeByMonthByTypeRent[0]?.countCourseAll
         item.finMoney = allBuyDetailDataFormThreeByMonthByTypeRent[0]?.countCoursePrice
       }
-
-      console.log('DataFormThreeByMonthByType1f', item.finCourse)
+      console.log('DataFormThreeByMonthByTypenewData', newData)
+      
     })
     
-
+    
+    
+    
   }
-  
+
+
 
   //本月已核銷：有上課的課程＊堂薪-----------------------------------------------------------表四
   //獲取所有的課程資料來計算
@@ -1914,8 +1947,7 @@ function Revenue({ classes }) {
   //update table  更新整個table ---------------------------------------------------
   //修改newData、並傳入newDataCopy更新
   const updateTable = () => {
-    newData[0].leftCourse = '2'
-
+    newData[0].leftCourse = 'tests'
     setNewDataCopy(newData)
   }
 
