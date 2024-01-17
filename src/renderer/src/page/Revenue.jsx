@@ -20,14 +20,14 @@ import 'react-datepicker/dist/react-datepicker.css'
 export let newData = [
   {
     courseType: 'PT 1v1',
-    preLeftCourse: '10',
-    preLeftMoney: '1000',
-    totalCourse: '51',
-    totalMoney: '5100',
-    finCourse: '1',
-    finMoney: '1000',
-    leftCourse: '10',
-    leftMoney: '3000',
+    preLeftCourse: '00',
+    preLeftMoney: '00',
+    totalCourse: '00',
+    totalMoney: '00',
+    finCourse: '00',
+    finMoney: '00',
+    leftCourse: '00',
+    leftMoney: '00',
     coaches: [
       {
         coachName: '何軒',
@@ -153,14 +153,14 @@ export let newData = [
   },
   {
     courseType: 'PT 1v2',
-    preLeftCourse: '10',
-    preLeftMoney: '1000',
-    totalCourse: '5000',
-    totalMoney: '5000',
-    finCourse: '19',
-    finMoney: '1000',
-    leftCourse: '10',
-    leftMoney: '3000',
+    preLeftCourse: '00',
+    preLeftMoney: '00',
+    totalCourse: '00',
+    totalMoney: '00',
+    finCourse: '00',
+    finMoney: '00',
+    leftCourse: '00',
+    leftMoney: '00',
     coaches: [
       {
         coachName: 'B',
@@ -226,14 +226,14 @@ export let newData = [
   },
   {
     courseType: '基礎皮拉提斯',
-    preLeftCourse: '10',
-    preLeftMoney: '1000',
-    totalCourse: '5000',
-    totalMoney: '5000',
-    finCourse: '20',
-    finMoney: '1000',
-    leftCourse: '10',
-    leftMoney: '3000',
+    preLeftCourse: '00',
+    preLeftMoney: '00',
+    totalCourse: '00',
+    totalMoney: '00',
+    finCourse: '00',
+    finMoney: '00',
+    leftCourse: '00',
+    leftMoney: '00',
     coaches: [
       {
         coachName: 'C',
@@ -299,14 +299,14 @@ export let newData = [
   },
   {
     courseType: '高階皮拉提斯',
-    preLeftCourse: '10',
-    preLeftMoney: '1000',
-    totalCourse: '5000',
-    totalMoney: '5000',
-    finCourse: '20',
-    finMoney: '1000',
-    leftCourse: '10',
-    leftMoney: '3000',
+    preLeftCourse: '00',
+    preLeftMoney: '00',
+    totalCourse: '00',
+    totalMoney: '00',
+    finCourse: '00',
+    finMoney: '00',
+    leftCourse: '00',
+    leftMoney: '00',
     coaches: [
       {
         coachName: 'D',
@@ -372,14 +372,14 @@ export let newData = [
   },
   {
     courseType: '運動按摩',
-    preLeftCourse: '10',
-    preLeftMoney: '1000',
-    totalCourse: '5000',
-    totalMoney: '5000',
-    finCourse: '20',
-    finMoney: '1000',
-    leftCourse: '10',
-    leftMoney: '3000',
+    preLeftCourse: '00',
+    preLeftMoney: '00',
+    totalCourse: '00',
+    totalMoney: '00',
+    finCourse: '00',
+    finMoney: '00',
+    leftCourse: '00',
+    leftMoney: '00',
     coaches: [
       {
         coachName: 'E',
@@ -444,15 +444,15 @@ export let newData = [
     ]
   },
   {
-    courseType: '場地租金',
-    preLeftCourse: '10',
-    preLeftMoney: '1000',
-    totalCourse: '5000',
-    totalMoney: '5000',
-    finCourse: '20',
-    finMoney: '1000',
-    leftCourse: '10',
-    leftMoney: '3000',
+    courseType: '場地租借',
+    preLeftCourse: '00',
+    preLeftMoney: '00',
+    totalCourse: '00',
+    totalMoney: '00',
+    finCourse: '00',
+    finMoney: '00',
+    leftCourse: '00',
+    leftMoney: '00',
     coaches: [
       {
         coachName: 'F',
@@ -1314,11 +1314,10 @@ function Revenue({ classes }) {
 
   const [newTotalSumFINDisplay, setNewTotalSumFINDisplay] = useState(20)
 
-   //table用的array
-  const [newDataCopy, setNewDataCopy] = useState({ courseType: 'example', preLeftCourse: '10'}) 
+  //table用的array
+  const [newDataCopy, setNewDataCopy] = useState({ courseType: 'example', preLeftCourse: '10' })
 
   const [flagUpdate, setFlagUpdate] = useState(false)
-
 
   // const updateMinusMonth = () => {
   //   const currentMonth = displayMonth.replace('月', '')
@@ -1341,74 +1340,53 @@ function Revenue({ classes }) {
   //setSelectedDate(date);
 
   //渲然table的月份
-  useEffect(
-    () => {
-      if (selectedDate) {
-        //月份的header呈現
-        const selectFormattedDate = selectedDate
-          .toLocaleDateString('zh-TW', {
-            year: 'numeric',
-            month: '2-digit'
-          })
-          .replace(/\//g, '-')
-        setDisplayText(`${selectFormattedDate}`)
-        const formattedMonth = selectedDate.toLocaleDateString('zh-TW', {
+  useEffect(() => {
+    if (selectedDate) {
+      //月份的header呈現
+      const selectFormattedDate = selectedDate
+        .toLocaleDateString('zh-TW', {
+          year: 'numeric',
           month: '2-digit'
         })
-        setDisplayMonth(`${formattedMonth}`)
+        .replace(/\//g, '-')
+      setDisplayText(`${selectFormattedDate}`)
+      const formattedMonth = selectedDate.toLocaleDateString('zh-TW', {
+        month: '2-digit'
+      })
+      setDisplayMonth(`${formattedMonth}`)
 
-        setNewDataCopy([])//洗掉舊的table
+      setNewDataCopy([]) //洗掉舊的table
 
-        setFlagUpdate(true)
-
-      } else {
-        setDisplayText('請選擇月份')
-        setDisplayMonth('某月份')
-      }
-      //countTotalSalary()
-
-     
-
-    },
-    [selectedDate]
-  )
+      setFlagUpdate(true)
+    } else {
+      setDisplayText('請選擇月份')
+      setDisplayMonth('某月份')
+    }
+    //countTotalSalary()
+  }, [selectedDate])
 
   //即時渲染計算總收入
-  useEffect(
-    () => {
+  useEffect(() => {
+    countTotalSalary()
+    setTotalSalarySumDisplay(totalSalarySum)
 
+    //console.log('totalSalarySumDisplay', totalSalarySumDisplay)
 
-      countTotalSalary()
-      setTotalSalarySumDisplay(totalSalarySum)
+    getBuyFormThreeDetailData()
+    getAttandenceFormFourDetailData()
+    setNewTotalSumFINDisplay(newTotalSumFIN)
+    getAbsentFormFiveDetailData()
+    getAbsentFormFiveDetailDataByFilter()
+  }, [displayText, newData, newDataCopy])
 
-      //console.log('totalSalarySumDisplay', totalSalarySumDisplay)
-
-      getBuyFormThreeDetailData()
-      getAttandenceFormFourDetailData()
-      setNewTotalSumFINDisplay(newTotalSumFIN)
-      getAbsentFormFiveDetailData()
-      getAbsentFormFiveDetailDataByFilter()
-
-     
-      
-
-    },
-    [displayText,
-    newData,newDataCopy]
-  )
-
-  useEffect(
-    () => {
-      //setFlagUpdate(true)
-      if(flagUpdate){
-        console.log('hasUpdate')
-        setNewDataCopy(newData)
-        setFlagUpdate(false)
-      }
-    },
-    [flagUpdate,newDataCopy]
-  )
- 
+  useEffect(() => {
+    //setFlagUpdate(true)
+    if (flagUpdate) {
+      console.log('hasUpdate')
+      setNewDataCopy(newData)
+      setFlagUpdate(false)
+    }
+  }, [flagUpdate, newDataCopy])
 
   //簽約總收入 - 以月份分類---------------------------------------------------
   //note: 本月學生的錢加總（buydate區分月份）學生下面的buydetail、coursePrice去乘
@@ -1666,7 +1644,7 @@ function Revenue({ classes }) {
           coursePrice: buyItem.coursePrice,
           invoiceNum: buyItem.invoiceNum,
           countCourseAll: countingCourseAllMassage,
-          countCoursePrice: countingcoursePriceMassage        
+          countCoursePrice: countingcoursePriceMassage
         })
       } else if (buyItem.courseType === '場地租借') {
         countingCourseAllRent += parseInt(buyItem.courseAll)
@@ -1692,40 +1670,84 @@ function Revenue({ classes }) {
     console.log('DataFormThreeByMonthByType4', allBuyDetailDataFormThreeByMonthByTypePilates2)
     console.log('DataFormThreeByMonthByType5', allBuyDetailDataFormThreeByMonthByTypeMassage)
     console.log('DataFormThreeByMonthByType6', allBuyDetailDataFormThreeByMonthByTypeRent)
-    
+
     newData.forEach((item) => {
-   
-      if(item.courseType === 'PT 1v1'){ 
-        console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCourseAll)
-        item.totalCourse = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCourseAll||0
-        item.totalMoney = allBuyDetailDataFormThreeByMonthByTypePT1v1[0]?.countCoursePrice||0
-       
-      }else if(item.classType === 'PT 1v2'){
-        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePT1v2[0]?.countCourseAll
-        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePT1v2[0]?.countCoursePrice
-      }else if(item.classType === '基礎皮拉提斯'){
-        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePilates1[0]?.countCourseAll
-        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePilates1[0]?.countCoursePrice
-      }else if(item.classType === '高階皮拉提斯'){
-        item.finCourse = allBuyDetailDataFormThreeByMonthByTypePilates2[0]?.countCourseAll
-        item.finMoney = allBuyDetailDataFormThreeByMonthByTypePilates2[0]?.countCoursePrice
-      }else if(item.classType === '運動按摩'){
-        item.finCourse = allBuyDetailDataFormThreeByMonthByTypeMassage[0]?.countCourseAll
-        item.finMoney = allBuyDetailDataFormThreeByMonthByTypeMassage[0]?.countCoursePrice
-      }else if(item.classType === '場地租借'){
-        item.finCourse = allBuyDetailDataFormThreeByMonthByTypeRent[0]?.countCourseAll
-        item.finMoney = allBuyDetailDataFormThreeByMonthByTypeRent[0]?.countCoursePrice
+      if (item.courseType === 'PT 1v1') {
+        // console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[allBuyDetailDataFormThreeByMonthByTypePT1v1.length-1])
+        // console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[allBuyDetailDataFormThreeByMonthByTypePT1v1.length-1]?.countCourseAll)
+        // console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[allBuyDetailDataFormThreeByMonthByTypePT1v1.length-1]?.countCourseAll)
+        item.totalCourse =
+          allBuyDetailDataFormThreeByMonthByTypePT1v1[
+            allBuyDetailDataFormThreeByMonthByTypePT1v1.length - 1
+          ]?.countCourseAll || 0
+        item.totalMoney =
+          allBuyDetailDataFormThreeByMonthByTypePT1v1[
+            allBuyDetailDataFormThreeByMonthByTypePT1v1.length - 1
+          ]?.countCoursePrice || 0
+      } else if (item.courseType === 'PT 1v2') {
+        console.log(
+          'DataFormThreeByMonthByTypePT1v2',
+          allBuyDetailDataFormThreeByMonthByTypePT1v2[
+            allBuyDetailDataFormThreeByMonthByTypePT1v2.length - 1
+          ]
+        )
+        item.totalCourse =
+          allBuyDetailDataFormThreeByMonthByTypePT1v2[
+            allBuyDetailDataFormThreeByMonthByTypePT1v2.length - 1
+          ]?.countCourseAll || 0
+        item.totalMoney =
+          allBuyDetailDataFormThreeByMonthByTypePT1v2[
+            allBuyDetailDataFormThreeByMonthByTypePT1v2.length - 1
+          ]?.countCoursePrice || 0
+      } else if (item.courseType === '基礎皮拉提斯') {
+        console.log(
+          'DataFormThreeByMonthByTypePilates1',
+          allBuyDetailDataFormThreeByMonthByTypePilates1[
+            allBuyDetailDataFormThreeByMonthByTypePilates1.length - 1
+          ]?.countCoursePrice
+        )
+        item.totalCourse =
+          allBuyDetailDataFormThreeByMonthByTypePilates1[
+            allBuyDetailDataFormThreeByMonthByTypePilates1.length - 1
+          ]?.countCourseAll || 0
+        item.totalMoney =
+          allBuyDetailDataFormThreeByMonthByTypePilates1[
+            allBuyDetailDataFormThreeByMonthByTypePilates1.length - 1
+          ]?.countCoursePrice || 0
+      } else if (item.courseType === '高階皮拉提斯') {
+        item.totalCourse =
+          allBuyDetailDataFormThreeByMonthByTypePilates2[
+            allBuyDetailDataFormThreeByMonthByTypePilates2.length - 1
+          ]?.countCourseAll || 0
+        item.totalMoney =
+          allBuyDetailDataFormThreeByMonthByTypePilates2[
+            allBuyDetailDataFormThreeByMonthByTypePilates2.length - 1
+          ]?.countCoursePrice || 0
+      } else if (item.courseType === '運動按摩') {
+        item.totalCourse =
+          allBuyDetailDataFormThreeByMonthByTypeMassage[
+            allBuyDetailDataFormThreeByMonthByTypeMassage.length - 1
+          ]?.countCourseAll || 0
+        item.totalMoney =
+          allBuyDetailDataFormThreeByMonthByTypeMassage[
+            allBuyDetailDataFormThreeByMonthByTypeMassage.length - 1
+          ]?.countCoursePrice || 0
+      } else if (item.courseType === '場地租借') {
+        item.totalCourse =
+          allBuyDetailDataFormThreeByMonthByTypeRent[
+            allBuyDetailDataFormThreeByMonthByTypeRent.length - 1
+          ]?.countCourseAll || 0
+        item.totalMoney =
+          allBuyDetailDataFormThreeByMonthByTypeRent[
+            allBuyDetailDataFormThreeByMonthByTypeRent.length - 1
+          ]?.countCoursePrice || 0
+      } else {
+        item.totalCourse = 0
+        item.totalMoney = 0
       }
       console.log('DataFormThreeByMonthByTypenewData', newData)
-      
     })
-    
-    
-    
-    
   }
-
-
 
   //本月已核銷：有上課的課程＊堂薪-----------------------------------------------------------表四
   //獲取所有的課程資料來計算
