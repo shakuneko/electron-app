@@ -2028,8 +2028,6 @@ function Revenue({ classes }) {
                     }
                   ]}
                 />
-              <div className='col-4 revenue-export-btn' style={{display:"flex", flexDirection:"row"}}>
-                {/* <button type="button" className="btn btn-golden">Date picker</button>  */}
                 <button
                     type="button"
                     className="btn btn-golden revenue-btn-mr0"
@@ -2038,7 +2036,6 @@ function Revenue({ classes }) {
                     匯出 PDF
 
                 </button>
-              </div>
             </div>
             {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
             <RevenueSetTable classes={newDataCopy} columns={columnsRevenue(displayMonth)} />
