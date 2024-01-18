@@ -17,7 +17,10 @@ import 'react-datepicker/dist/react-datepicker.css'
 //使用的第一個月的未核銷： 0 ＋ 本月購買（簽約） - 本月已核銷
 
 // Json第五包初步設計－for新的金流表格
-export let newData = [
+import { RevenueExportPDF } from '../components/ExportPdf'
+import '../font/JhengHei-bold.js'
+// Json第五包初步設計
+export const newData = [
   {
     courseType: 'PT 1v1',
     preLeftCourse: '00',
@@ -2025,8 +2028,15 @@ function Revenue({ classes }) {
                     }
                   ]}
                 />
-                <button type="button" className="btn btn-golden revenue-btn-mr0">
-                  匯出 PDF
+              <div className='col-4 revenue-export-btn' style={{display:"flex", flexDirection:"row"}}>
+                <button type="button" className="btn btn-golden">Date picker</button> 
+                <button
+                    type="button"
+                    className="btn btn-golden revenue-btn-mr0"
+                    onClick={() => RevenueExportPDF(newData, "金流")}
+                >
+                    匯出 PDF
+
                 </button>
               </div>
             </div>
@@ -2051,7 +2061,7 @@ function Revenue({ classes }) {
               </div>
             </div>
             <RevenueSetTable classes={mergeInfoLast} columns={columnsMoney} /> */}
-            <div></div>
+             </div>
           </div>
         </div>
       </div>
