@@ -2031,7 +2031,7 @@ function Revenue({ classes }) {
                 <button
                     type="button"
                     className="btn btn-golden revenue-btn-mr0"
-                    onClick={() => RevenueExportPDF(newData, "金流",displayMonth)}
+                    onClick={() => RevenueExportPDF(newData, `${displayMonth}金流`,displayMonth)}
                 >
                     匯出 PDF
 

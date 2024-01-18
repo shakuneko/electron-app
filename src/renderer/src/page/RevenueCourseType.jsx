@@ -32,7 +32,7 @@ function RevenueCourseType({classes}) {
                         <button
                             type="button"
                             className="btn btn-golden revenue-btn-mr0"
-                            onClick={() => CourseTyprExportPDF(courseData, "課程名稱",monthValue)}
+                            onClick={() => CourseTyprExportPDF(courseData, `${courseID}`,monthValue)}
                         >
                             匯出 PDF
                         </button>

@@ -51,7 +51,7 @@ function RevenueCoach({classes}) {
                                 <button
                                     type="button"
                                     className="btn btn-golden revenue-btn-mr0"
-                                    onClick={() => CoachExportPDF(totalData, "X月簽約", ['購買日期','學員','堂數','金額','發票號碼'])}
+                                    onClick={() => CoachExportPDF(totalData, `${monthValue}簽約`, ['購買日期','學員','堂數','金額','發票號碼'])}
                                 >
                                     匯出 PDF
                                 </button>
@@ -67,7 +67,7 @@ function RevenueCoach({classes}) {
                                 <button
                                     type="button"
                                     className="btn btn-golden revenue-btn-mr0"
-                                    onClick={() => CoachExportPDF(finData, "X月已核銷", ['上課日期','學員','堂數','金額','堂薪'])}
+                                    onClick={() => CoachExportPDF(finData, `${monthValue}已核銷`, ['上課日期','學員','堂數','金額','堂薪'])}
                                 >
                                     匯出 PDF
                                 </button>
@@ -82,7 +82,7 @@ function RevenueCoach({classes}) {
                                 <button
                                     type="button"
                                     className="btn btn-golden revenue-btn-mr0"
-                                    onClick={() => CoachExportPDF(leftData, "X月未核銷", ['購買日期','學員','購買堂數','已核銷堂數','未核銷堂數'])}
+                                    onClick={() => CoachExportPDF(leftData, `${monthValue}未核銷`, ['購買日期','學員','購買堂數','已核銷堂數','未核銷堂數'])}
                                 >
                                     匯出 PDF
                                 </button>
