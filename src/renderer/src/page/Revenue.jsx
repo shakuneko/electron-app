@@ -2029,11 +2029,11 @@ function Revenue({ classes }) {
                   ]}
                 />
               <div className='col-4 revenue-export-btn' style={{display:"flex", flexDirection:"row"}}>
-                <button type="button" className="btn btn-golden">Date picker</button> 
+                {/* <button type="button" className="btn btn-golden">Date picker</button>  */}
                 <button
                     type="button"
                     className="btn btn-golden revenue-btn-mr0"
-                    onClick={() => RevenueExportPDF(newData, "金流")}
+                    onClick={() => RevenueExportPDF(newData, "金流",displayMonth)}
                 >
                     匯出 PDF
 
