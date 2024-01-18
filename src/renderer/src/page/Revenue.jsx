@@ -1915,6 +1915,11 @@ function Revenue({ classes }) {
       }
     })
     console.log('DataFormFournewTotalSumFINLast', newTotalSumFIN) //本月已核銷課程總收入 title顯示的部分
+  
+    //將mergeAttandenceAndSalaryArray依照月份分類
+    //mergeAttandenceAndSalaryArray
+  
+  
   }
 
   //計算未核銷課程form five--------------------------------------------------------------------------------------------------------表五
