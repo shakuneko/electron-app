@@ -1311,7 +1311,7 @@ function Revenue({ classes }) {
 
   //文字化 X月份
   const [displayMonth, setDisplayMonth] = useState('某月份')
-  const [displayMonth2, setDisplayMonth2] = useState('某月份') //minus a month
+  const [displayMonth2, setDisplayMonth2] = useState('上個月份') //minus a month
 
   const [totalSalarySumDisplay, setTotalSalarySumDisplay] = useState(10)
 
@@ -1322,21 +1322,14 @@ function Revenue({ classes }) {
 
   const [flagUpdate, setFlagUpdate] = useState(false)
 
-  // const updateMinusMonth = () => {
-  //   const currentMonth = displayMonth.replace('月', '')
-  //   // 將 '02月' 轉換為日期對象，這裡將年份設為固定值，例如 2022
-  //   const dateObj = new Date(`2022-${currentMonth}-01`)
-  //   console.log('monthDatadateObj', dateObj)
-  //   // 減去一個月
-  //   dateObj.setMonth(dateObj.getMonth() - 1)
-  //   // 取得新的月份，並格式化為 'MM月'
-  //   let minusMonth = (dateObj.getMonth() + 1).toString().padStart(2, '0') + '月'
-  //   //console.log('monthData-1',minusMonth); // minus a month
-  //   if (minusMonth === 'NaN月') {
-  //     minusMonth = '某月份'
-  //   }
-  //   console.log('monthData-1DD', minusMonth) // minus a month
-  // }
+  const updateMinusMonth = () => {
+    selectedDate.setMonth(selectedDate.getMonth() - 1)
+    const formattedMonth2 = selectedDate.toLocaleDateString('zh-TW', {
+      month: '2-digit'
+    })
+    console.log('formattedMonth2', formattedMonth2)
+    return formattedMonth2
+  }
 
   //轉換方式
   //date.toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit' }).replace(/\//g, '-');
@@ -1357,6 +1350,9 @@ function Revenue({ classes }) {
         month: '2-digit'
       })
       setDisplayMonth(`${formattedMonth}`)
+
+      
+      setDisplayMonth2(`${updateMinusMonth()||'上個月份'}`)
 
       setNewDataCopy([]) //洗掉舊的table
 
@@ -2816,7 +2812,7 @@ function Revenue({ classes }) {
                 </button>
               </div>
               {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
-              <RevenueSetTable classes={newDataCopy} columns={columnsRevenue(displayMonth)} />
+              <RevenueSetTable classes={newDataCopy} columns={columnsRevenue(displayMonth,displayMonth2)} />
               {/* <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">

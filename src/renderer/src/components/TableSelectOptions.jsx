@@ -71,7 +71,7 @@ export const selectOptions = [ //下拉選單篩選
 { text: '運動舒緩', value: '運動舒緩' }
 ];
 
-export const columnsRevenue = (month) => [
+export const columnsRevenue = (month,month2) => [
     {
         accessorKey:"courseType",
         header:"項目名稱",
@@ -84,7 +84,7 @@ export const columnsRevenue = (month) => [
     {
         accessorFn: (row) => `$ ${row.preLeftMoney} / ${row.preLeftCourse}堂`,
         id:"preMonthLeft",
-        header:`上月未核銷 (金額 / 堂)`,
+        header:`${month2}未核銷 (金額 / 堂)`,
     },
     {
         accessorFn: (row) => `$ ${row.totalMoney} / ${row.totalCourse}堂`,
