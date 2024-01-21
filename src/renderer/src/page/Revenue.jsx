@@ -166,16 +166,16 @@ export const newData = [
     leftMoney: '00',
     coaches: [
       {
-        coachName: 'B',
-        preLeftCourse: '10',
-        preLeftMoney: '1000',
-        totalCourse: '5000',
-        totalMoney: '5000',
-        finCourse: '200',
-        finMoney: '1000',
-        leftCourse: '10',
-        leftMoney: '3000',
-        exCourseTotal: '3',
+        coachName: 'test',
+        preLeftCourse: '00',
+        preLeftMoney: '00',
+        totalCourse: '00',
+        totalMoney: '00',
+        finCourse: '00',
+        finMoney: '00',
+        leftCourse: '00',
+        leftMoney: '00',
+        exCourseTotal: '00',
         total: [
           {
             buyDate: '2023-07-30',
@@ -2063,21 +2063,44 @@ function Revenue({ classes }) {
         item.finCourse = 0
         item.finMoney = 0
       }
+
+      
     })
-    console.log('DataFormFournewData', newData)
+    //console.log('DataFormFournewData', newData)
 
   }
 
   //計算未核銷課程form five--------------------------------------------------------------------------------------------------------表五
+  const allAbsentDetailDataFormFiveByMonth = []
+  const allAbsentDetailDataFormFiveByPreviousMonth = []
+  //以type分類
+  const allAbsentDetailDataFormFiveByMonthByTypePT1v1 = []
+  const allAbsentDetailDataFormFiveByMonthByTypePT1v2 = []
+  const allAbsentDetailDataFormFiveByMonthByTypePilates1 = []
+  const allAbsentDetailDataFormFiveByMonthByTypePilates2 = []
+  const allAbsentDetailDataFormFiveByMonthByTypeMassage = []
+  const allAbsentDetailDataFormFiveByMonthByTypeRent = []
+
+
+  const allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1 = []
+  const allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2 = []
+  const allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1 = []
+  const allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2 = []
+  const allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage = []
+  const allAbsentDetailDataFormFiveByPreviousMonthByTypeRent = []
+
   const allAbsentDetailDataFormFive = []
   //欄位：coachName, coursetype, buyDate, studentName,buy堂數,已核銷堂數coursesFIN,未核銷堂數courseLeft
+  //非當月的 courseLeft 就是上月（先前的）未核銷堂數
+  //當月的 courseLeft 就是當月購買的 未核銷堂數
+
   const getAbsentFormFiveDetailData = () => {
     //撈buyDetail -- buyDate,courseAll,coursesFIN,courseLeft
 
     nJson.forEach((item) => {
       if (item.category === 'student' && item.stuDetail) {
         //紀錄資料並存成陣列
-        //console.log('DataFormFiveitem', item)
+        console.log('DataFormFiveitem', item)
         item.stuDetail?.forEach((studentItem) => {
           const stuName = studentItem.stuName
           studentItem.buyDetail?.forEach((buyItem) => {
@@ -2091,6 +2114,9 @@ function Revenue({ classes }) {
             const courseFin = buyItem.coursesFIN
             const courseLeft = buyItem.courseLeft
 
+            const salaryPerClass = parseInt(buyItem.coursePrice)/parseInt(buyItem.coursesAll)
+           
+
             allAbsentDetailDataFormFive.push({
               coachName,
               courseType,
@@ -2099,7 +2125,8 @@ function Revenue({ classes }) {
               buyDate,
               courseAll,
               courseFin,
-              courseLeft
+              courseLeft,
+              salaryPerClass,
             })
           })
         })
@@ -2108,14 +2135,206 @@ function Revenue({ classes }) {
     console.log('DataFormFiveallAbsentDetailDataFormFive', allAbsentDetailDataFormFive)
   }
 
+  
   const getAbsentFormFiveDetailDataByFilter = () => {
     //須以月份分類
     allAbsentDetailDataFormFive.forEach((item) => {
+      //當月
       if (item.buyDate.split('-')[0] + '-' + item.buyDate.split('-')[1] === displayText) {
-        console.log('DataFormFiveitemByMonth', item)
+       
+        allAbsentDetailDataFormFiveByMonth.push({
+          ...item
+        })
+      }else{
+        //先前的
+        allAbsentDetailDataFormFiveByPreviousMonth.push({
+          ...item
+        })
       }
     })
+    console.log('DataFormFiveitemByMonth', allAbsentDetailDataFormFiveByMonth)
+    console.log('DataFormFiveitemByPreviousMonth', allAbsentDetailDataFormFiveByPreviousMonth)
+
+    let totalAbsentCourseCountByMonthByTypePT1v1 = 0
+    let totalAbsentCourseCountByMonthByTypePT1v2 = 0
+    let totalAbsentCourseCountByMonthByTypePilates1 = 0
+    let totalAbsentCourseCountByMonthByTypePilates2 = 0
+    let totalAbsentCourseCountByMonthByTypeMassage = 0
+    let totalAbsentCourseCountByMonthByTypeRent = 0
+
+    let totalCourseLeftPriceByMonthByTypePT1v1 = 0
+    let totalCourseLeftPriceByMonthByTypePT1v2 = 0
+    let totalCourseLeftPriceByMonthByTypePilates1 = 0
+    let totalCourseLeftPriceByMonthByTypePilates2 = 0
+    let totalCourseLeftPriceByMonthByTypeMassage = 0
+    let totalCourseLeftPriceByMonthByTypeRent = 0
+
+    let totalAbsentCourseCountByPreviousMonthByTypePT1v1 = 0
+    let totalAbsentCourseCountByPreviousMonthByTypePT1v2 = 0
+    let totalAbsentCourseCountByPreviousMonthByTypePilates1 = 0
+    let totalAbsentCourseCountByPreviousMonthByTypePilates2 = 0
+    let totalAbsentCourseCountByPreviousMonthByTypeMassage = 0
+    let totalAbsentCourseCountByPreviousMonthByTypeRent = 0
+
+    let totalCourseLeftPriceByPreviousMonthByTypePT1v1 = 0
+    let totalCourseLeftPriceByPreviousMonthByTypePT1v2 = 0
+    let totalCourseLeftPriceByPreviousMonthByTypePilates1 = 0
+    let totalCourseLeftPriceByPreviousMonthByTypePilates2 = 0
+    let totalCourseLeftPriceByPreviousMonthByTypeMassage = 0
+    let totalCourseLeftPriceByPreviousMonthByTypeRent = 0
+
+
+    //將資料依照courseType分類
+    //當月
+    allAbsentDetailDataFormFiveByMonth.forEach((item) => {
+      if (item.courseType === 'PT1v1') {
+        totalAbsentCourseCountByMonthByTypePT1v1 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByMonthByTypePT1v1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+
+        allAbsentDetailDataFormFiveByMonthByTypePT1v1.push({
+          ...item
+        })
+      } else if (item.courseType === 'PT1v2') {
+        totalAbsentCourseCountByMonthByTypePT1v2 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByMonthByTypePT1v2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByMonthByTypePT1v2.push({
+          ...item
+        })
+      } else if (item.courseType === '基皮') {
+        totalAbsentCourseCountByMonthByTypePilates1 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByMonthByTypePilates1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByMonthByTypePilates1.push({
+          ...item
+        })
+      } else if (item.courseType === '高皮') {
+        totalAbsentCourseCountByMonthByTypePilates2 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByMonthByTypePilates2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByMonthByTypePilates2.push({
+          ...item
+        })
+      } else if (item.courseType === '運動按摩') {
+        totalAbsentCourseCountByMonthByTypeMassage += parseInt(item.courseLeft)
+        totalCourseLeftPriceByMonthByTypeMassage += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByMonthByTypeMassage.push({
+          ...item
+        })
+      } else if (item.courseType === '場地租借') {
+        totalAbsentCourseCountByMonthByTypeRent += parseInt(item.courseLeft)
+        totalCourseLeftPriceByMonthByTypeRent += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByMonthByTypeRent.push({
+          ...item
+        })
+      }
+    })
+
+    allAbsentDetailDataFormFiveByPreviousMonth.forEach((item) => {
+      if (item.courseType === 'PT1v1') {
+        totalAbsentCourseCountByPreviousMonthByTypePT1v1 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByPreviousMonthByTypePT1v1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1.push({
+          ...item
+        })
+      } else if (item.courseType === 'PT1v2') {
+        totalAbsentCourseCountByPreviousMonthByTypePT1v2 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByPreviousMonthByTypePT1v2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2.push({
+          ...item
+        })
+      }
+      else if (item.courseType === '基皮') {
+        totalAbsentCourseCountByPreviousMonthByTypePilates1 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByPreviousMonthByTypePilates1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1.push({
+          ...item
+        })
+      } else if (item.courseType === '高皮') {
+        totalAbsentCourseCountByPreviousMonthByTypePilates2 += parseInt(item.courseLeft)
+        totalCourseLeftPriceByPreviousMonthByTypePilates2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2.push({
+          ...item
+        })
+      } else if (item.courseType === '運動按摩') {
+        totalAbsentCourseCountByPreviousMonthByTypeMassage += parseInt(item.courseLeft)
+        totalCourseLeftPriceByPreviousMonthByTypeMassage += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage.push({
+          ...item
+        })
+      }
+      else if (item.courseType === '場地租借') {
+        totalAbsentCourseCountByPreviousMonthByTypeRent += parseInt(item.courseLeft)
+        totalCourseLeftPriceByPreviousMonthByTypeRent += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        allAbsentDetailDataFormFiveByPreviousMonthByTypeRent.push({
+          ...item
+        })
+      }
+    })
+
+    //newData更新
+    newData.forEach((item) => {
+      if(item.courseType === 'PT 1v1'){
+        item.leftCourse = totalAbsentCourseCountByMonthByTypePT1v1
+        item.leftMoney = totalCourseLeftPriceByMonthByTypePT1v1
+        item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePT1v1
+        item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePT1v1
+      }else if(item.courseType === 'PT 1v2'){
+        item.leftCourse = totalAbsentCourseCountByMonthByTypePT1v2
+        item.leftMoney = totalCourseLeftPriceByMonthByTypePT1v2
+        item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePT1v2
+        item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePT1v2
+      }else if(item.courseType === '基礎皮拉提斯'){
+        item.leftCourse = totalAbsentCourseCountByMonthByTypePilates1
+        item.leftMoney = totalCourseLeftPriceByMonthByTypePilates1
+        item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePilates1
+        item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePilates1
+      }
+      else if(item.courseType === '高階皮拉提斯'){
+        item.leftCourse = totalAbsentCourseCountByMonthByTypePilates2
+        item.leftMoney = totalCourseLeftPriceByMonthByTypePilates2
+        item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePilates2
+        item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePilates2
+      }
+      else if(item.courseType === '運動按摩'){
+        item.leftCourse = totalAbsentCourseCountByMonthByTypeMassage
+        item.leftMoney = totalCourseLeftPriceByMonthByTypeMassage
+        item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypeMassage
+        item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypeMassage
+      }
+      else if(item.courseType === '場地租借'){
+        item.leftCourse = totalAbsentCourseCountByMonthByTypeRent
+        item.leftMoney = totalCourseLeftPriceByMonthByTypeRent
+        item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypeRent
+        item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypeRent
+      }
+    }
+    )
+
+    //當月
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePT1v1', allAbsentDetailDataFormFiveByMonthByTypePT1v1)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePT1v2', allAbsentDetailDataFormFiveByMonthByTypePT1v2)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates1', allAbsentDetailDataFormFiveByMonthByTypePilates1)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates2', allAbsentDetailDataFormFiveByMonthByTypePilates2)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeMassage', allAbsentDetailDataFormFiveByMonthByTypeMassage)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeRent', allAbsentDetailDataFormFiveByMonthByTypeRent)
+    //先前
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1', allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2', allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePilates1', allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePilates2', allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypeMassage', allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypeRent', allAbsentDetailDataFormFiveByPreviousMonthByTypeRent)
+
+
+
+
+    //更新newData
+    //newData.forEach((item) => {
+
+
+
   }
+
+  
+
 
   //update table  更新整個table ---------------------------------------------------
   //修改newData、並傳入newDataCopy更新
