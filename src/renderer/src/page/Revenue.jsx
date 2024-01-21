@@ -152,7 +152,10 @@ export const newData = [
           }
         ]
       }
-    ]
+    ],
+    coachesDetailFormThree: [],
+    coachesDetailFormFour: [],
+    coachesDetailFormFive: []
   },
   {
     courseType: 'PT 1v2',
@@ -225,7 +228,10 @@ export const newData = [
           }
         ]
       }
-    ]
+    ],
+    coachesDetailFormThree: [],
+    coachesDetailFormFour: [],
+    coachesDetailFormFive: []
   },
   {
     courseType: '基礎皮拉提斯',
@@ -298,7 +304,10 @@ export const newData = [
           }
         ]
       }
-    ]
+    ],
+    coachesDetailFormThree: [],
+    coachesDetailFormFour: [],
+    coachesDetailFormFive: []
   },
   {
     courseType: '高階皮拉提斯',
@@ -371,7 +380,10 @@ export const newData = [
           }
         ]
       }
-    ]
+    ],
+    coachesDetailFormThree: [],
+    coachesDetailFormFour: [],
+    coachesDetailFormFive: []
   },
   {
     courseType: '運動按摩',
@@ -444,7 +456,10 @@ export const newData = [
           }
         ]
       }
-    ]
+    ],
+    coachesDetailFormThree: [],
+    coachesDetailFormFour: [],
+    coachesDetailFormFive: []
   },
   {
     courseType: '場地租借',
@@ -517,7 +532,10 @@ export const newData = [
           }
         ]
       }
-    ]
+    ],
+    coachesDetailFormThree: [],
+    coachesDetailFormFour: [],
+    coachesDetailFormFive: []
   }
 ]
 
@@ -1681,6 +1699,24 @@ function Revenue({ classes }) {
 
     newData.forEach((item) => {
       if (item.courseType === 'PT 1v1') {
+        item.coachesDetailFormThree = allBuyDetailDataFormThreeByMonthByTypePT1v1
+      } else if (item.courseType === 'PT 1v2') {
+        item.coachesDetailFormThree = allBuyDetailDataFormThreeByMonthByTypePT1v2
+      } else if (item.courseType === '基礎皮拉提斯') {
+        item.coachesDetailFormThree = allBuyDetailDataFormThreeByMonthByTypePilates1
+      } else if (item.courseType === '高階皮拉提斯') {
+        item.coachesDetailFormThree = allBuyDetailDataFormThreeByMonthByTypePilates2
+      } else if (item.courseType === '運動按摩') {
+        item.coachesDetailFormThree = allBuyDetailDataFormThreeByMonthByTypeMassage
+      } else if (item.courseType === '場地租借') {
+        item.coachesDetailFormThree = allBuyDetailDataFormThreeByMonthByTypeRent
+      }
+    })
+    //console.log('DataFormThreeByMonthByTypeForm3newData', newData)
+
+    //第一頁table的簽約、金額、堂數
+    newData.forEach((item) => {
+      if (item.courseType === 'PT 1v1') {
         // console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[allBuyDetailDataFormThreeByMonthByTypePT1v1.length-1])
         // console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[allBuyDetailDataFormThreeByMonthByTypePT1v1.length-1]?.countCourseAll)
         // console.log('DataFormThreeByMonthByTypePT1v1', allBuyDetailDataFormThreeByMonthByTypePT1v1[allBuyDetailDataFormThreeByMonthByTypePT1v1.length-1]?.countCourseAll)
@@ -1753,7 +1789,7 @@ function Revenue({ classes }) {
         item.totalCourse = 0
         item.totalMoney = 0
       }
-      console.log('DataFormThreeByMonthByTypenewData', newData)
+      //console.log('DataFormThreeByMonthByTypenewData', newData)
     })
   }
 
@@ -1966,8 +2002,6 @@ function Revenue({ classes }) {
     //1. 將mergeAttandenceAndSalaryArrayByMonth依照courseType分類-----------------------------------------------------------
     //2. 並將每一紀錄的 salaryPerClass 相加
     //3. 並將每一紀錄的 courseFin 相加 計算堂數
-
-
     mergeAttandenceAndSalaryArrayByMonth.forEach((item) => {
       if (item.courseType === 'PT1v1') {
         totalFINCourseCountByMonthByTypePT1v1 += 1
@@ -2302,51 +2336,67 @@ function Revenue({ classes }) {
       if (item.courseType === 'PT 1v1') {
         item.leftCourse =
           totalAbsentCourseCountByMonthByTypePT1v1 +
-          totalAbsentCourseCountByPreviousMonthByTypePT1v1 - totalFINCourseCountByMonthByTypePT1v1
+          totalAbsentCourseCountByPreviousMonthByTypePT1v1 -
+          totalFINCourseCountByMonthByTypePT1v1
         item.leftMoney =
-          totalCourseLeftPriceByMonthByTypePT1v1 + totalCourseLeftPriceByPreviousMonthByTypePT1v1 - totalHasDonePriceByMonthByTypePT1v1
+          totalCourseLeftPriceByMonthByTypePT1v1 +
+          totalCourseLeftPriceByPreviousMonthByTypePT1v1 -
+          totalHasDonePriceByMonthByTypePT1v1
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePT1v1
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePT1v1
       } else if (item.courseType === 'PT 1v2') {
         item.leftCourse =
           totalAbsentCourseCountByMonthByTypePT1v2 +
-          totalAbsentCourseCountByPreviousMonthByTypePT1v2 - totalFINCourseCountByMonthByTypePT1v2
+          totalAbsentCourseCountByPreviousMonthByTypePT1v2 -
+          totalFINCourseCountByMonthByTypePT1v2
         item.leftMoney =
-          totalCourseLeftPriceByMonthByTypePT1v2 + totalCourseLeftPriceByPreviousMonthByTypePT1v2 - totalHasDonePriceByMonthByTypePT1v2
+          totalCourseLeftPriceByMonthByTypePT1v2 +
+          totalCourseLeftPriceByPreviousMonthByTypePT1v2 -
+          totalHasDonePriceByMonthByTypePT1v2
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePT1v2
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePT1v2
       } else if (item.courseType === '基礎皮拉提斯') {
         item.leftCourse =
           totalAbsentCourseCountByMonthByTypePilates1 +
-          totalAbsentCourseCountByPreviousMonthByTypePilates1 - totalFINCourseCountByMonthByTypePilates1
+          totalAbsentCourseCountByPreviousMonthByTypePilates1 -
+          totalFINCourseCountByMonthByTypePilates1
         item.leftMoney =
           totalCourseLeftPriceByMonthByTypePilates1 +
-          totalCourseLeftPriceByPreviousMonthByTypePilates1 - totalHasDonePriceByMonthByTypePilates1
+          totalCourseLeftPriceByPreviousMonthByTypePilates1 -
+          totalHasDonePriceByMonthByTypePilates1
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePilates1
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePilates1
       } else if (item.courseType === '高階皮拉提斯') {
         item.leftCourse =
           totalAbsentCourseCountByMonthByTypePilates2 +
-          totalAbsentCourseCountByPreviousMonthByTypePilates2 - totalFINCourseCountByMonthByTypePilates2
+          totalAbsentCourseCountByPreviousMonthByTypePilates2 -
+          totalFINCourseCountByMonthByTypePilates2
         item.leftMoney =
           totalCourseLeftPriceByMonthByTypePilates2 +
-          totalCourseLeftPriceByPreviousMonthByTypePilates2 - totalHasDonePriceByMonthByTypePilates2
+          totalCourseLeftPriceByPreviousMonthByTypePilates2 -
+          totalHasDonePriceByMonthByTypePilates2
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePilates2
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePilates2
       } else if (item.courseType === '運動按摩') {
         item.leftCourse =
           totalAbsentCourseCountByMonthByTypeMassage +
-          totalAbsentCourseCountByPreviousMonthByTypeMassage - totalFINCourseCountByMonthByTypeMassage
+          totalAbsentCourseCountByPreviousMonthByTypeMassage -
+          totalFINCourseCountByMonthByTypeMassage
         item.leftMoney =
           totalCourseLeftPriceByMonthByTypeMassage +
-          totalCourseLeftPriceByPreviousMonthByTypeMassage - totalHasDonePriceByMonthByTypeMassage
+          totalCourseLeftPriceByPreviousMonthByTypeMassage -
+          totalHasDonePriceByMonthByTypeMassage
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypeMassage
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypeMassage
       } else if (item.courseType === '場地租借') {
         item.leftCourse =
-          totalAbsentCourseCountByMonthByTypeRent + totalAbsentCourseCountByPreviousMonthByTypeRent - totalFINCourseCountByMonthByTypeRent
+          totalAbsentCourseCountByMonthByTypeRent +
+          totalAbsentCourseCountByPreviousMonthByTypeRent -
+          totalFINCourseCountByMonthByTypeRent
         item.leftMoney =
-          totalCourseLeftPriceByMonthByTypeRent + totalCourseLeftPriceByPreviousMonthByTypeRent - totalHasDonePriceByMonthByTypeRent
+          totalCourseLeftPriceByMonthByTypeRent +
+          totalCourseLeftPriceByPreviousMonthByTypeRent -
+          totalHasDonePriceByMonthByTypeRent
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypeRent
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypeRent
       }

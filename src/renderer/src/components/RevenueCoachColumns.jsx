@@ -10,15 +10,15 @@ export const columnsTotal = [
         header:"學員",
     },
     {
-        accessorFn: (row) => `${row.course} 堂`,
+        accessorFn: (row) => `${row.courseAll} 堂`,
         // accessorKey:"course",
-        id:"course",
+        id:"courseAll",
         header:"堂數",
     },
     {
-        accessorFn: (row) => `$ ${row.money}`,
+        accessorFn: (row) => `$ ${row.coursePrice}`,
         // accessorKey:"money",
-        id:"money",
+        id:"coursePrice",
         header:"金額",
         
     },
