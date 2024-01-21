@@ -2124,6 +2124,26 @@ function Revenue({ classes }) {
       }
     })
     //console.log('DataFormFournewData', newData)
+
+    //更新newData的最內頁表四
+    newData.forEach((item) => {
+      if(item.courseType === 'PT 1v1'){
+        item.coachesDetailFormFour = allAttandenceDetailDataFormFourByMonthByTypePT1v1
+      }else if(item.courseType === 'PT 1v2'){
+        item.coachesDetailFormFour = allAttandenceDetailDataFormFourByMonthByTypePT1v2
+      }else if(item.courseType === '基礎皮拉提斯'){
+        item.coachesDetailFormFour = allAttandenceDetailDataFormFourByMonthByTypePilates1
+      }else if(item.courseType === '高階皮拉提斯'){
+        item.coachesDetailFormFour = allAttandenceDetailDataFormFourByMonthByTypePilates2
+      }else if(item.courseType === '運動按摩'){
+        item.coachesDetailFormFour = allAttandenceDetailDataFormFourByMonthByTypeMassage
+      }else if(item.courseType === '場地租借'){
+        item.coachesDetailFormFour = allAttandenceDetailDataFormFourByMonthByTypeRent
+      }
+    })
+    console.log('coachFourthDataDataFormFournewData', newData)
+
+
   }
 
   //計算未核銷課程form five--------------------------------------------------------------------------------------------------------表五
@@ -2205,6 +2225,7 @@ function Revenue({ classes }) {
       }
     })
     console.log('DataFormFiveitemByMonth', allAbsentDetailDataFormFiveByMonth)
+
     console.log('DataFormFiveitemByPreviousMonth', allAbsentDetailDataFormFiveByPreviousMonth)
 
     let totalAbsentCourseCountByMonthByTypePT1v1 = 0
@@ -2281,6 +2302,24 @@ function Revenue({ classes }) {
         allAbsentDetailDataFormFiveByMonthByTypeRent.push({
           ...item
         })
+      }
+    })
+    //console.log('allAbsentDetailDataFormFiveByMonthByTypePT1v1', allAbsentDetailDataFormFiveByMonthByTypePT1v1)
+
+    //newData的最內頁表五、內容相同但是下一頁要filter coachName, type
+    newData.forEach((item) => {
+      if (item.courseType === 'PT 1v1') {
+        item.coachesDetailFormFive = allAbsentDetailDataFormFiveByMonthByTypePT1v1
+      } else if (item.courseType === 'PT 1v2') {
+        item.coachesDetailFormFive = allAbsentDetailDataFormFiveByMonthByTypePT1v2
+      } else if (item.courseType === '基礎皮拉提斯') {
+        item.coachesDetailFormFive = allAbsentDetailDataFormFiveByMonthByTypePilates1
+      }else if (item.courseType === '高階皮拉提斯') {
+        item.coachesDetailFormFive = allAbsentDetailDataFormFiveByMonthByTypePilates2
+      }else if (item.courseType === '運動按摩') {
+        item.coachesDetailFormFive = allAbsentDetailDataFormFiveByMonthByTypeMassage
+      }else if (item.courseType === '場地租借') {
+        item.coachesDetailFormFive = allAbsentDetailDataFormFiveByMonthByTypeRent
       }
     })
 

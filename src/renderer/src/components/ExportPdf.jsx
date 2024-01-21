@@ -98,7 +98,7 @@ export const CoachExportPDF = (rows, title, headers) => {
     const doc = new jsPDF();
     doc.setFont('JhengHei');
     const tableData = rows.map((row) => Object.values(row));
-
+    console.log('tableData', tableData)
     autoTable(doc, {
         head: [headers],
         body: tableData,

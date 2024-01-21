@@ -19,12 +19,42 @@ function RevenueCoach({ classes }) {
       item.coachesDetailFormThree.forEach((coach) => {
         if (coach.coachName === coachID ) {
           console.log('coach', coach)
-          coachThridData.push(...item.coachesDetailFormThree)
+          coachThridData.push(coach)
         }
       })
     }
   })
-  console.log('coachThridData', [coachThridData[0]])
+  
+
+  let coachFourthData = []
+    classes.forEach((item) => {
+        if (item.coachesDetailFormFour && item.courseType === courseID) {
+            item.coachesDetailFormFour.forEach((coach) => {
+                if (coach.coachName === coachID ) {
+                    console.log('coachFourthDatacheckcoach', coach.coachName+' '+coachID)
+                    coachFourthData.push(coach)
+                }
+            })
+        }
+    })
+    console.log('coachFourthData', coachFourthData)
+  
+    let coachFifthData = []
+    classes.forEach((item) => {
+        if (item.coachesDetailFormFive && item.courseType === courseID) {
+            console.log('coachFifthDatacheck', item.coachesDetailFormFive)
+            item.coachesDetailFormFive.forEach((coach) => {
+                if (coach.coachName === coachID) {
+                    console.log('coachFifthDatacheckcoach', coach.coachName+' '+coachID)
+                    coachFifthData.push(coach)
+                }
+            })
+        }
+    })
+    console.log('coachFifthData', coachFifthData)
+
+
+
 
   // let coachData = !!coachAllData && coachAllData.coaches.find(
   //     (x) => x.coachName === coachID
@@ -35,26 +65,28 @@ function RevenueCoach({ classes }) {
   // const leftData = coachData.left || []
 
   let totalData
-  if (coachThridData[0] == undefined) {
+  if (coachThridData == undefined) {
     totalData = []
   } else {
-    totalData = [coachThridData[0]] || []
+    totalData = coachThridData || []
   }
   console.log('totalData', totalData)
 
   let finData
-  if (coachThridData[0] == undefined) {
+  if (coachFourthData == undefined) {
     finData = []
   } else {
-    finData = [coachThridData[0]] || []
+    finData = coachFourthData || []
   }
+  console.log('finData', finData)
 
   let leftData
-  if (coachThridData[0] == undefined) {
+  if (coachFifthData == undefined) {
     leftData = []
   } else {
-    leftData = [coachThridData[0]] || []
+    leftData = coachFifthData || []
   }
+  console.log('leftData', leftData)
 
   // const totalData =  []
   // const finData =  []
@@ -66,6 +98,70 @@ function RevenueCoach({ classes }) {
 
   //month
   const monthValue = month
+
+  //count total money 簽約灰色字
+    let totalMoney = 0
+    totalMoney = totalData[totalData.length - 1]?.countCoursePrice
+
+    //count fin money 已核銷灰色字
+    let finMoney = 0
+    finData.forEach((item) => {
+        //finMoney += item.hasDonePrice
+    })
+    //count fin course num 已核銷灰色字
+    let finCourse = 0
+  finData.forEach((item) => {
+    if(item.courseFin !== undefined){
+    finCourse = item.courseFin
+    }
+  })
+
+    //count fin salaryperclass 已核銷灰色字
+    let salaryPerClass = 0
+    finData.forEach((item) => {
+        if(item.salaryPerClass !== undefined){
+        salaryPerClass = item.salaryPerClass
+        }
+    })
+
+
+  //pdf export use - filter origin data
+    let totalDataOrigin = []
+    let finDataOrigin = []
+    let leftDataOrigin = []
+    totalData.forEach((item) => {
+        let data = {
+            buyDate: item.buyDate,
+            stuName: item.stuName,
+            courseAll: item.courseAll,
+            coursePrice: item.coursePrice,
+            invoiceNumber: item.invoiceNumber
+        }
+        totalDataOrigin.push(data)
+        })
+    finData.forEach((item) => {
+        let data = {
+            reserveDate: item.reserveDate,
+            studentName: item.studentName,
+            courseFin: item.courseFin,
+            hasDonePrice: item.hasDonePrice,
+            salaryPerClass: item.salaryPerClass
+        }
+        finDataOrigin.push(data)
+        }
+    )
+    leftData.forEach((item) => {
+        let data = {
+            buyDate: item.buyDate,
+            stuName: item.stuName,
+            courseAll: item.courseAll,
+            courseFin: item.courseFin,
+            courseLeft: item.courseLeft
+        }
+        leftDataOrigin.push(data)
+        }
+    )
+
 
   return (
     <div className="container-fluid">
@@ -83,13 +179,13 @@ function RevenueCoach({ classes }) {
               <div className="title_word2 mb-3" style={{ justifyContent: 'space-between' }}>
                 <div className="title_word2">
                   <span className="money-title">{monthValue}簽約</span>
-                  <span className="money-title2 ml-5">簽約金額：$ 138,000</span>
+                  <span className="money-title2 ml-5">簽約金額：$ {totalMoney}</span>
                 </div>
                 <button
                   type="button"
                   className="btn btn-golden revenue-btn-mr0"
                   onClick={() =>
-                    CoachExportPDF(totalData, 'X月簽約', [
+                    CoachExportPDF(totalDataOrigin, 'X月簽約', [
                       '購買日期',
                       '學員',
                       '堂數',
@@ -108,14 +204,14 @@ function RevenueCoach({ classes }) {
                 <div className="title_word2">
                   <span className="money-title">{monthValue}已核銷</span>
                   <span className="money-title2 ml-5">
-                    核銷金額：$ 138,000 / 堂薪：$ 169.000 / 堂數：100堂
+                    核銷金額：$ {finMoney} / 堂薪：$ {salaryPerClass} / 堂數：{finCourse}堂
                   </span>
                 </div>
                 <button
                   type="button"
                   className="btn btn-golden revenue-btn-mr0"
                   onClick={() =>
-                    CoachExportPDF(finData, 'X月已核銷', [
+                    CoachExportPDF(finDataOrigin, 'X月已核銷', [
                       '上課日期',
                       '學員',
                       '堂數',
@@ -138,7 +234,7 @@ function RevenueCoach({ classes }) {
                   type="button"
                   className="btn btn-golden revenue-btn-mr0"
                   onClick={() =>
-                    CoachExportPDF(leftData, 'X月未核銷', [
+                    CoachExportPDF(leftDataOrigin, 'X月未核銷', [
                       '購買日期',
                       '學員',
                       '購買堂數',

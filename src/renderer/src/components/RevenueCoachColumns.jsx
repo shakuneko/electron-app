@@ -31,32 +31,32 @@ export const columnsTotal = [
 
 export const columnsFin = [
     {
-        accessorKey:"courseDate",
+        accessorKey:"reserveDate",
         header:"上課日期",
-        id:"courseDate",
+        id:"reserveDate",
     },
     {
-        accessorKey:"stuName",
-        id:"stuName",
+        accessorKey:"studentName",
+        id:"studentName",
         header:"學員",
     },
     {
-        accessorFn: (row) => `${row.course} 堂`,
+        accessorFn: (row) => `${row.courseFin} 堂`,
         // accessorKey:"course",
-        id:"course",
+        id:"courseFin",
         header:"堂數",
     },
     {
-        accessorFn: (row) => `$ ${row.money}`,
+        accessorFn: (row) => `$ ${row.hasDonePrice}`,
         // accessorKey:"money",
-        id:"money",
+        id:"hasDonePrice",
         header:"金額",
         
     },
     {
-        accessorFn: (row) => `$ ${row.courseSalary}`,
-        accessorKey:"courseSalary",
-        id:"courseSalary",
+        accessorFn: (row) => `$ ${row.salaryPerClass}`,
+        accessorKey:"salaryPerClass",
+        id:"salaryPerClass",
         header:"堂薪",       
     }
 ]
@@ -73,22 +73,22 @@ export const columnsLeft = [
         header:"學員",
     },
     {
-        accessorFn: (row) => `${row.course} 堂`,
+        accessorFn: (row) => `${row.courseAll} 堂`,
         // accessorKey:"course",
-        id:"course",
+        id:"courseAll",
         header:"購買堂數",
     },
     {
-        accessorFn: (row) => `${row.finCourse} 堂`,
+        accessorFn: (row) => `${row.courseFin} 堂`,
         // accessorKey:"finCourse",
-        id:"finCourse",
+        id:"courseFin",
         header:"已核銷堂數",
         
     },
     {
-        accessorFn: (row) => `${row.leftCourse} 堂`,
+        accessorFn: (row) => `${row.courseLeft} 堂`,
         // accessorKey:"leftCourse",
-        id:"leftCourse",
+        id:"courseLeft",
         header:"未核銷堂數",       
     }
 ]
