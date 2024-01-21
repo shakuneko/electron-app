@@ -2008,12 +2008,30 @@ function Revenue({ classes }) {
     })
 
     //console檢查
-    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v1totalHasDone', totalHasDonePriceByMonthByTypePT1v1)
-    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v2totalHasDone', totalHasDonePriceByMonthByTypePT1v2)
-    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates1totalHasDone', totalHasDonePriceByMonthByTypePilates1)
-    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates2totalHasDone', totalHasDonePriceByMonthByTypePilates2)
-    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypeMassagetotalHasDone', totalHasDonePriceByMonthByTypeMassage)
-    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypeRenttotalHasDone', totalHasDonePriceByMonthByTypeRent)
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v1totalHasDone',
+      totalHasDonePriceByMonthByTypePT1v1
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v2totalHasDone',
+      totalHasDonePriceByMonthByTypePT1v2
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates1totalHasDone',
+      totalHasDonePriceByMonthByTypePilates1
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates2totalHasDone',
+      totalHasDonePriceByMonthByTypePilates2
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypeMassagetotalHasDone',
+      totalHasDonePriceByMonthByTypeMassage
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypeRenttotalHasDone',
+      totalHasDonePriceByMonthByTypeRent
+    )
     console.log(
       'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v1',
       allAttandenceDetailDataFormFourByMonthByTypePT1v1
@@ -2063,11 +2081,8 @@ function Revenue({ classes }) {
         item.finCourse = 0
         item.finMoney = 0
       }
-
-      
     })
     //console.log('DataFormFournewData', newData)
-
   }
 
   //計算未核銷課程form five--------------------------------------------------------------------------------------------------------表五
@@ -2080,7 +2095,6 @@ function Revenue({ classes }) {
   const allAbsentDetailDataFormFiveByMonthByTypePilates2 = []
   const allAbsentDetailDataFormFiveByMonthByTypeMassage = []
   const allAbsentDetailDataFormFiveByMonthByTypeRent = []
-
 
   const allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1 = []
   const allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2 = []
@@ -2114,8 +2128,7 @@ function Revenue({ classes }) {
             const courseFin = buyItem.coursesFIN
             const courseLeft = buyItem.courseLeft
 
-            const salaryPerClass = parseInt(buyItem.coursePrice)/parseInt(buyItem.coursesAll)
-           
+            const salaryPerClass = parseInt(buyItem.coursePrice) / parseInt(buyItem.coursesAll)
 
             allAbsentDetailDataFormFive.push({
               coachName,
@@ -2126,7 +2139,7 @@ function Revenue({ classes }) {
               courseAll,
               courseFin,
               courseLeft,
-              salaryPerClass,
+              salaryPerClass
             })
           })
         })
@@ -2135,17 +2148,15 @@ function Revenue({ classes }) {
     console.log('DataFormFiveallAbsentDetailDataFormFive', allAbsentDetailDataFormFive)
   }
 
-  
   const getAbsentFormFiveDetailDataByFilter = () => {
     //須以月份分類
     allAbsentDetailDataFormFive.forEach((item) => {
       //當月
       if (item.buyDate.split('-')[0] + '-' + item.buyDate.split('-')[1] === displayText) {
-       
         allAbsentDetailDataFormFiveByMonth.push({
           ...item
         })
-      }else{
+      } else {
         //先前的
         allAbsentDetailDataFormFiveByPreviousMonth.push({
           ...item
@@ -2183,44 +2194,49 @@ function Revenue({ classes }) {
     let totalCourseLeftPriceByPreviousMonthByTypeMassage = 0
     let totalCourseLeftPriceByPreviousMonthByTypeRent = 0
 
-
     //將資料依照courseType分類
     //當月
     allAbsentDetailDataFormFiveByMonth.forEach((item) => {
       if (item.courseType === 'PT1v1') {
         totalAbsentCourseCountByMonthByTypePT1v1 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByMonthByTypePT1v1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByMonthByTypePT1v1 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
 
         allAbsentDetailDataFormFiveByMonthByTypePT1v1.push({
           ...item
         })
       } else if (item.courseType === 'PT1v2') {
         totalAbsentCourseCountByMonthByTypePT1v2 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByMonthByTypePT1v2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByMonthByTypePT1v2 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByMonthByTypePT1v2.push({
           ...item
         })
       } else if (item.courseType === '基皮') {
         totalAbsentCourseCountByMonthByTypePilates1 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByMonthByTypePilates1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByMonthByTypePilates1 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByMonthByTypePilates1.push({
           ...item
         })
       } else if (item.courseType === '高皮') {
         totalAbsentCourseCountByMonthByTypePilates2 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByMonthByTypePilates2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByMonthByTypePilates2 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByMonthByTypePilates2.push({
           ...item
         })
       } else if (item.courseType === '運動按摩') {
         totalAbsentCourseCountByMonthByTypeMassage += parseInt(item.courseLeft)
-        totalCourseLeftPriceByMonthByTypeMassage += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByMonthByTypeMassage +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByMonthByTypeMassage.push({
           ...item
         })
       } else if (item.courseType === '場地租借') {
         totalAbsentCourseCountByMonthByTypeRent += parseInt(item.courseLeft)
-        totalCourseLeftPriceByMonthByTypeRent += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByMonthByTypeRent +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByMonthByTypeRent.push({
           ...item
         })
@@ -2230,39 +2246,43 @@ function Revenue({ classes }) {
     allAbsentDetailDataFormFiveByPreviousMonth.forEach((item) => {
       if (item.courseType === 'PT1v1') {
         totalAbsentCourseCountByPreviousMonthByTypePT1v1 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByPreviousMonthByTypePT1v1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByPreviousMonthByTypePT1v1 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1.push({
           ...item
         })
       } else if (item.courseType === 'PT1v2') {
         totalAbsentCourseCountByPreviousMonthByTypePT1v2 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByPreviousMonthByTypePT1v2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByPreviousMonthByTypePT1v2 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2.push({
           ...item
         })
-      }
-      else if (item.courseType === '基皮') {
+      } else if (item.courseType === '基皮') {
         totalAbsentCourseCountByPreviousMonthByTypePilates1 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByPreviousMonthByTypePilates1 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByPreviousMonthByTypePilates1 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1.push({
           ...item
         })
       } else if (item.courseType === '高皮') {
         totalAbsentCourseCountByPreviousMonthByTypePilates2 += parseInt(item.courseLeft)
-        totalCourseLeftPriceByPreviousMonthByTypePilates2 += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByPreviousMonthByTypePilates2 +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2.push({
           ...item
         })
       } else if (item.courseType === '運動按摩') {
         totalAbsentCourseCountByPreviousMonthByTypeMassage += parseInt(item.courseLeft)
-        totalCourseLeftPriceByPreviousMonthByTypeMassage += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByPreviousMonthByTypeMassage +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage.push({
           ...item
         })
-      }
-      else if (item.courseType === '場地租借') {
+      } else if (item.courseType === '場地租借') {
         totalAbsentCourseCountByPreviousMonthByTypeRent += parseInt(item.courseLeft)
-        totalCourseLeftPriceByPreviousMonthByTypeRent += parseInt(item.courseLeft)*parseInt(item.salaryPerClass)
+        totalCourseLeftPriceByPreviousMonthByTypeRent +=
+          parseInt(item.courseLeft) * parseInt(item.salaryPerClass)
         allAbsentDetailDataFormFiveByPreviousMonthByTypeRent.push({
           ...item
         })
@@ -2271,70 +2291,461 @@ function Revenue({ classes }) {
 
     //newData更新
     newData.forEach((item) => {
-      if(item.courseType === 'PT 1v1'){
+      if (item.courseType === 'PT 1v1') {
         item.leftCourse = totalAbsentCourseCountByMonthByTypePT1v1
         item.leftMoney = totalCourseLeftPriceByMonthByTypePT1v1
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePT1v1
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePT1v1
-      }else if(item.courseType === 'PT 1v2'){
+      } else if (item.courseType === 'PT 1v2') {
         item.leftCourse = totalAbsentCourseCountByMonthByTypePT1v2
         item.leftMoney = totalCourseLeftPriceByMonthByTypePT1v2
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePT1v2
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePT1v2
-      }else if(item.courseType === '基礎皮拉提斯'){
+      } else if (item.courseType === '基礎皮拉提斯') {
         item.leftCourse = totalAbsentCourseCountByMonthByTypePilates1
         item.leftMoney = totalCourseLeftPriceByMonthByTypePilates1
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePilates1
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePilates1
-      }
-      else if(item.courseType === '高階皮拉提斯'){
+      } else if (item.courseType === '高階皮拉提斯') {
         item.leftCourse = totalAbsentCourseCountByMonthByTypePilates2
         item.leftMoney = totalCourseLeftPriceByMonthByTypePilates2
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypePilates2
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypePilates2
-      }
-      else if(item.courseType === '運動按摩'){
+      } else if (item.courseType === '運動按摩') {
         item.leftCourse = totalAbsentCourseCountByMonthByTypeMassage
         item.leftMoney = totalCourseLeftPriceByMonthByTypeMassage
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypeMassage
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypeMassage
-      }
-      else if(item.courseType === '場地租借'){
+      } else if (item.courseType === '場地租借') {
         item.leftCourse = totalAbsentCourseCountByMonthByTypeRent
         item.leftMoney = totalCourseLeftPriceByMonthByTypeRent
         item.preLeftCourse = totalAbsentCourseCountByPreviousMonthByTypeRent
         item.preLeftMoney = totalCourseLeftPriceByPreviousMonthByTypeRent
       }
-    }
-    )
+    })
 
     //當月
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePT1v1', allAbsentDetailDataFormFiveByMonthByTypePT1v1)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePT1v2', allAbsentDetailDataFormFiveByMonthByTypePT1v2)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates1', allAbsentDetailDataFormFiveByMonthByTypePilates1)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates2', allAbsentDetailDataFormFiveByMonthByTypePilates2)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeMassage', allAbsentDetailDataFormFiveByMonthByTypeMassage)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeRent', allAbsentDetailDataFormFiveByMonthByTypeRent)
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePT1v1',
+      allAbsentDetailDataFormFiveByMonthByTypePT1v1
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePT1v2',
+      allAbsentDetailDataFormFiveByMonthByTypePT1v2
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates1',
+      allAbsentDetailDataFormFiveByMonthByTypePilates1
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates2',
+      allAbsentDetailDataFormFiveByMonthByTypePilates2
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeMassage',
+      allAbsentDetailDataFormFiveByMonthByTypeMassage
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeRent',
+      allAbsentDetailDataFormFiveByMonthByTypeRent
+    )
     //先前
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1', allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2', allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePilates1', allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePilates2', allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypeMassage', allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage)
-    console.log('DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypeRent', allAbsentDetailDataFormFiveByPreviousMonthByTypeRent)
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1',
+      allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2',
+      allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePilates1',
+      allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypePilates2',
+      allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypeMassage',
+      allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage
+    )
+    console.log(
+      'DataFormFiveallAbsentDetailDataFormFiveByPreviousMonthByTypeRent',
+      allAbsentDetailDataFormFiveByPreviousMonthByTypeRent
+    )
 
+    //將資料依照coachName分類
+    const categorizedDataPT1v1 = Object.values(
+      allAbsentDetailDataFormFiveByMonthByTypePT1v1.reduce((result, currentItem) => {
+        const coachName = currentItem.coachName
 
+        if (!result[coachName]) {
+          result[coachName] = {
+            coachName: coachName,
+            preLeftCourse: '00',
+            preLeftMoney: '00',
+            totalCourse: '00',
+            totalMoney: '00',
+            finCourse: '00',
+            finMoney: '00',
+            leftCourse: '00',
+            leftMoney: '00',
+            exCourseTotal: '00'
+          }
+        }
 
+        result[coachName].totalCourse = (
+          parseInt(result[coachName].totalCourse) + parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].totalMoney = (
+          parseInt(result[coachName].totalMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].finCourse = (
+          parseInt(result[coachName].finCourse) + parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].finMoney = (
+          parseInt(result[coachName].finMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].leftCourse = (
+          parseInt(result[coachName].leftCourse) + parseInt(currentItem.courseLeft)
+        ).toString()
+        result[coachName].leftMoney = (
+          parseInt(result[coachName].leftMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseLeft)
+        ).toString()
+        //result[coachName].exCourseTotal = 0//(parseInt(result[coachName].exCourseTotal) + 1).toString();
+
+        return result
+      }, {})
+    )
+    // 将 allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1 中的 leftCourse 和 leftMoney 合并到 categorizedDataPT1v1 中
+    allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v1.forEach((previousItem) => {
+      const coachName = previousItem.coachName
+      const coachData = categorizedDataPT1v1.find((entry) => entry.coachName === coachName)
+
+      if (coachData) {
+        coachData.preLeftCourse = previousItem.courseLeft
+        coachData.preLeftMoney =
+          parseInt(previousItem.salaryPerClass) * parseInt(previousItem.courseLeft)
+      }
+    })
+
+    const categorizedDataPT1v2 = Object.values(
+      allAbsentDetailDataFormFiveByMonthByTypePT1v2.reduce((result, currentItem) => {
+        const coachName = currentItem.coachName
+
+        if (!result[coachName]) {
+          result[coachName] = {
+            coachName: coachName,
+            preLeftCourse: '00',
+            preLeftMoney: '00',
+            totalCourse: '00',
+            totalMoney: '00',
+            finCourse: '00',
+            finMoney: '00',
+            leftCourse: '00',
+            leftMoney: '00',
+            exCourseTotal: '00'
+          }
+        }
+
+        result[coachName].totalCourse = (
+          parseInt(result[coachName].totalCourse) + parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].totalMoney = (
+          parseInt(result[coachName].totalMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].finCourse = (
+          parseInt(result[coachName].finCourse) + parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].finMoney = (
+          parseInt(result[coachName].finMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].leftCourse = (
+          parseInt(result[coachName].leftCourse) + parseInt(currentItem.courseLeft)
+        ).toString()
+        result[coachName].leftMoney = (
+          parseInt(result[coachName].leftMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseLeft)
+        ).toString()
+        //result[coachName].exCourseTotal = 0//(parseInt(result[coachName].exCourseTotal) + 1).toString();
+
+        return result
+      }, {})
+    )
+    // 将 allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2 中的 leftCourse 和 leftMoney 合并到 categorizedDataPT1v2 中
+    allAbsentDetailDataFormFiveByPreviousMonthByTypePT1v2.forEach((previousItem) => {
+      const coachName = previousItem.coachName
+      const coachData = categorizedDataPT1v2.find((entry) => entry.coachName === coachName)
+
+      if (coachData) {
+        coachData.preLeftCourse = previousItem.courseLeft
+        coachData.preLeftMoney =
+          parseInt(previousItem.salaryPerClass) * parseInt(previousItem.courseLeft)
+      }
+    })
+
+    const categorizedDataPilates1 = Object.values(
+      allAbsentDetailDataFormFiveByMonthByTypePilates1.reduce((result, currentItem) => {
+        const coachName = currentItem.coachName
+
+        if (!result[coachName]) {
+          result[coachName] = {
+            coachName: coachName,
+            preLeftCourse: '00',
+            preLeftMoney: '00',
+            totalCourse: '00',
+            totalMoney: '00',
+            finCourse: '00',
+            finMoney: '00',
+            leftCourse: '00',
+            leftMoney: '00',
+            exCourseTotal: '00'
+          }
+        }
+
+        result[coachName].totalCourse = (
+          parseInt(result[coachName].totalCourse) + parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].totalMoney = (
+          parseInt(result[coachName].totalMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].finCourse = (
+          parseInt(result[coachName].finCourse) + parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].finMoney = (
+          parseInt(result[coachName].finMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].leftCourse = (
+          parseInt(result[coachName].leftCourse) + parseInt(currentItem.courseLeft)
+        ).toString()
+        result[coachName].leftMoney = (
+          parseInt(result[coachName].leftMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseLeft)
+        ).toString()
+        //result[coachName].exCourseTotal = 0//(parseInt(result[coachName].exCourseTotal) + 1).toString();
+
+        return result
+      }, {})
+    )
+
+    // 将 allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1 中的 leftCourse 和 leftMoney 合并到 categorizedDataPilates1 中
+    allAbsentDetailDataFormFiveByPreviousMonthByTypePilates1.forEach((previousItem) => {
+      const coachName = previousItem.coachName
+      const coachData = categorizedDataPilates1.find((entry) => entry.coachName === coachName)
+
+      if (coachData) {
+        coachData.preLeftCourse = previousItem.courseLeft
+        coachData.preLeftMoney =
+          parseInt(previousItem.salaryPerClass) * parseInt(previousItem.courseLeft)
+      }
+    })
+
+    const categorizedDataPilates2 = Object.values(
+      allAbsentDetailDataFormFiveByMonthByTypePilates2.reduce((result, currentItem) => {
+        const coachName = currentItem.coachName
+
+        if (!result[coachName]) {
+          result[coachName] = {
+            coachName: coachName,
+            preLeftCourse: '00',
+            preLeftMoney: '00',
+            totalCourse: '00',
+            totalMoney: '00',
+            finCourse: '00',
+            finMoney: '00',
+            leftCourse: '00',
+            leftMoney: '00',
+            exCourseTotal: '00'
+          }
+        }
+
+        result[coachName].totalCourse = (
+          parseInt(result[coachName].totalCourse) + parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].totalMoney = (
+          parseInt(result[coachName].totalMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].finCourse = (
+          parseInt(result[coachName].finCourse) + parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].finMoney = (
+          parseInt(result[coachName].finMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].leftCourse = (
+          parseInt(result[coachName].leftCourse) + parseInt(currentItem.courseLeft)
+        ).toString()
+        result[coachName].leftMoney = (
+          parseInt(result[coachName].leftMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseLeft)
+        ).toString()
+        //result[coachName].exCourseTotal = 0//(parseInt(result[coachName].exCourseTotal) + 1).toString();
+
+        return result
+      }, {})
+    )
+
+    // 将 allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2 中的 leftCourse 和 leftMoney 合并到 categorizedDataPilates2 中
+    allAbsentDetailDataFormFiveByPreviousMonthByTypePilates2.forEach((previousItem) => {
+      const coachName = previousItem.coachName
+      const coachData = categorizedDataPilates2.find((entry) => entry.coachName === coachName)
+
+      if (coachData) {
+        coachData.preLeftCourse = previousItem.courseLeft
+        coachData.preLeftMoney =
+          parseInt(previousItem.salaryPerClass) * parseInt(previousItem.courseLeft)
+      }
+    })
+
+    const categorizedDataMassage = Object.values(
+      allAbsentDetailDataFormFiveByMonthByTypeMassage.reduce((result, currentItem) => {
+        const coachName = currentItem.coachName
+
+        if (!result[coachName]) {
+          result[coachName] = {
+            coachName: coachName,
+            preLeftCourse: '00',
+            preLeftMoney: '00',
+            totalCourse: '00',
+            totalMoney: '00',
+            finCourse: '00',
+            finMoney: '00',
+            leftCourse: '00',
+            leftMoney: '00',
+            exCourseTotal: '00'
+          }
+        }
+
+        result[coachName].totalCourse = (
+          parseInt(result[coachName].totalCourse) + parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].totalMoney = (
+          parseInt(result[coachName].totalMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].finCourse = (
+          parseInt(result[coachName].finCourse) + parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].finMoney = (
+          parseInt(result[coachName].finMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].leftCourse = (
+          parseInt(result[coachName].leftCourse) + parseInt(currentItem.courseLeft)
+        ).toString()
+        result[coachName].leftMoney = (
+          parseInt(result[coachName].leftMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseLeft)
+        ).toString()
+        //result[coachName].exCourseTotal = 0//(parseInt(result[coachName].exCourseTotal) + 1).toString();
+
+        return result
+      }, {})
+    )
+
+    // 将 allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage 中的 leftCourse 和 leftMoney 合并到 categorizedDataMassage 中
+    allAbsentDetailDataFormFiveByPreviousMonthByTypeMassage.forEach((previousItem) => {
+      const coachName = previousItem.coachName
+      const coachData = categorizedDataMassage.find((entry) => entry.coachName === coachName)
+
+      if (coachData) {
+        coachData.preLeftCourse = previousItem.courseLeft
+        coachData.preLeftMoney =
+          parseInt(previousItem.salaryPerClass) * parseInt(previousItem.courseLeft)
+      }
+    })
+
+    const categorizedDataRent = Object.values(
+      allAbsentDetailDataFormFiveByMonthByTypeRent.reduce((result, currentItem) => {
+        const coachName = currentItem.coachName
+
+        if (!result[coachName]) {
+          result[coachName] = {
+            coachName: coachName,
+            preLeftCourse: '00',
+            preLeftMoney: '00',
+            totalCourse: '00',
+            totalMoney: '00',
+            finCourse: '00',
+            finMoney: '00',
+            leftCourse: '00',
+            leftMoney: '00',
+            exCourseTotal: '00'
+          }
+        }
+
+        result[coachName].totalCourse = (
+          parseInt(result[coachName].totalCourse) + parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].totalMoney = (
+          parseInt(result[coachName].totalMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseAll)
+        ).toString()
+        result[coachName].finCourse = (
+          parseInt(result[coachName].finCourse) + parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].finMoney = (
+          parseInt(result[coachName].finMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseFin)
+        ).toString()
+        result[coachName].leftCourse = (
+          parseInt(result[coachName].leftCourse) + parseInt(currentItem.courseLeft)
+        ).toString()
+        result[coachName].leftMoney = (
+          parseInt(result[coachName].leftMoney) +
+          currentItem.salaryPerClass * parseInt(currentItem.courseLeft)
+        ).toString()
+        //result[coachName].exCourseTotal = 0//(parseInt(result[coachName].exCourseTotal) + 1).toString();
+
+        return result
+      }, {})
+    )
+    // 将 allAbsentDetailDataFormFiveByPreviousMonthByTypeRent 中的 leftCourse 和 leftMoney 合并到 categorizedDataRent 中
+    allAbsentDetailDataFormFiveByPreviousMonthByTypeRent.forEach((previousItem) => {
+      const coachName = previousItem.coachName
+      const coachData = categorizedDataRent.find((entry) => entry.coachName === coachName)
+
+      if (coachData) {
+        coachData.preLeftCourse = previousItem.courseLeft
+
+        coachData.preLeftMoney =
+          parseInt(previousItem.salaryPerClass) * parseInt(previousItem.courseLeft)
+      }
+    })
+
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByType1v1', categorizedDataPT1v1)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByType1v2', categorizedDataPT1v2)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates1',categorizedDataPilates1)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypePilates2',categorizedDataPilates2)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeMassage',categorizedDataMassage)
+    console.log('DataFormFiveallAbsentDetailDataFormFiveByMonthByTypeRent', categorizedDataRent)
 
     //更新newData
-    //newData.forEach((item) => {
-
-
-
+    newData.forEach((item) => {
+      if (item.courseType === 'PT 1v1') {
+        item.coaches = categorizedDataPT1v1
+      } else if (item.courseType === 'PT 1v2') {
+        item.coaches = categorizedDataPT1v2
+      } else if (item.courseType === '基礎皮拉提斯') {
+        item.coaches = categorizedDataPilates1
+      } else if (item.courseType === '高階皮拉提斯') {
+        item.coaches = categorizedDataPilates2
+      } else if (item.courseType === '運動按摩') {
+        item.coaches = categorizedDataMassage
+      } else if (item.courseType === '場地租借') {
+        item.coaches = categorizedDataRent
+      }
+    })
   }
-
-  
-
 
   //update table  更新整個table ---------------------------------------------------
   //修改newData、並傳入newDataCopy更新

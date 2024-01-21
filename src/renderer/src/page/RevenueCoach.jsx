@@ -17,9 +17,9 @@ function RevenueCoach({classes}) {
     let coachData = !!coachAllData && coachAllData.coaches.find(
         (x) => x.coachName === coachID
     ) || {};
-    const totalData = coachData.total
-    const finData = coachData.fin
-    const leftData = coachData.left
+    const totalData = coachData.total || []
+    const finData = coachData.fin || []
+    const leftData = coachData.left || []
 
     //console.log('courseData data', courseID, coachID, coachData,coachAllData, totalData, finData, leftData)
     
