@@ -1758,6 +1758,16 @@ function Revenue({ classes }) {
   const allCoachSalayDataFormFour = []
 
   const mergeAttandenceAndSalaryArray = []
+  const mergeAttandenceAndSalaryArrayByMonth = []
+
+  const allAttandenceDetailDataFormFourByMonthByTypePT1v1 = []
+  const allAttandenceDetailDataFormFourByMonthByTypePT1v2 = []
+  const allAttandenceDetailDataFormFourByMonthByTypePilates1 = [] //基礎
+  const allAttandenceDetailDataFormFourByMonthByTypePilates2 = [] //進階
+  // const allAttandenceDetailDataFormFourByMonthByTypeexCoursePilates1 = []
+  // const allAttandenceDetailDataFormFourByMonthByTypeexCoursePilates2 = []
+  const allAttandenceDetailDataFormFourByMonthByTypeMassage = []
+  const allAttandenceDetailDataFormFourByMonthByTypeRent = []
 
   let newTotalSumFIN = 0
 
@@ -1849,7 +1859,7 @@ function Revenue({ classes }) {
     console.log('DataFormFourallCoachSalayDataFormFour', allCoachSalayDataFormFour)
     console.log('DataFormFourallAttandenceDetailDataFormFour', allAttandenceDetailDataFormFour)
 
-    //將coach的salary 依照classType來去 ＊ 堂數
+    //將coach的salary 依照classType來去 ＊ 堂數 = hasDonePrice
     //major["PT1v1","PT1v2","基皮","高皮","運動按摩","場地租借","體驗高皮","體驗基皮","體驗PT1v2","體驗PT1v1"]
     //courseFIN
     allAttandenceDetailDataFormFour.forEach((attandenceItem) => {
@@ -1901,7 +1911,7 @@ function Revenue({ classes }) {
         }
       })
     })
-    console.log('DataFormFourmergeAttandenceAndSalaryArray', mergeAttandenceAndSalaryArray)
+    //console.log('DataFormFourmergeAttandenceAndSalaryArray', mergeAttandenceAndSalaryArray)
 
     //將以上的price相加----為本月已核銷課程總收入-----須以月份分類
 
@@ -1918,11 +1928,144 @@ function Revenue({ classes }) {
       }
     })
     console.log('DataFormFournewTotalSumFINLast', newTotalSumFIN) //本月已核銷課程總收入 title顯示的部分
-  
-    //將mergeAttandenceAndSalaryArray依照月份分類
-    //mergeAttandenceAndSalaryArray
-  
-  
+
+    //需依照courseType分類, courseFin是完成的堂數, salaryPerClass是堂薪, hasDonePrice是已核銷的金額(以課堂計算)
+    //將mergeAttandenceAndSalaryArray依照月份分類-----------------------------------------------------------
+    mergeAttandenceAndSalaryArray.forEach((item) => {
+      if (item.reserveDate.split('-')[0] + '-' + item.reserveDate.split('-')[1] === displayText) {
+        mergeAttandenceAndSalaryArrayByMonth.push({
+          ...item
+        })
+      }
+    })
+    //console.log('DataFormFourmergeAttandenceAndSalaryArray', mergeAttandenceAndSalaryArray)
+    console.log(
+      'DataFormFourmergeAttandenceAndSalaryArrayByMonth',
+      mergeAttandenceAndSalaryArrayByMonth
+    )
+
+    //1. 將mergeAttandenceAndSalaryArrayByMonth依照courseType分類-----------------------------------------------------------
+    //2. 並將每一紀錄的 salaryPerClass 相加
+    //3. 並將每一紀錄的 courseFin 相加 計算堂數
+    let totalFINCourseCountByMonthByTypePT1v1 = 0
+    let totalFINCourseCountByMonthByTypePT1v2 = 0
+    let totalFINCourseCountByMonthByTypePilates1 = 0
+    let totalFINCourseCountByMonthByTypePilates2 = 0
+    let totalFINCourseCountByMonthByTypeMassage = 0
+    let totalFINCourseCountByMonthByTypeRent = 0
+
+    let totalHasDonePriceByMonthByTypePT1v1 = 0
+    let totalHasDonePriceByMonthByTypePT1v2 = 0
+    let totalHasDonePriceByMonthByTypePilates1 = 0
+    let totalHasDonePriceByMonthByTypePilates2 = 0
+    let totalHasDonePriceByMonthByTypeMassage = 0
+    let totalHasDonePriceByMonthByTypeRent = 0
+
+    mergeAttandenceAndSalaryArrayByMonth.forEach((item) => {
+      if (item.courseType === 'PT1v1') {
+        totalFINCourseCountByMonthByTypePT1v1 += 1
+        totalHasDonePriceByMonthByTypePT1v1 += parseInt(item.salaryPerClass)
+        allAttandenceDetailDataFormFourByMonthByTypePT1v1.push({
+          ...item,
+          totalHasDonePriceByMonthByTypePT1v1
+        })
+      } else if (item.courseType === 'PT1v2') {
+        totalFINCourseCountByMonthByTypePT1v2 += 1
+        totalHasDonePriceByMonthByTypePT1v2 += parseInt(item.salaryPerClass)
+        allAttandenceDetailDataFormFourByMonthByTypePT1v2.push({
+          ...item,
+          totalHasDonePriceByMonthByTypePT1v2
+        })
+      } else if (item.courseType === '基皮') {
+        totalFINCourseCountByMonthByTypePilates1 += 1
+        totalHasDonePriceByMonthByTypePilates1 += parseInt(item.salaryPerClass)
+        allAttandenceDetailDataFormFourByMonthByTypePilates1.push({
+          ...item,
+          totalHasDonePriceByMonthByTypePilates1
+        })
+      } else if (item.courseType === '高皮') {
+        totalFINCourseCountByMonthByTypePilates2 += 1
+        totalHasDonePriceByMonthByTypePilates2 += parseInt(item.salaryPerClass)
+        allAttandenceDetailDataFormFourByMonthByTypePilates2.push({
+          ...item,
+          totalHasDonePriceByMonthByTypePilates2
+        })
+      } else if (item.courseType === '運動按摩') {
+        totalFINCourseCountByMonthByTypeMassage += 1
+        totalHasDonePriceByMonthByTypeMassage += parseInt(item.salaryPerClass)
+        allAttandenceDetailDataFormFourByMonthByTypeMassage.push({
+          ...item,
+          totalHasDonePriceByMonthByTypeMassage
+        })
+      } else if (item.courseType === '場地租借') {
+        totalFINCourseCountByMonthByTypeRent += 1
+        totalHasDonePriceByMonthByTypeRent += parseInt(item.salaryPerClass)
+        allAttandenceDetailDataFormFourByMonthByTypeRent.push({
+          ...item,
+          totalHasDonePriceByMonthByTypeRent
+        })
+      }
+    })
+
+    //console檢查
+    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v1totalHasDone', totalHasDonePriceByMonthByTypePT1v1)
+    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v2totalHasDone', totalHasDonePriceByMonthByTypePT1v2)
+    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates1totalHasDone', totalHasDonePriceByMonthByTypePilates1)
+    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates2totalHasDone', totalHasDonePriceByMonthByTypePilates2)
+    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypeMassagetotalHasDone', totalHasDonePriceByMonthByTypeMassage)
+    console.log('DataFormFourallAttandenceDetailDataFormFourByMonthByTypeRenttotalHasDone', totalHasDonePriceByMonthByTypeRent)
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v1',
+      allAttandenceDetailDataFormFourByMonthByTypePT1v1
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePT1v2',
+      allAttandenceDetailDataFormFourByMonthByTypePT1v2
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates1',
+      allAttandenceDetailDataFormFourByMonthByTypePilates1
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypePilates2',
+      allAttandenceDetailDataFormFourByMonthByTypePilates2
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypeMassage',
+      allAttandenceDetailDataFormFourByMonthByTypeMassage
+    )
+    console.log(
+      'DataFormFourallAttandenceDetailDataFormFourByMonthByTypeRent',
+      allAttandenceDetailDataFormFourByMonthByTypeRent
+    )
+
+    //將資料更新到newData如1680行表三作法
+    newData.forEach((item) => {
+      if (item.courseType === 'PT 1v1') {
+        item.finCourse = totalFINCourseCountByMonthByTypePT1v1
+        item.finMoney = totalHasDonePriceByMonthByTypePT1v1
+      } else if (item.courseType === 'PT 1v2') {
+        item.finCourse = totalFINCourseCountByMonthByTypePT1v2
+        item.finMoney = totalHasDonePriceByMonthByTypePT1v2
+      } else if (item.courseType === '基礎皮拉提斯') {
+        item.finCourse = totalFINCourseCountByMonthByTypePilates1
+        item.finMoney = totalHasDonePriceByMonthByTypePilates1
+      } else if (item.courseType === '高階皮拉提斯') {
+        item.finCourse = totalFINCourseCountByMonthByTypePilates2
+        item.finMoney = totalHasDonePriceByMonthByTypePilates2
+      } else if (item.courseType === '運動按摩') {
+        item.finCourse = totalFINCourseCountByMonthByTypeMassage
+        item.finMoney = totalHasDonePriceByMonthByTypeMassage
+      } else if (item.courseType === '場地租借') {
+        item.finCourse = totalFINCourseCountByMonthByTypeRent
+        item.finMoney = totalHasDonePriceByMonthByTypeRent
+      } else {
+        item.finCourse = 0
+        item.finMoney = 0
+      }
+    })
+    console.log('DataFormFournewData', newData)
+
   }
 
   //計算未核銷課程form five--------------------------------------------------------------------------------------------------------表五
@@ -1976,6 +2119,7 @@ function Revenue({ classes }) {
 
   //update table  更新整個table ---------------------------------------------------
   //修改newData、並傳入newDataCopy更新
+  //0121目前沒用到
   const updateTable = () => {
     newData[0].leftCourse = 'tests'
     setNewDataCopy(newData)
@@ -2034,36 +2178,35 @@ function Revenue({ classes }) {
                   ]}
                 />
                 <button
-                    type="button"
-                    className="btn btn-golden revenue-btn-mr0"
-                    onClick={() => RevenueExportPDF(newData, "金流",displayMonth)}
+                  type="button"
+                  className="btn btn-golden revenue-btn-mr0"
+                  onClick={() => RevenueExportPDF(newData, '金流', displayMonth)}
                 >
-                    匯出 PDF
-
+                  匯出 PDF
                 </button>
-            </div>
-            {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
-            <RevenueSetTable classes={newDataCopy} columns={columnsRevenue(displayMonth)} />
-            {/* <h1 className="title  mt-4">核銷</h1>
+              </div>
+              {/* <RevenueSetTable classes={classes} columns={columnsRevenue}/> */}
+              <RevenueSetTable classes={newDataCopy} columns={columnsRevenue(displayMonth)} />
+              {/* <h1 className="title  mt-4">核銷</h1>
             <div className="row">
               <div className="col-6">
                 <div>已核銷</div>
                 <h1 className="money-title mt-2 title">
                   $ {totalSumFIN ?? '0'} / {classCountByMonth[formattedCurrentDateTime] ?? '0'}堂 */}
-            {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
-            {/* </h1>
+              {/* $ {totalSumFIN} / {totalFINCourseCount}堂 */}
+              {/* </h1>
               </div>
               <div className="col-6">
                 <div>未核銷</div>
                 <h1 className="money-title mt-2 title"> */}
-            {/*new*/}
-            {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
-            {/*old$ {totalSumLeft ?? '0'} / {totalLeftCourseCount ?? '0'}堂*/}
-            {/* </h1>
+              {/*new*/}
+              {/* $ {totalSumLeft} / {courseLeftByMonth}堂 */}
+              {/*old$ {totalSumLeft ?? '0'} / {totalLeftCourseCount ?? '0'}堂*/}
+              {/* </h1>
               </div>
             </div>
             <RevenueSetTable classes={mergeInfoLast} columns={columnsMoney} /> */}
-             </div>
+            </div>
           </div>
         </div>
       </div>
