@@ -185,7 +185,7 @@ function RevenueCoach({ classes }) {
                   type="button"
                   className="btn btn-golden revenue-btn-mr0"
                   onClick={() =>
-                    CoachExportPDF(totalDataOrigin, 'X月簽約', [
+                    CoachExportPDF(totalDataOrigin, `${monthValue}簽約`, [
                       '購買日期',
                       '學員',
                       '堂數',
@@ -211,7 +211,7 @@ function RevenueCoach({ classes }) {
                   type="button"
                   className="btn btn-golden revenue-btn-mr0"
                   onClick={() =>
-                    CoachExportPDF(finDataOrigin, 'X月已核銷', [
+                    CoachExportPDF(finDataOrigin,  `${monthValue}已核銷`, [
                       '上課日期',
                       '學員',
                       '堂數',
@@ -234,7 +234,7 @@ function RevenueCoach({ classes }) {
                   type="button"
                   className="btn btn-golden revenue-btn-mr0"
                   onClick={() =>
-                    CoachExportPDF(leftDataOrigin, 'X月未核銷', [
+                    CoachExportPDF(leftDataOrigin, `${monthValue}未核銷`, [
                       '購買日期',
                       '學員',
                       '購買堂數',
