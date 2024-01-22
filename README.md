@@ -32,3 +32,4 @@ $ yarn build:mac
 # For Linux
 $ yarn build:linux
 ```
+＊You can find the .dmg file in yourprojectname/dist
